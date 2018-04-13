@@ -1,5 +1,17 @@
 USE HosPetAll;
 
+IF OBJECT_ID('dbo.Consultation') IS NOT NULL
+	DROP TABLE dbo.Consultation
+
+IF OBJECT_ID('dbo.Veterinarian') IS NOT NULL
+	DROP TABLE dbo.Veterinarian
+
+IF OBJECT_ID('dbo.Nurse') IS NOT NULL
+	DROP TABLE dbo.Nurse
+
+IF OBJECT_ID('dbo.MedicalProcedure') IS NOT NULL
+	DROP TABLE dbo.MedicalProcedure
+
 IF OBJECT_ID('dbo.Pet') IS NOT NULL 
 	DROP TABLE dbo.Pet; 
   
@@ -65,7 +77,7 @@ CREATE TABLE Pet(
 
 CREATE TABLE MedicalProcedure(
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
-	Pet REFERENCES Pet(Id) NOT NULL, 
+	Pet INTEGER REFERENCES Pet(Id) NOT NULL, 
 	CaseHistory TEXT, 
 	Diagnosis TEXT, 
 	Treatment TEXT,
@@ -84,6 +96,6 @@ CREATE TABLE Nurse(
 
 CREATE TABLE Consultation(
 	Id INTEGER REFERENCES MedicalProcedure(Id) PRIMARY KEY, 
-	VeterinarianId REFERENCES Veterinarian(Id) NOT NULL, 
+	VeterinarianId INTEGER REFERENCES Veterinarian(Id) NOT NULL, 
 	--Weight FLOAT, 
 )
