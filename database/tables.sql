@@ -1,6 +1,17 @@
 USE HosPetAll;
 
+IF OBJECT_ID('dbo.Product_SideEffects') IS NOT NULL
+	DROP TABLE dbo.Product_SideEffects
 
+
+IF OBJECT_ID('dbo.SideEffects') IS NOT NULL
+	DROP TABLE dbo.SideEffects
+
+IF OBJECT_ID('dbo.Product_Ingredient') IS NOT NULL
+	DROP TABLE dbo.Product_Ingredient
+
+IF OBJECT_ID('dbo.Ingredient') IS NOT NULL
+	DROP TABLE dbo.Ingredient
 
 IF OBJECT_ID('dbo.MedicalProcedure_ProductsUsed') IS NOT NULL
 	DROP TABLE dbo.MedicalProcedure_ProductsUsed
@@ -136,7 +147,10 @@ CREATE TABLE Product(
 
 CREATE TABLE Supplier(
 	Id INTEGER IDENTITY(1,1) PRIMARY KEY,
-	Name VARCHAR(255)
+	Name VARCHAR(255), 
+	PhoneNumber VARCHAR(12),
+	WebsiteUrl VARCHAR(255),
+	Email VARCHAR(255)
 )
 
 CREATE TABLE Supplier_Product_Relationship(
@@ -171,3 +185,4 @@ CREATE TABLE Product_Ingredient(
 	ProductCode VARCHAR(9) REFERENCES Product(Code) NOT NULL,
 	IngredientQuantity FLOAT
 )
+
