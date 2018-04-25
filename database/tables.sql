@@ -4,6 +4,8 @@ IF OBJECT_ID('dbo.Product_SideEffects') IS NOT NULL
 	DROP TABLE dbo.Product_SideEffects
 
 
+
+
 IF OBJECT_ID('dbo.SideEffects') IS NOT NULL
 	DROP TABLE dbo.SideEffects
 
