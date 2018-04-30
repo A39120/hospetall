@@ -2,13 +2,13 @@ package pt.hospetall.web.pet;
 
 import pt.hospetall.web.client.Client;
 import pt.hospetall.web.race.Race;
+import pt.hospetall.web.schedule.Schedule;
 import pt.hospetall.web.species.Species;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Pet {
@@ -19,7 +19,6 @@ public class Pet {
 
     @ManyToOne
     private Client owner;
-
     private String name;
 
     @ManyToOne
@@ -30,6 +29,9 @@ public class Pet {
     private Date birthdate;
     private int chip_number;
     private int license_number;
+
+    @OneToMany(mappedBy = "animal")
+    private Set<Schedule> schedules = new HashSet<>();
 
     public int getId() {
         return id;
