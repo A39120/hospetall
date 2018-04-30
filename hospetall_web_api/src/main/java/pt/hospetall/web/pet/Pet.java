@@ -5,6 +5,7 @@ import pt.hospetall.web.medicalprocedure.MedicalProcedure;
 import pt.hospetall.web.race.Race;
 import pt.hospetall.web.schedule.Schedule;
 import pt.hospetall.web.species.Species;
+import pt.hospetall.web.waitingroom.WaitingRoom;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -33,6 +34,9 @@ public class Pet {
 
     @OneToMany(mappedBy = "animal")
     private Set<Schedule> schedules = new HashSet<>();
+
+    @ManyToOne
+    private WaitingRoom waitingRoom;
 
     @OneToMany
     private Set<MedicalProcedure> procedures = new HashSet<>();

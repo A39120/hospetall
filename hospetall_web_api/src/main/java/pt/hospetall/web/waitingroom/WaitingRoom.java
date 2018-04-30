@@ -1,6 +1,7 @@
 package pt.hospetall.web.waitingroom;
 
 import pt.hospetall.web.client.Client;
+import pt.hospetall.web.pet.Pet;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -11,7 +12,6 @@ import java.util.Set;
 @Entity
 public class WaitingRoom {
 
-
     @OneToMany(mappedBy = "waitingRoom")
-    private Set<Client> clients = new HashSet<>();
+    private Set<Pet> pets = new HashSet<>();
 }

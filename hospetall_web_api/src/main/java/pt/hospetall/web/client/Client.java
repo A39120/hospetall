@@ -21,9 +21,6 @@ public class Client extends Person{
 	@OneToMany(mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
 
-	@ManyToOne
-	private WaitingRoom waitingRoom;
-
 	public int getNif(){ return nif; }
 	public String getAddress(){return address; }
 	public String getPostalCode(){ return postalCode; }
