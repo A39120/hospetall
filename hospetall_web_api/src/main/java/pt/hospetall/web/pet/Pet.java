@@ -1,6 +1,7 @@
 package pt.hospetall.web.pet;
 
 import pt.hospetall.web.client.Client;
+import pt.hospetall.web.medicalprocedure.MedicalProcedure;
 import pt.hospetall.web.race.Race;
 import pt.hospetall.web.schedule.Schedule;
 import pt.hospetall.web.species.Species;
@@ -32,6 +33,9 @@ public class Pet {
 
     @OneToMany(mappedBy = "animal")
     private Set<Schedule> schedules = new HashSet<>();
+
+    @OneToMany
+    private Set<MedicalProcedure> procedures = new HashSet<>();
 
     public int getId() {
         return id;

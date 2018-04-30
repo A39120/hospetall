@@ -5,7 +5,7 @@ import pt.hospetall.web.account.Account;
 import javax.persistence.*;
 
 @Entity
-@Table(name="PERSON")
+@Table(name="Person")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class Person {
 
