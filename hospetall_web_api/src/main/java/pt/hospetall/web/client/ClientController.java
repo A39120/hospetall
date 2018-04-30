@@ -1,6 +1,7 @@
 package pt.hospetall.web.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,13 +23,13 @@ public class ClientController {
 
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/")
-	Iterable<Client> getClientList(
+    Resources<ClientResource> getClientList(
 		@RequestParam(value="lastName", required=false) String lastName,
 		@RequestParam(value="telephone", required=false) String phone,
 		@RequestParam(value="email", required=false) String email,
 		@RequestParam(value="address", required=false) String address
 	){
-		if(lastName != null) 
+/*		if(lastName != null)
 			return clientRepository.findByFamilyName(lastName);
 
 		if(phone != null)
@@ -41,8 +42,9 @@ public class ClientController {
 			return clientRepository.findByAddress(address);
 	
 		return (List<Client>) clientRepository.findAll();
-	}
 
+*/return null;
+	}
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	Optional<Client> getClient(@PathVariable int id){
 			return clientRepository.findById(id);
