@@ -1,9 +1,10 @@
 package pt.hospetall.web.client;
 
 import java.util.List;
-import org.springframework.data.repository.CrudRepository;
 
-public interface ClientRepository extends CrudRepository<Client, Integer> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ClientRepository extends JpaRepository<Client, Integer> {
 	List<Client> findByGivenName(String givenName);
 	List<Client> findByAddress(String address);
 	List<Client> findByFamilyName(String familyName);

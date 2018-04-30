@@ -7,6 +7,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")
@@ -21,10 +22,10 @@ public class ClientController {
 
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/")
-	List<Client> getClientList(
-		@RequestParam(value="lastName", required=false) String lastName
-		@RequestParam(value="telephone", required=false) String phone
-		@RequestParam(value="email", required=false) String email
+	Iterable<Client> getClientList(
+		@RequestParam(value="lastName", required=false) String lastName,
+		@RequestParam(value="telephone", required=false) String phone,
+		@RequestParam(value="email", required=false) String email,
 		@RequestParam(value="address", required=false) String address
 	){
 		if(lastName != null) 
@@ -39,23 +40,19 @@ public class ClientController {
 		if(address != null)
 			return clientRepository.findByAddress(address);
 	
-		return clientRepository.findAll();
+		return (List<Client>) clientRepository.findAll();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-	Client getClient(@PathVariable int id){
-			return clientRepository.getOne(id);
+	Optional<Client> getClient(@PathVariable int id){
+			return clientRepository.findById(id);
 	}
 
-
-	List<Client> getClientByLastName(
-			){ 
-		return clientRepository.findByFamilyName(lastName);
 
 	@RequestMapping(method = RequestMethod.POST)
 	ResponseEntity<?> add(@RequestBody String input){
 			Client client = new Client();
-			client.setName(input);
+			//client.setName(input);
 			clientRepository.save(client);
 
 			URI location = ServletUriComponentsBuilder

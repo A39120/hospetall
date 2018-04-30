@@ -1,15 +1,17 @@
 package pt.hospetall.web.client;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import pt.hospetall.web.pet.Pet;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Client {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue
 	private int id;
 	private String givenName;
 	private String familyName;
@@ -21,11 +23,14 @@ public class Client {
 	private int nif;
 	private String other;
 
+	@OneToMany(mappedBy = "owner")
+    private Set<Pet> pets = new HashSet<>();
+
 	public int getId(){ return id; }
 	public int getNif(){ return nif; }
 	public String getGivenName(){ return givenName; }
 	public String getFamilyName(){ return familyName; }
-	public String getAddress(){return adress; }
+	public String getAddress(){return address; }
 	public String getPostalCode(){ return postalCode; }
 	public String getTelephone(){ return telephone; }
 	public String getTelephoneAlternative(){ return telephoneAlternative; }
