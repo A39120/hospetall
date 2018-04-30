@@ -1,14 +1,19 @@
 package pt.hospetall.web.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pt.hospetall.web.person.Person;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.sql.Date;
 
 @Entity
 public class Account {
+
+    @OneToOne
+    private Person person;
 
     @GeneratedValue
     @Id
@@ -18,7 +23,6 @@ public class Account {
     @JsonIgnore
     private String password;
     private Date registerDate;
-    private String clientEmail;
 
     public int getId() {
         return id;
@@ -52,11 +56,4 @@ public class Account {
         this.registerDate = registerDate;
     }
 
-    public String getClientEmail() {
-        return clientEmail;
-    }
-
-    public void setClientEmail(String clientEmail) {
-        this.clientEmail = clientEmail;
-    }
 }

@@ -1,7 +1,9 @@
 package pt.hospetall.web.client;
 
+import org.hibernate.annotations.ManyToAny;
 import pt.hospetall.web.person.Person;
 import pt.hospetall.web.pet.Pet;
+import pt.hospetall.web.waitingroom.WaitingRoom;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -18,6 +20,9 @@ public class Client extends Person{
 
 	@OneToMany(mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
+
+	@ManyToOne
+	private WaitingRoom waitingRoom;
 
 	public int getNif(){ return nif; }
 	public String getAddress(){return address; }
