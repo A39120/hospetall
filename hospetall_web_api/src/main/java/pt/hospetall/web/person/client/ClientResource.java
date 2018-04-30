@@ -1,6 +1,5 @@
-package pt.hospetall.web.client;
+package pt.hospetall.web.person.client;
 
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
 
 public class ClientResource extends ResourceSupport {

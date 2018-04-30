@@ -1,9 +1,7 @@
-package pt.hospetall.web.client;
+package pt.hospetall.web.person.client;
 
-import org.hibernate.annotations.ManyToAny;
 import pt.hospetall.web.person.Person;
 import pt.hospetall.web.pet.Pet;
-import pt.hospetall.web.waitingroom.WaitingRoom;
 
 import javax.persistence.*;
 import java.util.HashSet;

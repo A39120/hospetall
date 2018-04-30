@@ -1,4 +1,4 @@
-package pt.hospetall.web.client;
+package pt.hospetall.web.person.client;
 
 import java.util.List;
 
