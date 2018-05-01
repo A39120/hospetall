@@ -1,6 +1,6 @@
 package pt.hospetall.web.waitingroom;
 
-import pt.hospetall.web.client.Client;
+import pt.hospetall.web.person.client.Client;
 import pt.hospetall.web.pet.Pet;
 
 import javax.persistence.Entity;

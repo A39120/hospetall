@@ -9,8 +9,14 @@ import javax.persistence.*;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class MedicalProcedure {
 
-    @ManyToOne
-    private Pet pet;
-
-
+	@ManyToOne
+	private Pet pet;
+    
+	@Id
+	@GeneratedValue
+	private int id; 
+	private String case_history;
+	private String diagnosis;
+	private String treatment;
+	private String observations;
 }
