@@ -3,7 +3,6 @@ USE HosPetAll;
 IF OBJECT_ID('dbo.Product_SideEffects') IS NOT NULL
 	DROP TABLE dbo.Product_SideEffects
 
-
 IF OBJECT_ID('dbo.SideEffects') IS NOT NULL
 	DROP TABLE dbo.SideEffects
 
@@ -55,37 +54,47 @@ IF OBJECT_ID('dbo.UserClient') IS NOT NULL
 IF OBJECT_ID('dbo.Client') IS NOT NULL
 	DROP TABLE dbo.Client
 
-CREATE TABLE Client(
-	id INTEGER PRIMARY KEY IDENTITY(1,1), 
+CREATE TABLE Person(
+	id INTEGER PRIMARY KEY IDENTITY(1,1),
 	given_name VARCHAR(256) NOT NULL,
 	family_name VARCHAR(256) NOT NULL,
-	address VARCHAR(1024) UNIQUE,
-	postal_code VARCHAR(16), 
-	telephone VARCHAR(12) UNIQUE, 
-	telephone_alternative VARCHAR(12),
-	email VARCHAR(256) UNIQUE, 
-	nif INT, 
-	other TEXT,
-	CONSTRAINT ct_mphone CHECK (Telephone > 0 AND Telephone <= 999999999)
+	telephone VARCHAR(12) UNIQUE,
+	email VARCHAR(256) UNIQUE
 )
 
--- Application User
-CREATE TABLE UserClient(
-	id INTEGER REFERENCES Client(Id), 
-	username VARCHAR(256) UNIQUE, 
+CREATE TABLE Account(
+	id INTEGER FOREIGN KEY REFERENCES Person(Id), 
+	username VARCHAR(256) PRIMARY KEY, 
 	register_date DATE NOT NULL,
 	password VARCHAR(512) NOT NULL, 
-	client_email VARCHAR(256) REFERENCES Client(Email) NOT NULL
 )
 
+-- Entities that extend from Person
+CREATE TABLE Client(
+	id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL, 
+	address VARCHAR(1024) UNIQUE,
+	postal_code VARCHAR(16), 
+	telephone_alternative VARCHAR(12),
+	nif INT, 
+	other TEXT
+)
+
+CREATE TABLE Veterinarian(
+	id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL
+)
+
+CREATE TABLE Nurse(
+	id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL
+)
+
+-- Animal related
 CREATE TABLE Species(
 	id INTEGER IDENTITY(1,1) PRIMARY KEY, 
 	name VARCHAR(31)
 )
 
 CREATE TABLE Race(
-	species INTEGER REFERENCES Species(Id),
-	id INTEGER IDENTITY(1,1) UNIQUE NOT NULL,
+	id INTEGER IDENTITY(1,1) PRIMARY KEY,
 	name VARCHAR(31) UNIQUE
 )
 
@@ -101,38 +110,29 @@ CREATE TABLE Pet(
 	license_number INT
 )
 
+-- Procedure Tables
 CREATE TABLE MedicalProcedure(
 	id INTEGER IDENTITY(1,1) PRIMARY KEY,
-	pet INTEGER REFERENCES Pet(Id) NOT NULL, 
+	pet INTEGER FOREIGN KEY REFERENCES Pet(Id) NOT NULL, 
 	case_history TEXT, -- Anamnese 
 	diagnosis TEXT, 
 	treatment TEXT,
 	observations TEXT
 )
 
-CREATE TABLE Veterinarian(
-	id INTEGER IDENTITY(1,1) PRIMARY KEY, 
-	name VARCHAR(255) NOT NULL
-)
-
-CREATE TABLE Nurse(
-	id INTEGER IDENTITY(1,1) PRIMARY KEY, 
-	name VARCHAR(255) NOT NULL 
-)
-
-CREATE TABLE MedicalProcedureConsultation(
+CREATE TABLE Consultation(
 	id INTEGER REFERENCES MedicalProcedure(Id) PRIMARY KEY, 
-	veterinarian_id INTEGER REFERENCES Veterinarian(Id) NOT NULL, 
+	veterinarian INTEGER REFERENCES Veterinarian(Id) NOT NULL, 
 	weight FLOAT, 
 	temperature FLOAT, 
 	heart_rythim FLOAT, 
-	-- Completar: Outros factores fisicos não obrigatórios
 )
 
-CREATE TABLE MedicalProcedureTreatment(
+CREATE TABLE Treatment(
 	id INTEGER REFERENCES MedicalProcedure(Id) PRIMARY KEY, 
-	nurse_id INTEGER REFERENCES Nurse(Id) NOT NULL
+	nurse_id INTEGER FOREIGN KEY REFERENCES Nurse(Id) NOT NULL
 )
+--
 
 CREATE TABLE Product(
 	code VARCHAR(9) PRIMARY KEY, 
@@ -162,7 +162,6 @@ CREATE TABLE MedicalProcedure_ProductsUsed(
 	product_code VARCHAR(9) REFERENCES Product(Code) NOT NULL
 )
 
--- Pensar melhor no que vêm a seguir
 CREATE TABLE SideEffects(
 	id INTEGER IDENTITY(1,1) PRIMARY KEY,
 	effect TEXT
