@@ -1,0 +1,27 @@
+USE HosPetAll;
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(1,'Ap #870-3603 Nam Street','85982',313291955,'+35213614522','Nulla facilisi. Sed neque. Sed');
+
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(2,'Ap #529-7737 Sem. St.','24567',315821165,'+35214464251','vulputate, nisi sem semper erat, in consectetuer ipsum nunc');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(3,'Ap #232-2707 In Ave','86090',343400527,'+35212771303','mauris.');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(4,'275-4832 A St.','6343',472743757,'+35214921575','Nulla aliquet. Proin velit. Sed malesuada augue ut');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(5,'P.O. Box 967, 3356 Eget Rd.','00713',245699532,'+35211594618','amet nulla. Donec non');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(6,'3731 Tincidunt St.','5520 FE',555706524,'+35219624694','sit amet, dapibus id, blandit at, nisi. Cum sociis');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(7,'5852 Sem, Rd.','07232',838000966,'+35211447291','laoreet posuere, enim nisl elementum purus, accumsan interdum libero dui');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(8,'P.O. Box 403, 3213 Risus. St.','52611',850653960,'+35216441034','pede ac urna. Ut tincidunt vehicula risus. Nulla');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(9,'695-7329 Amet Av.','886056',668159259,'+35219824683','commodo tincidunt');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(10,'Ap #195-1491 Euismod Rd.','66345',381231633,'+35211632922','tincidunt dui augue eu tellus.');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(11,'Ap #913-5714 Elit, Av.','35-734',420988385,'+35214027270','a, malesuada id, erat. Etiam vestibulum massa');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(12,'127-9783 Tristique Road','20527',111765349,'+35215240357','lobortis, nisi');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(13,'P.O. Box 739, 3247 Dictum Rd.','9198',340690869,'+35213119070','cursus in, hendrerit');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(14,'P.O. Box 719, 9157 Elit St.','7971 RX',483108973,'+35217807932','eu metus. In lorem. Donec elementum, lorem ut aliquam iaculis,');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(15,'Ap #751-9698 Malesuada Av.','93021',648314569,'+35212240201','leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis,');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(16,'P.O. Box 772, 3192 Donec St.','989031',975370157,'+35214221930','ornare placerat,');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(17,'9448 Natoque St.','56075',645421381,'+35212126111','arcu eu odio tristique pharetra. Quisque ac libero');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(18,'793-7036 Augue St.','237607',817001783,'+35218529169','gravida. Aliquam tincidunt,');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(19,'P.O. Box 334, 5744 Porttitor St.','4060',116846562,'+35214189206','massa.');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(20,'P.O. Box 296, 6423 Penatibus Ave','81847',826539369,'+35218377438','velit justo');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(21,'207-5350 Eleifend Av.','17250',352040243,'+35212837441','ornare. In faucibus. Morbi vehicula. Pellentesque tincidunt tempus');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(22,'P.O. Box 971, 3472 Ullamcorper. St.','4776',526583161,'+35211412552','arcu. Aliquam ultrices');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(23,'6806 Rhoncus Avenue','38564',455602181,'+35213186696','mauris');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(24,'P.O. Box 137, 9258 Imperdiet St.','38075',726117220,'+35211361420','mollis. Phasellus libero mauris, aliquam eu, accumsan sed, facilisis vitae,');
+INSERT INTO Client([id],[address],[postal_code],[nif],[telephone_alternative],[other]) VALUES(25,'P.O. Box 516, 6931 Mauris St.','659503',388497975,'+35219169017','rutrum.');

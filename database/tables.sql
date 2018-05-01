@@ -24,17 +24,11 @@ IF OBJECT_ID('dbo.Supplier') IS NOT NULL
 IF OBJECT_ID('dbo.Product') IS NOT NULL
 	DROP TABLE dbo.Product
 
-IF OBJECT_ID('dbo.MedicalProcedureTreatment') IS NOT NULL
-	DROP TABLE dbo.MedicalProcedureTreatment
+IF OBJECT_ID('dbo.Treatment') IS NOT NULL
+	DROP TABLE dbo.Treatment
 
-IF OBJECT_ID('dbo.MedicalProcedureConsultation') IS NOT NULL
-	DROP TABLE dbo.MedicalProcedureConsultation
-
-IF OBJECT_ID('dbo.Veterinarian') IS NOT NULL
-	DROP TABLE dbo.Veterinarian
-
-IF OBJECT_ID('dbo.Nurse') IS NOT NULL
-	DROP TABLE dbo.Nurse
+IF OBJECT_ID('dbo.Consultation') IS NOT NULL
+	DROP TABLE dbo.Consultation
 
 IF OBJECT_ID('dbo.MedicalProcedure') IS NOT NULL
 	DROP TABLE dbo.MedicalProcedure
@@ -48,11 +42,23 @@ IF OBJECT_ID('dbo.Race') IS NOT NULL
 IF OBJECT_ID('dbo.Species') IS NOT NULL
 	DROP TABLE dbo.Species
 
-IF OBJECT_ID('dbo.UserClient') IS NOT NULL 
-	DROP TABLE dbo.UserClient; 
-
 IF OBJECT_ID('dbo.Client') IS NOT NULL
 	DROP TABLE dbo.Client
+
+IF OBJECT_ID('dbo.Receptionist') IS NOT NULL
+	DROP TABLE dbo.Receptionist
+
+IF OBJECT_ID('dbo.Nurse') IS NOT NULL
+	DROP TABLE dbo.Nurse
+
+IF OBJECT_ID('dbo.Veterinarian') IS NOT NULL
+	DROP TABLE dbo.Veterinarian
+
+IF OBJECT_ID('dbo.Account') IS NOT NULL
+	DROP TABLE dbo.Account
+
+IF OBJECT_ID('dbo.Person') IS NOT NULL
+	DROP TABLE dbo.Person
 
 CREATE TABLE Person(
 	id INTEGER PRIMARY KEY IDENTITY(1,1),
@@ -84,6 +90,10 @@ CREATE TABLE Veterinarian(
 )
 
 CREATE TABLE Nurse(
+	id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL
+)
+
+CREATE TABLE Receptionist(
 	id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL
 )
 
@@ -132,7 +142,7 @@ CREATE TABLE Treatment(
 	id INTEGER REFERENCES MedicalProcedure(Id) PRIMARY KEY, 
 	nurse_id INTEGER FOREIGN KEY REFERENCES Nurse(Id) NOT NULL
 )
---
+---
 
 CREATE TABLE Product(
 	code VARCHAR(9) PRIMARY KEY, 
