@@ -3,10 +3,7 @@ package pt.hospetall.web.account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import pt.hospetall.web.person.Person;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity

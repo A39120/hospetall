@@ -63,7 +63,7 @@ CREATE TABLE Person(
 )
 
 CREATE TABLE Account(
-	id INTEGER FOREIGN KEY REFERENCES Person(Id), 
+	person INTEGER FOREIGN KEY REFERENCES Person(Id), 
 	username VARCHAR(256) PRIMARY KEY, 
 	register_date DATE NOT NULL,
 	password VARCHAR(512) NOT NULL, 
