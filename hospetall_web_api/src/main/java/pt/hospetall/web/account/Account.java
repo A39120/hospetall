@@ -10,14 +10,13 @@ import javax.persistence.OneToOne;
 import java.sql.Date;
 
 @Entity
+@Table(name="Account")
 public class Account {
 
 	@OneToOne
 	private Person person;
 
-	@GeneratedValue
 	@Id
-	private int id;
 	private String username;
 
 	@JsonIgnore
