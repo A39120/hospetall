@@ -7,9 +7,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.util.HashSet;
 
-@Entity
+/*@Entity
 public class Schedule {
 
     @ManyToOne
     private Pet animal;
 }
+*/

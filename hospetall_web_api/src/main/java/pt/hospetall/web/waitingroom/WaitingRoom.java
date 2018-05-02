@@ -9,9 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@Entity
+/*@Entity
 public class WaitingRoom {
 
     @OneToMany(mappedBy = "waitingRoom")
     private Set<Pet> pets = new HashSet<>();
 }
+*/

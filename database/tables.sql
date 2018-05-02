@@ -69,15 +69,16 @@ CREATE TABLE Person(
 )
 
 CREATE TABLE Account(
-	person INTEGER FOREIGN KEY REFERENCES Person(Id), 
+	person INTEGER FOREIGN KEY REFERENCES Person(id), 
 	username VARCHAR(256) PRIMARY KEY, 
-	register_date DATE NOT NULL,
-	password VARCHAR(512) NOT NULL, 
+	register_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+	password BINARY(512) NOT NULL, 
 )
 
 -- Entities that extend from Person
 CREATE TABLE Client(
-	id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL, 
+	person_id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL, 
+	id INTEGER IDENTITY(1,1) PRIMARY KEY,
 	address VARCHAR(1024) UNIQUE,
 	postal_code VARCHAR(16), 
 	telephone_alternative VARCHAR(12),
@@ -86,15 +87,18 @@ CREATE TABLE Client(
 )
 
 CREATE TABLE Veterinarian(
-	id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL
+	id INTEGER IDENTITY(1,1) PRIMARY KEY,
+	person_id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL,
 )
 
 CREATE TABLE Nurse(
-	id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL
+	id INTEGER IDENTITY(1,1) PRIMARY KEY,
+	person_id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL
 )
 
 CREATE TABLE Receptionist(
-	id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL
+	id INTEGER IDENTITY(1,1) PRIMARY KEY,
+	person_id INTEGER FOREIGN KEY REFERENCES Person(id) UNIQUE NOT NULL
 )
 
 -- Animal related
@@ -110,11 +114,11 @@ CREATE TABLE Race(
 
  
 CREATE TABLE Pet(
-	owner INTEGER REFERENCES Client(Id),
+	owner INTEGER REFERENCES Client(person_id),
 	id INTEGER IDENTITY(1,1) UNIQUE NOT NULL,
 	name VARCHAR(255) NOT NULL,
-	race INTEGER REFERENCES Race(Id),
-	species INTEGER REFERENCES Species(Id) NOT NULL,
+	race INTEGER REFERENCES Race(id),
+	species INTEGER REFERENCES Species(id) NOT NULL,
 	birthdate DATE, -- Importante para a vacinação de algumas especies	
 	chip_number INT, 
 	license_number INT
@@ -132,7 +136,7 @@ CREATE TABLE MedicalProcedure(
 
 CREATE TABLE Consultation(
 	id INTEGER REFERENCES MedicalProcedure(Id) PRIMARY KEY, 
-	veterinarian INTEGER REFERENCES Veterinarian(Id) NOT NULL, 
+	veterinarian_id INTEGER REFERENCES Veterinarian(person_id) NOT NULL, 
 	weight FLOAT, 
 	temperature FLOAT, 
 	heart_rythim FLOAT, 
@@ -140,7 +144,7 @@ CREATE TABLE Consultation(
 
 CREATE TABLE Treatment(
 	id INTEGER REFERENCES MedicalProcedure(Id) PRIMARY KEY, 
-	nurse_id INTEGER FOREIGN KEY REFERENCES Nurse(Id) NOT NULL
+	nurse_id INTEGER FOREIGN KEY REFERENCES Nurse(person_id) NOT NULL
 )
 ---
 
