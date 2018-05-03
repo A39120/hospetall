@@ -1,13 +1,10 @@
 package pt.hospetall.web.person;
 
-import pt.hospetall.web.account.Account;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name="Person")
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class Person {
+@Table(name = "person")
+public class Person {
 
 	@Id
 	@GeneratedValue
@@ -16,9 +13,6 @@ public abstract class Person {
 	private String givenName;
 	private String email;
 	private String telephone;
-
-	@OneToOne(mappedBy = "person")
-	private Account account;
 
 	public String getFamilyName() {
 		return familyName;
@@ -50,14 +44,6 @@ public abstract class Person {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
-	}
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
 	}
 
 	public int getId() {

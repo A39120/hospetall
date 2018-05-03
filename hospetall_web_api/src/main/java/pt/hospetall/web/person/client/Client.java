@@ -1,28 +1,26 @@
 package pt.hospetall.web.person.client;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pt.hospetall.web.person.Person;
-import pt.hospetall.web.pet.Pet;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "Client")
-@PrimaryKeyJoinColumn(name = "person_id")
-public class Client extends Person {
+@Table(name = "client")
+public class Client {
 
 	@Id
 	@GeneratedValue
 	private int id;
+
+	@JsonIgnore
+	@OneToOne
+	private Person person;
 	private String address;
 	private String postalCode;
 	private String telephoneAlternative;
 	private int nif;
 	private String other;
-
-	@OneToMany(mappedBy = "owner")
-	private Set<Pet> pets = new HashSet<>();
 
 	public String getAddress() {
 		return address;
@@ -60,25 +58,23 @@ public class Client extends Person {
 		return other;
 	}
 
-	public void setOther(String other) {
-		this.other = other;
-	}
-
-	public Set<Pet> getPets() {
-		return pets;
-	}
-
-	public void setPets(Set<Pet> pets) {
-		this.pets = pets;
-	}
-
-	@Override
 	public int getId() {
 		return id;
 	}
 
-	@Override
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public void setOther(String other) {
+		this.other = other;
 	}
 }

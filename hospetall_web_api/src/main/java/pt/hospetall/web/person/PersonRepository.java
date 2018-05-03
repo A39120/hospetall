@@ -1,14 +1,12 @@
 package pt.hospetall.web.person;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pt.hospetall.web.account.Account;
 
 import java.util.Optional;
 
 
-public interface PersonRepository<T extends Person> extends JpaRepository<T, Integer> {
+public interface PersonRepository extends JpaRepository<Person, Integer> {
 
-	Optional<Person> findPersonByAccount(Account account);
 	Optional<Person> findPersonByTelephone(String telephone);
 	Optional<Person> findPersonByEmail(String email);
 	Iterable<Person> findPeopleByFamilyNameAndGivenName(String familyName, String givenName);
