@@ -1,4 +1,4 @@
-package pt.hospetall.web.product;
+package pt.hospetall.web.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

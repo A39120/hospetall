@@ -1,7 +1,4 @@
-package pt.hospetall.web.species;
-
-import pt.hospetall.web.pet.Pet;
-import pt.hospetall.web.race.Race;
+package pt.hospetall.web.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,7 +1,4 @@
-package pt.hospetall.web.race;
-
-import pt.hospetall.web.pet.Pet;
-import pt.hospetall.web.species.Species;
+package pt.hospetall.web.model;
 
 import javax.persistence.*;
 import java.util.HashSet;

@@ -1,21 +1,13 @@
-package pt.hospetall.web.person.client;
+package pt.hospetall.web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pt.hospetall.web.person.Person;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "client")
-public class Client {
+public class Client extends PersonBasedEntity{
 
-	@Id
-	@GeneratedValue
-	private int id;
-
-	@JsonIgnore
-	@OneToOne
-	private Person person;
 	private String address;
 	private String postalCode;
 	private String telephoneAlternative;
@@ -56,22 +48,6 @@ public class Client {
 
 	public String getOther() {
 		return other;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
 	}
 
 	public void setOther(String other) {

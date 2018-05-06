@@ -1,20 +1,11 @@
-package pt.hospetall.web.pet;
-
-import pt.hospetall.web.person.client.Client;
-import pt.hospetall.web.medicalprocedure.MedicalProcedure;
-import pt.hospetall.web.race.Race;
-//import pt.hospetall.web.schedule.Schedule;
-import pt.hospetall.web.species.Species;
-//import pt.hospetall.web.waitingroom.WaitingRoom;
+package pt.hospetall.web.model;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "Pet")
-public class Pet {
+public class Pet extends BaseEntity {
 
 	@Id
 	@GeneratedValue
@@ -33,14 +24,6 @@ public class Pet {
 	private int chip_number;
 	private int license_number;
 
-	//@OneToMany(mappedBy = "")
-	//private Set<Schedule> schedules = new HashSet<>();
-
-	//@ManyToOne
-	//private WaitingRoom waitingRoom;
-
-	@OneToMany(mappedBy = "pet")
-	private Set<MedicalProcedure> procedures = new HashSet<>();
 
 	public int getId() {
 		return id;
@@ -105,12 +88,5 @@ public class Pet {
 	public void setLicense_number(int license_number) {
 		this.license_number = license_number;
 	}
-
-	public Set<MedicalProcedure> getProcedures() {
-		return procedures;
-	}
-
-	public void setProcedures(Set<MedicalProcedure> procedures) {
-		this.procedures = procedures;
-	}
 }
+

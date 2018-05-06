@@ -1,7 +1,7 @@
-package pt.hospetall.web.account;
+package pt.hospetall.web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pt.hospetall.web.person.Person;
+import pt.hospetall.web.model.Person;
 
 import javax.persistence.*;
 import java.sql.Date;

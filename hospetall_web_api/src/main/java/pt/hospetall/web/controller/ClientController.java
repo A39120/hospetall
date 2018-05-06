@@ -1,4 +1,4 @@
-package pt.hospetall.web.person.client;
+package pt.hospetall.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import pt.hospetall.web.hal.ClientResource;
+import pt.hospetall.web.repository.ClientRepository;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
@@ -27,7 +29,7 @@ public class ClientController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-	ClientResource getClient(@PathVariable int id){
+	public ClientResource getClient(@PathVariable int id){
 		return new ClientResource(clientRepository.findById(id).get());
 	}
 

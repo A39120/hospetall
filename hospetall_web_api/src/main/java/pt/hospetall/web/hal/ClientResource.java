@@ -1,9 +1,12 @@
-package pt.hospetall.web.person.client;
+package pt.hospetall.web.hal;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
-import pt.hospetall.web.person.PersonController;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import pt.hospetall.web.model.Client;
+import pt.hospetall.web.controller.PersonController;
+import pt.hospetall.web.controller.ClientController;
 
 
 @Relation(collectionRelation = "client", value = "client")
@@ -11,13 +14,13 @@ public class ClientResource extends ResourceSupport {
 
 	private final Client client;
 
-	ClientResource(Client client){
+	public ClientResource(Client client){
 		this.client = client;
 		this.addLinkToSelf();
 	}
 
 	public void addLinkToSelf(){
-		this.add(linkTo(methodOn(ClientController.class).getClient(client.getId())).withSelfRel());
+		this.add(ControllerLinkBuilder.linkTo(methodOn(ClientController.class).getClient(client.getId())).withSelfRel());
 	}
 
 	public void addLinkToPerson(){

@@ -1,7 +1,7 @@
-package pt.hospetall.web.person.client;
+package pt.hospetall.web.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pt.hospetall.web.person.PersonRepository;
+import pt.hospetall.web.model.Client;
 
 import javax.transaction.Transactional;
 import java.util.Optional;

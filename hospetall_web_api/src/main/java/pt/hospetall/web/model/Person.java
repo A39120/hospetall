@@ -1,14 +1,11 @@
-package pt.hospetall.web.person;
+package pt.hospetall.web.model;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "person")
-public class Person {
+public class Person extends BaseEntity{
 
-	@Id
-	@GeneratedValue
-	private int id;
 	private String familyName;
 	private String givenName;
 	private String email;
@@ -46,11 +43,4 @@ public class Person {
 		this.telephone = telephone;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int person_id) {
-		this.id = person_id;
-	}
 }

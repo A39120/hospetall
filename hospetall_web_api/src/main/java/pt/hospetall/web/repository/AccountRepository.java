@@ -1,6 +1,7 @@
-package pt.hospetall.web.account;
+package pt.hospetall.web.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import pt.hospetall.web.model.Account;
 
 import java.util.Optional;
 
