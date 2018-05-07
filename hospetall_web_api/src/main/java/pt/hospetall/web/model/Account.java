@@ -10,8 +10,8 @@ import java.sql.Date;
 @Table(name="Account")
 public class Account {
 
-	@OneToOne
-	private Person person;
+	//@OneToOne
+//	private Person person;
 
 	@Id
 	private String username;
@@ -19,14 +19,6 @@ public class Account {
 	@JsonIgnore
 	private String password;
 	private Date registerDate;
-
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}
 
 	public String getUsername() {
 		return username;

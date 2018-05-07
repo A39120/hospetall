@@ -1,13 +1,5 @@
 USE HosPetAll;
 
-CREATE TABLE Person(
-	id INTEGER PRIMARY KEY IDENTITY(1,1),
-	given_name VARCHAR(256) NOT NULL,
-	family_name VARCHAR(256) NOT NULL,
-	telephone VARCHAR(12) UNIQUE,
-	email VARCHAR(256) UNIQUE
-)
-
 CREATE TABLE Account(
 	person INTEGER FOREIGN KEY REFERENCES Person(id), 
 	username VARCHAR(256) PRIMARY KEY, 
@@ -17,7 +9,11 @@ CREATE TABLE Account(
 
 -- Entities that extend from Person
 CREATE TABLE Client(
-	id INTEGER PRIMARY KEY REFERENCES Person(id),
+	id INTEGER PRIMARY KEY IDENTITY(1,1),
+	given_name VARCHAR(256) NOT NULL,
+	family_name VARCHAR(256) NOT NULL,
+	telephone VARCHAR(12) UNIQUE,
+	email VARCHAR(256) UNIQUE
 	address VARCHAR(512) UNIQUE,
 	postal_code VARCHAR(16), 
 	telephone_alternative VARCHAR(12),
@@ -26,15 +22,27 @@ CREATE TABLE Client(
 )
 
 CREATE TABLE Veterinarian(
-	id INTEGER PRIMARY KEY REFERENCES Person(id)
+	id INTEGER PRIMARY KEY IDENTITY(1,1),
+	given_name VARCHAR(256) NOT NULL,
+	family_name VARCHAR(256) NOT NULL,
+	telephone VARCHAR(12) UNIQUE,
+	email VARCHAR(256) UNIQUE
 )
 
 CREATE TABLE Nurse(
-	id INTEGER PRIMARY KEY REFERENCES Person(id)
+	id INTEGER PRIMARY KEY IDENTITY(1,1),
+	given_name VARCHAR(256) NOT NULL,
+	family_name VARCHAR(256) NOT NULL,
+	telephone VARCHAR(12) UNIQUE,
+	email VARCHAR(256) UNIQUE
 )
 
 CREATE TABLE Receptionist(
-	id INTEGER PRIMARY KEY REFERENCES Person(id) 
+	id INTEGER PRIMARY KEY IDENTITY(1,1),
+	given_name VARCHAR(256) NOT NULL,
+	family_name VARCHAR(256) NOT NULL,
+	telephone VARCHAR(12) UNIQUE,
+	email VARCHAR(256) UNIQUE
 )
 
 -- Animal related

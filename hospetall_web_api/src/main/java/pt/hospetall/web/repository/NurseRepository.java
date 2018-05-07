@@ -7,4 +7,4 @@ import pt.hospetall.web.model.Nurse;
 import javax.transaction.Transactional;
 
 @Transactional
-public interface NurseRepository extends JpaRepository<Nurse, Integer> { }
+public interface NurseRepository extends PersonBaseRepository<Nurse> { }

@@ -4,4 +4,4 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Veterinarian")
-public class Veterinarian extends PersonBasedEntity { }
+public class Veterinarian extends Person { }

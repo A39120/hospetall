@@ -6,11 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="Race")
-public class Race {
-
-	@Id
-	private int id;
-	private String name;
+public class Race extends NameBaseEntity{
 
 	@OneToMany
 	private Set<Pet> pets = new HashSet<Pet>();

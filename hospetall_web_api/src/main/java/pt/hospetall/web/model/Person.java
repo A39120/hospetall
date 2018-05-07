@@ -2,8 +2,7 @@ package pt.hospetall.web.model;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "person")
+@MappedSuperclass
 public class Person extends BaseEntity{
 
 	private String familyName;
@@ -42,5 +41,4 @@ public class Person extends BaseEntity{
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-
 }

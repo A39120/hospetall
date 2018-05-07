@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Transactional
-public interface ClientRepository extends JpaRepository<Client, Integer> {
+public interface ClientRepository extends PersonBaseRepository<Client> {
 
 	 Optional<Client> findPersonByAddress(String address);
 	 Optional<Client> findPersonByPostalCode(String postalCode);

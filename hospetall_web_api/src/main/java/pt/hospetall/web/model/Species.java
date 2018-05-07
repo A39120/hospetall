@@ -8,18 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Species {
-
-	@Id
-	@GeneratedValue
-	private int id;
-	private String name;
+public class Species extends NameBaseEntity{
 
 	@OneToMany(mappedBy = "species")
 	private Set<Pet> pets = new HashSet<>();
 
 	@OneToMany(mappedBy = "species")
 	private Set<Race> races = new HashSet<>();
-
 }
 

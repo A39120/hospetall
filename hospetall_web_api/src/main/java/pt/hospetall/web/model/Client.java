@@ -1,12 +1,10 @@
 package pt.hospetall.web.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "client")
-public class Client extends PersonBasedEntity{
+public class Client extends Person{
 
 	private String address;
 	private String postalCode;
