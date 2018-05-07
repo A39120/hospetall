@@ -2,7 +2,7 @@ package pt.hospetall.web.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import pt.hospetall.web.model.NameBaseEntity;
+import pt.hospetall.web.model.base.NameBaseEntity;
 
 import java.util.List;
 import java.util.Optional;
