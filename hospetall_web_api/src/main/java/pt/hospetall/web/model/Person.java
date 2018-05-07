@@ -3,7 +3,7 @@ package pt.hospetall.web.model;
 import javax.persistence.*;
 
 @MappedSuperclass
-public class Person extends BaseEntity{
+public abstract class Person extends BaseEntity{
 
 	private String familyName;
 	private String givenName;

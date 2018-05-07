@@ -8,8 +8,8 @@ import java.util.Optional;
 @Transactional
 public interface IClientRepository extends IPersonBaseRepository<Client> {
 
-	 Optional<Client> findPersonByAddress(String address);
-	 Optional<Client> findPersonByPostalCode(String postalCode);
-	 Optional<Client> findPersonByTelephoneAlternative(String alterTelephone);
-	 Optional<Client> findPersonByNif(int nif);
+	 Optional<Client> findClientByAddress(String address);
+	 Optional<Client> findClientByPostalCode(String postalCode);
+	 Optional<Client> findClientByTelephoneAlternative(String alterTelephone);
+	 Optional<Client> findClientByNif(int nif);
 }

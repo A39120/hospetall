@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pt.hospetall.web.hal.ClientResource;
-import pt.hospetall.web.repository.ClientRepository;
+import pt.hospetall.web.repository.IClientRepository;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
@@ -21,10 +21,10 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/client")
 public class ClientController {
 
-	private final ClientRepository clientRepository;
+	private final IClientRepository clientRepository;
 
 	@Autowired
-	public ClientController(ClientRepository clientRepository) {
+	public ClientController(IClientRepository clientRepository) {
 		this.clientRepository = clientRepository;
 	}
 
