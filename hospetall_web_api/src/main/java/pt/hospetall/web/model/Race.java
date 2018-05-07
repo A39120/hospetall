@@ -1,18 +1,17 @@
 package pt.hospetall.web.model;
 
+import pt.hospetall.web.model.base.NameBaseEntity;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="Race")
 public class Race extends NameBaseEntity {
 
-	@OneToMany
-	private Set<Pet> pets = new HashSet<Pet>();
 
-	@ManyToOne
-	private Species species;
+	@OneToMany(mappedBy = "race")
+	private Set<Pet> pets = new HashSet<>();
 
 	public Set<Pet> getPets() {
 		return pets;
@@ -20,13 +19,5 @@ public class Race extends NameBaseEntity {
 
 	public void setPets(Set<Pet> pets) {
 		this.pets = pets;
-	}
-
-	public Species getSpecies() {
-		return species;
-	}
-
-	public void setSpecies(Species species) {
-		this.species = species;
 	}
 }

@@ -1,10 +1,12 @@
 package pt.hospetall.web.model;
 
+import pt.hospetall.web.model.base.Person;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "client")
-public class Client extends Person{
+public class Client extends Person {
 
 	private String address;
 	private String postalCode;
