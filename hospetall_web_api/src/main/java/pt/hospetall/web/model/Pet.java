@@ -5,15 +5,10 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "Pet")
-public class Pet extends BaseEntity {
-
-	@Id
-	@GeneratedValue
-	private int id;
+public class Pet extends NameBaseEntity {
 
 	@ManyToOne
 	private Client owner;
-	private String name;
 
 	@ManyToOne
 	private Race race;
@@ -24,29 +19,12 @@ public class Pet extends BaseEntity {
 	private int chip_number;
 	private int license_number;
 
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public Client getOwner() {
 		return owner;
 	}
 
 	public void setOwner(Client owner) {
 		this.owner = owner;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Race getRace() {

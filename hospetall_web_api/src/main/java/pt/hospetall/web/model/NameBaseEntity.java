@@ -1,5 +1,8 @@
 package pt.hospetall.web.model;
 
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class NameBaseEntity extends BaseEntity {
 
 	private String name;
