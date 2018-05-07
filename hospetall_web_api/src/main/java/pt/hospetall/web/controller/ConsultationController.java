@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pt.hospetall.web.hal.ConsultationResource;
-import pt.hospetall.web.model.Consultation;
 import pt.hospetall.web.repository.IConsultationRepository;
 
 import java.util.List;
@@ -33,7 +32,11 @@ public class ConsultationController {
 
 	@RequestMapping(method = RequestMethod.GET, path="", produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
 	public ResponseEntity<Resources<ConsultationResource>> getConsultations(){
-		List<ConsultationResource> consultations = consultationRepository.findAll().stream().map(ConsultationResource::new).collect(Collectors.toList());
+		List<ConsultationResource> consultations = consultationRepository
+				.findAll()
+				.stream()
+				.map(ConsultationResource::new)
+				.collect(Collectors.toList());
 		Resources<ConsultationResource> res = new Resources<>(consultations);
 		res.add(linkTo(methodOn(ConsultationController.class).getConsultations()).withSelfRel());
 		return ResponseEntity.ok(res);
@@ -41,8 +44,14 @@ public class ConsultationController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
 	public ResponseEntity<ConsultationResource> getConsultation(@PathVariable int id){
-		Optional<Consultation> consultation = consultationRepository.findById(id);
+		Optional<ConsultationResource> consultation = consultationRepository
+				.findById(id)
+				.map(c -> {
+					ConsultationResource cr = new ConsultationResource(c);
+					cr.addLinkToPet();
+					return cr;
+				});
 
-		return ResponseEntity.ok(consultation.map(ConsultationResource::new).get());
+		return ResponseEntity.ok(consultation.get());
 	}
 }

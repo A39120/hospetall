@@ -1,7 +1,6 @@
 package pt.hospetall.web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pt.hospetall.web.model.base.MedicalProcedure;
 import pt.hospetall.web.model.base.NameBaseEntity;
 
 import javax.persistence.*;
@@ -32,12 +31,24 @@ public class Pet extends NameBaseEntity {
 	@JsonIgnore
 	private Set<Consultation> consultations = new HashSet<>();
 
-	public Set<Consultation> getMedicalProcedures() {
+	@OneToMany(mappedBy = "pet")
+	@JsonIgnore
+	private Set<Treatment> treatments = new HashSet<>();
+
+	public Set<Consultation> getConsultations() {
 		return consultations;
 	}
 
-	public void setMedicalProcedures(Set<Consultation> consultations) {
+	public void setConsultations(Set<Consultation> consultations) {
 		this.consultations = consultations;
+	}
+
+	public Set<Treatment> getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(Set<Treatment> treatments) {
+		this.treatments = treatments;
 	}
 
 	public Client getOwner() {

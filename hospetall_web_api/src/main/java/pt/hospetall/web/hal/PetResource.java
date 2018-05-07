@@ -40,6 +40,10 @@ public class PetResource extends ResourceSupport {
 		//TODO:
 	}
 
+	public void addLinkToConsultations(){
+		this.add(linkTo(methodOn(PetController.class).getPetConsultations(pet.getId())).withRel("consultations"));
+	}
+
 	public Pet getPet(){ return pet; }
 
 }
