@@ -28,7 +28,6 @@ public class PetController {
 
 	private final IPetRepository petRepository;
 
-	@Autowired
 	public PetController(IPetRepository petRepository) {
 		this.petRepository = petRepository;
 	}

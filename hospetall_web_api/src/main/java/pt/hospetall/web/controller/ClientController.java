@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pt.hospetall.web.hal.ClientResource;
+import pt.hospetall.web.model.Client;
 import pt.hospetall.web.repository.IClientRepository;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/client")
@@ -36,15 +36,10 @@ public class ClientController {
 	@RequestMapping(method = RequestMethod.GET,  produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
 	ResponseEntity<Resources<ClientResource>> getClients(){
 
-		List<ClientResource> clients = clientRepository
-				.findAll()
-				.stream()
-				.map(ClientResource::new)
-				.collect(Collectors.toList());
-		Link self = linkTo(methodOn(ClientController.class).getClients()).withSelfRel();
-		Resources<ClientResource> resources = new Resources<>(clients);
-		resources.add(self);
+		List<Client> clients = clientRepository.findAll();
 
-		return ResponseEntity.ok(resources);
+		Link self = linkTo(methodOn(ClientController.class).getClients()).withSelfRel();
+
+		return ResponseEntity.ok(ClientResource.getClients(clients, self));
 	}
 }

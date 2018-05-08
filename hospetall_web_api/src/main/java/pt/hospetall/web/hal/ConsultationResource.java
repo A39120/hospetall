@@ -5,6 +5,7 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 import pt.hospetall.web.controller.ConsultationController;
 import pt.hospetall.web.controller.PetController;
+import pt.hospetall.web.controller.VeterinarianController;
 import pt.hospetall.web.model.Consultation;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -37,7 +38,7 @@ public class ConsultationResource extends ResourceSupport {
 
 	public void addLinkToVeterinarian(){
 		int vetId = consultation.getVeterinarian().getId();
-		//TODO: Vet Controller
+		this.add(linkTo(methodOn(VeterinarianController.class).getVet(vetId)).withRel("veterinarian"));
 	}
 
 }

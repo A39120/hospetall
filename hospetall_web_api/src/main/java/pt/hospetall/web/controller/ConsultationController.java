@@ -49,6 +49,7 @@ public class ConsultationController {
 				.map(c -> {
 					ConsultationResource cr = new ConsultationResource(c);
 					cr.addLinkToPet();
+					cr.addLinkToVeterinarian();
 					return cr;
 				});
 
