@@ -2,6 +2,26 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
+.gradle
+build/
+
+# Ignore InteliJ metadata
+.idea
+out/
+*.iml
+
+# Ignore Gradle GUI config
+gradle-movweb.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
 ### STS ###
 .apt_generated
 .classpath
@@ -17,6 +37,24 @@
 *.iml
 *.ipr
 /out/
+
+# User-specific stuff:
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+
+# Sensitive or high-churn files:
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+
+# Gradle:
+.idea/**/gradle.xml
+.idea/**/libraries
 
 ### NetBeans ###
 /nbproject/private/
