@@ -1,7 +1,7 @@
 import React from 'react'
 import fetch from 'isomorphic-fetch'
 
-import IssueStateFilterPanel from './issue-state-filter-panel'
+//import IssueStateFilterPanel from './issue-state-filter-panel'
 //import PaginatorPanel from './paginator-panel'
 
 const FetchStates = {
