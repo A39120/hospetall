@@ -30,7 +30,8 @@ public class ClientController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ClientResource getClient(@PathVariable int id){
-		return new ClientResource(clientRepository.findById(id).get());
+		ClientResource cr =  new ClientResource(clientRepository.findById(id).get());
+		return cr;
 	}
 
 	@RequestMapping(method = RequestMethod.GET,  produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})

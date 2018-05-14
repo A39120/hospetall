@@ -12,7 +12,6 @@ import pt.hospetall.web.controller.ClientController;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @Relation(collectionRelation = "client", value = "client")
@@ -39,7 +38,6 @@ public class ClientResource extends ResourceSupport {
 				.collect(Collectors.toList());
 
 		return new Resources<>(resource, self);
-
 	}
 
 }

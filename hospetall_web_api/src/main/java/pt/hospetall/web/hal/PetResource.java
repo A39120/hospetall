@@ -5,7 +5,10 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 import pt.hospetall.web.controller.ClientController;
 import pt.hospetall.web.controller.PetController;
+import pt.hospetall.web.controller.RaceController;
+import pt.hospetall.web.controller.SpeciesController;
 import pt.hospetall.web.model.Pet;
+import pt.hospetall.web.model.Race;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
@@ -13,9 +16,13 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 public class PetResource extends ResourceSupport {
 
 	private final Pet pet;
+	private final String race;
+	private final String species;
 
 	public PetResource(Pet pet){
 		this.pet = pet;
+		this.race = pet.getRace().getName();
+		this.species = pet.getSpecies().getName();
 		addLinkToSelf();
 	}
 
@@ -30,14 +37,18 @@ public class PetResource extends ResourceSupport {
 		this.add(linkTo(methodOn(ClientController.class).getClient(owner)).withRel("owner"));
 	}
 
-	public void addLinkToRace(){
-		int race = pet.getRace().getId();
-		//TODO:
+	public void addLinkToRace() throws Exception {
+		Race race = pet.getRace();
+
+		if(race != null) {
+			int raceId = race.getId();
+			this.add(linkTo(methodOn(RaceController.class).get(raceId)).withRel("race"));
+		}
 	}
 
-	public void addLinkToSpecies(){
+	public void addLinkToSpecies() throws Exception {
 		int species = pet.getSpecies().getId();
-		//TODO:
+		this.add(linkTo(methodOn(SpeciesController.class).get(species)).withRel("species"));
 	}
 
 	public void addLinkToConsultations(){
@@ -46,4 +57,12 @@ public class PetResource extends ResourceSupport {
 
 	public Pet getPet(){ return pet; }
 
+	public void addLinks(){
+		addLinkToOwner();
+		addLinkToConsultations();
+		try {
+			addLinkToRace();
+			addLinkToSpecies();
+		} catch (Exception ignored) { }
+	}
 }
