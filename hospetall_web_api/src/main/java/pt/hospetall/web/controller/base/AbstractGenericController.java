@@ -5,7 +5,6 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,9 +16,11 @@ import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
-public abstract class AbstractGenericController<T extends BaseEntity, R extends JpaRepository<T, Integer>> {
+public abstract class AbstractGenericController<T extends BaseEntity,
+		R extends JpaRepository<T, Integer>,
+		U extends Resource<T>> {
 
-	private final R repo;
+	protected final R repo;
 	private final Class<?> klass;
 
 	protected AbstractGenericController(R repo, Class<?> klass) {
@@ -27,37 +28,36 @@ public abstract class AbstractGenericController<T extends BaseEntity, R extends 
 		this.klass = klass;
 	}
 
-	protected abstract Link[] getLinks(int id);
+	protected U getResource(T obj){
+		Link self = linkTo(klass).slash(obj.getId()).withSelfRel();
+		U resource = (U) new Resource<>(obj, self);
+		return resource;
 
-	@RequestMapping(method = RequestMethod.GET, path="/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
-	public ResponseEntity<Resource<T>> get(@PathVariable int id) throws Exception{
+	}
+	protected Resources<U> getResources(List<T> obj, Link self){
+		List<U> resource = obj.stream()
+				.map(this::getResource)
+				.collect(Collectors.toList());
+
+		return new Resources<>(resource, self);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path= "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
+	public U get(@PathVariable int id) {
 		Optional<T> res = repo.findById(id);
-		Link self = linkTo(klass).slash(id).withSelfRel();
 
 		if(res.isPresent()) {
-			Resource<T> resource = new Resource<T>(res.get(), self);
-			Link[] links = getLinks(id);
-			if(links.length > 0)
-				resource.add(links);
-
-			return ResponseEntity.ok(resource);
+			T obj = res.get();
+			return getResource(obj);
 		}
 		throw new RuntimeException();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
-	public ResponseEntity<Resources<Resource<T>>> getAll(){
-		List<Resource<T>> list = repo
-				.findAll()
-				.stream()
-				.map((c) -> {
-					Link self = linkTo(klass).slash(c.getId()).withSelfRel();
-					return new Resource<T>(c, self);
-				})
-				.collect(Collectors.toList());
-
+	public Resources<U> getAll(){
+		List<T> list = repo.findAll();
 		Link self = linkTo(klass).withSelfRel();
-		Resources<Resource<T>> resources = new Resources<>(list, self);
-		return ResponseEntity.ok(resources);
+
+		return getResources(list, self);
 	}
 }

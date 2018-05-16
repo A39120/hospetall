@@ -1,7 +1,6 @@
 package pt.hospetall.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +12,9 @@ import pt.hospetall.web.controller.base.AbstractGenericController;
 import pt.hospetall.web.model.Race;
 import pt.hospetall.web.repository.IRaceRepository;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
 @RestController
 @RequestMapping(path = "/race")
-public class RaceController extends AbstractGenericController<Race, IRaceRepository> {
+public class RaceController extends AbstractGenericController<Race, IRaceRepository, Resource<Race>> {
 
 	@Autowired
 	public RaceController(IRaceRepository rep) {
@@ -28,15 +24,9 @@ public class RaceController extends AbstractGenericController<Race, IRaceReposit
 	@RequestMapping(method = RequestMethod.GET,
 			path = "/{id}/pet",
 			produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
-	ResponseEntity<Resource<Race>> getPetsWithRace(@PathVariable int id){
+	public Resource<Race> getPetsWithRace(@PathVariable int id){
 		//TODO: Maybe do this
 		return null;
 	}
 
-	@Override
-	protected Link[] getLinks(int id) {
-		return new Link[]{
-			linkTo(methodOn(RaceController.class).getPetsWithRace(id)).withRel("animals")
-		};
-	}
 }

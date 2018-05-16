@@ -1,5 +1,6 @@
 package pt.hospetall.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pt.hospetall.web.model.base.Person;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Set;
 @Entity
 public class Nurse extends Person {
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "nurse")
 	private Set<Treatment> treatments = new HashSet<>();
 
