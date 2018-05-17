@@ -1,7 +1,7 @@
 USE HosPetAll;
-insert into pet (name, birthdate, chip_number, license_number, owner_id, race_id, species_id) values ('Vulture, lappet-faced', '2/9/2005', 100, 52, 33, 57, 39);
-insert into pet (name, birthdate, chip_number, license_number, owner_id, race_id, species_id) values ('Capybara', '2/17/2018', 6, 72, 7, 14, 40);
-insert into pet (name, birthdate, chip_number, license_number, owner_id, race_id, species_id) values ('Chipmunk, least', '2/20/2009', 69, 64, 20, 31, 28);
+insert into pet (name, birthdate, chip_number, license_number, owner_id, race_id, species_id) values ('Vulture, lappet-faced', '2/9/2005', 100, 52, 1, 57, 39);
+insert into pet (name, birthdate, chip_number, license_number, owner_id, race_id, species_id) values ('Capybara', '2/17/2018', 6, 72, 1, 14, 40);
+insert into pet (name, birthdate, chip_number, license_number, owner_id, race_id, species_id) values ('Chipmunk, least', '2/20/2009', 69, 64, 1, 31, 28);
 insert into pet (name, birthdate, chip_number, license_number, owner_id, race_id, species_id) values ('White-throated toucan', '9/13/2016', 22, 69, 57, 31, 9);
 insert into pet (name, birthdate, chip_number, license_number, owner_id, race_id, species_id) values ('Hawk-eagle, crowned', '7/13/2004', 51, 79, 87, 43, 77);
 insert into pet (name, birthdate, chip_number, license_number, owner_id, race_id, species_id) values ('Shrike, common boubou', '5/17/2001', 31, 35, 13, 82, 73);
