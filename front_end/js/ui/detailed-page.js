@@ -16,10 +16,7 @@ const FetchStates = {
 export default class extends React.Component {
     constructor (props) {
         super(props)
-        this.state = {
-            fetchState: FetchStates.client
-        }
-      }
+    }
     
     render () {
         return (
@@ -30,7 +27,7 @@ export default class extends React.Component {
     }     
       
     renderContent () {
-        switch (this.state.fetchState) {
+        switch (this.props.fetchState) {
             case FetchStates.waitingRoom:
                 return this.renderWaitingRoom()
             case FetchStates.client:
@@ -49,9 +46,8 @@ export default class extends React.Component {
     }
 
     renderClient() {
-        const info = [
-            {label: 'Registar cliente'}
-        ]
+        const info = {label: 'Registar cliente'}
+        
         return ( 
             <div>
                 <ClientAndPet info={info}/>
@@ -60,9 +56,8 @@ export default class extends React.Component {
     }
 
     renderPet() {
-        const info = [
-            {label: 'Registar animal'}
-        ]
+        const info = {label: 'Registar animal'}
+        
         return ( 
             <div>
                 <ClientAndPet info={info}/>
