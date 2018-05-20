@@ -7,7 +7,7 @@ import pt.hospetall.web.model.base.Person;
 import java.util.Optional;
 
 @NoRepositoryBean
-interface IPersonBaseRepository<T extends Person> extends JpaRepository<T, Integer> {
+public interface IPersonBaseRepository<T extends Person> extends JpaRepository<T, Integer> {
 
 	Optional<T> findByTelephone(String telephone);
 	Optional<T> findByEmail(String email);

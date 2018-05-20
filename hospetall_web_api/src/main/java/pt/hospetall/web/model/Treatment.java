@@ -11,6 +11,10 @@ public class Treatment extends MedicalProcedure {
 
 	@NotNull
 	@ManyToOne
+	private Pet pet;
+
+	@NotNull
+	@ManyToOne
 	private Nurse nurse;
 
 	public Nurse getNurse() {
@@ -19,5 +23,15 @@ public class Treatment extends MedicalProcedure {
 
 	public void setNurse(Nurse nurse) {
 		this.nurse = nurse;
+	}
+
+	@Override
+	public Pet getPet() {
+		return pet;
+	}
+
+	@Override
+	public void setPet(Pet pet) {
+		this.pet = pet;
 	}
 }

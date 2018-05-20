@@ -1,8 +1,11 @@
 package pt.hospetall.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pt.hospetall.web.model.base.Person;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "client")
@@ -13,6 +16,10 @@ public class Client extends Person {
 	private String telephoneAlternative;
 	private int nif;
 	private String other;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "owner")
+	private Set<Pet> pets = new HashSet<>();
 
 	public String getAddress() {
 		return address;
@@ -52,5 +59,13 @@ public class Client extends Person {
 
 	public void setOther(String other) {
 		this.other = other;
+	}
+
+	public Set<Pet> getPets() {
+		return pets;
+	}
+
+	public void setPets(Set<Pet> pets) {
+		this.pets = pets;
 	}
 }

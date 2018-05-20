@@ -2,44 +2,123 @@ package pt.hospetall.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pt.hospetall.web.hal.ClientResource;
+import pt.hospetall.web.controller.base.AbstractGenericController;
 import pt.hospetall.web.model.Client;
+import pt.hospetall.web.model.Consultation;
+import pt.hospetall.web.model.Treatment;
 import pt.hospetall.web.repository.IClientRepository;
+import pt.hospetall.web.resource.ClientResource;
+import pt.hospetall.web.resource.ConsultationResource;
+import pt.hospetall.web.resource.PetResource;
+import pt.hospetall.web.resource.TreatmentResource;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(path = "/client")
-public class ClientController {
-
-	private final IClientRepository clientRepository;
+public class ClientController extends AbstractGenericController<Client, IClientRepository, ClientResource> {
 
 	@Autowired
 	public ClientController(IClientRepository clientRepository) {
-		this.clientRepository = clientRepository;
+		super(clientRepository, ClientController.class);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-	public ClientResource getClient(@PathVariable int id){
-		return new ClientResource(clientRepository.findById(id).get());
+	@RequestMapping(path = "/{id}/pets", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
+	public Resources<PetResource> getPets(@PathVariable int id) {
+		Optional<Client> client = repo.findById(id);
+
+		if (client.isPresent()) {
+			Link self = linkTo(methodOn(ClientController.class).getPets(id)).withSelfRel();
+			return PetResource.getResources(client.get().getPets(), self);
+		}
+
+		throw new RuntimeException();
 	}
 
-	@RequestMapping(method = RequestMethod.GET,  produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
-	ResponseEntity<Resources<ClientResource>> getClients(){
 
-		List<Client> clients = clientRepository.findAll();
+	@GetMapping(path = "/{id}/pet/consultation", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
+	public Resources<ConsultationResource> getConsultations(@PathVariable int id){
+		List<Consultation> consultations = this.getPets(id)
+				.getContent()
+				.stream()
+				.map(Resource::getContent)
+				.flatMap(p -> p.getConsultations().stream())
+				.collect(Collectors.toList());
 
-		Link self = linkTo(methodOn(ClientController.class).getClients()).withSelfRel();
+		Link link = linkTo(methodOn(ClientController.class).getConsultations(id)).withSelfRel();
+		return ConsultationResource.getConsultations(consultations, link);
+	}
 
-		return ResponseEntity.ok(ClientResource.getClients(clients, self));
+
+	@GetMapping(path = "/{id}/pet/treatment", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
+	public Resources<TreatmentResource> getTreatment(@PathVariable int id){
+		List<Treatment> treatment = this.getPets(id)
+				.getContent()
+				.stream()
+				.map(Resource::getContent)
+				.flatMap(p -> p.getTreatments().stream())
+				.collect(Collectors.toList());
+
+		Link link = linkTo(methodOn(ClientController.class).getConsultations(id)).withSelfRel();
+		return TreatmentResource.getTreatments(treatment, link);
+	}
+
+	@GetMapping(path = "/{id}/pets/procedure", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
+	public ProcedureResource getProcedures(@PathVariable int id){
+
+		Resources<TreatmentResource> treatmentResources = this.getTreatment(id);
+		Resources<ConsultationResource> consultationResources = this.getConsultations(id);
+
+		Link self = linkTo(methodOn(ClientController.class).getProcedures(id)).withSelfRel();
+		return new ProcedureResource(treatmentResources, consultationResources, self);
+
+	}
+
+	private class ProcedureResource extends ResourceSupport {
+
+		private final Resources<TreatmentResource> treatmentResources;
+		private final Resources<ConsultationResource> consultationResources;
+
+		private ProcedureResource(Resources<TreatmentResource> treatmentResources, Resources<ConsultationResource> consultationResources,
+								  Link self) {
+			this.treatmentResources = treatmentResources;
+			this.consultationResources = consultationResources;
+			this.add(self);
+		}
+
+		public Resources<TreatmentResource> getTreatmentResources() {
+			return treatmentResources;
+		}
+
+		public Resources<ConsultationResource> getConsultationResources() {
+			return consultationResources;
+		}
+	}
+
+
+	@Override
+	protected ClientResource getResource(Client obj) {
+		return new ClientResource(obj);
+	}
+
+	@Override
+	protected Resources<ClientResource> getResources(List<Client> obj, Link self) {
+		List<ClientResource> clients = obj
+				.stream()
+				.map(ClientResource::new)
+				.collect(Collectors.toList());
+
+		return new Resources<>(clients, self);
 	}
 }

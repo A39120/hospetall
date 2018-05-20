@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HosPetAll</string>
+    <string name="authority">localhost:8081</string>
+    <string name="protocol">http</string>
+</resources>
