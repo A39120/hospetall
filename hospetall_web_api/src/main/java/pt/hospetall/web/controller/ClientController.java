@@ -6,10 +6,8 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import pt.hospetall.web.controller.base.AbstractGenericController;
 import pt.hospetall.web.model.Client;
 import pt.hospetall.web.model.Consultation;
@@ -20,6 +18,7 @@ import pt.hospetall.web.resource.ConsultationResource;
 import pt.hospetall.web.resource.PetResource;
 import pt.hospetall.web.resource.TreatmentResource;
 
+import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -121,4 +120,21 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 
 		return new Resources<>(clients, self);
 	}
+
+
+	@PostMapping()
+	ResponseEntity<?> add(@RequestBody Client input) {
+
+		return repo.findClientByNif(input.getNif())
+				.map(account -> ResponseEntity
+						.created(
+								URI.create(
+										new ClientResource(
+												repo.save(input))
+												.getLink("self").getHref()))
+						.build())
+				.orElse(ResponseEntity.noContent().build());
+	}
+
+
 }
