@@ -1,7 +1,9 @@
 import React from 'react'
 import InfoCli from './info-cli'
 import WaitingRoom from './waiting-room'
-import ClientAndPet from './client-pet'
+import Client from './client'
+import Pet from './pet'
+import Product from './product'
 
 const FetchStates = {
     loading: 'loading',
@@ -30,10 +32,16 @@ export default class extends React.Component {
         switch (this.props.fetchState) {
             case FetchStates.waitingRoom:
                 return this.renderWaitingRoom()
+            case FetchStates.appointment:
+                return this.renderAppointment()
             case FetchStates.client:
                 return this.renderClient()
             case FetchStates.pet:
                 return this.renderPet()
+            case FetchStates.product:
+                return this.renderProducts()
+            case FetchStates.configs:
+                return this.renderConfigs()
         }
     }
 
@@ -45,12 +53,18 @@ export default class extends React.Component {
         )
     }
 
+    renderAppointment () {
+        return (
+            <div>Marcações</div>
+        )
+    }
+
     renderClient() {
         const info = {label: 'Registar cliente'}
         
         return ( 
             <div>
-                <ClientAndPet info={info}/>
+                <Client info={info}/>
             </div>
         )    
     }
@@ -60,9 +74,21 @@ export default class extends React.Component {
         
         return ( 
             <div>
-                <ClientAndPet info={info}/>
+                <Pet info={info}/>
             </div>
         )    
+    }
+
+    renderProducts () {
+        return (
+            <div><Product /></div>
+        )
+    }
+
+    renderConfigs () {
+        return (
+            <div>Configurações</div>
+        )
     }
 }
 
