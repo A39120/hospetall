@@ -1,5 +1,6 @@
 package mobile.hospetall.ps.isel.hospetallmobile.models
 
+import mobile.hospetall.ps.isel.hospetallmobile.getLinks
 import org.json.JSONObject
 import java.sql.Date
 
@@ -8,28 +9,26 @@ data class Pet(
         val name: String,
         val species: String?,
         val race: String?,
-        val birthdate: Date?,
+        val birthdate: String?,
         val chipNumber: Int,
         val licenceNumber: Int,
-        val consultations: Array<Consultation>?,
-        val treatments: Array<Treatment>?
+        val consultationUri: String?,
+        val treatmentUri: String?
 )
 
-fun parsePet(json : JSONObject) : Pet{
-    val links = json.getJSONObject("_links")
-    val pet = json.getJSONObject("pet")
+fun parsePet(pet: JSONObject) : Pet{
+    val links = pet.getLinks()
 
     val id = pet.getInt("id")
     val name = pet.getString("name")
-    val birthdate = pet.getString("birthdate")
-    val chipNumber = pet.getInt("chip_number")
-    val licenceNumber = pet.getInt("license_number")
+    val birthdate = pet.optString("birthdate")
+    val chipNumber = pet.optInt("chip_number")
+    val licenceNumber = pet.optInt("license_number")
     //val species =
     //val races =
 
-    val consultationsUri = links.getJSONObject("consultations").getString("href")
-    val treatmentUri = links.getJSONObject("treatments").getString("href")
+    val consultationsUri : String? = links.optJSONObject("consultations")?.getString("href")
+    val treatmentUri : String? = links.optJSONObject("treatments")?.getString("href")
 
-    return Pet(id, name, null, null, Date.valueOf(birthdate), chipNumber, licenceNumber)
-
+    return Pet(id, name, null, null, birthdate, chipNumber, licenceNumber, consultationsUri, treatmentUri)
 }
