@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent">
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/home"
+        android:onClick="goToHomeActivity"
+        />
+
+    <item
+        android:id="@+id/pets"
+        android:title="@string/pets">
+        <menu>
+            <item
+                android:id="@+id/all_pets"
+                android:title="@string/all_pets"
+                android:onClick="goToPetListActivity"/>
+
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/procedures"
+        android:title="@string/procedures">
+        <menu>
+            <item
+                android:id="@+id/all_procedures"
+                android:title="@string/all_procedures"/>
+
+            <item
+                android:id="@+id/consultation"
+                android:title="@string/consultation"/>
+
+            <item
+                android:id="@+id/treatment"
+                android:title="@string/treatment"/>
+        </menu>
+    </item>
+
+
+
+    <item
+        android:id="@+id/schedule"
+        android:title="@string/schedule"/>
+
+    <item
+        android:id="@+id/profile"
+        android:title="@string/profile"/>
+
+    <item
+        android:id = "@+id/settings"
+        android:title="@string/settings"/>
+
+</menu>
