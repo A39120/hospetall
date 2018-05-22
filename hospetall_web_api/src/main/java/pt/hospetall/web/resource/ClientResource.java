@@ -14,11 +14,13 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Relation(value = "client", collectionRelation = "client")
-public class ClientResource extends Resource<Client> {
+public class ClientResource extends ResourceSupport {
 
+	private final Client client;
 
 	public ClientResource(Client client){
-		super(client, getLinks(client));
+		this.client = client;
+		this.add(getLinks(client));
 	}
 
 	private static List<Link> getLinks(Client client){
