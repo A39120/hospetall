@@ -5,6 +5,6 @@ import org.json.JSONObject
 
 class StringAccess(queue: RequestQueue) : AbstractAccess<String>(queue) {
 
-    override fun parse(json: JSONObject) = json.getString("name")
+    override fun parse(json: JSONObject) = json.optString("name")
 
 }

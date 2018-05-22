@@ -9,7 +9,7 @@ data class Pet(
         val name: String,
         val species: String?,
         val race: String?,
-        val birthdate: String?,
+        val birthDate: String?,
         val chipNumber: Int,
         val licenceNumber: Int,
         val consultationUri: String?,
@@ -21,7 +21,7 @@ fun parsePet(pet: JSONObject) : Pet{
 
     val id = pet.getInt("id")
     val name = pet.getString("name")
-    val birthdate = pet.optString("birthdate")
+    val birthDate = pet.optString("birthdate")
     val chipNumber = pet.optInt("chip_number")
     val licenceNumber = pet.optInt("license_number")
     //val species =
@@ -30,5 +30,5 @@ fun parsePet(pet: JSONObject) : Pet{
     val consultationsUri : String? = links.optJSONObject("consultations")?.getString("href")
     val treatmentUri : String? = links.optJSONObject("treatments")?.getString("href")
 
-    return Pet(id, name, null, null, birthdate, chipNumber, licenceNumber, consultationsUri, treatmentUri)
+    return Pet(id, name, null, null, birthDate, chipNumber, licenceNumber, consultationsUri, treatmentUri)
 }

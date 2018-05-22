@@ -9,5 +9,4 @@ class ConsultationAccess(queue: RequestQueue)
     : AbstractAccess<Consultation>(queue) {
 
     override fun parse(json: JSONObject): Consultation = parseConsultation(json)
-
 }

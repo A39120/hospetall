@@ -17,7 +17,7 @@ abstract class AbstractAccess<T> (private val queue: RequestQueue){
         getCollectionFromUri(uri, property, onSuccess, onError)
     }
 
-    fun getFromUri(
+    private fun getFromUri(
             uri: Uri,
             onSuccess: Response.Listener<T>,
             onError: Response.ErrorListener)
@@ -35,7 +35,7 @@ abstract class AbstractAccess<T> (private val queue: RequestQueue){
 
 
 
-    fun getCollectionFromUri(
+    private fun getCollectionFromUri(
                                      uri: Uri,
                                      property: String,
                                      onSuccess: Response.Listener<List<T>>,

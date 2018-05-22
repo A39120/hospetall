@@ -1,13 +1,14 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatDialogFragment
+import mobile.hospetall.ps.isel.hospetallmobile.R
 
-
-class NoConnectionFragment  : AppCompatDialogFragment() {
+class SingleConsultationActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.procedure_item)
 
     }
+
 }

@@ -9,6 +9,4 @@ class ClientAccess(queue: RequestQueue) : AbstractAccess<Client>(queue) {
 
     override fun parse(json: JSONObject) = parseClient(json)
 
-
-
 }

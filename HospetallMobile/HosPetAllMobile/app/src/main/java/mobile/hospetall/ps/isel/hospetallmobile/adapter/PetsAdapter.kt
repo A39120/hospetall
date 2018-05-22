@@ -96,21 +96,21 @@ class PetsAdapter(
     }
 
     private fun adaptPetDetailLayout(pet : Pet, holder:PetHolder) = holder.detail.apply {
-        if(pet.birthdate == null) {
+        if(pet.birthDate == null) {
             birthDateLabel.visibility = View.GONE
             birthDate.visibility = View.GONE
         } else
-            birthDate.text = pet.birthdate
+            birthDate.text = pet.birthDate
 
         if(pet.race == null){
             raceLabel.visibility = View.GONE
             race.visibility = View.GONE
-        } else race.text = pet.birthdate
+        } else race.text = pet.race
 
         if(pet.species == null){
             speciesLabel.visibility = View.GONE
             species.visibility = View.GONE
-        } else species.text = pet.birthdate
+        } else species.text = pet.species
 
         Log.i("ACCESS/PET_LIST", "Chip number displayed: ${pet.chipNumber}")
         chip.text = pet.chipNumber.toString()

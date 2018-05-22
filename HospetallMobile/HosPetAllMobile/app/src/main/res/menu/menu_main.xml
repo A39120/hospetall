@@ -16,7 +16,6 @@
                 android:id="@+id/all_pets"
                 android:title="@string/all_pets"
                 android:onClick="goToPetListActivity"/>
-
         </menu>
     </item>
 
@@ -26,30 +25,34 @@
         <menu>
             <item
                 android:id="@+id/all_procedures"
-                android:title="@string/all_procedures"/>
+                android:title="@string/all_procedures"
+                android:onClick="goToProcedures"/>
 
             <item
                 android:id="@+id/consultation"
-                android:title="@string/consultation"/>
+                android:title="@string/consultation"
+                android:onClick="goToConsultations"/>
 
             <item
                 android:id="@+id/treatment"
-                android:title="@string/treatment"/>
+                android:title="@string/treatment"
+                android:onClick="goToTreatment"/>
         </menu>
     </item>
 
-
-
     <item
         android:id="@+id/schedule"
-        android:title="@string/schedule"/>
+        android:title="@string/schedule"
+        android:onClick="goToSchedule"/>
 
     <item
         android:id="@+id/profile"
-        android:title="@string/profile"/>
+        android:title="@string/profile"
+        android:onClick="goToProfile"/>
 
     <item
         android:id = "@+id/settings"
-        android:title="@string/settings"/>
+        android:title="@string/settings"
+        android:onClick="goToSettings"/>
 
 </menu>
