@@ -121,12 +121,10 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 		return new Resources<>(clients, self);
 	}
 
-
-	@PostMapping()
-	ResponseEntity<?> add(@RequestBody Client input) {
-
+	@PostMapping
+	public ResponseEntity<?> add(@RequestBody Client input) {
 		return repo.findClientByNif(input.getNif())
-				.map(account -> ResponseEntity
+				.map(client -> ResponseEntity
 						.created(
 								URI.create(
 										new ClientResource(
@@ -135,6 +133,5 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 						.build())
 				.orElse(ResponseEntity.noContent().build());
 	}
-
 
 }
