@@ -7,8 +7,11 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pt.hospetall.web.model.Client;
 import pt.hospetall.web.model.base.BaseEntity;
+import pt.hospetall.web.resource.ClientResource;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,6 +63,13 @@ public abstract class AbstractGenericController<T extends BaseEntity,
 		return getResources(list, self);
 	}
 
+	@PostMapping
+	public ResponseEntity<?> add(@RequestBody T entity) {
+		return checkIfExists(entity).map(
+				res -> ResponseEntity.created(URI.create(getResource(repo.save(res)).getLink("self").getHref())).build())
+				.orElse(ResponseEntity.noContent().build());
+	}
 
+	abstract Optional<T> checkIfExists(T entity);
 
 }

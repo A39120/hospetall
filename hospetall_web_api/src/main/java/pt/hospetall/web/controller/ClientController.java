@@ -123,7 +123,8 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 
 	@PostMapping
 	public ResponseEntity<?> add(@RequestBody Client input) {
-		return repo.findClientByNif(input.getNif())
+		return repo
+				.findClientByNif(input.getNif())
 				.map(client -> ResponseEntity
 						.created(
 								URI.create(
