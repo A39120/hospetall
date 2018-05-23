@@ -16,6 +16,10 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Relation(value = "client", collectionRelation = "client")
 public class ClientResource extends ResourceSupport {
 
+	public Client getClient() {
+		return client;
+	}
+
 	private final Client client;
 
 	public ClientResource(Client client){
