@@ -12,6 +12,8 @@ import pt.hospetall.web.controller.base.AbstractGenericController;
 import pt.hospetall.web.model.Race;
 import pt.hospetall.web.repository.IRaceRepository;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path = "/race")
 public class RaceController extends AbstractGenericController<Race, IRaceRepository, Resource<Race>> {
@@ -29,4 +31,8 @@ public class RaceController extends AbstractGenericController<Race, IRaceReposit
 		return null;
 	}
 
+	@Override
+	public Optional<Race> checkIfExists(Race entity) {
+		return Optional.empty();
+	}
 }

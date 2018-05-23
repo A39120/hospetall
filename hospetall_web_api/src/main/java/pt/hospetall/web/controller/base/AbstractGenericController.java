@@ -3,6 +3,7 @@ package pt.hospetall.web.controller.base;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 public abstract class AbstractGenericController<T extends BaseEntity,
 		R extends JpaRepository<T, Integer>,
-		U extends Resource<T>> {
+		U extends ResourceSupport> {
 
 	protected final R repo;
 	private final Class<?> klass;
@@ -66,10 +67,12 @@ public abstract class AbstractGenericController<T extends BaseEntity,
 	@PostMapping
 	public ResponseEntity<?> add(@RequestBody T entity) {
 		return checkIfExists(entity).map(
-				res -> ResponseEntity.created(URI.create(getResource(repo.save(res)).getLink("self").getHref())).build())
+				res -> ResponseEntity.created(
+						URI.create(
+								getResource(repo.save(res)).getLink("self").getHref())).build())
 				.orElse(ResponseEntity.noContent().build());
 	}
 
-	abstract Optional<T> checkIfExists(T entity);
+	public abstract Optional<T> checkIfExists(T entity);
 
 }

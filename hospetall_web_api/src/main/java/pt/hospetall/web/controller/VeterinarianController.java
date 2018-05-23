@@ -8,6 +8,8 @@ import pt.hospetall.web.controller.base.AbstractGenericController;
 import pt.hospetall.web.model.Veterinarian;
 import pt.hospetall.web.repository.IVeterinarianRepository;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path="/vet")
 public class VeterinarianController extends AbstractGenericController<Veterinarian, IVeterinarianRepository, Resource<Veterinarian>> {
@@ -17,4 +19,8 @@ public class VeterinarianController extends AbstractGenericController<Veterinari
 		super(veterinarianRepository, VeterinarianController.class);
 	}
 
+	@Override
+	public Optional<Veterinarian> checkIfExists(Veterinarian entity) {
+		return repo.findByEmail(entity.getEmail());
+	}
 }

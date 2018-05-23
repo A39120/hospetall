@@ -6,7 +6,6 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.hospetall.web.controller.base.AbstractGenericController;
 import pt.hospetall.web.model.Client;
@@ -18,7 +17,6 @@ import pt.hospetall.web.resource.ConsultationResource;
 import pt.hospetall.web.resource.PetResource;
 import pt.hospetall.web.resource.TreatmentResource;
 
-import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -121,18 +119,8 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 		return new Resources<>(clients, self);
 	}
 
-	@PostMapping
-	public ResponseEntity<?> add(@RequestBody Client input) {
-		return repo
-				.findClientByNif(input.getNif())
-				.map(client -> ResponseEntity
-						.created(
-								URI.create(
-										new ClientResource(
-												repo.save(input))
-												.getLink("self").getHref()))
-						.build())
-				.orElse(ResponseEntity.noContent().build());
+	@Override
+	public Optional<Client> checkIfExists(Client entity) {
+		return repo.findClientByNif(entity.getNif());
 	}
-
 }
