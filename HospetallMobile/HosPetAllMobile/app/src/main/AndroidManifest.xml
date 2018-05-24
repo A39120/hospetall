@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.PetsListActivity"/>
+        <activity android:name=".activities.PetsListActivity" />
+        <activity android:name=".activities.PetActivity"></activity>
     </application>
 
 </manifest>
