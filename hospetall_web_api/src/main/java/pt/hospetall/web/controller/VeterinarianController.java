@@ -11,7 +11,7 @@ import pt.hospetall.web.repository.IVeterinarianRepository;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path="/vet")
+@RequestMapping(path="/veterinarian")
 public class VeterinarianController extends AbstractGenericController<Veterinarian, IVeterinarianRepository, Resource<Veterinarian>> {
 
 	@Autowired

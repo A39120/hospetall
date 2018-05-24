@@ -2,6 +2,7 @@ package pt.hospetall.web.controller;
 
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resources;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pt.hospetall.web.controller.base.AbstractGenericController;
 import pt.hospetall.web.model.Treatment;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(path = "/treatment")
 public class TreatmentController extends AbstractGenericController<Treatment, ITreatmentRepository, TreatmentResource> {
 
 	protected TreatmentController(ITreatmentRepository repo) {

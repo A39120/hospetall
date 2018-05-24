@@ -71,7 +71,7 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 		return TreatmentResource.getTreatments(treatment, link);
 	}
 
-	@GetMapping(path = "/{id}/pets/procedure", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
+	@GetMapping(path = "/{id}/pet/procedure", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
 	public ProcedureResource getProcedures(@PathVariable int id){
 
 		Resources<TreatmentResource> treatmentResources = this.getTreatment(id);
