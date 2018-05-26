@@ -3,16 +3,15 @@ package pt.hospetall.web.controller;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pt.hospetall.web.controller.base.AbstractGenericController;
 import pt.hospetall.web.model.Consultation;
 import pt.hospetall.web.model.Pet;
+import pt.hospetall.web.model.Treatment;
 import pt.hospetall.web.repository.IPetRepository;
 import pt.hospetall.web.resource.ConsultationResource;
 import pt.hospetall.web.resource.PetResource;
+import pt.hospetall.web.resource.TreatmentResource;
 
 import java.util.List;
 import java.util.Set;
@@ -28,8 +27,7 @@ public class PetController extends AbstractGenericController<Pet, IPetRepository
 		super(petRepository, PetController.class);
 	}
 
-	@RequestMapping(method = RequestMethod.GET,
-			path = "/{id}/consultation",
+	@GetMapping(path = "/{id}/consultation",
 			produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
 	public Resources<ConsultationResource> getPetConsultations(@PathVariable int id) {
 		Set<Consultation> consultations = this
@@ -39,6 +37,18 @@ public class PetController extends AbstractGenericController<Pet, IPetRepository
 
 		Link self = linkTo(methodOn(PetController.class).getPetConsultations(id)).withSelfRel();
 		return ConsultationResource.getConsultations(consultations, self);
+	}
+
+	@GetMapping(path = "/{id}/treatment",
+			produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
+	public Resources<TreatmentResource> getPetTreatments(@PathVariable int id) {
+		Set<Treatment> threatments = this
+				.get(id)
+				.getContent()
+				.getTreatments();
+
+		Link self = linkTo(methodOn(PetController.class).getPetTreatments(id)).withSelfRel();
+		return TreatmentResource.getTreatments(threatments, self);
 	}
 
 	@Override
