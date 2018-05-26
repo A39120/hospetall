@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.PetActivity">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:textAlignment="center"
+        android:textSize="@dimen/title_size" />
+
+    <include
+        android:layout_below="@+id/name"
+        android:id="@+id/pet_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/pet_detail_layout"/>
+
+    <include
+        android:layout_below="@+id/pet_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/consultation"
+        layout="@layout/standard_list"/>
+
+    <include
+        android:layout_below="@+id/consultation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/treatment"
+        layout="@layout/standard_list"/>
+
+    <include
+        android:layout_below="@+id/treatment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/schedule"
+        layout="@layout/standard_list"/>
+
+</RelativeLayout>

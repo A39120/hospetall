@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/consultation_title"
+        android:text="@string/consultation"
+        android:textSize="@dimen/title_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_below="@+id/consultation_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/pet"
+        android:layout_below="@+id/consultation_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/symptoms_label"
+        android:text="@string/symptoms_label"
+        android:layout_below="@+id/pet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/symptoms"
+        android:layout_below="@+id/symptoms_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/diagnosis_label"
+        android:text="@string/diagnosis_label"
+        android:layout_below="@+id/symptoms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/diagnosis"
+        android:layout_below="@+id/diagnosis_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/treatment_label"
+        android:text="@string/treatment_label"
+        android:layout_below="@+id/diagnosis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/treatment"
+        android:layout_below="@+id/treatment_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

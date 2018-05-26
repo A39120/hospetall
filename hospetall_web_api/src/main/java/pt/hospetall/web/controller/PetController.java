@@ -14,6 +14,7 @@ import pt.hospetall.web.resource.PetResource;
 import pt.hospetall.web.resource.TreatmentResource;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -59,5 +60,10 @@ public class PetController extends AbstractGenericController<Pet, IPetRepository
 	@Override
 	protected Resources<PetResource> getResources(List<Pet> obj, Link self) {
 		return PetResource.getResources(obj, self);
+	}
+
+	@Override
+	public Optional<Pet> checkIfExists(Pet entity) {
+		return Optional.empty();
 	}
 }

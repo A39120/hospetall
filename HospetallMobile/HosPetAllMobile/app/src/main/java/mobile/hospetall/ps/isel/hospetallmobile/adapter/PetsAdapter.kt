@@ -3,11 +3,20 @@ package mobile.hospetall.ps.isel.hospetallmobile.adapter
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import android.content.Context
+import android.content.Intent
+import android.os.Parcel
+import android.os.Parcelable
+import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import mobile.hospetall.ps.isel.hospetallmobile.activities.ConsultationListActivity
+import mobile.hospetall.ps.isel.hospetallmobile.activities.PetActivity
+import mobile.hospetall.ps.isel.hospetallmobile.layout.PetDetailHolder
+import mobile.hospetall.ps.isel.hospetallmobile.layout.adaptPetDetailLayout
+import mobile.hospetall.ps.isel.hospetallmobile.layout.getPetDetailHolder
 import mobile.hospetall.ps.isel.hospetallmobile.view.ExtendedRelativeLayout
 
 class PetsAdapter(
@@ -23,34 +32,24 @@ class PetsAdapter(
 
         if(view == null) {
             val nameView = rowView.findViewById<TextView>(R.id.name)
-            val expand = rowView.findViewById<Button>(R.id.expand)
+            //val expand = rowView.findViewById<Button>(R.id.expand)
             val detail = rowView.findViewById<ExtendedRelativeLayout>(R.id.pet_details)
-            val birthDateLabel = detail .findViewById<TextView>(R.id.birth_label)
-            val birthDateView = detail .findViewById<TextView>(R.id.pet_birth_date)
-            val raceLabel = detail .findViewById<TextView>(R.id.race_label)
-            val raceView = detail .findViewById<TextView>(R.id.race)
-            val speciesLabel = detail .findViewById<TextView>(R.id.species_label)
-            val speciesView = detail .findViewById<TextView>(R.id.species)
-            val chipLabel = detail .findViewById<TextView>(R.id.chip_label)
-            val chipView = detail .findViewById<TextView>(R.id.chip_number)
-            val consultationButton = detail .findViewById<Button>(R.id.consultation_button)
-            val treatmentButton = detail .findViewById<Button>(R.id.treatment_button)
 
-            val listHolder = PetListHolder(nameView, expand, detail)
-            val detailHolder = PetDetailHolder(birthDateLabel, birthDateView, raceLabel, raceView, speciesLabel, speciesView, chipLabel, chipView, consultationButton, treatmentButton)
+            val listHolder = PetListHolder(nameView, detail)
+            val detailHolder = getPetDetailHolder(detail)
+
             rowView.tag = PetHolder(listHolder, detailHolder, pets[position])
         }
 
         val holder = rowView.tag as PetHolder
         //adaptPetDetailLayout(pets[position], holder)
 
-        holder.list.apply {
-            name.text = pets[position].name
-            expand.setOnClickListener {
-                when(holder.list.detail.visibility){
-                    View.GONE -> { onExpand(holder, pets[position]) }
-                    View.VISIBLE -> { onMinimize(holder) }
-                }
+
+        holder.list.name.text = pets[position].name
+        holder.list.name.setOnClickListener {
+            when(holder.list.detail.visibility){
+                View.GONE -> { onExpand(holder, pets[position]) }
+                View.VISIBLE -> { onMinimize(holder) }
             }
         }
 
@@ -58,21 +57,7 @@ class PetsAdapter(
     }
 
     data class PetListHolder(val name: TextView,
-                             val expand: Button,
                              val detail: ExtendedRelativeLayout
-    )
-
-    data class PetDetailHolder(
-            val birthDateLabel: TextView,
-            val birthDate: TextView,
-            val raceLabel: TextView,
-            val race: TextView,
-            val speciesLabel: TextView,
-            val species: TextView,
-            val chipLabel: TextView,
-            val chip: TextView,
-            val consultation: Button,
-            val treatment: Button
     )
 
     data class PetHolder(
@@ -81,43 +66,22 @@ class PetsAdapter(
             val pet: Pet
     )
 
-
     private fun onExpand(holder: PetHolder, pet: Pet){
         Log.i("ACCESS/PET_LIST", "Showing pet detail.")
-        holder.list.detail.afterVisible = {  adaptPetDetailLayout(pet, holder) }
+        holder.list.detail.afterVisible = {  adaptPetDetailLayout(pet, holder.detail) }
+        holder.list.detail.setOnClickListener {
+            val int = Intent(this.context, PetActivity::class.java)
+            int.putExtra("pet", pet)
+            startActivity(this.context, int, null)
+        }
         holder.list.detail.visibility = View.VISIBLE
-        holder.list.expand.text="Close"//"\uf07c"
     }
 
     private fun onMinimize(holder: PetHolder) {
         Log.i("ACCESS/PET_LIST", "Minimizing pet detail.")
         holder.list.detail.visibility = View.GONE
-        holder.list.expand.text="\uf07b"
     }
 
-    private fun adaptPetDetailLayout(pet : Pet, holder:PetHolder) = holder.detail.apply {
-        if(pet.birthDate == null) {
-            birthDateLabel.visibility = View.GONE
-            birthDate.visibility = View.GONE
-        } else
-            birthDate.text = pet.birthDate
-
-        if(pet.race == null){
-            raceLabel.visibility = View.GONE
-            race.visibility = View.GONE
-        } else race.text = pet.race
-
-        if(pet.species == null){
-            speciesLabel.visibility = View.GONE
-            species.visibility = View.GONE
-        } else species.text = pet.species
-
-        Log.i("ACCESS/PET_LIST", "Chip number displayed: ${pet.chipNumber}")
-        chip.text = pet.chipNumber.toString()
-
-        consultation.visibility = if(pet.consultationUri == null) View.GONE else  View.VISIBLE
-        treatment.visibility =  if(pet.treatmentUri == null) View.GONE else View.VISIBLE
-
-    }
-
+    override fun getItemViewType(position: Int) = position
+    override fun getItemId(position: Int) = position as Long
 }

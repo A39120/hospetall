@@ -1,6 +1,5 @@
 package pt.hospetall.web.resource;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;

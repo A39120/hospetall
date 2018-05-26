@@ -6,7 +6,6 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pt.hospetall.web.controller.base.AbstractGenericController;
 import pt.hospetall.web.model.Client;
@@ -18,7 +17,6 @@ import pt.hospetall.web.resource.ConsultationResource;
 import pt.hospetall.web.resource.PetResource;
 import pt.hospetall.web.resource.TreatmentResource;
 
-import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -73,7 +71,7 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 		return TreatmentResource.getTreatments(treatment, link);
 	}
 
-	@GetMapping(path = "/{id}/pets/procedure", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
+	@GetMapping(path = "/{id}/pet/procedure", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
 	public ProcedureResource getProcedures(@PathVariable int id){
 
 		Resources<TreatmentResource> treatmentResources = this.getTreatment(id);
@@ -122,22 +120,8 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 		return new Resources<>(clients, self);
 	}
 
-/*	@PostMapping
-	public ResponseEntity<?> add(@RequestBody Client input) {
-		return repo
-				.findClientByNif(input.getNif())
-				.map(client -> ResponseEntity
-						.created(
-								URI.create(
-										new ClientResource(
-												repo.save(input))
-												.getLink("self").getHref()))
-						.build())
-				.orElse(ResponseEntity.noContent().build());
-	}
-*/
-
-	public Optional<Client> checkConstraints(Client client){
-		return repo.findClientByNif(client.getNif());
+	@Override
+	public Optional<Client> checkIfExists(Client entity) {
+		return repo.findClientByNif(entity.getNif());
 	}
 }

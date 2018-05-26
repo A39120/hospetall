@@ -7,22 +7,20 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.R
 
-abstract class BaseAdapter<T>(baseContext: Context, resId: Int, objects: Array<T>)
+abstract class BaseAdapter<T>(baseContext: Context, private val resId: Int, private val objects: Array<T>)
     :ArrayAdapter<T>(baseContext, resId, objects)
 {
-
     private val inflater = LayoutInflater.from(context)
-
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val rowView = view ?: inflater.inflate(R.layout.procedure_item, parent, false)
+        val rowView = view ?: inflater.inflate(resId, parent, false)
 
         if (view == null) {
             saveToHolder(rowView)
         }
-        return manipulateItem(rowView)
+        return manipulateItem(rowView, objects[position])
     }
 
     abstract fun saveToHolder(rowView: View)
-    abstract fun manipulateItem(rowView: View) : View
+    abstract fun manipulateItem(rowView: View, obj : T) : View
 
 }

@@ -47,13 +47,14 @@ abstract class AbstractAccess<T> (private val queue: RequestQueue){
                         uri.toString(),
                         null,
                         Response.Listener {
-                            val jsonArr = it.getJSONObject(embedded)
-                                    .getJSONArray(property)
+                            val jsonArr = it.optJSONObject(embedded)?.optJSONArray(property)
+                            if(jsonArr != null) {
+                                val list =
+                                        List(jsonArr.length(), { jsonArr.get(it) as JSONObject })
+                                                .map { parse(it) }
 
-                            val list = List(jsonArr.length(), { jsonArr.get(it) as JSONObject })
-                                    .map { parse(it) }
-
-                            onSuccess.onResponse(list)
+                                onSuccess.onResponse(list)
+                            }
                         },
                         onError
                 )

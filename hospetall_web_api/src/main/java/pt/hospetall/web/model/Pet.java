@@ -35,6 +35,7 @@ public class Pet extends NameBaseEntity {
 	@JsonIgnore
 	private Set<Treatment> treatments = new HashSet<>();
 
+
 	public Set<Consultation> getConsultations() {
 		return consultations;
 	}
