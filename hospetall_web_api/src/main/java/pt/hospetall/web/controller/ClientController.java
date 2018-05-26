@@ -108,6 +108,7 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 
 	@Override
 	protected ClientResource getResource(Client obj) {
+
 		return new ClientResource(obj);
 	}
 
@@ -121,7 +122,7 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 		return new Resources<>(clients, self);
 	}
 
-	@PostMapping
+/*	@PostMapping
 	public ResponseEntity<?> add(@RequestBody Client input) {
 		return repo
 				.findClientByNif(input.getNif())
@@ -134,5 +135,9 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 						.build())
 				.orElse(ResponseEntity.noContent().build());
 	}
+*/
 
+	public Optional<Client> checkConstraints(Client client){
+		return repo.findClientByNif(client.getNif());
+	}
 }

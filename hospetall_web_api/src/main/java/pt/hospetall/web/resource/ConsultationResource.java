@@ -9,6 +9,7 @@ import pt.hospetall.web.controller.ConsultationController;
 import pt.hospetall.web.controller.PetController;
 import pt.hospetall.web.controller.VeterinarianController;
 import pt.hospetall.web.model.Consultation;
+import pt.hospetall.web.model.Treatment;
 import pt.hospetall.web.model.Veterinarian;
 
 import java.util.Collection;
