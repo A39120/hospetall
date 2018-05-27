@@ -15,7 +15,8 @@ export default class extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            fetchState: FetchStates[0].state
+            fetchState: FetchStates[0].state,
+            urls: this.props.parts.map(p => p.url)
         }
         this.handleDetailPageChange = this.handleDetailPageChange.bind(this)   
     }
@@ -32,7 +33,7 @@ export default class extends React.Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-2"><Menu parts={this.props.parts} onClick={this.handleDetailPageChange}/></div>
-                    <div className="col-md-10"><DetailedPage fetchState={this.state.fetchState}/></div>
+                    <div className="col-md-10"><DetailedPage fetchState={this.state.fetchState} urls={this.state.urls}/></div>
                 </div>
             </div>
         )
