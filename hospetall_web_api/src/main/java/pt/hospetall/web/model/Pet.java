@@ -16,11 +16,11 @@ public class Pet extends NameBaseEntity {
 	private Client owner;
 
 	@ManyToOne
-	@JsonIgnore
+	//@JsonIgnore
 	private Race race;
 
 	@ManyToOne
-	@JsonIgnore
+	//@JsonIgnore
 	private Species species;
 
 	private Date birthdate;
@@ -60,16 +60,16 @@ public class Pet extends NameBaseEntity {
 		this.owner = owner;
 	}
 
-	public Race getRace() {
-		return race;
+	public String getRace() {
+		return race.getName();
 	}
 
 	public void setRace(Race race) {
 		this.race = race;
 	}
 
-	public Species getSpecies() {
-		return species;
+	public String getSpecies() {
+		return species.getName();
 	}
 
 	public void setSpecies(Species species) {
