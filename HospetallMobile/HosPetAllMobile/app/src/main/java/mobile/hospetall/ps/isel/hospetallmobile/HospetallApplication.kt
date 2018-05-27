@@ -25,4 +25,4 @@ val Application.requestQueue : RequestQueue
     get() = (this as HospetallApplication).rQueue
 
 val Application.baseUri : Uri.Builder
-    get() = (getBaseUri(resources.getString(R.string.authority)))
+    get() = (getBaseUri(resources))

@@ -11,6 +11,7 @@ import pt.hospetall.web.repository.IConsultationRepository;
 import pt.hospetall.web.resource.ConsultationResource;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -34,4 +35,8 @@ public class ConsultationController extends AbstractGenericController<Consultati
 		return ConsultationResource.getConsultations(obj, self);
 	}
 
+	@Override
+	public Optional<Consultation> checkIfExists(Consultation entity) {
+		return null;
+	}
 }

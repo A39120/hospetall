@@ -6,6 +6,7 @@ import pt.hospetall.web.model.Pet;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 @MappedSuperclass
 public abstract class MedicalProcedure extends BaseEntity{
@@ -19,6 +20,16 @@ public abstract class MedicalProcedure extends BaseEntity{
 	private String diagnosis;
 	private String treatment;
 	private String observations;
+
+	private Date date;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date){
+		this.date = date;
+	}
 
 	public Pet getPet() {
 		return pet;

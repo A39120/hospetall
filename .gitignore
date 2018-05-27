@@ -1,3 +1,4 @@
-/hospetall_web_api/src/main/resources/*
+hospetall_web_api/src/main/resources/*
 # Ignore InteliJ metadata
 .idea
+database/initdb.sh

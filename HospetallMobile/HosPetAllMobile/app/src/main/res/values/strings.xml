@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">HosPetAll</string>
-    <string name="authority">10.10.5.150</string>
+    <string name="authority">10.10.1.57</string>
     <string name="protocol">http</string>
     <string name="home">Home</string>
     <string name="schedule">Schedule</string>
@@ -18,4 +18,7 @@
     <string name="race_label">Race:</string>
     <string name="species_label">Species:</string>
     <string name="chip_number_label">Chip Number:</string>
+    <string name="symptoms_label">Symptoms</string>
+    <string name="diagnosis_label">Diagnosis</string>
+    <string name="treatment_label">Recommended Treatment</string>
 </resources>
