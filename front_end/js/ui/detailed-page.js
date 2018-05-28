@@ -18,6 +18,9 @@ const FetchStates = {
 export default class extends React.Component {
     constructor (props) {
         super(props)
+        this.state = {
+            urls: this.props.urls
+        }
     }
     
     render () {
@@ -60,11 +63,9 @@ export default class extends React.Component {
     }
 
     renderClient() {
-        const info = {label: 'Registar cliente'}
-        
         return ( 
             <div>
-                <Client info={info}/>
+                <Client url={this.state.urls[2]}/>
             </div>
         )    
     }
