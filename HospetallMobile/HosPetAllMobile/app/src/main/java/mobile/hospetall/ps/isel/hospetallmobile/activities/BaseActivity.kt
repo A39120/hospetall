@@ -37,6 +37,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun goToTreatment(item: MenuItem) : Boolean {
+
         return true
     }
 
@@ -48,6 +49,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun goToProfile(item: MenuItem) : Boolean {
+
         return true
     }
 

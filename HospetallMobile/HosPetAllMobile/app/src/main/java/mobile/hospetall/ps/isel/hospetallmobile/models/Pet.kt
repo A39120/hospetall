@@ -2,6 +2,7 @@ package mobile.hospetall.ps.isel.hospetallmobile.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import mobile.hospetall.ps.isel.hospetallmobile.getLink
 import mobile.hospetall.ps.isel.hospetallmobile.getLinks
 import org.json.JSONObject
 import java.sql.Date
@@ -64,11 +65,11 @@ fun parsePet(pet: JSONObject) : Pet{
     val birthDate = pet.optString("birthdate")
     val chipNumber = pet.optInt("chip_number")
     val licenceNumber = pet.optInt("license_number")
-    //val species =
-    //val races =
+    val species = pet.optString("species")
+    val race = pet.optString("race")
 
     val consultationsUri : String? = links.optJSONObject("consultations")?.getString("href")
     val treatmentUri : String? = links.optJSONObject("treatments")?.getString("href")
 
-    return Pet(id, name, null, null, birthDate, chipNumber, licenceNumber, consultationsUri, treatmentUri)
+    return Pet(id, name, species, race, birthDate, chipNumber, licenceNumber, consultationsUri, treatmentUri)
 }

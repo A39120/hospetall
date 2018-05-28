@@ -1,6 +1,5 @@
 package mobile.hospetall.ps.isel.hospetallmobile.layout
 
-import android.net.Uri
 import android.view.View
 import android.widget.TextView
 import com.android.volley.Response
@@ -27,7 +26,7 @@ fun adaptConsultationLayout(consultation: Consultation,
             holder.date.text = consultation.date.toString()
             if(consultation.petUri != null)
                 petAccess.get(
-                    Uri.parse(consultation.petUri),
+                    consultation.petUri,
                     Response.Listener {
                         holder.pet.text = it.name
                     },

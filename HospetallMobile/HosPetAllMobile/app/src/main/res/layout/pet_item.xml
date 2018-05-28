@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:weightSum="1">
 
@@ -26,21 +26,23 @@
             android:id="@+id/detail_layout"
             layout="@layout/pet_detail_layout" />
 
-        <!--<Button
-            android:id="@+id/consultation_button"
+        <Button
+            android:id="@+id/change_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detail_layout"
-            android:text="@string/consultation" />
+            android:text="@string/change"
+            android:onClick="changePet"/>
 
         <Button
-            android:id="@+id/treatment_button"
+            android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detail_layout"
             android:layout_alignParentEnd="true"
-            android:text="@string/treatment"
-            android:layout_alignParentRight="true" /> -->
+            android:onClick="deletePet"
+            android:text="@string/delete"
+            android:layout_alignParentRight="true" />
     </mobile.hospetall.ps.isel.hospetallmobile.view.ExtendedRelativeLayout>
 
 </RelativeLayout>

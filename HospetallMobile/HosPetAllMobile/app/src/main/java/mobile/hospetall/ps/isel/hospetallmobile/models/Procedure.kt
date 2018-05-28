@@ -143,12 +143,12 @@ fun parseConsultation(consultation: JSONObject): Consultation{
     return Consultation(
             consultation.getInt("id"),
             consultation.getString("date"),
-            consultation.getString("case_history"),
+            consultation.getString("caseHistory"),
             consultation.getString("diagnosis"),
             consultation.getString("treatment"),
             consultation.getString("observations"),
             consultation.getDouble("weight"),
-            consultation.getDouble("heart_rhythm"),
+            consultation.getDouble("heartRhythm"),
             consultation.getDouble("temperature"),
             links.getLink("veterinarian"),
             links.getLink("pets")

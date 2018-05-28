@@ -1,87 +1,69 @@
 package mobile.hospetall.ps.isel.hospetallmobile.adapter
 
-import mobile.hospetall.ps.isel.hospetallmobile.R
-import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import android.content.Context
 import android.content.Intent
-import android.os.Parcel
-import android.os.Parcelable
-import android.support.v4.content.ContextCompat.startActivity
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import mobile.hospetall.ps.isel.hospetallmobile.activities.ConsultationListActivity
+import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.activities.PetActivity
-import mobile.hospetall.ps.isel.hospetallmobile.layout.PetDetailHolder
-import mobile.hospetall.ps.isel.hospetallmobile.layout.adaptPetDetailLayout
-import mobile.hospetall.ps.isel.hospetallmobile.layout.getPetDetailHolder
-import mobile.hospetall.ps.isel.hospetallmobile.view.ExtendedRelativeLayout
+import mobile.hospetall.ps.isel.hospetallmobile.adapter.viewholder.PetHolder
+import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 
 class PetsAdapter(
-                    baseContext: Context,
-                    private val pets: Array<Pet>) :
-        ArrayAdapter<Pet>(baseContext, R.layout.pet_item, pets) {
+        private val mContext: Context,
+        private val petArray: List<Pet>)
+    : RecyclerView.Adapter<PetHolder>() {
+    companion object {
+        private const val TAG = "HPA/ADAPTER/PET"
+    }
 
+    private val inflater = LayoutInflater.from(mContext)
 
-    private val inflater = LayoutInflater.from(context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetHolder {
+        Log.i(TAG, "Creating view holder for pet list.")
+        val view =  inflater.inflate(R.layout.pet_item, parent, false)
+        return PetHolder(view)
+    }
 
-    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val rowView = view?: inflater.inflate(R.layout.pet_item, parent, false)
+    override fun getItemCount() = petArray.size
 
-        if(view == null) {
-            val nameView = rowView.findViewById<TextView>(R.id.name)
-            //val expand = rowView.findViewById<Button>(R.id.expand)
-            val detail = rowView.findViewById<ExtendedRelativeLayout>(R.id.pet_details)
-
-            val listHolder = PetListHolder(nameView, detail)
-            val detailHolder = getPetDetailHolder(detail)
-
-            rowView.tag = PetHolder(listHolder, detailHolder, pets[position])
-        }
-
-        val holder = rowView.tag as PetHolder
-        //adaptPetDetailLayout(pets[position], holder)
-
-
-        holder.list.name.text = pets[position].name
-        holder.list.name.setOnClickListener {
-            when(holder.list.detail.visibility){
-                View.GONE -> { onExpand(holder, pets[position]) }
-                View.VISIBLE -> { onMinimize(holder) }
+    override fun onBindViewHolder(holder: PetHolder, position: Int) {
+        val pet = petArray[position]
+        holder.apply {
+            name.text = pet.name
+            name.setOnClickListener {
+                when(layout.visibility){
+                    View.GONE -> { layout.visibility = View.VISIBLE }
+                    View.VISIBLE -> { layout.visibility = View.GONE }
+                }
             }
+
+            layout.setOnClickListener {
+                val int = Intent(mContext, PetActivity::class.java)
+                int.putExtra("pet", pet)
+                mContext.startActivity(int)
+            }
+
+            if(pet.birthDate == null) {
+                birthDateLabel.visibility = View.GONE
+                birthDate.visibility = View.GONE
+            } else birthDate.text = pet.birthDate
+
+            if(pet.race == null){
+                raceLabel.visibility = View.GONE
+                race.visibility = View.GONE
+            } else race.text = pet.race
+
+            if(pet.species == null){
+                speciesLabel.visibility = View.GONE
+                species.visibility = View.GONE
+            } else species.text = pet.species
+
+            chip.text = pet.chipNumber.toString()
         }
-
-        return rowView
     }
 
-    data class PetListHolder(val name: TextView,
-                             val detail: ExtendedRelativeLayout
-    )
-
-    data class PetHolder(
-            val list: PetListHolder,
-            val detail: PetDetailHolder,
-            val pet: Pet
-    )
-
-    private fun onExpand(holder: PetHolder, pet: Pet){
-        Log.i("ACCESS/PET_LIST", "Showing pet detail.")
-        holder.list.detail.afterVisible = {  adaptPetDetailLayout(pet, holder.detail) }
-        holder.list.detail.setOnClickListener {
-            val int = Intent(this.context, PetActivity::class.java)
-            int.putExtra("pet", pet)
-            startActivity(this.context, int, null)
-        }
-        holder.list.detail.visibility = View.VISIBLE
-    }
-
-    private fun onMinimize(holder: PetHolder) {
-        Log.i("ACCESS/PET_LIST", "Minimizing pet detail.")
-        holder.list.detail.visibility = View.GONE
-    }
-
-    override fun getItemViewType(position: Int) = position
-    override fun getItemId(position: Int) = position as Long
 }

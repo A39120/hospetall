@@ -9,16 +9,16 @@ import org.json.JSONObject
 abstract class AbstractAccess<T> (private val queue: RequestQueue){
 
 
-    fun get(uri: Uri, onSuccess: Response.Listener<T>, onError: Response.ErrorListener) {
+    fun get(uri: String, onSuccess: Response.Listener<T>, onError: Response.ErrorListener) {
         getFromUri(uri, onSuccess, onError)
     }
 
-    fun getList(uri: Uri, property: String, onSuccess: Response.Listener<List<T>>, onError: Response.ErrorListener) {
+    fun getList(uri: String, property: String, onSuccess: Response.Listener<List<T>>, onError: Response.ErrorListener) {
         getCollectionFromUri(uri, property, onSuccess, onError)
     }
 
-    private fun getFromUri(
-            uri: Uri,
+    open fun getFromUri(
+            uri: String,
             onSuccess: Response.Listener<T>,
             onError: Response.ErrorListener)
     {
@@ -35,8 +35,8 @@ abstract class AbstractAccess<T> (private val queue: RequestQueue){
 
 
 
-    private fun getCollectionFromUri(
-                                     uri: Uri,
+    open fun getCollectionFromUri(
+                                     uri: String,
                                      property: String,
                                      onSuccess: Response.Listener<List<T>>,
                                      onError: Response.ErrorListener

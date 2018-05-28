@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">HosPetAll</string>
-    <string name="authority">10.10.1.57</string>
+    <string name="authority">85.247.216.95</string>
+    <string name="pet_path">pet</string>
+    <string name="client_path">client</string>
+    <string name="clients_pets_path">pets</string>
     <string name="protocol">http</string>
     <string name="home">Home</string>
     <string name="schedule">Schedule</string>
@@ -21,4 +24,7 @@
     <string name="symptoms_label">Symptoms</string>
     <string name="diagnosis_label">Diagnosis</string>
     <string name="treatment_label">Recommended Treatment</string>
+    <string name="delete">Delete</string>
+    <string name="change">Change</string>
+    <string name="add_pet">Add new pet</string>
 </resources>

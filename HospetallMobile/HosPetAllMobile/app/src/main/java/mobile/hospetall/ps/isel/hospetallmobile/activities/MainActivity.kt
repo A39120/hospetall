@@ -10,7 +10,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 
 class MainActivity : BaseActivity() {
     companion object {
-        const val TAG = "ACTIVITY/MAIN"
+        const val TAG = "HPA/ACTIVITY/MAIN"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

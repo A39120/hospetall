@@ -1,19 +1,18 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.widget.ListView
+import android.view.View
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.R
+import mobile.hospetall.ps.isel.hospetallmobile.*
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.PetsAdapter
-import mobile.hospetall.ps.isel.hospetallmobile.baseUri
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
-import mobile.hospetall.ps.isel.hospetallmobile.getId
-import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 
 class PetsListActivity : BaseActivity() {
     companion object {
-        private const val TAG = "ACTIVITY/PET_LIST"
+        const val TAG = "HPA/ACTIVITY/PET_LIST"
     }
 
     private val petAccess: PetAccess by lazy { PetAccess(application.requestQueue) }
@@ -23,25 +22,20 @@ class PetsListActivity : BaseActivity() {
         setContentView(R.layout.activity_pet_list)
 
         val id = getId()
-        val list = findViewById<ListView>(R.id.pet_list_view)
-
         Log.i(TAG, "Getting pet list from owner with id: $id.")
 
-        val uri = this.application.baseUri
-                .appendPath("client")
-                .appendEncodedPath(id.toString())
-                .appendPath("pets")
-                .build()
-
+        val uri = getClientsPetsUri(resources, id)
         petAccess.getList(
-                uri,
+                uri.toString(),
                 "petList",
                 Response.Listener{
                     Log.i(TAG, "Adapting pet list of client $id to adapter.")
-                    list.adapter = PetsAdapter(this, it.toTypedArray())
+                    val list = findViewById<RecyclerView>(R.id.pet_list_view)
+                    list.adapter = PetsAdapter(this, it)
+                    list.layoutManager = LinearLayoutManager(this@PetsListActivity)
                 },
                 Response.ErrorListener{
-                    Log.e(TAG, "Error getting data from client $id pets.")
+                    Log.e(TAG, "Error getting data from client $id pets ($uri): ${it.message}")
                 }
         )
     }
