@@ -17,7 +17,7 @@ public class NurseController extends AbstractGenericController<Nurse, INurseRepo
 		super(repo, NurseController.class);
 	}
 
-	@Override
+	//@Override
 	public Optional<Nurse> checkIfExists(Nurse entity) {
 		return Optional.empty();
 	}

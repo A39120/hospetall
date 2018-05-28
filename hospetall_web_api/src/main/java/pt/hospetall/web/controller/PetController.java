@@ -62,7 +62,7 @@ public class PetController extends AbstractGenericController<Pet, IPetRepository
 		return PetResource.getResources(obj, self);
 	}
 
-	@Override
+	//@Override
 	public Optional<Pet> checkIfExists(Pet entity) {
 		return Optional.empty();
 	}

@@ -120,7 +120,7 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 		return new Resources<>(clients, self);
 	}
 
-	@Override
+	//@Override
 	public Optional<Client> checkIfExists(Client entity) {
 		return repo.findClientByNif(entity.getNif());
 	}

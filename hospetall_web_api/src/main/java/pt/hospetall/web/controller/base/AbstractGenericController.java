@@ -31,13 +31,14 @@ public abstract class AbstractGenericController<T extends BaseEntity,
 		this.klass = klass;
 	}
 
-	protected U getResource(T obj){
+	protected U getResource(T obj) {
 		Link self = linkTo(klass).slash(obj.getId()).withSelfRel();
 		U resource = (U) new Resource<>(obj, self);
 		return resource;
 
 	}
-	protected Resources<U> getResources(List<T> obj, Link self){
+
+	protected Resources<U> getResources(List<T> obj, Link self) {
 		List<U> resource = obj.stream()
 				.map(this::getResource)
 				.collect(Collectors.toList());
@@ -45,11 +46,11 @@ public abstract class AbstractGenericController<T extends BaseEntity,
 		return new Resources<>(resource, self);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path= "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
+	@RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
 	public U get(@PathVariable int id) {
 		Optional<T> res = repo.findById(id);
 
-		if(res.isPresent()) {
+		if (res.isPresent()) {
 			T obj = res.get();
 			return getResource(obj);
 		}
@@ -57,12 +58,13 @@ public abstract class AbstractGenericController<T extends BaseEntity,
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, "application/hal+json"})
-	public Resources<U> getAll(){
+	public Resources<U> getAll() {
 		List<T> list = repo.findAll();
 		Link self = linkTo(klass).withSelfRel();
 
 		return getResources(list, self);
 	}
+}
 /*
 	@PostMapping
 	public ResponseEntity<?> add(@RequestBody T entity) {
@@ -76,3 +78,4 @@ public abstract class AbstractGenericController<T extends BaseEntity,
 	public abstract Optional<T> checkIfExists(T entity);
 
 }
+*/

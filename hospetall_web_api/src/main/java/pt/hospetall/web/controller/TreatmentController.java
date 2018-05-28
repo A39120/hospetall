@@ -30,7 +30,7 @@ public class TreatmentController extends AbstractGenericController<Treatment, IT
 		return TreatmentResource.getTreatments(obj, self);
 	}
 
-	@Override
+	//@Override
 	public Optional<Treatment> checkIfExists(Treatment entity) {
 		return Optional.empty();
 	}

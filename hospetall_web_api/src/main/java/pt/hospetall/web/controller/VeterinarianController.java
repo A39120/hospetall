@@ -19,7 +19,7 @@ public class VeterinarianController extends AbstractGenericController<Veterinari
 		super(veterinarianRepository, VeterinarianController.class);
 	}
 
-	@Override
+	//@Override
 	public Optional<Veterinarian> checkIfExists(Veterinarian entity) {
 		return repo.findByEmail(entity.getEmail());
 	}

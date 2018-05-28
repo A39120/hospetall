@@ -35,7 +35,7 @@ public class ConsultationController extends AbstractGenericController<Consultati
 		return ConsultationResource.getConsultations(obj, self);
 	}
 
-	@Override
+	//@Override
 	public Optional<Consultation> checkIfExists(Consultation entity) {
 		return null;
 	}
