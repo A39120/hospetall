@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+@CrossOrigin
 public abstract class AbstractGenericController<T extends BaseEntity,
 		R extends JpaRepository<T, Integer>,
 		U extends ResourceSupport> {
@@ -68,15 +69,15 @@ public abstract class AbstractGenericController<T extends BaseEntity,
 
 
 	@PostMapping
-	public ResponseEntity<?> add(@RequestBody T entity) {
-
+	//public ResponseEntity<?> add(@RequestBody T entity) {
+	public ResponseEntity<?> add(T entity) {
 		if(checkIfExists(entity).isPresent()) return ResponseEntity.badRequest().build();
 		return ResponseEntity.created(
 				URI.create(
 						getResource(repo.save(entity)).getLink("self").getHref())).build();
 	}
 
-	
+
 	public abstract Optional<T> checkIfExists(T entity);
 
 }
