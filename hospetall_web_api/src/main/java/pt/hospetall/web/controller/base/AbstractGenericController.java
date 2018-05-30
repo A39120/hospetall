@@ -64,18 +64,20 @@ public abstract class AbstractGenericController<T extends BaseEntity,
 
 		return getResources(list, self);
 	}
-}
-/*
+
+
+
 	@PostMapping
 	public ResponseEntity<?> add(@RequestBody T entity) {
-		return checkConstraints(entity).map(
-				res -> ResponseEntity.created(
-						URI.create(
-								getResource(repo.save(res)).getLink("self").getHref())).build())
-				.orElse(ResponseEntity.noContent().build());
+
+		if(checkIfExists(entity).isPresent()) return ResponseEntity.badRequest().build();
+		return ResponseEntity.created(
+				URI.create(
+						getResource(repo.save(entity)).getLink("self").getHref())).build();
 	}
 
+	
 	public abstract Optional<T> checkIfExists(T entity);
 
 }
-*/
+
