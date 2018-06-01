@@ -6,7 +6,6 @@ import Pet from './pet'
 import Product from './product'
 
 const FetchStates = {
-    loading: 'loading',
     waitingRoom: 'waiting-room',
     appointment: 'appointment',
     client: 'client',
