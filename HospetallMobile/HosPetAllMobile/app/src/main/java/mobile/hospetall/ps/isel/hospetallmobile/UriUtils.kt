@@ -21,3 +21,7 @@ fun getPetUri(resources: Resources, id: Int): Uri.Builder =
                 .appendPath(resources.getString(R.string.pet_path))
                 .appendEncodedPath(id.toString())
 
+fun getConsultationUri(resources: Resources, id : Int) =
+        getBaseUri(resources)
+                .appendEncodedPath(resources.getString(R.string.consultation_path))
+                .appendEncodedPath(id.toString())

@@ -7,7 +7,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
-
+/*
 data class PetDetailHolder(
         val birthDateLabel: TextView,
         val birthDate: TextView,
@@ -59,3 +59,4 @@ fun adaptPetDetailLayout(pet : Pet, holder:PetDetailHolder) = holder.apply {
     //treatment.visibility =  if(pet.treatmentUri == null) View.GONE else View.VISIBLE
 
 }
+*/

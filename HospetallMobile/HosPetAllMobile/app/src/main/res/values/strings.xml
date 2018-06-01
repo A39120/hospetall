@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">HosPetAll</string>
-    <string name="authority">10.10.2.56</string>
+    <string name="authority">192.168.1.80</string>
     <string name="pet_path">pet</string>
     <string name="client_path">client</string>
     <string name="clients_pets_path">pets</string>
@@ -9,14 +9,14 @@
     <string name="schedule">Schedule</string>
     <string name="profile">Profile</string>
     <string name="consultation">Consultations</string>
-    <string name="treatment">Treatments</string>
+    <string name="treatment">Treatment</string>
     <string name="notifications">Notifications</string>
     <string name="procedures">Procedures</string>
     <string name="all_procedures">All</string>
     <string name="pets">Pets</string>
+    <string name="pet">Pet</string>
     <string name="settings">Settings</string>
     <string name="all_pets">All Pets</string>
-    <string name="expand" formatted="true" translatable="false"></string>
     <string name="pet_birth_date_label">Birth date:</string>
     <string name="race_label">Race:</string>
     <string name="species_label">Species:</string>
@@ -27,4 +27,13 @@
     <string name="delete">Delete</string>
     <string name="change">Change</string>
     <string name="add_pet">Add new pet</string>
+    <string name="weight">Weight</string>
+    <string name="heart_rhythm">Heart Rhythm</string>
+    <string name="temperature">Temperature</string>
+    <string name="veterinarian">Veterinarian</string>
+    <string name="case_history">Case History</string>
+    <string name="diagnosis">Diagnosis</string>
+    <string name="observations">Observations</string>
+    <string name="consultation_path">consultation</string>
+
 </resources>

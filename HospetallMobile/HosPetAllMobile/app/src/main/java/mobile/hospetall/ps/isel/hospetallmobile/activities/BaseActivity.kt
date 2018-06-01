@@ -60,4 +60,5 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun goToSchedule(item: MenuItem): Boolean {
         return true
     }
+
 }

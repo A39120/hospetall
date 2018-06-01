@@ -40,4 +40,8 @@ class PetsListActivity : BaseActivity() {
         )
     }
 
+    fun createPet(view : View) {
+        //TODO: Create a pet
+    }
+
 }

@@ -10,7 +10,7 @@ class ConsultationListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pet_procedures)
+        setContentView(R.layout.layout_pet_procedures)
 
         val all = intent.extras.getBoolean(EXTRA_ALL_PETS)
         if(all) {

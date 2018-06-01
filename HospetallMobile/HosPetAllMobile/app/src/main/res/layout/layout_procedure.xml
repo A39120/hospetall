@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="title" type="String" />
+        <variable name="procedure" type="mobile.hospetall.ps.isel.hospetallmobile.models.Procedure" />
+        <variable name="pet" type="mobile.hospetall.ps.isel.hospetallmobile.models.Pet"/>
+    </data>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:textStyle="bold"
+            android:text="@{title}"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/title_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/date"
+            android:text="@{procedure.date}"
+            android:layout_below="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:layout_below="@+id/date"
+            android:id="@+id/pet"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:label="@{@string/pet}"
+            bind:value="@{pet.name}"
+            layout="@layout/layout_label_value_horizontal"/>
+
+
+        <!-- NULLABLE -->
+        <include
+            android:id="@+id/case_history"
+            android:layout_below="@+id/pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:label="@{@string/case_history}"
+            bind:value="@{procedure.caseHistory}"
+            layout="@layout/layout_label_value_vertical"/>
+
+        <include
+            android:id="@+id/diagnosis"
+            android:layout_below="@+id/case_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:label="@{@string/diagnosis}"
+            bind:value="@{procedure.diagnosis}"
+            layout="@layout/layout_label_value_vertical"/>
+
+        <include
+            android:id="@+id/treatment"
+            android:layout_below="@+id/diagnosis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:label="@{@string/treatment}"
+            bind:value="@{procedure.treatment}"
+            layout="@layout/layout_label_value_vertical"/>
+
+        <include
+            android:id="@+id/observations"
+            android:layout_below="@+id/treatment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:label="@{@string/observations}"
+            bind:value="@{procedure.observations}"
+            layout="@layout/layout_label_value_vertical"/>
+
+    </RelativeLayout>
+</layout>
