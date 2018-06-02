@@ -51,6 +51,30 @@ export default class extends React.Component {
                     <textarea className="form-control" id="tratamento" style={style} rows="5"></textarea>
                 </div>
 
+                <div>
+                    <label for="table">Produtos/receita</label>
+                    <table className="table table-bordered" id="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Tipo</th>
+                                <th>Preço(€)</th>
+                                <th>Hora de alerta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Vacina da gripe</td>
+                                <td>Vacina</td>
+                                <td>0.00</td>
+                                <td><input type="text" id="alert"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <br/>
+
                 <div className="form-group row">
                     <label for="weight" className="col-2 col-form-label">Peso</label>
                     <div className="col-10">
