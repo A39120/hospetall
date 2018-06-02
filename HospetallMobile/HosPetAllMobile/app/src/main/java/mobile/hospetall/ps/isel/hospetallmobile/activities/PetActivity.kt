@@ -1,21 +1,15 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
-import android.net.Uri
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.widget.RelativeLayout
-import android.widget.TextView
 import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
-import mobile.hospetall.ps.isel.hospetallmobile.adapter.ProcedureAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
+import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityPetBinding
 import mobile.hospetall.ps.isel.hospetallmobile.getPetUri
-import mobile.hospetall.ps.isel.hospetallmobile.layout.adaptPetDetailLayout
-import mobile.hospetall.ps.isel.hospetallmobile.layout.getPetDetailHolder
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 
@@ -28,23 +22,40 @@ class PetActivity : BaseActivity() {
     private val treatmentAccess by lazy { TreatmentAccess(application.requestQueue)    }
     private val petAccess by lazy { PetAccess(application.requestQueue) }
 
+    private lateinit var mBinding : ActivityPetBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pet)
-        Log.i(TAG, "OnCreate called.")
+        //setContentView(R.layout.activity_pet)
+        Log.i(TAG, "OnCreate called. Binding view to pet.")
 
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pet)
         val pet = intent.extras.getParcelable("pet") as Pet?
 
-
         if(pet != null)
+            mBinding.pet = pet
+        else {
+            val id = intent.extras.getInt("id")
+            val uri = getPetUri(resources, id).build()
+            petAccess.get(
+                    uri.toString(),
+                    Response.Listener {
+                        Log.i(TAG, "Got pet with $id from $uri.")
+                        mBinding.pet = pet
+                    },
+                    Response.ErrorListener {
+                        Log.e(TAG, "Failed to get pet with $id from $uri.")
+                    })
+        }
+        /*if(pet != null)
             displayPet(pet)
         else {
             val id = intent.extras.getInt("id")
             getPet(id)
-        }
+        }*/
 
     }
-
+/*
     private fun displayPet(pet: Pet) {
         Log.i(TAG, "Displaying pet ${pet.id} details.")
         val name = findViewById<TextView>(R.id.name)
@@ -110,9 +121,6 @@ class PetActivity : BaseActivity() {
                 }
         )
     }
-
-    fun addPet(){
-
-    }
+*/
 
 }

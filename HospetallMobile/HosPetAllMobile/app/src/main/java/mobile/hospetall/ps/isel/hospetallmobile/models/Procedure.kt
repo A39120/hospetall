@@ -7,16 +7,25 @@ import mobile.hospetall.ps.isel.hospetallmobile.getLinks
 import org.json.JSONObject
 import java.sql.Date
 
+/**
+ * Procedure open class that will share the same attributes
+ * as Consultation and Treatment.This information will come
+ * from the api.
+ */
 open class Procedure(
         val id: Int,
         val date: String,
-        val caseHistory: String,
+        val caseHistory: String?,
         val diagnosis: String?,
         val treatment: String?,
         val observations: String?,
         val petUri: String?
 )
 
+/**
+ * Treatment that extends from Procedure, extra field is the
+ *  nurse responsible for the treatment.
+ */
 class Treatment(
         id: Int,
         date: String,
@@ -78,6 +87,10 @@ fun parseTreatment(json: JSONObject): Treatment{
     )
 }
 
+/**
+ * Consultation that extends from Procedure, contains extra
+ * information related to the Procedure.
+ */
 class Consultation(
         id: Int,
         date: String,
@@ -138,7 +151,6 @@ class Consultation(
  */
 fun parseConsultation(consultation: JSONObject): Consultation{
     val links = consultation.getLinks()
-    val str = consultation.getString("date")
 
     return Consultation(
             consultation.getInt("id"),

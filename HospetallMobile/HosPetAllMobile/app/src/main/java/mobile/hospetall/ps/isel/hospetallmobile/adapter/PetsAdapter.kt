@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.activities.PetActivity
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.viewholder.PetHolder
+import mobile.hospetall.ps.isel.hospetallmobile.databinding.ItemPetBinding
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 
 class PetsAdapter(
@@ -23,13 +24,25 @@ class PetsAdapter(
     private val inflater = LayoutInflater.from(mContext)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetHolder {
-        Log.i(TAG, "Creating view holder for pet list.")
-        val view =  inflater.inflate(R.layout.pet_item, parent, false)
-        return PetHolder(view)
+        val petBinder = ItemPetBinding.inflate(inflater, parent, false)
+        return PetHolder(petBinder)
     }
 
+    override fun onBindViewHolder(holder: PetHolder, position: Int) {
+        val pet = petArray[position]
+        holder.bind(pet, mContext)
+    }
+
+/*
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetHolder {
+        Log.i(TAG, "Creating view holder for pet list.")
+        val view =  inflater.inflate(R.layout.item_pet, parent, false)
+        return PetHolder(view)
+    }
+*/
     override fun getItemCount() = petArray.size
 
+    /*
     override fun onBindViewHolder(holder: PetHolder, position: Int) {
         val pet = petArray[position]
         holder.apply {
@@ -47,23 +60,27 @@ class PetsAdapter(
                 mContext.startActivity(int)
             }
 
-            if(pet.birthDate == null) {
-                birthDateLabel.visibility = View.GONE
-                birthDate.visibility = View.GONE
-            } else birthDate.text = pet.birthDate
+            pet.birthDate?.let {
+                birthDate.text = it
+                birthDateLabel.visibility = View.VISIBLE
+                birthDate.visibility = View.VISIBLE
+            }
 
-            if(pet.race == null){
-                raceLabel.visibility = View.GONE
-                race.visibility = View.GONE
-            } else race.text = pet.race
+            pet.race?.let{
+                race.text = it
+                raceLabel.visibility = View.VISIBLE
+                race.visibility = View.VISIBLE
+            }
 
-            if(pet.species == null){
-                speciesLabel.visibility = View.GONE
-                species.visibility = View.GONE
-            } else species.text = pet.species
+            pet.species?.let {
+                species.text = it
+                speciesLabel.visibility = View.VISIBLE
+                species.visibility = View.VISIBLE
+            }
 
             chip.text = pet.chipNumber.toString()
         }
     }
+    */
 
 }
