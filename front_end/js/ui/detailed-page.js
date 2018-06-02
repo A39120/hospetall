@@ -5,7 +5,7 @@ import Client from './client'
 import Pet from './pet'
 import Product from './product'
 
-const FetchStates = {
+const RenderStates = {
     waitingRoom: 'waiting-room',
     appointment: 'appointment',
     client: 'client',
@@ -31,18 +31,18 @@ export default class extends React.Component {
     }     
       
     renderContent () {
-        switch (this.props.fetchState) {
-            case FetchStates.waitingRoom:
+        switch (this.props.renderState) {
+            case RenderStates.waitingRoom:
                 return this.renderWaitingRoom()
-            case FetchStates.appointment:
+            case RenderStates.appointment:
                 return this.renderAppointment()
-            case FetchStates.client:
+            case RenderStates.client:
                 return this.renderClient()
-            case FetchStates.pet:
+            case RenderStates.pet:
                 return this.renderPet()
-            case FetchStates.product:
+            case RenderStates.product:
                 return this.renderProducts()
-            case FetchStates.configs:
+            case RenderStates.configs:
                 return this.renderConfigs()
         }
     }
