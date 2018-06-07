@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="treatment" type="mobile.hospetall.ps.isel.hospetallmobile.models.Treatment"/>
+        <variable name="nurse" type="String"/>
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/nurse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/nurse}"
+            bind:value="@{nurse}"/>
+
+    </RelativeLayout>
+</layout>

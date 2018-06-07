@@ -41,6 +41,11 @@ fun getPetConsultationUri(resources: Resources, id: Int): Uri.Builder =
         getPetUri(resources, id)
                 .appendEncodedPath(resources.getString(R.string.consultation_path))
 
+fun getTreatmentUri(resources: Resources, id : Int) =
+        getBaseUri(resources)
+                .appendEncodedPath(resources.getString(R.string.treatment_path))
+                .appendEncodedPath(id.toString())
+
 fun getConsultationUri(resources: Resources, id : Int) =
         getBaseUri(resources)
                 .appendEncodedPath(resources.getString(R.string.consultation_path))

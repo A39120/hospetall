@@ -54,5 +54,6 @@
     <string name="json_pet_race">race</string>
     <string name="json_pet_species">species</string>
     <string name="json_pet_birthdate">birthdate</string>
+    <string name="nurse">Nurse</string>
 
 </resources>

@@ -84,10 +84,6 @@ class ConsultationActivity : BaseActivity() {
     }
 
     private fun setVeterinarian(vetUri: String? = null) {
-        val vet = intent.extras.getString(resources.getString(R.string.veterinarian)) as String?
-        if(vet != null)
-            mBinding.veterinarian = vet
-        else
             vetUri?.apply{
                 sAccess.get(
                     vetUri,
@@ -101,84 +97,4 @@ class ConsultationActivity : BaseActivity() {
                 )
             }
     }
-
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_consultation)
-
-        val layout = findViewById<RelativeLayout>(R.id.main)
-        val procholder = ConsultationHolder(layout)
-
-        val extras = intent.extras
-        val consultation = extras.getParcelable("consultation") as Consultation?
-        val pet = extras.getParcelable("pet") as Pet?
-
-        if(consultation == null) {
-            val id = extras.getInt("id")
-            consultationAccess.get(
-                    getConsultationUri(resources, id).toString(),
-                    Response.Listener {
-                        pet?.apply{
-                            it.vetUri.let {
-                                sAccess.get(
-
-                                )
-
-                            }
-                        }
-                    },
-                    Response.ErrorListener {  }
-            )
-        }
-        consultation?.apply {
-            pet?.run {
-
-            }
-        }
-    }
-
-    private fun petCallback(consultation: Consultation,
-                            onSuccess: Response.Listener<Consultation> ) =
-            consultation.petUri?.apply {
-                    petAccess.get(
-                            this,
-                            Response.Listener {
-                                val pet = it
-                                Log.i(TAG, "Got pet (${it.id}) for consultation activity.")
-                                procholder.parseToConsultation(resources, it, this)
-                            },
-                            Response.ErrorListener {
-                                Log.e(TAG, "Error getting pet from $this")
-                            }
-                )
-            }
-
-    private fun vetCallback(consultation: Consultation,
-                            pet: Pet,
-                            onSuccess: Response.Listener<String>) =
-        consultation.vetUri?.apply {
-            sAccess.get(
-                    this,
-                    Response.Listener {
-                        it?.let {
-                            Log.i(TAG, "Got veterinarian name: $it")
-                            onSuccess.onResponse(it)
-                        }
-                    },
-                    Response.ErrorListener {
-                        Log.e(TAG, "Error getting veterinarian name from uri: $this")
-                    }
-            )
-        }
-
-
-    fun checkIfPet(){
-
-    }
-
-    fun parseToView(){
-
-    }
-            */
 }
-

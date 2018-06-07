@@ -32,7 +32,7 @@ class Treatment(
         diagnosis: String?,
         treatment: String?,
         observations: String?,
-        private val nurseUri: String?,
+        val nurseUri: String?,
         petUri: String?
 ) : Procedure(id, date, caseHistory, diagnosis, treatment, observations, petUri), Parcelable {
     constructor(parcel: Parcel) : this(

@@ -3,6 +3,7 @@ package mobile.hospetall.ps.isel.hospetallmobile.adapter
 import android.content.Context
 import android.view.View
 import mobile.hospetall.ps.isel.hospetallmobile.activities.ConsultationActivity
+import mobile.hospetall.ps.isel.hospetallmobile.activities.TreatmentActivity
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.viewholder.ProcedureItemHolder
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
@@ -18,7 +19,7 @@ class TreatmentAdapter(
     override fun onBindViewHolder(itemHolder: ProcedureItemHolder, position: Int) {
         val procedure = list[position]
         itemHolder.bind(procedure, listener = View.OnClickListener{
-            //TreatmentActivity.startActivity(mContext, procedure.id)
+            TreatmentActivity.startActivity(mContext, procedure.id)
         })
     }
 }
