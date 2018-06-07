@@ -77,10 +77,10 @@ fun parseTreatment(json: JSONObject): Treatment{
     return Treatment(
             json.getInt("id"),
             json.getString("date"),
-            json.getString("case_history"),
-            json.getString("diagnosis"),
-            json.getString("treatment"),
-            json.getString("observations"),
+            json.optString("case_history"),
+            json.optString("diagnosis"),
+            json.optString("treatment"),
+            json.optString("observations"),
             links.getLink("nurse"),
             links.getLink("pets")
     )

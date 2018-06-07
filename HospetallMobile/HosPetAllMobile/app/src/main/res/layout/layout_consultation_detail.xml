@@ -20,6 +20,7 @@
 
         <include
             android:id="@+id/heart_rhythm"
+            android:layout_below="@+id/weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/layout_label_value_horizontal"
@@ -28,6 +29,7 @@
 
         <include
             android:id="@+id/temperature"
+            android:layout_below="@+id/heart_rhythm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/layout_label_value_horizontal"
@@ -36,6 +38,7 @@
 
         <include
             android:id="@+id/veterinarian"
+            android:layout_below="@+id/temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/layout_label_value_horizontal"

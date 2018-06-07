@@ -1,14 +1,21 @@
 <resources>
     <string name="app_name">HosPetAll</string>
+
+    <string name="protocol">http</string>
     <string name="authority">10.10.1.109</string>
     <string name="pet_path">pet</string>
     <string name="client_path">client</string>
     <string name="clients_pets_path">pets</string>
-    <string name="protocol">http</string>
+    <string name="race_path">race</string>
+    <string name="species_path">species</string>
+    <string name="treatment_path">treatment</string>
+
     <string name="home">Home</string>
     <string name="schedule">Schedule</string>
     <string name="profile">Profile</string>
-    <string name="consultation">Consultations</string>
+    <string name="consultations">Consultations</string>
+    <string name="consultation">Consultation</string>
+
     <string name="treatment">Treatment</string>
     <string name="notifications">Notifications</string>
     <string name="procedures">Procedures</string>
@@ -27,30 +34,25 @@
     <string name="delete">Delete</string>
     <string name="change">Change</string>
     <string name="add_pet">Add new pet</string>
-    <string name="weight">Weight</string>
-    <string name="heart_rhythm">Heart Rhythm</string>
-    <string name="temperature">Temperature</string>
-    <string name="veterinarian">Veterinarian</string>
-    <string name="case_history">Case History</string>
-    <string name="diagnosis">Diagnosis</string>
-    <string name="observations">Observations</string>
+    <string name="weight">Weight:</string>
+    <string name="heart_rhythm">Heart Rhythm:</string>
+    <string name="temperature">Temperature:</string>
+    <string name="veterinarian">Veterinarian:</string>
+    <string name="case_history">Case History:</string>
+    <string name="diagnosis">Diagnosis:</string>
+    <string name="observations">Observations:</string>
     <string name="consultation_path">consultation</string>
     <string name="add_pet_name_hint">Name</string>
     <string name="add_pet_race_hint">Race</string>
-    <string name="add_pet_birthdate_hint">Birthdate</string>
-    <string name="add_pet_species_hint">Species</string>
-    <string name="add_pet_chip_hint">Chip Number</string>
+    <string name="add_pet_birthdate_hint">Birthdate:</string>
+    <string name="add_pet_species_hint">Species:</string>
+    <string name="add_pet_chip_hint">Chip Numbe:r</string>
     <string name="add_pet_button">Add Pet</string>
+
     <string name="json_pet_name">name</string>
     <string name="json_pet_chip">chip_number</string>
     <string name="json_pet_race">race</string>
     <string name="json_pet_species">species</string>
     <string name="json_pet_birthdate">birthdate</string>
-    <string name="race_path">race</string>
-    <string name="species_path">species</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="treatment_path">treatment</string>
 
 </resources>

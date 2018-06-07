@@ -2,7 +2,6 @@ package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
 import mobile.hospetall.ps.isel.hospetallmobile.models.parseTreatment
 import org.json.JSONObject

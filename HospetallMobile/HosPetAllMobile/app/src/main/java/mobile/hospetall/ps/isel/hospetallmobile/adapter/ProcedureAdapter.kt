@@ -9,7 +9,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.adapter.viewholder.ProcedureItem
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ItemProcedureBinding
 import mobile.hospetall.ps.isel.hospetallmobile.models.Procedure
 
-class ProcedureAdapter<T : Procedure> (
+open class ProcedureAdapter<T : Procedure> (
         mContext: Context,
         private val list: Array<T>)
     : RecyclerView.Adapter<ProcedureItemHolder>() {

@@ -8,6 +8,7 @@ import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.activities.PetActivity
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.ProcedureAdapter
+import mobile.hospetall.ps.isel.hospetallmobile.adapter.TreatmentAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
 
 class TreatmentListFragment : AbstractProcedureListFragment<Treatment>() {
@@ -22,7 +23,7 @@ class TreatmentListFragment : AbstractProcedureListFragment<Treatment>() {
                 Response.Listener {
                     Log.i(TAG, "Binding treatment list to TreatmentFragment.")
                     val recycler = view.findViewById<RecyclerView>(R.id.procedure_list)
-                    recycler.adapter = ProcedureAdapter(context!!, it.toTypedArray())
+                    recycler.adapter = TreatmentAdapter(context!!, it.toTypedArray())
                     recycler.layoutManager = LinearLayoutManager(context!!)
                 }
         )
