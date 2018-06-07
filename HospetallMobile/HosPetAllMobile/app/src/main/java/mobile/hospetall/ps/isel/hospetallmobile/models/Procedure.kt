@@ -5,7 +5,6 @@ import android.os.Parcelable
 import mobile.hospetall.ps.isel.hospetallmobile.getLink
 import mobile.hospetall.ps.isel.hospetallmobile.getLinks
 import org.json.JSONObject
-import java.sql.Date
 
 /**
  * Procedure open class that will share the same attributes
@@ -33,7 +32,7 @@ class Treatment(
         diagnosis: String?,
         treatment: String?,
         observations: String?,
-        val nurseUri: String?,
+        private val nurseUri: String?,
         petUri: String?
 ) : Procedure(id, date, caseHistory, diagnosis, treatment, observations, petUri), Parcelable {
     constructor(parcel: Parcel) : this(
@@ -147,7 +146,7 @@ class Consultation(
 }
 
 /**
- * @param json: HAL json object
+ * @param consultation: HAL json object
  */
 fun parseConsultation(consultation: JSONObject): Consultation{
     val links = consultation.getLinks()

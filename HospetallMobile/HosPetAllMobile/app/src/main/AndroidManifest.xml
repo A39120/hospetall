@@ -23,6 +23,9 @@
         <activity android:name=".activities.PetActivity"/>
         <activity android:name=".activities.PetsListActivity" />
         <activity android:name=".activities.ConsultationActivity"/>
+
+        <!--<activity android:name=".activities.ConsultationListFragment" />-->
+        <activity android:name=".activities.AddPetActivity"/>
     </application>
 
 </manifest>

@@ -1,5 +1,7 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -13,6 +15,11 @@ import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 class PetsListActivity : BaseActivity() {
     companion object {
         const val TAG = "HPA/ACTIVITY/PET_LIST"
+
+        fun startActivity(context: Context){
+            val int = Intent(context, PetsListActivity::class.java)
+            context.startActivity(int)
+        }
     }
 
     private val petAccess: PetAccess by lazy { PetAccess(application.requestQueue) }
@@ -41,7 +48,8 @@ class PetsListActivity : BaseActivity() {
     }
 
     fun createPet(view : View) {
-        //TODO: Create a pet
+        val int = Intent(this, AddPetActivity::class.java)
+        this.startActivity(int)
     }
 
 }

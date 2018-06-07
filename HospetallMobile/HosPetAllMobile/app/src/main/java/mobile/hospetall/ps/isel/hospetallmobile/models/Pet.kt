@@ -1,20 +1,20 @@
 package mobile.hospetall.ps.isel.hospetallmobile.models
 
+import android.content.res.Resources
 import android.os.Parcel
 import android.os.Parcelable
-import mobile.hospetall.ps.isel.hospetallmobile.getLink
+import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.getLinks
 import org.json.JSONObject
-import java.sql.Date
 
 data class Pet(
-        val id: Int,
+        val id: Int?,
         val name: String,
         val species: String?,
         val race: String?,
         val birthDate: String?,
         val chipNumber: Int,
-        val licenceNumber: Int,
+        private val licenceNumber: Int,
         val consultationUri: String?,
         val treatmentUri: String?
 ) : Parcelable {
@@ -27,11 +27,10 @@ data class Pet(
             parcel.readInt(),
             parcel.readInt(),
             parcel.readString(),
-            parcel.readString()) {
-    }
+            parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
+        id?.let { parcel.writeInt(id) }
         parcel.writeString(name)
         parcel.writeString(species)
         parcel.writeString(race)
@@ -55,6 +54,10 @@ data class Pet(
             return arrayOfNulls(size)
         }
     }
+
+    fun toJSON(res: Resources)  {
+
+    }
 }
 
 fun parsePet(pet: JSONObject) : Pet{
@@ -73,3 +76,5 @@ fun parsePet(pet: JSONObject) : Pet{
 
     return Pet(id, name, species, race, birthDate, chipNumber, licenceNumber, consultationsUri, treatmentUri)
 }
+
+

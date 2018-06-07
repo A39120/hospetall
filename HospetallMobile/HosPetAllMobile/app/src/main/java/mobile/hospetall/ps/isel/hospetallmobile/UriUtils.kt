@@ -16,10 +16,30 @@ fun getClientsPetsUri(resources: Resources, clientId: Int) =
                 .appendEncodedPath(clientId.toString())
                 .appendEncodedPath(resources.getString(R.string.clients_pets_path))
 
-fun getPetUri(resources: Resources, id: Int): Uri.Builder =
+fun getPetListUri(resources: Resources) : Uri.Builder =
         getBaseUri(resources)
                 .appendPath(resources.getString(R.string.pet_path))
+
+fun getRaceUri(resources: Resources): Uri.Builder =
+        getBaseUri(resources)
+                .appendEncodedPath(resources.getString(R.string.race_path))
+
+fun getSpeciesUri(resources: Resources): Uri.Builder =
+        getBaseUri(resources)
+                .appendEncodedPath(resources.getString(R.string.species_path))
+
+
+fun getPetUri(resources: Resources, id: Int): Uri.Builder =
+        getPetListUri(resources)
                 .appendEncodedPath(id.toString())
+
+fun getPetTreatmentUri(resources: Resources, id: Int): Uri.Builder =
+        getPetUri(resources, id)
+                .appendEncodedPath(resources.getString(R.string.treatment_path))
+
+fun getPetConsultationUri(resources: Resources, id: Int): Uri.Builder =
+        getPetUri(resources, id)
+                .appendEncodedPath(resources.getString(R.string.consultation_path))
 
 fun getConsultationUri(resources: Resources, id : Int) =
         getBaseUri(resources)

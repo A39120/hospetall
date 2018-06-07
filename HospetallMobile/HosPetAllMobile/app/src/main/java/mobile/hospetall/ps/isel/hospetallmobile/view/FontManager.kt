@@ -5,10 +5,10 @@ import android.graphics.Typeface
 
 
 object FontManager {
-    val ROOT = "font/"
-    val FONTAWESOME = ROOT + "faRegular400.ttf"
+    private const val ROOT = "font/"
+    const val FONTAWESOME = ROOT + "faRegular400.ttf"
 
     fun getTypeface(context: Context, font: String): Typeface {
-        return Typeface.createFromAsset(context.getAssets(), font)
+        return Typeface.createFromAsset(context.assets, font)
     }
 }

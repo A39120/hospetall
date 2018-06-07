@@ -1,13 +1,12 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
-import android.net.Uri
+import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
 
 abstract class AbstractAccess<T> (private val queue: RequestQueue){
-
 
     fun get(uri: String, onSuccess: Response.Listener<T>, onError: Response.ErrorListener) {
         getFromUri(uri, onSuccess, onError)
@@ -24,7 +23,7 @@ abstract class AbstractAccess<T> (private val queue: RequestQueue){
     {
         queue.add(
                 JsonObjectRequest(
-                        uri.toString(),
+                        uri,
                         null,
                         Response.Listener {
                                 onSuccess.onResponse(parse(it))
@@ -44,7 +43,7 @@ abstract class AbstractAccess<T> (private val queue: RequestQueue){
         val embedded = "_embedded"
         queue.add(
                 JsonObjectRequest(
-                        uri.toString(),
+                        uri,
                         null,
                         Response.Listener {
                             val jsonArr = it.optJSONObject(embedded)?.optJSONArray(property)
@@ -60,6 +59,22 @@ abstract class AbstractAccess<T> (private val queue: RequestQueue){
                 )
         )
     }
+
+    open fun post(
+            uri: String,
+            json: JSONObject,
+            onSuccess: Response.Listener<T>,
+            onError: Response.ErrorListener
+    ) : Request<JSONObject>? =
+            queue.add(JsonObjectRequest(
+                    Request.Method.POST,
+                    uri,
+                    json,
+                    Response.Listener {
+                        onSuccess.onResponse(parse(it))
+                    },
+                    onError
+            ))
 
     abstract fun parse(json: JSONObject) : T
 }

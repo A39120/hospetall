@@ -6,11 +6,11 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import mobile.hospetall.ps.isel.hospetallmobile.R
+import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.ConsultationListFragment
 
 abstract class BaseActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ALL_PETS = "all_pets"
-        const val EXTRA_PET_ID = "pet_id"
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -42,7 +42,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun goToConsultations(item: MenuItem): Boolean {
-        val int = Intent(this, ConsultationListActivity::class.java)
+        val int = Intent(this, ConsultationListFragment::class.java)
         int.extras.putBoolean("all_pets", true)
         startActivity(int)
         return true

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<TextView
+            android:id="@+id/add_pet_title"
+            android:layout_centerHorizontal="true"
+            android:text="@string/add_pet"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />-->
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/add_pet_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/add_pet_name_hint"
+            android:inputType="textPersonName"
+            app:met_maxCharacters="20"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/add_pet_race"
+            android:layout_below="@+id/add_pet_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/add_pet_race_hint"
+            android:inputType="text"
+            app:met_maxCharacters="20"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/add_pet_species"
+            android:layout_below="@+id/add_pet_race"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/add_pet_species_hint"
+            android:inputType="text"
+            app:met_maxCharacters="20"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/add_pet_birthdate"
+            android:layout_below="@+id/add_pet_species"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/add_pet_birthdate_hint"
+            android:inputType="date"
+            app:met_maxCharacters="20"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/add_pet_chip"
+            android:layout_below="@+id/add_pet_birthdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/add_pet_chip_hint"
+            android:inputType="numberDecimal"
+            app:met_maxCharacters="20"
+            app:met_floatingLabel="normal"/>
+
+        <com.dd.processbutton.iml.ActionProcessButton
+            android:id="@+id/add_pet_button"
+            android:layout_below="@+id/add_pet_chip"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:text="@string/add_pet_button"
+            android:textColor="@android:color/white"
+            custom:pb_colorComplete="@color/green_complete"
+            custom:pb_colorNormal="@color/blue_normal"
+            custom:pb_colorPressed="@color/blue_pressed"
+            custom:pb_colorProgress="@color/purple_progress"
+            custom:pb_textComplete="Success"
+            custom:pb_textProgress="Loading"
+            custom:pb_textError="Error"
+            custom:pb_colorError="@color/red_error"
+            android:onClick="onClickAddPet"/>
+
+    </RelativeLayout>
+</layout>

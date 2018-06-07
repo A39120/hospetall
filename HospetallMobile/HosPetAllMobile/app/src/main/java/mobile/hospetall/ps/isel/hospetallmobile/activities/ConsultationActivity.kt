@@ -1,11 +1,10 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
+import android.content.Context
 import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.databinding.DataBindingUtil;
-import android.renderscript.ScriptGroup
 import android.util.Log
-import android.widget.RelativeLayout
 import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
@@ -20,11 +19,17 @@ import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 class ConsultationActivity : BaseActivity() {
     companion object {
         const val TAG = "HPA/ACTIVITY/CONSULT"
+
+        fun startActivity(context: Context, id: Int){
+            val int = Intent(context, ConsultationActivity::class.java)
+            int.putExtra("id", id)
+            context.startActivity(int)
+        }
     }
 
-    val sAccess by lazy { StringAccess(application.requestQueue) }
-    val consultationAccess by lazy { ConsultationAccess(application.requestQueue) }
-    val petAccess by lazy { PetAccess(application.requestQueue) }
+    private val sAccess by lazy { StringAccess(application.requestQueue) }
+    private val consultationAccess by lazy { ConsultationAccess(application.requestQueue) }
+    private val petAccess by lazy { PetAccess(application.requestQueue) }
 
     private lateinit var mBinding : ActivityConsultationBinding
 

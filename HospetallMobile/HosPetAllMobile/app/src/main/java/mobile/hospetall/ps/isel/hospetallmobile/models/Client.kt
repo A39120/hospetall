@@ -8,16 +8,16 @@ import org.json.JSONObject
 
 data class Client(
         val id: Int,
-        val familyName: String,
-        val givenName: String,
-        val email: String,
-        val telephone: String,
-        val address: String?,
-        val postalCode: String?,
-        val telephoneAlternative: String?,
-        val nif: Int?,
-        val other: String?,
-        val petsUrl: String?
+        private val familyName: String,
+        private val givenName: String,
+        private val email: String,
+        private val telephone: String,
+        private val address: String?,
+        private val postalCode: String?,
+        private val telephoneAlternative: String?,
+        private val nif: Int?,
+        private val other: String?,
+        private val petsUrl: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
@@ -30,8 +30,7 @@ data class Client(
             parcel.readString(),
             parcel.readValue(Int::class.java.classLoader) as? Int,
             parcel.readString(),
-            parcel.readString()) {
-    }
+            parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
