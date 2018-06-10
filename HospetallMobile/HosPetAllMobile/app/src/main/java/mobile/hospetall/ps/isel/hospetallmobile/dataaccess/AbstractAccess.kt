@@ -9,6 +9,13 @@ import org.json.JSONObject
 abstract class AbstractAccess<T> (private val queue: RequestQueue){
 
     fun get(uri: String, onSuccess: Response.Listener<T>, onError: Response.ErrorListener) {
+        val cache = queue.cache.get(uri)?.data
+        cache?.apply{
+            onSuccess.onResponse(parse(JSONObject(String(this))))
+        }
+
+        //TODO : Database
+
         getFromUri(uri, onSuccess, onError)
     }
 

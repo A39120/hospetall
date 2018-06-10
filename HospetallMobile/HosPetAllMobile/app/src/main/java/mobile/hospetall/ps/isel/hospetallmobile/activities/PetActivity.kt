@@ -3,7 +3,6 @@ package mobile.hospetall.ps.isel.hospetallmobile.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewPager
 import android.util.Log
 import com.android.volley.Response
@@ -12,7 +11,6 @@ import mobile.hospetall.ps.isel.hospetallmobile.adapter.fragment.PetFragmentPage
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
-import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityPetBinding
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
@@ -20,7 +18,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.utils.OnConsultationListListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.OnPetListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.OnTreatmentListListener
 
-class PetActivity : FragmentActivity(),
+class PetActivity : BaseActivity(),
         OnPetListener,
         OnConsultationListListener,
         OnTreatmentListListener {
@@ -43,7 +41,6 @@ class PetActivity : FragmentActivity(),
 
     private lateinit var mPagerAdapter: PetFragmentPagerAdapter
     private lateinit var mViewPager: ViewPager
-    private lateinit var mBinding: ActivityPetBinding
 
     private val petAccess by lazy { PetAccess(application.requestQueue) }
     private val consultationAccess by lazy { ConsultationAccess(application.requestQueue) }

@@ -8,9 +8,12 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.*
+import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.PetsAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
+import mobile.hospetall.ps.isel.hospetallmobile.getClientsPetsUri
+import mobile.hospetall.ps.isel.hospetallmobile.getId
+import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 
 class PetsListActivity : BaseActivity() {
     companion object {

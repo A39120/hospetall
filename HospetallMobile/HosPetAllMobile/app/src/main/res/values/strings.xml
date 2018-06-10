@@ -2,7 +2,7 @@
     <string name="app_name">HosPetAll</string>
 
     <string name="protocol">http</string>
-    <string name="authority">10.10.1.109</string>
+    <string name="authority">192.168.1.80</string>
     <string name="pet_path">pet</string>
     <string name="client_path">client</string>
     <string name="clients_pets_path">pets</string>

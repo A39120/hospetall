@@ -14,9 +14,11 @@
         android:id="@+id/add_pet_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
         android:onClick="createPet"
-        android:src="@drawable/ic_add" />
+        android:src="@drawable/ic_add"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

@@ -6,10 +6,9 @@ import android.util.Log
 import android.view.View
 import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
-import mobile.hospetall.ps.isel.hospetallmobile.activities.PetActivity
-import mobile.hospetall.ps.isel.hospetallmobile.adapter.ProcedureAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.TreatmentAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
+import mobile.hospetall.ps.isel.hospetallmobile.utils.OnTreatmentListListener
 
 class TreatmentListFragment : AbstractProcedureListFragment<Treatment>() {
     companion object {
@@ -19,7 +18,7 @@ class TreatmentListFragment : AbstractProcedureListFragment<Treatment>() {
 
     override fun callbackInfo(view: View) {
 
-        (activity as PetActivity).onTreatmentList(
+        (activity as OnTreatmentListListener).onTreatmentList(
                 Response.Listener {
                     Log.i(TAG, "Binding treatment list to TreatmentFragment.")
                     val recycler = view.findViewById<RecyclerView>(R.id.procedure_list)

@@ -41,12 +41,34 @@ fun getPetConsultationUri(resources: Resources, id: Int): Uri.Builder =
         getPetUri(resources, id)
                 .appendEncodedPath(resources.getString(R.string.consultation_path))
 
+fun getPetsConsultationsUri(resources: Resources, id: Int): Uri.Builder =
+        //TODO: Wait for this to be fixed
+        getBaseUri(resources)
+                .appendEncodedPath(resources.getString(R.string.client_path))
+                .appendEncodedPath(id.toString())
+                .appendPath(resources.getString(R.string.pet_path))
+                .appendPath(resources.getString(R.string.consultation_path))
+
+fun getPetsTreatmentUri(resources: Resources, id: Int): Uri.Builder =
+//TODO: Wait for this to be fixed
+        getBaseUri(resources)
+                .appendEncodedPath(resources.getString(R.string.client_path))
+                .appendEncodedPath(id.toString())
+                .appendPath(resources.getString(R.string.pet_path))
+                .appendPath(resources.getString(R.string.treatment_path))
+
+
 fun getTreatmentUri(resources: Resources, id : Int) =
         getBaseUri(resources)
                 .appendEncodedPath(resources.getString(R.string.treatment_path))
                 .appendEncodedPath(id.toString())
 
-fun getConsultationUri(resources: Resources, id : Int) =
+fun getConsultationListUri(resources: Resources) =
         getBaseUri(resources)
                 .appendEncodedPath(resources.getString(R.string.consultation_path))
+
+
+
+fun getConsultationUri(resources: Resources, id : Int) =
+        getConsultationListUri(resources)
                 .appendEncodedPath(id.toString())
