@@ -27,12 +27,11 @@ class ConsultationAdapter(
     override fun onBindViewHolder(itemHolder: ProcedureItemHolder, position: Int) {
         Log.i(TAG, "Binding consultation to activity.")
         val procedure = list[position]
-        val pet = petList?.find { procedure.petUri?.equals(it.uri)?:false }
+        val pet = petList?.find { procedure.petUri == it.uri }
         itemHolder.bind(
                 procedure,
                 pet?.name,
                 listener = View.OnClickListener{
-                    //ConsultationActivity.start(mContext, procedure.id)
                     ConsultationActivity.start(mContext, procedure, pet)
                 }
         )

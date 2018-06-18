@@ -1,7 +1,5 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
-import android.content.Intent
-import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
@@ -9,10 +7,6 @@ import android.view.MenuItem
 import mobile.hospetall.ps.isel.hospetallmobile.R
 
 abstract class BaseActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = MenuInflater(this)
@@ -27,14 +21,12 @@ abstract class BaseActivity : AppCompatActivity() {
     }*/
 
     open fun goToPetListActivity(item: MenuItem): Boolean{
-        val int = Intent(this, PetsListActivity::class.java)
-        startActivity(int)
+        PetsListActivity.start(baseContext)
         return true
     }
 
     open fun goToHomeActivity(item: MenuItem): Boolean {
-        val int = Intent(this, MainActivity::class.java)
-        startActivity(int)
+        MainActivity.start(baseContext)
         return true
     }
 
@@ -43,6 +35,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun goToTreatment(item: MenuItem) : Boolean {
+        TreatmentListActivity.start(baseContext)
         return true
     }
 
@@ -52,7 +45,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun goToProfile(item: MenuItem) : Boolean {
-
         return true
     }
 

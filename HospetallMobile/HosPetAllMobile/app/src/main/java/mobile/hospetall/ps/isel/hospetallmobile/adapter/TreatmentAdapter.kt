@@ -18,9 +18,9 @@ class TreatmentAdapter(
 
     override fun onBindViewHolder(itemHolder: ProcedureItemHolder, position: Int) {
         val procedure = list[position]
-        val pet = petList?.find{ procedure.petUri?.equals(it.uri)?:false }
+        val pet = petList?.find{ procedure.petUri == it.uri}
         itemHolder.bind(procedure,
-                pet?.uri,
+                pet?.name,
                 listener = View.OnClickListener{
                     TreatmentActivity.start(mContext, procedure, pet)
         })

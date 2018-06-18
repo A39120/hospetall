@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.android.volley.Response
+import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.AbstractProcedureListFragment.Companion.SHOW_PET
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.ConsultationListFragment
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
@@ -63,7 +64,7 @@ class ConsultationListActivity :
         super.onCreate(savedInstanceState)
 
         val args = Bundle()
-        args.putBoolean(ConsultationListFragment.SHOW_PET, true)
+        args.putBoolean(SHOW_PET, true)
 
         val listFragment : Fragment = ConsultationListFragment()
         listFragment.arguments = args

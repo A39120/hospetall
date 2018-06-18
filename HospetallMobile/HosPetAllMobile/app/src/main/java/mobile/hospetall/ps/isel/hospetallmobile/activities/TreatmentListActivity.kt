@@ -6,19 +6,26 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.ConsultationListFragment
+import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.AbstractProcedureListFragment.Companion.SHOW_PET
+import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.TreatmentListFragment
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
 import mobile.hospetall.ps.isel.hospetallmobile.database
+import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
 import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
+import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnTreatmentListListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 
 class TreatmentListActivity :
         BaseActivity(),
-        OnTreatmentListListener {
+        OnTreatmentListListener,
+        OnPetListListener
+{
+
 
     companion object {
         const val TAG = "HPA/ACTIVITY/CONS_LIST"
@@ -29,6 +36,7 @@ class TreatmentListActivity :
         }
     }
 
+    private val petAccess by lazy { PetAccess(application.requestQueue, application.database)  }
     private val treatmentAccess by lazy { TreatmentAccess(application.requestQueue, application.database) }
 
     override fun onTreatmentList(onList: (List<Treatment>) -> Unit) {
@@ -42,11 +50,23 @@ class TreatmentListActivity :
         )
     }
 
-
+    override fun onPetList(listener: (List<Pet>) -> Unit) {
+        val uri = UriUtils.getClientsPetsUri(resources, getId()).build().toString()
+        petAccess.getList(
+                uri,
+                Response.Listener(listener),
+                Response.ErrorListener {
+                    Log.e(TAG, "Error getting consultation list from $uri: ${it.message}")
+                }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val listFragment : Fragment = ConsultationListFragment()
+        val bundle = Bundle()
+        val listFragment : Fragment = TreatmentListFragment()
+        bundle.putBoolean(SHOW_PET, true)
+        listFragment.arguments = bundle
 
         val fManager = this.supportFragmentManager.beginTransaction()
         fManager.add(android.R.id.content, listFragment)

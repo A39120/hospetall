@@ -16,7 +16,6 @@ class ConsultationListFragment : AbstractProcedureListFragment<Consultation>() {
     companion object {
         const val TITLE = R.string.consultation
         const val TAG = "HPA/FRAG/CONSULT_LST"
-        const val SHOW_PET = "show_pet"
     }
 
     override fun callbackInfo(view: View) {
@@ -37,6 +36,7 @@ class ConsultationListFragment : AbstractProcedureListFragment<Consultation>() {
     }
 
 
+
     /**
      * Adapts information to the recycler view.
      * @param consultationArray: Binds information from this
@@ -49,6 +49,7 @@ class ConsultationListFragment : AbstractProcedureListFragment<Consultation>() {
         recycler.adapter = ConsultationAdapter(context!!, consultationArray, petArray)
         recycler.layoutManager = LinearLayoutManager(context!!)
     }
+
 
     override fun getTitle() = TITLE
 }

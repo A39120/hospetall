@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.models.Procedure
 
-abstract class AbstractProcedureListFragment<T : Procedure>: BaseFragment() {
+abstract class AbstractProcedureListFragment<T : Procedure>
+    : BaseFragment() {
+    companion object {
+        const val SHOW_PET = "show_pet"
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -17,6 +21,7 @@ abstract class AbstractProcedureListFragment<T : Procedure>: BaseFragment() {
         callbackInfo(rootView)
         return rootView
     }
+
 
     abstract fun callbackInfo(view : View)
     abstract fun getTitle() : Int

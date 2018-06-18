@@ -5,7 +5,6 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import com.android.volley.Response
 import com.dd.processbutton.iml.ActionProcessButton
 import mobile.hospetall.ps.isel.hospetallmobile.R
@@ -39,7 +38,7 @@ class AddPetActivity : BaseActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_pet)
     }
 
-    fun onClickAddPet(view: View){
+    fun onClickAddPet() {
         val button = findViewById<ActionProcessButton>(R.id.add_pet_button)
 
         button.progress = 1
@@ -79,7 +78,7 @@ class AddPetActivity : BaseActivity() {
         button.setOnClickListener {
             request?.cancel()
             button.progress = 0
-            button.setOnClickListener{onClickAddPet(button)}
+            button.setOnClickListener{onClickAddPet() }
         }
     }
 
