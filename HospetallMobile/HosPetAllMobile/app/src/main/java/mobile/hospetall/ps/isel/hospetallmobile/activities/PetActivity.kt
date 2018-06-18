@@ -17,14 +17,12 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
 import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnConsultationListListener
-import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnTreatmentListListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 class PetActivity : BaseActivity(),
         OnPetListener,
-        OnPetListListener,
         OnConsultationListListener,
         OnTreatmentListListener {
 
@@ -71,16 +69,7 @@ class PetActivity : BaseActivity(),
         mViewPager.adapter = mPagerAdapter
     }
 
-    override fun onPetList(listener: (List<Pet>) -> Unit) {
-        val uri = UriUtils.getPetListUri(resources).toString()
-        petAccess.getList(
-                uri,
-                Response.Listener(listener),
-                Response.ErrorListener {
-                    Log.e(TAG, "Failed to get pet list from $uri: ${it.message}")
-                }
-        )
-    }
+
 
     override fun onPet(onPet: (Pet) -> Unit) {
         if(pet != null) {

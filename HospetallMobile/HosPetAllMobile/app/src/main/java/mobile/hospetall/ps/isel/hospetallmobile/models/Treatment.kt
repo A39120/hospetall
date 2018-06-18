@@ -27,7 +27,7 @@ class Treatment(
         @ColumnInfo(name = NURSE_URI)
         val nurseUri: String?,
 
-        petUri: String?
+        petUri: String
 ) : Procedure(uri, id, date, caseHistory, diagnosis, treatment, observations, petUri), Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -95,7 +95,7 @@ class Treatment(
                     json.optString(Procedure.TREATMENT),
                     json.optString(Procedure.OBSERVATIONS),
                     links.getLink(NURSE),
-                    links.getLink(PETS)
+                    links.getLink(PETS)!!
             )
         }
     }

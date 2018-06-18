@@ -1,7 +1,6 @@
 package mobile.hospetall.ps.isel.hospetallmobile.models
 
 import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
 import org.jetbrains.annotations.NotNull
@@ -37,10 +36,7 @@ open class Procedure(
         val observations: String?,
 
         @ColumnInfo(name= PET_URI)
-        @ForeignKey(entity=Pet::class,
-                parentColumns = [DatabaseColumns.ID],
-                childColumns = [PET_URI])
-        val petUri: String?
+        val petUri: String
 ) {
     companion object {
         /**
@@ -53,7 +49,7 @@ open class Procedure(
         const val TREATMENT = "treatment"
         const val OBSERVATIONS = "observations"
         const val PET_URI = "pet_uri"
-        const val PETS = "pets"
+        const val PETS = "pet"
     }
 }
 

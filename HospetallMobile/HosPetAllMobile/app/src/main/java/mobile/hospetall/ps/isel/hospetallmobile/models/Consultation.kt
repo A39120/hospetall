@@ -36,7 +36,7 @@ class Consultation(
         @ColumnInfo(name= VET_URI)
         val vetUri: String?,
 
-        petUri: String?
+        petUri: String
 ) : Procedure(uri, id, date, caseHistory, diagnosis, treatment, observations, petUri), Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -120,7 +120,7 @@ class Consultation(
                     consultation.getDouble(HEART_RHYTHM),
                     consultation.getDouble(TEMPERATURE),
                     links.getLink(VETERINARIAN),
-                    links.getLink(PETS)
+                    links.getLink(PETS)!!
             )
         }
     }
