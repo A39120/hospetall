@@ -13,6 +13,7 @@ class PetFragmentPagerAdapter(
         private val resources: Resources
 ) : FragmentPagerAdapter(fm) {
 
+
     val PET_INDEX = 0
     val CONSULTATION_INDEX = 1
     val TREATMENT_INDEX = 2

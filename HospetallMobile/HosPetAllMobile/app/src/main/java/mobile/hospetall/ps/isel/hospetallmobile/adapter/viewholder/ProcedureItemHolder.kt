@@ -7,7 +7,11 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Procedure
 
 class ProcedureItemHolder(private val binder: ItemProcedureBinding):  AbstractHolder<ItemProcedureBinding>(binder) {
 
-    fun bind(proc: Procedure, petName: String? = null, operation : String? = null, listener: View.OnClickListener? = null){
+    fun bind(proc: Procedure,
+             petName: String? = null,
+             operation : String? = null,
+             listener: View.OnClickListener? = null){
+
         binder.setDate(proc.date)
         petName?.apply{binder.setPet(this)}
         operation?.apply {

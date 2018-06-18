@@ -27,6 +27,9 @@ open class ProcedureAdapter<T : Procedure> (
 
     override fun getItemCount() = list.size
 
+    /**
+     * TODO: Is this even used?
+     */
     override fun onBindViewHolder(itemHolder: ProcedureItemHolder, position: Int) {
         val procedure = list[position]
         itemHolder.bind(procedure)

@@ -9,27 +9,46 @@ import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.StringAccess
+import mobile.hospetall.ps.isel.hospetallmobile.database
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityConsultationBinding
-import mobile.hospetall.ps.isel.hospetallmobile.getConsultationUri
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 class ConsultationActivity : BaseActivity() {
     companion object {
         const val TAG = "HPA/ACTIVITY/CONSULT"
 
-        fun startActivity(context: Context, id: Int){
+        private const val ID = "id"
+        private const val CONSULTATION = "consultation"
+        private const val PET = "pet"
+
+        /**
+         * Starts this activity.
+         * @param id: [Consultation] id.
+         */
+        fun start(context: Context, id: Int){
             val int = Intent(context, ConsultationActivity::class.java)
-            int.putExtra("id", id)
+            int.putExtra(ID, id)
+            context.startActivity(int)
+        }
+
+        /**
+         * Starts this activity with the consultation.
+         * @param consultation: [Consultation] object.
+         */
+        fun start(context: Context, consultation: Consultation, pet: Pet? = null){
+            val int = Intent(context, ConsultationActivity::class.java)
+            int.putExtra(CONSULTATION, consultation)
+            pet?.let { int.putExtra(PET, pet) }
             context.startActivity(int)
         }
     }
 
-    private val sAccess by lazy { StringAccess(application.requestQueue) }
-    private val consultationAccess by lazy { ConsultationAccess(application.requestQueue) }
-    private val petAccess by lazy { PetAccess(application.requestQueue) }
+    //private val sAccess by lazy { StringAccess(application.requestQueue) }
+    private val consultationAccess by lazy { ConsultationAccess(application.requestQueue, application.database) }
+    private val petAccess by lazy { PetAccess(application.requestQueue, application.database) }
 
     private lateinit var mBinding : ActivityConsultationBinding
 
@@ -40,20 +59,20 @@ class ConsultationActivity : BaseActivity() {
     }
 
     private fun setConsultation() {
-        val consultation = intent.extras.getParcelable(resources.getString(R.string.consultation)) as Consultation?
+        val consultation = intent.extras.getParcelable(CONSULTATION) as Consultation?
         if(consultation != null) {
             mBinding.setConsultation(consultation)
-            setVeterinarian(consultation.vetUri)
+            //setVeterinarian(consultation.vetUri)
             setPet(consultation.petUri)
         } else {
-            val id = intent.extras.getInt("id")
-            val uri = getConsultationUri(resources, id).build().toString()
+            val id = intent.extras.getInt(ID)
+            val uri = UriUtils.getConsultationUri(resources, id).build().toString()
             consultationAccess.get(
                     uri,
                     Response.Listener {
                         Log.i(TAG, "Binding consultation ${it.id} to ConsultationActivity layout.")
                         mBinding.setConsultation(it)
-                        setVeterinarian(it.vetUri)
+                        //setVeterinarian(it.vetUri)
                         setPet(it.petUri)
                     },
                     Response.ErrorListener {
@@ -64,7 +83,7 @@ class ConsultationActivity : BaseActivity() {
     }
 
     private fun setPet(petUri: String? = null) {
-        val pet =  intent.extras.getParcelable(resources.getString(R.string.pet)) as Pet?
+        val pet =  intent.extras.getParcelable(PET) as Pet?
         if(pet != null)
             mBinding.pet = pet
         else {
@@ -83,6 +102,7 @@ class ConsultationActivity : BaseActivity() {
         }
     }
 
+    /**
     private fun setVeterinarian(vetUri: String? = null) {
             vetUri?.apply{
                 sAccess.get(
@@ -97,4 +117,5 @@ class ConsultationActivity : BaseActivity() {
                 )
             }
     }
+    */
 }

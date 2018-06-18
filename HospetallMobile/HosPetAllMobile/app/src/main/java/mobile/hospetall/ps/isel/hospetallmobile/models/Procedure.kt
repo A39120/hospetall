@@ -1,10 +1,10 @@
 package mobile.hospetall.ps.isel.hospetallmobile.models
 
-import android.os.Parcel
-import android.os.Parcelable
-import mobile.hospetall.ps.isel.hospetallmobile.getLink
-import mobile.hospetall.ps.isel.hospetallmobile.getLinks
-import org.json.JSONObject
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.ForeignKey
+import android.arch.persistence.room.PrimaryKey
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
+import org.jetbrains.annotations.NotNull
 
 /**
  * Procedure open class that will share the same attributes
@@ -12,156 +12,48 @@ import org.json.JSONObject
  * from the api.
  */
 open class Procedure(
+
+        @PrimaryKey
+        @ColumnInfo(name= DatabaseColumns.URI)
+        val uri: String,
+
+        @NotNull
+        @ColumnInfo(name= DatabaseColumns.ID)
         val id: Int,
+
+        @ColumnInfo(name=DATE)
         val date: String,
+
+        @ColumnInfo(name= CASE_HISTORY)
         val caseHistory: String?,
+
+        @ColumnInfo(name= DIAGNOSIS)
         val diagnosis: String?,
+
+        @ColumnInfo(name= TREATMENT)
         val treatment: String?,
+
+        @ColumnInfo(name= OBSERVATIONS)
         val observations: String?,
+
+        @ColumnInfo(name= PET_URI)
+        @ForeignKey(entity=Pet::class,
+                parentColumns = [DatabaseColumns.ID],
+                childColumns = [PET_URI])
         val petUri: String?
-)
-
-/**
- * Treatment that extends from Procedure, extra field is the
- *  nurse responsible for the treatment.
- */
-class Treatment(
-        id: Int,
-        date: String,
-        caseHistory: String,
-        diagnosis: String?,
-        treatment: String?,
-        observations: String?,
-        val nurseUri: String?,
-        petUri: String?
-) : Procedure(id, date, caseHistory, diagnosis, treatment, observations, petUri), Parcelable {
-    constructor(parcel: Parcel) : this(
-            parcel.readInt(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString())
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
-        parcel.writeString(date)
-        parcel.writeString(caseHistory)
-        parcel.writeString(diagnosis)
-        parcel.writeString(treatment)
-        parcel.writeString(observations)
-        parcel.writeString(nurseUri)
-        parcel.writeString(petUri)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Treatment> {
-        override fun createFromParcel(parcel: Parcel): Treatment {
-            return Treatment(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Treatment?> {
-            return arrayOfNulls(size)
-        }
+) {
+    companion object {
+        /**
+         * Constants that specify the name of a column on the
+         * database or key in the JSON format.
+         */
+        const val DATE = "date"
+        const val CASE_HISTORY = "caseHistory"
+        const val DIAGNOSIS = "diagnosis"
+        const val TREATMENT = "treatment"
+        const val OBSERVATIONS = "observations"
+        const val PET_URI = "pet_uri"
+        const val PETS = "pets"
     }
 }
 
-fun parseTreatment(json: JSONObject): Treatment{
-    val links = json.getLinks()
-
-    return Treatment(
-            json.getInt("id"),
-            json.getString("date"),
-            json.optString("case_history"),
-            json.optString("diagnosis"),
-            json.optString("treatment"),
-            json.optString("observations"),
-            links.getLink("nurse"),
-            links.getLink("pets")
-    )
-}
-
-/**
- * Consultation that extends from Procedure, contains extra
- * information related to the Procedure.
- */
-class Consultation(
-        id: Int,
-        date: String,
-        caseHistory: String,
-        diagnosis: String?,
-        treatment: String?,
-        observations: String?,
-        val weight: Double?,
-        val heartRhythm: Double?,
-        val temperature: Double?,
-        val vetUri: String?,
-        petUri: String?
-) : Procedure(id, date, caseHistory, diagnosis, treatment, observations, petUri), Parcelable {
-    constructor(parcel: Parcel) : this(
-            parcel.readInt(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readValue(Double::class.java.classLoader) as? Double,
-            parcel.readValue(Double::class.java.classLoader) as? Double,
-            parcel.readValue(Double::class.java.classLoader) as? Double,
-            parcel.readString(),
-            parcel.readString())
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
-        parcel.writeString(date)
-        parcel.writeString(caseHistory)
-        parcel.writeString(diagnosis)
-        parcel.writeString(treatment)
-        parcel.writeString(observations)
-        parcel.writeValue(weight)
-        parcel.writeValue(heartRhythm)
-        parcel.writeValue(temperature)
-        parcel.writeString(vetUri)
-        parcel.writeString(petUri)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Consultation> {
-        override fun createFromParcel(parcel: Parcel): Consultation {
-            return Consultation(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Consultation?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
-
-/**
- * @param consultation: HAL json object
- */
-fun parseConsultation(consultation: JSONObject): Consultation{
-    val links = consultation.getLinks()
-
-    return Consultation(
-            consultation.getInt("id"),
-            consultation.getString("date"),
-            consultation.getString("caseHistory"),
-            consultation.getString("diagnosis"),
-            consultation.getString("treatment"),
-            consultation.getString("observations"),
-            consultation.getDouble("weight"),
-            consultation.getDouble("heartRhythm"),
-            consultation.getDouble("temperature"),
-            links.getLink("veterinarian"),
-            links.getLink("pets")
-    )
-}

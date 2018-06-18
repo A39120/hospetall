@@ -47,7 +47,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun goToConsultations(item: MenuItem): Boolean {
-        ConsultationListActivity.startActivity(baseContext)
+        ConsultationListActivity.start(baseContext)
         return true
     }
 

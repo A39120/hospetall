@@ -5,11 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.FragmentPetDetailBinding
-import mobile.hospetall.ps.isel.hospetallmobile.utils.OnPetListener
+import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListener
 
+
+/**
+ * Pet fragment to display the [Pet] information.
+ */
 class PetFragment : BaseFragment() {
     companion object {
         const val TITLE = R.string.pet
@@ -26,14 +29,16 @@ class PetFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
         Log.i(TAG, "onCreateView called.")
 
         binder = FragmentPetDetailBinding.inflate(inflater, container, false)
-        (activity as OnPetListener).onPet(Response.Listener {
-            Log.i(TAG, "Binding pet ${it.id} to pet detail fragment.")
-            binder.pet = it
-        })
+        //Passing the callback to pet after getting the result
+        (activity as OnPetListener).onPet(
+                {
+                    Log.i(TAG, "Binding pet ${it.id} to pet detail fragment.")
+                    binder.pet = it
+                }
+        )
 
         return binder.root
     }

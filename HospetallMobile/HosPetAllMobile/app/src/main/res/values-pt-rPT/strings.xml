@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">Página Principal</string>
+    <string name="schedule">Marcações</string>
+    <string name="profile">Perfil</string>
+    <string name="consultations">Consultas</string>
+    <string name="consultation">Consulta</string>
+
+    <string name="treatment">Tratamento</string>
+    <string name="notifications">Notificação</string>
+    <string name="procedures">Procedimentos</string>
+    <string name="all_procedures">Todos</string>
+    <string name="pets">Animais</string>
+    <string name="pet">Animal</string>
+    <string name="settings">Configuração</string>
+    <string name="all_pets">Todos</string>
+    <string name="pet_birth_date_label">Data de nascimento:</string>
+    <string name="race_label">Raça:</string>
+    <string name="species_label">Espécie:</string>
+    <string name="chip_number_label">Nº de chip:</string>
+    <string name="symptoms_label">Sintomas:</string>
+    <string name="diagnosis_label">Diagnóstico:</string>
+    <string name="treatment_label">Tratamento recomendado:</string>
+    <string name="delete">Apagar</string>
+    <string name="change">Alterar</string>
+    <string name="add_pet">Adicionar</string>
+    <string name="weight">Peso:</string>
+    <string name="heart_rhythm">Ritmo cardiaco:</string>
+    <string name="temperature">Temperatura:</string>
+    <string name="veterinarian">Veterinário:</string>
+    <string name="case_history">Histórico:</string>
+    <string name="diagnosis">Diagnóstico:</string>
+    <string name="observations">Observações:</string>
+
+    <string name="add_pet_name_hint">Nome</string>
+    <string name="add_pet_race_hint">Raça</string>
+    <string name="add_pet_birthdate_hint">Data de nascimento:</string>
+    <string name="add_pet_species_hint">Espécie:</string>
+    <string name="add_pet_chip_hint">Nº de chip:</string>
+    <string name="add_pet_button">Adicionar animal</string>
+</resources>

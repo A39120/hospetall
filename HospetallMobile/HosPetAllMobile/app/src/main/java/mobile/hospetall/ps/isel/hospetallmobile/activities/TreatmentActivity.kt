@@ -1,5 +1,6 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
+//import mobile.hospetall.ps.isel.hospetallmobile.utils.getTreatmentUri
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -7,29 +8,40 @@ import android.os.Bundle
 import android.util.Log
 import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.StringAccess
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
+import mobile.hospetall.ps.isel.hospetallmobile.database
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityTreatmentBinding
-import mobile.hospetall.ps.isel.hospetallmobile.getTreatmentUri
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
 import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 class TreatmentActivity : BaseActivity(){
     companion object {
         const val TAG = "HPA/ACTIVITY/CONSULT"
 
-        fun startActivity(context: Context, id: Int){
+        private const val ID = "id"
+        private const val TREATMENT = "treatment"
+        private const val PET = "pet"
+
+        fun start(context: Context, id: Int){
             val int = Intent(context, TreatmentActivity::class.java)
-            int.putExtra("id", id)
+            int.putExtra(ID, id)
+            context.startActivity(int)
+        }
+
+        fun start(context: Context, treatment: Treatment, pet: Pet? = null) {
+            val int = Intent(context, TreatmentActivity::class.java)
+            int.putExtra(TREATMENT, treatment)
+            pet?.apply { int.putExtra(PET, pet) }
             context.startActivity(int)
         }
     }
 
-    private val sAccess by lazy { StringAccess(application.requestQueue) }
-    private val treatmentAccess by lazy { TreatmentAccess(application.requestQueue) }
-    private val petAccess by lazy { PetAccess(application.requestQueue) }
+    //private val sAccess by lazy { StringAccess(application.requestQueue) }
+    private val treatmentAccess by lazy { TreatmentAccess(application.requestQueue, application.database) }
+    private val petAccess by lazy { PetAccess(application.requestQueue, application.database) }
 
     private lateinit var mBinding : ActivityTreatmentBinding
 
@@ -40,20 +52,20 @@ class TreatmentActivity : BaseActivity(){
     }
 
     private fun setTreatment() {
-        val treatment = intent.extras.getParcelable<Treatment?>(resources.getString(R.string.treatment))
+        val treatment = intent.extras.getParcelable<Treatment?>(TREATMENT)
         if(treatment != null) {
             mBinding.setTreatment(treatment)
-            setNurse(treatment.nurseUri)
+            //setNurse(treatment.nurseUri)
             setPet(treatment.petUri)
         } else {
-            val id = intent.extras.getInt("id")
-            val uri = getTreatmentUri(resources, id).build().toString()
+            val id = intent.extras.getInt(ID)
+            val uri = UriUtils.getTreatmentUri(resources, id).build().toString()
             treatmentAccess.get(
                     uri,
                     Response.Listener {
                         Log.i(TAG, "Binding treatment ${it.id} to TreatmentActivity layout.")
                         mBinding.setTreatment(it)
-                        setNurse(it.nurseUri)
+                        //setNurse(it.nurseUri)
                         setPet(it.petUri)
                     },
                     Response.ErrorListener {
@@ -64,7 +76,7 @@ class TreatmentActivity : BaseActivity(){
     }
 
     private fun setPet(petUri: String? = null) {
-        val pet =  intent.extras.getParcelable(resources.getString(R.string.pet)) as Pet?
+        val pet =  intent.extras.getParcelable(PET) as Pet?
         if(pet != null)
             mBinding.pet = pet
         else {
@@ -83,6 +95,7 @@ class TreatmentActivity : BaseActivity(){
         }
     }
 
+    /**
     private fun setNurse(vetUri: String? = null) {
         val nurse = intent.extras.getString(resources.getString(R.string.nurse))
         if(nurse != null)
@@ -101,4 +114,5 @@ class TreatmentActivity : BaseActivity(){
                 )
             }
     }
+    */
 }

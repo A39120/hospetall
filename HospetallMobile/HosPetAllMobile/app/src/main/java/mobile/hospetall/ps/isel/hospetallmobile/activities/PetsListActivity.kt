@@ -11,21 +11,27 @@ import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.PetsAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
-import mobile.hospetall.ps.isel.hospetallmobile.getClientsPetsUri
-import mobile.hospetall.ps.isel.hospetallmobile.getId
+import mobile.hospetall.ps.isel.hospetallmobile.database
 import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
+import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
 
+/**
+ * Activity to show the pet list. It will bind the
+ * [PetsAdapter] to the Recycler View and use
+ * [PetAccess] to obtain the information for each pet.
+ */
 class PetsListActivity : BaseActivity() {
     companion object {
         const val TAG = "HPA/ACTIVITY/PET_LIST"
 
-        fun startActivity(context: Context){
+        fun start(context: Context){
             val int = Intent(context, PetsListActivity::class.java)
             context.startActivity(int)
         }
     }
 
-    private val petAccess: PetAccess by lazy { PetAccess(application.requestQueue) }
+    private val petAccess: PetAccess by lazy { PetAccess(application.requestQueue, application.database) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +40,8 @@ class PetsListActivity : BaseActivity() {
         val id = getId()
         Log.i(TAG, "Getting pet list from owner with id: $id.")
 
-        val uri = getClientsPetsUri(resources, id)
+
+        val uri = UriUtils.getClientsPetsUri(resources, id)
         petAccess.getList(
                 uri.toString(),
                 "petList",
@@ -50,9 +57,8 @@ class PetsListActivity : BaseActivity() {
         )
     }
 
-    fun createPet(view : View) {
-        val int = Intent(this, AddPetActivity::class.java)
-        this.startActivity(int)
+    fun createPet(ignore : View) {
+        AddPetActivity.start(this.baseContext)
     }
 
 }

@@ -1,4 +1,4 @@
-package mobile.hospetall.ps.isel.hospetallmobile
+package mobile.hospetall.ps.isel.hospetallmobile.utils
 
 import org.json.JSONObject
 
