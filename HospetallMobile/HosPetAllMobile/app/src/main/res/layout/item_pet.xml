@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="@dimen/default_margin"
         android:weightSum="1">
 
         <TextView
@@ -33,7 +34,7 @@
                 bind:pet="@{pet}"
                 layout="@layout/layout_pet_detail" />
 
-            <Button
+            <!--<Button
                 android:id="@+id/change_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +50,7 @@
                 android:layout_alignParentEnd="true"
                 android:onClick="deletePet"
                 android:text="@string/delete"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true" /> -->
         </mobile.hospetall.ps.isel.hospetallmobile.view.ExtendedRelativeLayout>
     </RelativeLayout>
 </layout>

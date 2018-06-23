@@ -23,14 +23,17 @@ object UriUtils {
                 .authority(resources.getString(R.string.authority))
     }
 
+    fun getClientUri(resources: Resources, id: Int) =
+            getBaseUri(resources)
+                    .appendEncodedPath(resources.getString(R.string.client_path))
+                    .appendEncodedPath(id.toString())
+
     /**
      * Gets the uri for the resource that contains the clients pets.
      * @param id: client id
      */
     fun getClientsPetsUri(resources: Resources, id: Int) =
-            getBaseUri(resources)
-                    .appendEncodedPath(resources.getString(R.string.client_path))
-                    .appendEncodedPath(id.toString())
+            getClientUri(resources, id)
                     .appendEncodedPath(resources.getString(R.string.clients_pets_path))
 
     /**
@@ -41,19 +44,6 @@ object UriUtils {
     fun getPetListUri(resources: Resources): Uri.Builder =
             getBaseUri(resources)
                     .appendPath(resources.getString(R.string.pet_path))
-
-    /**
-     * Gets pet race and species
-     * @Deprecated
-
-    fun getRaceUri(resources: Resources): Uri.Builder =
-    getBaseUri(resources)
-    .appendEncodedPath(resources.getString(R.string.race_path))
-
-    fun getSpeciesUri(resources: Resources): Uri.Builder =
-    getBaseUri(resources)
-    .appendEncodedPath(resources.getString(R.string.species_path))
-     */
 
     /**
      * Gets an uri for a representation of [Pet]
@@ -88,9 +78,7 @@ object UriUtils {
      */
     fun getPetsConsultationsUri(resources: Resources, id: Int): Uri.Builder =
     //TODO: Wait for this to be fixed
-            getBaseUri(resources)
-                    .appendEncodedPath(resources.getString(R.string.client_path))
-                    .appendEncodedPath(id.toString())
+            getClientUri(resources, id)
                     .appendPath(resources.getString(R.string.pet_path))
                     .appendPath(resources.getString(R.string.consultation_path))
 
@@ -101,9 +89,7 @@ object UriUtils {
      */
     fun getPetsTreatmentUri(resources: Resources, id: Int): Uri.Builder =
 //TODO: Wait for this to be fixed
-            getBaseUri(resources)
-                    .appendEncodedPath(resources.getString(R.string.client_path))
-                    .appendEncodedPath(id.toString())
+            getClientUri(resources, id)
                     .appendPath(resources.getString(R.string.pet_path))
                     .appendPath(resources.getString(R.string.treatment_path))
 

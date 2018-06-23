@@ -5,10 +5,10 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
-import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
-import mobile.hospetall.ps.isel.hospetallmobile.utils.values.LinkValues
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getLink
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getLinks
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.LinkValues
 import org.json.JSONObject
 
 @Entity(tableName = Client.TABLE_NAME)
@@ -43,10 +43,10 @@ data class Client(
         val nif: Int?,
 
         @ColumnInfo(name= OTHER)
-        val other: String?,
+        val other: String? = null,
 
         @ColumnInfo(name= PETS_URI)
-        val petsUrl: String?
+        val petsUrl: String? = null
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -78,6 +78,22 @@ data class Client(
         return 0
     }
 
+    fun toJSON() : JSONObject {
+        val json = JSONObject()
+        json.apply {
+            //put(DatabaseColumns.URI, uri)
+            put(DatabaseColumns.ID, id)
+            put(FAMILY_NAME, familyName)
+            put(GIVEN_NAME, givenName)
+            put(EMAIL, email)
+            put(TELEPHONE, telephone)
+            put(ADDRESS, address)
+            put(POSTAL_CODE, postalCode)
+            put(NIF, nif)
+        }
+        return json
+    }
+
     companion object CREATOR : Parcelable.Creator<Client> {
         override fun createFromParcel(parcel: Parcel): Client {
             return Client(parcel)
@@ -88,12 +104,12 @@ data class Client(
         }
 
         const val TABLE_NAME = "client"
-        const val FAMILY_NAME = "family_name"
-        const val GIVEN_NAME = "given_name"
+        const val FAMILY_NAME = "familyName"
+        const val GIVEN_NAME = "givenName"
         const val EMAIL = "email"
         const val TELEPHONE = "telephone"
         const val ADDRESS = "address"
-        const val POSTAL_CODE = "postal_code"
+        const val POSTAL_CODE = "postalCode"
         const val NIF = "nif"
         const val OTHER = "other"
         const val PETS_URI = "pets_uri"
@@ -114,8 +130,9 @@ data class Client(
                     clientJson.getString(OTHER),
                     links.getLink("pets")!!
             )
-
         }
+
+
     }
 }
 

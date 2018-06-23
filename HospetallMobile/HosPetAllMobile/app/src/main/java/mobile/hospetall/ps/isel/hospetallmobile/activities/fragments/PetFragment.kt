@@ -21,11 +21,6 @@ class PetFragment : BaseFragment() {
 
     private lateinit var binder : FragmentPetDetailBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.i(TAG, "onCreate called.")
-    }
-
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,6 +32,7 @@ class PetFragment : BaseFragment() {
                 {
                     Log.i(TAG, "Binding pet ${it.id} to pet detail fragment.")
                     binder.pet = it
+                    binder.executePendingBindings()
                 }
         )
 

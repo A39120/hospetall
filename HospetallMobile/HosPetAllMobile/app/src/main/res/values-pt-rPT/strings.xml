@@ -38,4 +38,6 @@
     <string name="add_pet_species_hint">Espécie:</string>
     <string name="add_pet_chip_hint">Nº de chip:</string>
     <string name="add_pet_button">Adicionar animal</string>
+    <string name="client_nif">NIF</string>
+    <string name="client_address">Address</string>
 </resources>

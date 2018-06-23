@@ -45,6 +45,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun goToProfile(item: MenuItem) : Boolean {
+        ProfileActivity.start(baseContext)
         return true
     }
 

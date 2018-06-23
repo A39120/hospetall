@@ -2,7 +2,7 @@
     <string name="app_name">HosPetAll</string>
 
     <string name="protocol" translatable="false">http</string>
-    <string name="authority" translatable="false">192.168.255.154</string>
+    <string name="authority" translatable="false">192.168.1.80</string>
     <string name="pet_path" translatable="false">pet</string>
     <string name="client_path" translatable="false">client</string>
     <string name="clients_pets_path" translatable="false">pets</string>
@@ -46,7 +46,7 @@
     <string name="add_pet_race_hint">Race</string>
     <string name="add_pet_birthdate_hint">Birthdate:</string>
     <string name="add_pet_species_hint">Species:</string>
-    <string name="add_pet_chip_hint">Chip Numbe:</string>
+    <string name="add_pet_chip_hint">Chip Number:</string>
     <string name="add_pet_button">Add Pet</string>
 
     <string name="json_pet_name" translatable="false">name</string>
@@ -55,5 +55,13 @@
     <string name="json_pet_species" translatable="false">species</string>
     <string name="json_pet_birthdate" translatable="false">birthdate</string>
     <string name="nurse">Nurse</string>
+    <string name="client_nif">NIF</string>
+    <string name="client_postalCode">Postal Code</string>
+    <string name="client_address">Address</string>
+    <string name="client_telephone">Telephone</string>
+    <string name="client_email">Email</string>
+    <string name="client_lastName">Last Name</string>
+    <string name="client_givenName">Given Name</string>
+    <string name="update_profile_button">Change Profile</string>
 
 </resources>

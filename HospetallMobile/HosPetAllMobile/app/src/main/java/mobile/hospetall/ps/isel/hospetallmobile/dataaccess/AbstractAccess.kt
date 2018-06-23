@@ -35,18 +35,18 @@ abstract class AbstractAccess<T> (
      */
     fun get(uri: String, onSuccess: Response.Listener<T>,
             onError: Response.ErrorListener? = null) {
-        val cache = queue.cache.get(uri)?.data
-        cache?.apply{
-            Log.i(TAG, "Got result for $uri from cache.")
-            onSuccess.onResponse(
-                    parse(JSONObject(String(this))))
-            return
-        }
 
-        //Start async task to deal with data from database.
+        //Start async task to deal with data from database/cache.
         val task = AsyncTaskImpl(
                 uri,
-                this::getFromDatabase,
+                {
+                    val cache = queue.cache.get(uri)?.data
+                    if(cache != null) {
+                        Log.i(TAG, "Got result for $uri from cache.")
+                        return@AsyncTaskImpl parse(JSONObject(String(cache)))
+                    }
+                    return@AsyncTaskImpl getFromDatabase(uri)
+                },
                 {
                     if(it != null){
                         Log.i(TAG, "Got result for $uri from database.")
@@ -54,9 +54,7 @@ abstract class AbstractAccess<T> (
                     } else {
                         getFromUri(uri, onSuccess, onError)
                     }
-                }
-        )
-
+                })
         task.execute()
     }
 
@@ -79,6 +77,7 @@ abstract class AbstractAccess<T> (
                 onSuccess: Response.Listener<List<T>>,
                 onError: Response.ErrorListener) {
 
+        //TODO: Database
         getCollectionFromUri(
                 uri,
                 property,
@@ -195,6 +194,27 @@ abstract class AbstractAccess<T> (
                         onError?.run { onErrorResponse(it) }
                     }
             ))
+
+    open fun put(
+            uri: String,
+            json: JSONObject,
+            onSuccess: Response.Listener<T>,
+            onError: Response.ErrorListener? = null
+    ):  Request<JSONObject>? =
+        queue.add(JsonObjectRequest(
+                Request.Method.PUT,
+                uri,
+                json,
+                Response.Listener {
+                    Log.i(TAG, "Successfully sent put request to $uri.")
+                    onSuccess.onResponse(parse(json))
+                },
+                Response.ErrorListener {
+                    Log.e(TAG, "Failed to send put request to $uri. Status code: ${it.networkResponse.statusCode}")
+                    onError?.run { onErrorResponse(it) }
+                }
+        ))
+
 
     /**
      * Parses [JSONObject] into a [T] object.
