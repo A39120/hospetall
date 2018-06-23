@@ -26,7 +26,6 @@ class PetActivity : BaseActivity(),
         OnConsultationListListener,
         OnTreatmentListListener {
 
-
     companion object {
         const val TAG = "HPA/ACTIVITY/PET"
 
@@ -68,8 +67,6 @@ class PetActivity : BaseActivity(),
         mViewPager = findViewById(R.id.pager)
         mViewPager.adapter = mPagerAdapter
     }
-
-
 
     override fun onPet(onPet: (Pet) -> Unit) {
         if(pet != null) {
@@ -115,7 +112,6 @@ class PetActivity : BaseActivity(),
             )
         }
     }
-
 }
 
 

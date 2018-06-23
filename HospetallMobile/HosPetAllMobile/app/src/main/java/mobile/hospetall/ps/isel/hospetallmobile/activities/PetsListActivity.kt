@@ -6,15 +6,14 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.View
 import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.PetsAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.database
 import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
-import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 /**
  * Activity to show the pet list. It will bind the
@@ -55,10 +54,6 @@ class PetsListActivity : BaseActivity() {
                     Log.e(TAG, "Error getting data from client $id pets ($uri): ${it.message}")
                 }
         )
-    }
-
-    fun createPet(ignore : View) {
-        AddPetActivity.start(this.baseContext)
     }
 
 }
