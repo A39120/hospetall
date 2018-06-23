@@ -19,13 +19,16 @@ class PetFragment : BaseFragment() {
         const val TAG = "HPA/FRAGMENT/PET"
     }
 
+    /**
+     * Layout fragment binder that binds the information to the
+     * layout.
+     */
     private lateinit var binder : FragmentPetDetailBinding
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         Log.i(TAG, "onCreateView called.")
-
         binder = FragmentPetDetailBinding.inflate(inflater, container, false)
         //Passing the callback to pet after getting the result
         (activity as OnPetListener).onPet(

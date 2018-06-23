@@ -10,7 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/update_client_givenName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -111,6 +119,7 @@
             custom:pb_textProgress="@string/loading"
             custom:pb_textError="@string/error"
             custom:pb_colorError="@color/red_error" />
-
+            </RelativeLayout>
+        </ScrollView>
     </RelativeLayout>
 </layout>

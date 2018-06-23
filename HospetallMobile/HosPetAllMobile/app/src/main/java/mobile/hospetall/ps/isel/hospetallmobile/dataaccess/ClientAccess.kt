@@ -23,6 +23,7 @@ class ClientAccess(queue: RequestQueue,
      * @param obj: [Client] object;
      */
     override fun insertInDatabase(obj: Client) {
+
         AsyncTask.execute {
             database.beginTransaction()
             database.clientDao.insertOrUpdate(obj)
