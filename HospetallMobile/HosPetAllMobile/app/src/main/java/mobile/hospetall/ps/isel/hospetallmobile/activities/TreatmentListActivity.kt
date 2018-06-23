@@ -23,9 +23,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 class TreatmentListActivity :
         BaseActivity(),
         OnTreatmentListListener,
-        OnPetListListener
-{
-
+        OnPetListListener {
 
     companion object {
         const val TAG = "HPA/ACTIVITY/CONS_LIST"
@@ -39,6 +37,12 @@ class TreatmentListActivity :
     private val petAccess by lazy { PetAccess(application.requestQueue, application.database)  }
     private val treatmentAccess by lazy { TreatmentAccess(application.requestQueue, application.database) }
 
+    /**
+     * Implemented method of [OnTreatmentListListener]
+     * called when you have a treatment list.
+     * @param onList: callback called when you have the list
+     * of treatments;
+     */
     override fun onTreatmentList(onList: (List<Treatment>) -> Unit) {
         val uri = UriUtils.getPetsTreatmentUri(resources, getId()).build().toString()
         treatmentAccess.getList(
@@ -50,6 +54,12 @@ class TreatmentListActivity :
         )
     }
 
+    /**
+     * Implemented listener that acts according to the the
+     * uri for the pets of a certain client.
+     * @param listener: callback called when you have the list
+     * of pets
+     */
     override fun onPetList(listener: (List<Pet>) -> Unit) {
         val uri = UriUtils.getClientsPetsUri(resources, getId()).build().toString()
         petAccess.getList(

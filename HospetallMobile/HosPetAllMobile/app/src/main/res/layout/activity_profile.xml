@@ -16,7 +16,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin">
 
             <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/update_client_givenName"
@@ -79,7 +80,6 @@
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/update_client_postalCode"
-            android:visibility="@{client.postalCode != null ? View.VISIBLE : View.GONE}"
             android:layout_below="@id/update_client_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -111,6 +111,7 @@
             android:layout_height="wrap_content"
             android:text="@string/update_profile_button"
             android:textColor="@android:color/white"
+            android:clickable="true"
             custom:pb_colorComplete="@color/green_complete"
             custom:pb_colorNormal="@color/blue_normal"
             custom:pb_colorPressed="@color/blue_pressed"

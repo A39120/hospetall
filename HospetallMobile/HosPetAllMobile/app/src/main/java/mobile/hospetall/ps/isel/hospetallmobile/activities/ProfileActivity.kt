@@ -6,7 +6,8 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.EditText
+import android.view.View
+import android.widget.TextView
 import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ClientAccess
@@ -38,7 +39,8 @@ class ProfileActivity : AppCompatActivity(), OnClientListener {
         super.onCreate(savedInstanceState)
         mBinder = DataBindingUtil.setContentView(this, R.layout.activity_profile)
         onClient {
-            mBinder.client = it
+            //mBinder.client = it
+            setClientInfo(it)
             mBinder.updateProfileButton.setOnClickListener{update()}
             mBinder.executePendingBindings()
         }
@@ -55,13 +57,13 @@ class ProfileActivity : AppCompatActivity(), OnClientListener {
         val newClient = Client(
                 uri.build().toString(),
                 getId(),
-                findViewById<EditText>(R.id.update_client_lastName).text.toString(),
-                findViewById<EditText>(R.id.update_client_givenName).text.toString(),
-                findViewById<EditText>(R.id.update_client_email).text.toString(),
-                findViewById<EditText>(R.id.update_client_telephone).text.toString(),
-                findViewById<EditText>(R.id.update_client_address).text.toString(),
-                findViewById<EditText>(R.id.update_client_postalCode).text.toString(),
-                Integer.parseInt(findViewById<EditText>(R.id.update_client_nif).text.toString())
+                mBinder.updateClientLastName.text.toString(),
+                mBinder.updateClientGivenName.text.toString(),
+                mBinder.updateClientEmail.text.toString(),
+                mBinder.updateClientTelephone.text.toString(),
+                mBinder.updateClientAddress.text.toString(),
+                mBinder.updateClientPostalCode.text.toString(),
+                Integer.parseInt(mBinder.updateClientNif.text.toString())
         )
 
         val req = clientAccess.put(
@@ -97,5 +99,26 @@ class ProfileActivity : AppCompatActivity(), OnClientListener {
                     }
             )
         }
+    }
+
+    fun cancel(){
+        this.finish()
+    }
+
+    fun setButtonActive(view: View) {
+       mBinder.updateProfileButton.isClickable = true
+    }
+
+    private fun setClientInfo(client : Client) {
+        mBinder.updateClientLastName.setText(client.familyName, TextView.BufferType.EDITABLE)
+        mBinder.updateClientGivenName.setText(client.givenName, TextView.BufferType.EDITABLE)
+        mBinder.updateClientEmail.setText(client.email, TextView.BufferType.EDITABLE)
+        mBinder.updateClientTelephone.setText(client.telephone, TextView.BufferType.EDITABLE)
+        mBinder.updateClientAddress.setText(client.address, TextView.BufferType.EDITABLE)
+        client.postalCode?.let{
+            mBinder.updateClientPostalCode.setText(it, TextView.BufferType.EDITABLE)
+        }
+        mBinder.updateClientNif.setText(client.nif.toString(), TextView.BufferType.EDITABLE)
+
     }
 }
