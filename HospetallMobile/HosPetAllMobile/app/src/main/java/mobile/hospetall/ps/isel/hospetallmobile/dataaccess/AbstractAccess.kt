@@ -1,10 +1,14 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
+import android.os.AsyncTask
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.base.BaseDao
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.utils.RequestQueueSingleton
 import mobile.hospetall.ps.isel.hospetallmobile.utils.AsyncTaskImpl
 import org.json.JSONObject
 
@@ -15,12 +19,15 @@ import org.json.JSONObject
  * [RequestQueue] will be used to communicate with the API,
  * or to store information in a cache.
  */
-abstract class AbstractAccess<T> (
-        private val queue: RequestQueue
+abstract class AbstractAccess<T, V : BaseDao<T>> (
+        private val dao: V
 ) {
     companion object {
         const val TAG = "HPA/DA/ABSTRACT"
     }
+
+    protected val queue = RequestQueueSingleton.getInstance().requestQueue
+    protected val database = MobileDatabase.getInstance()
 
     /**
      * Get function to obtain an object with a certain uri,
@@ -36,53 +43,13 @@ abstract class AbstractAccess<T> (
     fun get(uri: String, onSuccess: Response.Listener<T>,
             onError: Response.ErrorListener? = null) {
 
-        //Start async task to deal with data from database/cache.
-        val task = AsyncTaskImpl(
-                uri,
-                {
-                    val cache = queue.cache.get(uri)?.data
-                    if(cache != null) {
-                        Log.i(TAG, "Got result for $uri from cache.")
-                        return@AsyncTaskImpl parse(JSONObject(String(cache)))
-                    }
-                    return@AsyncTaskImpl getFromDatabase(uri)
-                },
-                {
-                    if(it != null){
-                        Log.i(TAG, "Got result for $uri from database.")
-                        onSuccess.onResponse(it)
-                    } else {
-                        getFromUri(uri, onSuccess, onError)
-                    }
-                })
-        task.execute()
-    }
+        val cache = queue.cache.get(uri)?.data
+        if(cache != null) {
+            Log.i(TAG, "Got result for $uri from cache.")
+            onSuccess.onResponse(parse(JSONObject(String(cache))))
+        }
 
-    /**
-     * Get function to obtain an multiple objects represented
-     * with an uri, and pass it to a callback if there is an
-     * answer.
-     *
-     * @param uri: the chosen id for most objects;
-     * @param property: string that represents a json property
-     * where the list is contained;
-     * @param onSuccess: success callback, will receive the
-     * list of objects when successful
-     * @param onError: error callback, will receive the object
-     * when a failure occurs, if this parameter is null then
-     * only an log message will be written.
-     */
-    fun getList(uri: String,
-                property: String,
-                onSuccess: Response.Listener<List<T>>,
-                onError: Response.ErrorListener) {
-
-        //TODO: Database
-        getCollectionFromUri(
-                uri,
-                property,
-                onSuccess,
-                onError)
+        getFromDatabase(uri, onSuccess, onError)
     }
 
     /**
@@ -121,51 +88,33 @@ abstract class AbstractAccess<T> (
      * @return object if present in the database, or null if not
      * present
      */
-    abstract fun getFromDatabase(uri: String) : T?
+    fun getFromDatabase(uri: String, onSuccess: Response.Listener<T>, onError: Response.ErrorListener? = null) {
+        AsyncTaskImpl(
+                uri,
+                dao::get,
+                {
+                    if(it != null){
+                        Log.i(TAG, "Got object from database.")
+                        onSuccess.onResponse(it)
+                    } else
+                        getFromUri(uri, onSuccess, onError)
+                }
+        ).execute()
+    }
 
     /**
      * Inserts object inside the database.
      *
      * @param obj: Object to insert inside the database
      */
-    abstract fun insertInDatabase(obj : T)
-
-    abstract fun insertCollectionInDatabase(list : List<T>)
-
-    /**
-     * Gets a list of objects directly from the Web API
-     * represented with the [uri].
-     */
-    open fun getCollectionFromUri(
-                                     uri: String,
-                                     property: String,
-                                     onSuccess: Response.Listener<List<T>>,
-                                     onError: Response.ErrorListener? = null
-    ) {
-        val embedded = "_embedded"
-        queue.add(
-                JsonObjectRequest(
-                        uri,
-                        null,
-                        Response.Listener {
-                            Log.i(TAG, "Got json list data from $uri")
-                            val jsonArr = it.optJSONObject(embedded)?.optJSONArray(property)
-                            if(jsonArr != null) {
-                                val list =
-                                        List(jsonArr.length(), { jsonArr.get(it) as JSONObject })
-                                                .map { parse(it) }
-                                Log.i(TAG, "Inserting new data from $uri list into database.")
-                                insertCollectionInDatabase(list)
-                                onSuccess.onResponse(list)
-                            }
-                        },
-                        Response.ErrorListener {
-                            Log.e(TAG, "Failed to send get request for list from $uri")
-                            onError?.run { onErrorResponse(it) }
-                        }
-                )
-        )
+    fun insertInDatabase(obj : T) {
+        AsyncTask.execute {
+            database.beginTransaction()
+            dao.insertOrUpdate(obj)
+            database.endTransaction()
+        }
     }
+
 
     /**
      * Makes a post request.
@@ -223,4 +172,5 @@ abstract class AbstractAccess<T> (
      * @return instance defined object.
      */
     abstract fun parse(json: JSONObject) : T
+
 }
