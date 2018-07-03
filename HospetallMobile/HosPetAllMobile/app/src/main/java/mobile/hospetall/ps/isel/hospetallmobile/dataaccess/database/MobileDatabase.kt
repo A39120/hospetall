@@ -4,15 +4,8 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.ClientDao
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.ConsultationDao
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.PetDao
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.TreatmentDao
-import mobile.hospetall.ps.isel.hospetallmobile.models.Client
-import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
-import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
-import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
-
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.*
+import mobile.hospetall.ps.isel.hospetallmobile.models.*
 
 /**
  * The database for the following classes:
@@ -24,8 +17,9 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
  *  pets that belong to the current client;
  *  [Treatment] - information about the treatment for the pets
  *  that belong to the current client;
+ *  [Event] - information on an event;
  */
-@Database(entities = [Client::class, Pet::class, Consultation::class, Treatment::class], version = 1)
+@Database(entities = [Client::class, Pet::class, Consultation::class, Treatment::class, Event::class, ListEntity::class], version = 1)
 abstract class MobileDatabase : RoomDatabase() {
 
     /**
@@ -33,10 +27,12 @@ abstract class MobileDatabase : RoomDatabase() {
      * with the database, each interface will communicate
      * with a table.
      */
-    abstract val clientDao: ClientDao
-    abstract val petDao : PetDao
-    abstract val consultationDao : ConsultationDao
-    abstract val treatmentDao: TreatmentDao
+    abstract fun ClientDao(): ClientDao
+    abstract fun PetDao(): PetDao
+    abstract fun ConsultationDao(): ConsultationDao
+    abstract fun TreatmentDao(): TreatmentDao
+    abstract fun EventDao(): EventDao
+    abstract fun ListDao(): ListDao
 
 
     /**
@@ -45,7 +41,7 @@ abstract class MobileDatabase : RoomDatabase() {
      */
     companion object {
         private var database : MobileDatabase? = null
-        const val DATABASE_NAME = "main"
+        private const val DATABASE_NAME = "main"
 
         /**
          * Gets the singleton instance of [MobileDatabase].
@@ -54,11 +50,15 @@ abstract class MobileDatabase : RoomDatabase() {
          * @return The singleton instance of [MobileDatabase].
          */
         @Synchronized
-        fun getInstance(context: Context): MobileDatabase{
-            if(database == null)
+        fun getInstance(context: Context? = null): MobileDatabase{
+            if(database == null) {
+                if (context != null)
                     database = Room
                             .databaseBuilder(context.applicationContext, MobileDatabase::class.java, DATABASE_NAME)
                             .build()
+                else
+                    throw IllegalAccessException("Can't instantiate class from this context.")
+            }
 
             return database as MobileDatabase
         }
