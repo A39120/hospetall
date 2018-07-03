@@ -28,6 +28,8 @@ android {
 }
 
 dependencies {
+    def work_version = "1.0.0-alpha04"
+    implementation "android.arch.work:work-runtime-ktx:$work_version" // use -ktx for Kotlin
     implementation 'com.android.support:support-v4:27.1.1'
     kapt 'com.android.databinding:compiler:3.1.2'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
