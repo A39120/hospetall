@@ -1,9 +1,7 @@
 package mobile.hospetall.ps.isel.hospetallmobile.models
 
 import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.PrimaryKey
-import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
-import org.jetbrains.annotations.NotNull
+import mobile.hospetall.ps.isel.hospetallmobile.models.base.Base
 
 /**
  * Procedure open class that will share the same attributes
@@ -11,14 +9,8 @@ import org.jetbrains.annotations.NotNull
  * from the api.
  */
 open class Procedure(
-
-        @PrimaryKey
-        @ColumnInfo(name= DatabaseColumns.URI)
-        val uri: String,
-
-        @NotNull
-        @ColumnInfo(name= DatabaseColumns.ID)
-        val id: Int,
+        uri: String,
+        id: Int,
 
         @ColumnInfo(name=DATE)
         val date: String,
@@ -37,7 +29,7 @@ open class Procedure(
 
         @ColumnInfo(name= PET_URI)
         val petUri: String
-) {
+) : Base(uri, id){
     companion object {
         /**
          * Constants that specify the name of a column on the

@@ -2,9 +2,9 @@ package mobile.hospetall.ps.isel.hospetallmobile.models
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
+import mobile.hospetall.ps.isel.hospetallmobile.models.base.Base
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getLink
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getLinks
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
@@ -12,14 +12,9 @@ import mobile.hospetall.ps.isel.hospetallmobile.utils.values.LinkValues
 import org.json.JSONObject
 
 @Entity(tableName = Client.TABLE_NAME)
-data class Client(
-        @PrimaryKey(autoGenerate = false)
-        @ColumnInfo(name = DatabaseColumns.URI)
-        val uri : String,
-
-        //@NotNull val etag: String,
-        @ColumnInfo(name= DatabaseColumns.ID)
-        val id: Int,
+class Client(
+        uri : String,
+        id: Int,
 
         @ColumnInfo(name= FAMILY_NAME)
         val familyName: String,
@@ -47,7 +42,7 @@ data class Client(
 
         @ColumnInfo(name= PETS_URI)
         val petsUrl: String? = null
-) : Parcelable {
+) : Parcelable, Base(uri, id) {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readInt(),
@@ -62,6 +57,7 @@ data class Client(
             parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(uri)
         parcel.writeInt(id)
         parcel.writeString(familyName)
         parcel.writeString(givenName)
@@ -81,7 +77,7 @@ data class Client(
     fun toJSON() : JSONObject {
         val json = JSONObject()
         json.apply {
-            //put(DatabaseColumns.URI, uri)
+            put(DatabaseColumns.URI, uri)
             put(DatabaseColumns.ID, id)
             put(FAMILY_NAME, familyName)
             put(GIVEN_NAME, givenName)

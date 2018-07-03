@@ -2,12 +2,12 @@ package mobile.hospetall.ps.isel.hospetallmobile.models
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
+import mobile.hospetall.ps.isel.hospetallmobile.models.base.Base
+import mobile.hospetall.ps.isel.hospetallmobile.utils.getLinks
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.LinkValues
-import mobile.hospetall.ps.isel.hospetallmobile.utils.getLinks
 import org.jetbrains.annotations.NotNull
 import org.json.JSONObject
 
@@ -16,19 +16,9 @@ import org.json.JSONObject
  * table of it's own.
  */
 @Entity(tableName = Pet.TABLE_NAME)
-data class Pet(
-
-        @PrimaryKey(autoGenerate = false)
-        @ColumnInfo(name= DatabaseColumns.URI)
-        val uri: String,
-
-        //@NotNull
-        //@ColumnInfo(name=DatabaseColumns.ETAG)
-        //val etag: String,
-
-        @NotNull
-        @ColumnInfo(name= DatabaseColumns.ID)
-        val id: Int,
+class Pet(
+        uri: String,
+        id: Int,
 
         @NotNull
         @ColumnInfo(name=NAME)
@@ -45,7 +35,7 @@ data class Pet(
 
         @ColumnInfo(name=CHIP)
         val chipNumber: Int?
-) : Parcelable {
+) : Parcelable, Base(uri, id) {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             //parcel.readString(),

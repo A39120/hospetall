@@ -1,46 +1,78 @@
 package mobile.hospetall.ps.isel.hospetallmobile.models
 
 import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
 
+/**
+ * Data class for an event related to a certain [Pet].
+ * @property id: Normal id, since this isn't dependent on the
+ * api, it will auto generate one id;
+ * @property title: Summary of the event;
+ * @property message: Message that contains the info on the
+ * event;
+ * @property pet: ID of the [Pet];
+ * @property period: Long that contains the repetition period
+ * if -1, the event will not be repeated;
+ * @property time: Start date of the event;
+ * @property appointed: Tells if the even has an appointment
+ * in the api or not;
+ * @property type: Integer that references the type of event:
+ *      0: User Event
+ *      1: Product Event
+ *      2: Consultation
+ *      3: Treatment
+ *  The type is used to make appointments for consultation
+ *  or treatment.
+ */
+@Entity(tableName = Event.TABLE_NAME)
 data class Event(
         @ColumnInfo(name=DatabaseColumns.ID)
         @PrimaryKey(autoGenerate = true)
-        val id : Int,
+        var id : Int? = null,
         @ColumnInfo(name = TITLE)
         val title: String,
         @ColumnInfo(name= MESSAGE)
         val message: String?,
         @ColumnInfo(name= PET_ID)
         val pet: Int?,
-        @ColumnInfo(name= PERIODIC)
-        val periodic: Boolean = false,
+        @ColumnInfo(name= PERIOD)
+        val period: Long = -1,
         @ColumnInfo(name=TIME)
-        val time: Long
+        val timedate: Long,
+        @ColumnInfo(name=APPOINTED)
+        val appointed: Boolean = false,
+        @ColumnInfo(name=TYPE)
+        val type: Int = EventType.USER
 ) : Parcelable{
         constructor(parcel: Parcel) : this(
-                parcel.readInt(),
+                parcel.readValue(Int::class.java.classLoader) as? Int,
                 parcel.readString(),
                 parcel.readString(),
                 parcel.readValue(Int::class.java.classLoader) as? Int,
+                parcel.readLong(),
+                parcel.readLong(),
                 parcel.readByte() != 0.toByte(),
-                parcel.readLong()) {
-        }
+                parcel.readInt()
+        )
+
 
         override fun writeToParcel(dest: Parcel?, flags: Int) {
             dest?.apply {
-                writeInt(id)
+                id?.apply { writeInt(this) }
                 writeString(title)
                 writeString(message)
-                pet?.apply{writeInt(pet)}
-                if(periodic)
+                pet?.apply{writeInt(this)}
+                writeLong(period)
+                writeLong(timedate)
+                if(appointed)
                     writeByte(1)
                 else
                     writeByte(0)
-                writeLong(time)
+                writeInt(type)
             }
         }
 
@@ -50,19 +82,29 @@ data class Event(
 
         companion object CREATOR : Parcelable.Creator<Event> {
 
-                const val TITLE = "title"
-                const val PET_ID = "pet_id"
-                const val PERIODIC = "periodic"
-                const val MESSAGE = "message"
-                const val TIME = "time"
+            object EventType {
+                const val USER = 0
+                const val PRODUCT  = 1
+                const val CONSULTATION = 2
+                const val TREATMENT = 3
+            }
 
-                override fun createFromParcel(parcel: Parcel): Event {
-                        return Event(parcel)
-                }
+            const val TITLE = "title"
+            const val PET_ID = "pet_id"
+            const val PERIOD = "period"
+            const val MESSAGE = "message"
+            const val TIME = "time"
+            const val APPOINTED = "appointed"
+            const val TYPE = "type"
+            const val TABLE_NAME= "event"
 
-                override fun newArray(size: Int): Array<Event?> {
-                        return arrayOfNulls(size)
-                }
+            override fun createFromParcel(parcel: Parcel): Event {
+                    return Event(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Event?> {
+                    return arrayOfNulls(size)
+           }
         }
 }
 
