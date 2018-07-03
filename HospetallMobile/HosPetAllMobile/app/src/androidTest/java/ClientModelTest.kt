@@ -1,3 +1,4 @@
+
 import android.support.test.InstrumentationRegistry
 import junit.framework.Assert
 import mobile.hospetall.ps.isel.hospetallmobile.activities.ProfileActivity

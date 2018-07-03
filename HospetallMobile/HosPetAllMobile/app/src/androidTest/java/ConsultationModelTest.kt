@@ -2,10 +2,10 @@
 import android.content.Intent
 import android.support.test.InstrumentationRegistry
 import com.android.volley.Response
-import com.android.volley.toolbox.Volley
 import junit.framework.Assert
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.utils.RequestQueueSingleton
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import org.json.JSONObject
 import org.junit.Test
@@ -17,6 +17,7 @@ class ConsultationModelTest {
     val caseHistory = "Organized national forecast"
     val parcel = "aaaaa"
     private val context = InstrumentationRegistry.getTargetContext()
+    private val requestQueueSingleton = RequestQueueSingleton.getInstance(context)
 
     @Test
     fun getPetFromApi() {
@@ -44,8 +45,9 @@ class ConsultationModelTest {
     @Test
     fun petDatabaseTest(){
         val database = MobileDatabase.getInstance(context)
+
         Assert.assertNotNull(database)
-        val access = ConsultationAccess(Volley.newRequestQueue(context), database)
+        val access = ConsultationAccess()
         Assert.assertNotNull(access)
         val obj = JSONObject(JSON)
         val con = Consultation.parse(obj)
