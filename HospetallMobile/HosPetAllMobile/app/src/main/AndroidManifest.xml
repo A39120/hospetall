@@ -27,6 +27,8 @@
         <activity android:name=".activities.TreatmentActivity"/>
         <activity android:name=".activities.ConsultationListActivity"/>
         <activity android:name=".activities.TreatmentListActivity"/>
+        <activity android:name=".activities.AddEventActivity"/>
+        <activity android:name=".activities.ScheduleActivity"/>
         <activity android:name=".activities.ProfileActivity"/>
     </application>
 

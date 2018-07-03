@@ -10,11 +10,9 @@ import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
-import mobile.hospetall.ps.isel.hospetallmobile.database
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityTreatmentBinding
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
-import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 class TreatmentActivity : BaseActivity(){
@@ -40,8 +38,8 @@ class TreatmentActivity : BaseActivity(){
     }
 
     //private val sAccess by lazy { StringAccess(application.requestQueue) }
-    private val treatmentAccess by lazy { TreatmentAccess(application.requestQueue, application.database) }
-    private val petAccess by lazy { PetAccess(application.requestQueue, application.database) }
+    private val treatmentAccess by lazy { TreatmentAccess() }
+    private val petAccess by lazy { PetAccess() }
 
     private lateinit var mBinding : ActivityTreatmentBinding
 

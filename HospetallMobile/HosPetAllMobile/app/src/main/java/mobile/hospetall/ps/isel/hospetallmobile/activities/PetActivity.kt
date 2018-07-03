@@ -11,11 +11,9 @@ import mobile.hospetall.ps.isel.hospetallmobile.adapter.fragment.PetFragmentPage
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
-import mobile.hospetall.ps.isel.hospetallmobile.database
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
-import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnConsultationListListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnTreatmentListListener
@@ -51,12 +49,13 @@ class PetActivity : BaseActivity(),
     private var pet: Pet? = null
     private var id : Int = -1
 
-    private val petAccess by lazy { PetAccess(application.requestQueue, application.database) }
-    private val consultationAccess by lazy { ConsultationAccess(application.requestQueue, application.database) }
-    private val treatmentAccess by lazy { TreatmentAccess(application.requestQueue, application.database) }
+    private val petAccess by lazy { PetAccess() }
+    private val consultationAccess by lazy { ConsultationAccess() }
+    private val treatmentAccess by lazy { TreatmentAccess() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         //mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pet)
         setContentView(R.layout.activity_pet)
 

@@ -11,10 +11,8 @@ import android.widget.TextView
 import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ClientAccess
-import mobile.hospetall.ps.isel.hospetallmobile.database
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityProfileBinding
 import mobile.hospetall.ps.isel.hospetallmobile.models.Client
-import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnClientListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
@@ -33,13 +31,12 @@ class ProfileActivity : AppCompatActivity(), OnClientListener {
     }
 
     private lateinit var mBinder : ActivityProfileBinding
-    private val clientAccess : ClientAccess by lazy { ClientAccess(application.requestQueue, application.database) }
+    private val clientAccess : ClientAccess by lazy { ClientAccess() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinder = DataBindingUtil.setContentView(this, R.layout.activity_profile)
         onClient {
-            //mBinder.client = it
             setClientInfo(it)
             mBinder.updateProfileButton.setOnClickListener{update()}
             mBinder.executePendingBindings()

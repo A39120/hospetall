@@ -11,7 +11,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnTreatmentListListener
 
-class TreatmentListFragment : AbstractProcedureListFragment<Treatment>() {
+class TreatmentListFragment : AbstractListFragment() {
     companion object {
         const val TITLE = R.string.treatment
         const val TAG = "HPA/FRAG/TREATMENT_LIST"

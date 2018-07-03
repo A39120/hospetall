@@ -9,11 +9,9 @@ import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
-import mobile.hospetall.ps.isel.hospetallmobile.database
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityConsultationBinding
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
-import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 class ConsultationActivity : BaseActivity() {
@@ -28,7 +26,7 @@ class ConsultationActivity : BaseActivity() {
          * Starts this activity.
          * @param id: [Consultation] id.
          */
-        fun start(context: Context, id: Int){
+        fun start(context: Context, id: Int) {
             val int = Intent(context, ConsultationActivity::class.java)
             int.putExtra(ID, id)
             context.startActivity(int)
@@ -38,7 +36,7 @@ class ConsultationActivity : BaseActivity() {
          * Starts this activity with the consultation.
          * @param consultation: [Consultation] object.
          */
-        fun start(context: Context, consultation: Consultation, pet: Pet? = null){
+        fun start(context: Context, consultation: Consultation, pet: Pet? = null) {
             val int = Intent(context, ConsultationActivity::class.java)
             int.putExtra(CONSULTATION, consultation)
             pet?.let { int.putExtra(PET, pet) }
@@ -47,10 +45,10 @@ class ConsultationActivity : BaseActivity() {
     }
 
     //private val sAccess by lazy { StringAccess(application.requestQueue) }
-    private val consultationAccess by lazy { ConsultationAccess(application.requestQueue, application.database) }
-    private val petAccess by lazy { PetAccess(application.requestQueue, application.database) }
+    private val consultationAccess by lazy { ConsultationAccess() }
+    private val petAccess by lazy { PetAccess() }
 
-    private lateinit var mBinding : ActivityConsultationBinding
+    private lateinit var mBinding: ActivityConsultationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +58,7 @@ class ConsultationActivity : BaseActivity() {
 
     private fun setConsultation() {
         val consultation = intent.extras.getParcelable(CONSULTATION) as Consultation?
-        if(consultation != null) {
+        if (consultation != null) {
             mBinding.setConsultation(consultation)
             //setVeterinarian(consultation.vetUri)
             setPet(consultation.petUri)
@@ -78,18 +76,18 @@ class ConsultationActivity : BaseActivity() {
                     Response.ErrorListener {
                         Log.e(TAG, "Error getting consultation from $uri: ${it.message}")
                     }
-                )
-            }
+            )
+        }
     }
 
     private fun setPet(petUri: String? = null) {
-        val pet =  intent.extras.getParcelable(PET) as Pet?
-        if(pet != null)
+        val pet = intent.extras.getParcelable(PET) as Pet?
+        if (pet != null)
             mBinding.pet = pet
         else {
             petUri?.apply {
                 petAccess.get(
-                    this,
+                        this,
                         Response.Listener {
                             Log.i(TAG, "Binding pet ${it.id} to ConsultationActivity layout.")
                             mBinding.pet = pet
@@ -101,21 +99,5 @@ class ConsultationActivity : BaseActivity() {
             }
         }
     }
-
-    /**
-    private fun setVeterinarian(vetUri: String? = null) {
-            vetUri?.apply{
-                sAccess.get(
-                    vetUri,
-                    Response.Listener {
-                        Log.i(TAG, "Got vet with name $it")
-                        mBinding.veterinarian = it
-                    },
-                    Response.ErrorListener {
-                        Log.e(TAG, "Error getting veterinarian info from $vetUri")
-                    }
-                )
-            }
-    }
-    */
 }
+

@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import mobile.hospetall.ps.isel.hospetallmobile.R
-import mobile.hospetall.ps.isel.hospetallmobile.models.Procedure
 
-abstract class AbstractProcedureListFragment<T : Procedure>
+abstract class AbstractListFragment
     : BaseFragment() {
     companion object {
         const val SHOW_PET = "show_pet"

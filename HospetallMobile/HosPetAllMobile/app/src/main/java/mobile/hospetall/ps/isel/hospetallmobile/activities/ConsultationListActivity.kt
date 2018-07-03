@@ -6,14 +6,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.AbstractProcedureListFragment.Companion.SHOW_PET
+import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.AbstractListFragment.Companion.SHOW_PET
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.ConsultationListFragment
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
-import mobile.hospetall.ps.isel.hospetallmobile.database
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
-import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnConsultationListListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListListener
@@ -33,8 +31,8 @@ class ConsultationListActivity :
         }
     }
 
-    private val petAccess by lazy { PetAccess(application.requestQueue, application.database) }
-    private val consultationAccess by lazy { ConsultationAccess(application.requestQueue, application.database) }
+    private val petAccess by lazy { PetAccess() }
+    private val consultationAccess by lazy { ConsultationAccess() }
 
 
     override fun onConsultationList(list: (List<Consultation>) -> Unit) {

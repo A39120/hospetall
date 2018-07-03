@@ -11,7 +11,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnConsultationListListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListListener
 
-class ConsultationListFragment : AbstractProcedureListFragment<Consultation>() {
+class ConsultationListFragment : AbstractListFragment() {
 
     companion object {
         const val TITLE = R.string.consultation

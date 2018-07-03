@@ -11,7 +11,6 @@ import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.PetsAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.database
-import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
@@ -30,23 +29,21 @@ class PetsListActivity : BaseActivity() {
         }
     }
 
-    private val petAccess: PetAccess by lazy { PetAccess(application.requestQueue, application.database) }
+    private val petAccess: PetAccess by lazy { PetAccess() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pet_list)
+        setContentView(R.layout.activity_list)
 
         val id = getId()
         Log.i(TAG, "Getting pet list from owner with id: $id.")
 
-
         val uri = UriUtils.getClientsPetsUri(resources, id)
         petAccess.getList(
                 uri.toString(),
-                "petList",
                 Response.Listener{
                     Log.i(TAG, "Adapting pet list of client $id to adapter.")
-                    val list = findViewById<RecyclerView>(R.id.pet_list_view)
+                    val list = findViewById<RecyclerView>(R.id.list)
                     list.adapter = PetsAdapter(this, it)
                     list.layoutManager = LinearLayoutManager(this@PetsListActivity)
                 },
