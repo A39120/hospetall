@@ -1,9 +1,8 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.base.CollectionDao
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.ListEntity
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
 
@@ -11,43 +10,49 @@ import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
  * Data access object for pet table.
  */
 @Dao
-interface PetDao {
+interface PetDao : CollectionDao<Pet> {
 
     /**
      * Gets a sing pet with [id]
      */
     @Query("SELECT * FROM ${Pet.TABLE_NAME} WHERE ${DatabaseColumns.ID} = :id")
-    fun get(id: Int) : Pet
+    override fun get(id: Int) : Pet
 
     /**
      * Gets a single pet with [uri]
      */
     @Query("SELECT * FROM ${Pet.TABLE_NAME} WHERE ${DatabaseColumns.URI} = :uri")
-    fun get(uri: String) : Pet
+    override fun get(uri: String) : Pet
 
     /**
      * Inserts into pet table
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrUpdate(pet: Pet)
+    override fun insertOrUpdate(entity: Pet)
 
     /**
      * Gets all pets in database
      */
+    @Transaction
     @Query("SELECT * FROM ${Pet.TABLE_NAME}")
-    fun getAll(): List<Pet>
+    override fun getAll(): List<Pet>
+
+
+    @Transaction
+    @Query("SELECT ${Pet.TABLE_NAME}.* FROM ${Pet.TABLE_NAME} INNER JOIN ${ListEntity.TABLE_NAME} ON ${Pet.TABLE_NAME}.${DatabaseColumns.URI} = ${ListEntity.TABLE_NAME}.${ListEntity.SINGLE} WHERE ${ListEntity.TABLE_NAME}.${ListEntity.LIST} LIKE :uri")
+    override fun getList(uri: String) : List<Pet>
 
     /**
      * Deletes pet with a certain [id] from pet table
      */
     @Query("DELETE FROM ${Pet.TABLE_NAME} WHERE ${DatabaseColumns.ID} = :id")
-    fun deleteById(id: Int)
+    override fun deleteById(id: Int)
 
     /**
      * Deletes pet with a certain [uri] from pet table
      */
     @Query("DELETE FROM ${Pet.TABLE_NAME} WHERE ${DatabaseColumns.URI} = :uri")
-    fun deleteById(uri: String)
+    override fun deleteById(uri: String)
 
     /**
      * Clears table pet
