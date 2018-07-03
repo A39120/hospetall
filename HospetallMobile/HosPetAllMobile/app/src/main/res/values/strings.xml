@@ -2,7 +2,7 @@
     <string name="app_name">HosPetAll</string>
 
     <string name="protocol" translatable="false">http</string>
-    <string name="authority" translatable="false">10.10.0.203</string>
+    <string name="authority" translatable="false">192.168.255.152</string>
     <string name="pet_path" translatable="false">pet</string>
     <string name="client_path" translatable="false">client</string>
     <string name="clients_pets_path" translatable="false">pets</string>
@@ -63,5 +63,12 @@
     <string name="client_lastName">Last Name</string>
     <string name="client_givenName">Given Name</string>
     <string name="update_profile_button">Change Profile</string>
+    <string name="event_title">Title</string>
+    <string name="event_summary">Description</string>
+    <string name="new_event_time">Time: </string>
+    <string name="new_event_date">Date: </string>
+    <string name="new_event_type_label">Tipo</string>
+    <string name="new_event_period_label">Period:</string>
+    <string name="add_event">Add Event</string>
 
 </resources>
