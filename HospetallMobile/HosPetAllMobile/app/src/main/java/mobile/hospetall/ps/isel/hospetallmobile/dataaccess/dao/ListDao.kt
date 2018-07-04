@@ -1,5 +1,6 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -16,13 +17,13 @@ interface ListDao {
     fun insertAll(list: List<ListEntity>)
 
     @Query("SELECT * FROM ${ListEntity.TABLE_NAME}")
-    fun getAll(): List<ListEntity>
+    fun getAll(): LiveData<List<ListEntity>>
 
     @Query("SELECT * FROM ${ListEntity.TABLE_NAME} WHERE ${ListEntity.LIST} LIKE :uri")
-    fun get(uri: String) : List<ListEntity>
+    fun get(uri: String) : LiveData<List<ListEntity>>
 
     @Query("DELETE FROM ${ListEntity.TABLE_NAME} WHERE ${ListEntity.LIST} = :uri")
-    fun delete(uri: String): Int
+    fun delete(uri: String)
 
     @Query("DELETE FROM ${ListEntity.TABLE_NAME}")
     fun clear()

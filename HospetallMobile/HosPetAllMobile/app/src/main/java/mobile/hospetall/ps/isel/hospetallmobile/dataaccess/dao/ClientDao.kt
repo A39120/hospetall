@@ -1,5 +1,6 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -18,13 +19,13 @@ interface ClientDao : BaseDao<Client>{
      * Gets a client with [id]
      */
     @Query("SELECT * FROM ${Client.TABLE_NAME} WHERE ${DatabaseColumns.ID} = :id")
-    override fun get(id: Int) : Client
+    override fun get(id: Int) : LiveData<Client>
 
     /**
      * Gets the client with [uri]
      */
     @Query("SELECT * FROM ${Client.TABLE_NAME} WHERE ${DatabaseColumns.URI} = :uri")
-    override fun get(uri: String) : Client
+    override fun get(uri: String) : LiveData<Client>
 
     /**
      * Inserts/updates client in the client table
