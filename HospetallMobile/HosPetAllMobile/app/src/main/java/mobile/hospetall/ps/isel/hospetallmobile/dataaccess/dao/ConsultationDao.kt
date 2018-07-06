@@ -1,7 +1,9 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Insert
+import android.arch.persistence.room.OnConflictStrategy
+import android.arch.persistence.room.Query
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.base.CollectionDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.ListEntity
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
@@ -17,13 +19,13 @@ interface ConsultationDao : CollectionDao<Consultation> {
      * Gets a sing consultation with [id]
      */
     @Query("SELECT * FROM ${Consultation.TABLE_NAME} WHERE ${DatabaseColumns.ID} = :id")
-    override fun get(id: Int) : LiveData<Consultation>
+    override fun get(id: Int) : Consultation
 
     /**
      * Gets a single consultation with [uri]
      */
     @Query("SELECT * FROM ${Consultation.TABLE_NAME} WHERE ${DatabaseColumns.URI} = :uri")
-    override fun get(uri: String) : LiveData<Consultation>
+    override fun get(uri: String) : Consultation
 
     /**
      * Inserts into consultation table
@@ -34,13 +36,11 @@ interface ConsultationDao : CollectionDao<Consultation> {
     /**
      * Gets all consultations in database
      */
-    @Transaction
     @Query("SELECT * FROM ${Consultation.TABLE_NAME}")
-    override fun getAll(): LiveData<List<Consultation>>
+    override fun getAll(): List<Consultation>
 
-    @Transaction
     @Query("SELECT ${Consultation.TABLE_NAME}.* FROM ${Consultation.TABLE_NAME} INNER JOIN ${ListEntity.TABLE_NAME} ON ${Consultation.TABLE_NAME}.${DatabaseColumns.URI} = ${ListEntity.TABLE_NAME}.${ListEntity.SINGLE} WHERE ${ListEntity.LIST} = :uri")
-    override fun getList(uri: String) : LiveData<List<Consultation>>
+    override fun getList(uri: String) : List<Consultation>
 
     /**
      * Deletes consultation with a certain [id] from consultation table
@@ -59,6 +59,5 @@ interface ConsultationDao : CollectionDao<Consultation> {
      */
     @Query("DELETE FROM ${Consultation.TABLE_NAME}")
     fun clear()
-
 
 }

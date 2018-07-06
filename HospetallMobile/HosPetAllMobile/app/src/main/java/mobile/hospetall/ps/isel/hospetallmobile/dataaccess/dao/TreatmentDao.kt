@@ -1,6 +1,5 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao
 
-import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -20,13 +19,13 @@ interface TreatmentDao : CollectionDao<Treatment>{
      * Gets a sing treatment with [id]
      */
     @Query("SELECT * FROM ${Treatment.TABLE_NAME} WHERE ${DatabaseColumns.ID} = :id")
-    override fun get(id: Int) : LiveData<Treatment>
+    override fun get(id: Int) : Treatment
 
     /**
      * Gets a single treatment with [uri]
      */
     @Query("SELECT * FROM ${Treatment.TABLE_NAME} WHERE ${DatabaseColumns.URI} = :uri")
-    override fun get(uri: String) : LiveData<Treatment>
+    override fun get(uri: String) : Treatment
 
     /**
      * Inserts into treatment table
@@ -38,10 +37,10 @@ interface TreatmentDao : CollectionDao<Treatment>{
      * Gets all treatments in database
      */
     @Query("SELECT * FROM ${Treatment.TABLE_NAME}")
-    override fun getAll(): LiveData<List<Treatment>>
+    override fun getAll(): List<Treatment>
 
     @Query("SELECT ${Treatment.TABLE_NAME}.* FROM ${Treatment.TABLE_NAME} INNER JOIN ${ListEntity.TABLE_NAME} ON ${Treatment.TABLE_NAME}.${DatabaseColumns.URI} = ${ListEntity.TABLE_NAME}.${ListEntity.SINGLE} WHERE ${ListEntity.LIST} = :uri")
-    override fun getList(uri: String) : LiveData<List<Treatment>>
+    override fun getList(uri: String) : List<Treatment>
 
     /**
      * Deletes treatment with a certain [id] from treatment table

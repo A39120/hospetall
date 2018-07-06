@@ -6,11 +6,11 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.base.BaseDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.utils.RequestQueueSingleton
-import mobile.hospetall.ps.isel.hospetallmobile.utils.AsyncTaskImpl
 import org.json.JSONObject
+
 
 /**
  * Abstract class with the purpose of accessing information
@@ -20,14 +20,40 @@ import org.json.JSONObject
  * or to store information in a cache.
  */
 abstract class AbstractAccess<T, V : BaseDao<T>> (
-        private val dao: V
+        application: HospetallApplication
 ) {
     companion object {
         const val TAG = "HPA/DA/ABSTRACT"
+
+        class InsertAsyncTask<T, V : BaseDao<T>>(private val dao: V)
+            : AsyncTask<T, Unit, Unit>() {
+
+            override fun doInBackground(vararg params: T?) {
+                params[0]?.let { dao.insertOrUpdate(it) }
+            }
+
+        }
+
+        class GetAsyncTask<T, V : BaseDao<T>>(
+                private val dao: V,
+                private val listener: Response.Listener<T>
+        ) : AsyncTask<String, Unit, T>() {
+
+            override fun doInBackground(vararg params: String?): T? {
+                return params[0]?.let {
+                    return@let dao.get(it)
+                }
+            }
+
+            override fun onPostExecute(result: T?) {
+                super.onPostExecute(result)
+                listener.onResponse(result)
+            }
+        }
     }
 
-    protected val queue = RequestQueueSingleton.getInstance().requestQueue
-    protected val database = MobileDatabase.getInstance()
+    protected val queue = application.requestQueueSingleton.requestQueue
+    protected val database = application.database
 
     /**
      * Get function to obtain an object with a certain uri,
@@ -40,27 +66,24 @@ abstract class AbstractAccess<T, V : BaseDao<T>> (
      * when a failure occurs, if this parameter is null then
      * only an log message will be written.
      */
-    fun get(uri: String, onSuccess: Response.Listener<T>,
+    fun get(uri: String,
+            onSuccess: Response.Listener<T>,
             onError: Response.ErrorListener? = null) {
-
         val cache = queue.cache.get(uri)?.data
+
         if(cache != null) {
             Log.i(TAG, "Got result for $uri from cache.")
             onSuccess.onResponse(parse(JSONObject(String(cache))))
+        } else {
+            getFromDatabase(uri, onSuccess, onError)
         }
-
-        getFromDatabase(uri, onSuccess, onError)
     }
 
     /**
      * Gets an object directly from the Web API represented
      * with the [uri].
      */
-    open fun getFromUri(
-            uri: String,
-            onSuccess: Response.Listener<T>,
-            onError: Response.ErrorListener? = null)
-    {
+    open fun getFromUri(uri: String, onSuccess: Response.Listener<T>, onError: Response.ErrorListener?)  {
         queue.add(
                 JsonObjectRequest(
                         uri,
@@ -68,15 +91,10 @@ abstract class AbstractAccess<T, V : BaseDao<T>> (
                         Response.Listener {
                             Log.i(TAG, "Got object from $uri.")
                             val obj = parse(it)
-
-                            Log.i(TAG, "Inserting object into database with uri: $uri.")
                             insertInDatabase(obj)
-
-                            onSuccess.onResponse(obj)
                         },
                         Response.ErrorListener {
-                            Log.e(TAG, "Failed to send get request from $uri")
-                            onError?.run { onErrorResponse(it) }
+                            Log.e(TAG, "Failed to send get request from $uri: ${it.message}")
                         }
         ))
     }
@@ -88,19 +106,23 @@ abstract class AbstractAccess<T, V : BaseDao<T>> (
      * @return object if present in the database, or null if not
      * present
      */
-    fun getFromDatabase(uri: String, onSuccess: Response.Listener<T>, onError: Response.ErrorListener? = null) {
-        AsyncTaskImpl(
-                uri,
-                dao::get,
-                {
-                    if(it != null){
-                        Log.i(TAG, "Got object from database.")
-                        onSuccess.onResponse(it)
-                    } else
-                        getFromUri(uri, onSuccess, onError)
-                }
-        ).execute()
+    fun getFromDatabase(
+            uri: String,
+            onSuccess: Response.Listener<T>,
+            onError: Response.ErrorListener? = null
+    ) {
+        GetAsyncTask(getDao(database), Response.Listener {
+            if(it == null) {
+                Log.i(TAG, "Didn't got $uri from database.")
+                getFromUri(uri, onSuccess, onError)
+            } else {
+                Log.i(TAG, "Got user $uri from database: ${it.hashCode()}")
+                onSuccess.onResponse(it)
+            }
+        }).execute(uri)
     }
+
+
 
     /**
      * Inserts object inside the database.
@@ -108,11 +130,8 @@ abstract class AbstractAccess<T, V : BaseDao<T>> (
      * @param obj: Object to insert inside the database
      */
     fun insertInDatabase(obj : T) {
-        AsyncTask.execute {
-            database.beginTransaction()
-            dao.insertOrUpdate(obj)
-            database.endTransaction()
-        }
+        Log.i(TAG, "Inserting object: ${obj?.hashCode()} in database.")
+        InsertAsyncTask(getDao(database)).execute(obj)
     }
 
 
@@ -171,6 +190,8 @@ abstract class AbstractAccess<T, V : BaseDao<T>> (
      * @param json: the json object to be parsed;
      * @return instance defined object.
      */
-    abstract fun parse(json: JSONObject) : T
+    protected abstract fun parse(json: JSONObject) : T
+
+    protected abstract fun getDao(database: MobileDatabase) : V
 
 }

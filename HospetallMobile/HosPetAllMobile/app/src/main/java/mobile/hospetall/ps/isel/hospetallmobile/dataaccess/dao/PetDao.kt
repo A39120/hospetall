@@ -1,6 +1,5 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao
 
-import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.base.CollectionDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.ListEntity
@@ -17,13 +16,13 @@ interface PetDao : CollectionDao<Pet> {
      * Gets a sing pet with [id]
      */
     @Query("SELECT * FROM ${Pet.TABLE_NAME} WHERE ${DatabaseColumns.ID} = :id")
-    override fun get(id: Int) : LiveData<Pet>
+    override fun get(id: Int) : Pet
 
     /**
      * Gets a single pet with [uri]
      */
     @Query("SELECT * FROM ${Pet.TABLE_NAME} WHERE ${DatabaseColumns.URI} = :uri")
-    override fun get(uri: String) : LiveData<Pet>
+    override fun get(uri: String) : Pet
 
     /**
      * Inserts into pet table
@@ -36,12 +35,12 @@ interface PetDao : CollectionDao<Pet> {
      */
     @Transaction
     @Query("SELECT * FROM ${Pet.TABLE_NAME}")
-    override fun getAll(): LiveData<List<Pet>>
+    override fun getAll(): List<Pet>
 
 
     @Transaction
     @Query("SELECT ${Pet.TABLE_NAME}.* FROM ${Pet.TABLE_NAME} INNER JOIN ${ListEntity.TABLE_NAME} ON ${Pet.TABLE_NAME}.${DatabaseColumns.URI} = ${ListEntity.TABLE_NAME}.${ListEntity.SINGLE} WHERE ${ListEntity.TABLE_NAME}.${ListEntity.LIST} LIKE :uri")
-    override fun getList(uri: String) : LiveData<List<Pet>>
+    override fun getList(uri: String) : List<Pet>
 
     /**
      * Deletes pet with a certain [id] from pet table

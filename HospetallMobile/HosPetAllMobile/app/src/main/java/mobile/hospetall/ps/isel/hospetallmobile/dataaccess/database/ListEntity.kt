@@ -6,7 +6,8 @@ import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.ListEntity.C
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.ListEntity.Companion.SINGLE
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.ListEntity.Companion.TABLE_NAME
 
-@Entity(primaryKeys = [LIST, SINGLE], tableName = TABLE_NAME)
+@Entity(primaryKeys = [LIST, SINGLE],
+        tableName = TABLE_NAME)
 class ListEntity (
         @ColumnInfo(name=LIST)
         val listUri : String,

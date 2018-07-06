@@ -1,6 +1,5 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao
 
-import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -16,27 +15,27 @@ interface EventDao {
      * Gets a client with [id]
      */
     @Query("SELECT * FROM ${Event.TABLE_NAME} WHERE ${DatabaseColumns.ID} = :id")
-    fun get(id: Int) : LiveData<Event>
+    fun get(id: Int) : Event
 
     /**
      * Gets all the events
      */
     @Query("SELECT * FROM ${Event.TABLE_NAME}")
-    fun getAll(): LiveData<List<Event>>
+    fun getAll(): List<Event>
 
     /**
      * Gets events before date
      * @param date: Date in milliseconds
      */
     @Query("SELECT * FROM ${Event.TABLE_NAME} WHERE ${Event.TIME} <= :time ")
-    fun getBefore(time: Long): LiveData<List<Event>>
+    fun getBefore(time: Long): List<Event>
 
     /**
      * Gets events for after date
      * @param date: Date in milliseconds
      */
     @Query("SELECT * FROM ${Event.TABLE_NAME} WHERE ${Event.TIME} > :time")
-    fun getAfter(time: Long): LiveData<List<Event>>
+    fun getAfter(time: Long): List<Event>
 
     /**
      * Inserts/updates client in the client table

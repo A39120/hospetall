@@ -27,12 +27,12 @@ abstract class MobileDatabase : RoomDatabase() {
      * with the database, each interface will communicate
      * with a table.
      */
-    abstract fun ClientDao(): ClientDao
-    abstract fun PetDao(): PetDao
-    abstract fun ConsultationDao(): ConsultationDao
-    abstract fun TreatmentDao(): TreatmentDao
-    abstract fun EventDao(): EventDao
-    abstract fun ListDao(): ListDao
+    abstract fun clientDao(): ClientDao
+    abstract fun petDao(): PetDao
+    abstract fun consultationDao(): ConsultationDao
+    abstract fun treatmentDao(): TreatmentDao
+    abstract fun eventDao(): EventDao
+    abstract fun listDao(): ListDao
 
 
     /**
@@ -53,14 +53,15 @@ abstract class MobileDatabase : RoomDatabase() {
         fun getInstance(context: Context? = null): MobileDatabase{
             if(database == null) {
                 if (context != null)
-                    database = Room
-                            .databaseBuilder(context.applicationContext, MobileDatabase::class.java, DATABASE_NAME)
+                    database =
+                            Room
+                            .databaseBuilder(context, MobileDatabase::class.java, DATABASE_NAME)
                             .build()
                 else
                     throw IllegalAccessException("Can't instantiate class from this context.")
             }
 
-            return database as MobileDatabase
+            return database!!
         }
     }
 }
