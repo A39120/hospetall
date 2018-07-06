@@ -21,17 +21,23 @@ class DatabaseTest {
     private lateinit var eventDao: EventDao
     private lateinit var mDb : MobileDatabase
 
+     val JSON = "{\"id\":50,\"name\":\"asfgfgdg, long-billed\",\"race\":\"Spurfowl, yellow-necked\",\"species\":\"Bettongia penicillata\",\"birthdate\":\"2000-08-06\",\"chip_number\":23,\"license_number\":84,\"_links\":{\"self\":{\"href\":\"http://192.168.255.148/pet/50\"},\"owner\":{\"href\":\"http://192.168.255.148/client/90\"},\"consultations\":{\"href\":\"http://192.168.255.148/pet/50/consultation\"}}}"
+    val id = 50
+    val name = "asfgfgdg, long-billed"
+    val self = "http://192.168.255.148/pet/50"
+
+    val petParcel = "pet"
 
     @Before
     fun createDb() {
         val context = InstrumentationRegistry.getTargetContext()
         mDb = MobileDatabase.getInstance(context)
-        clientDao = mDb.ClientDao()
-        treatmentDao = mDb.TreatmentDao()
-        consultationDao = mDb.ConsultationDao()
-        petDao = mDb.PetDao()
-        listDao = mDb.ListDao()
-        eventDao = mDb.EventDao()
+        clientDao = mDb.clientDao()
+        treatmentDao = mDb.treatmentDao()
+        consultationDao = mDb.consultationDao()
+        petDao = mDb.petDao()
+        listDao = mDb.listDao()
+        eventDao = mDb.eventDao()
     }
 
     @After
@@ -66,26 +72,20 @@ class DatabaseTest {
 
     @Test
     fun petTest() {
-        val listList = List(50, {ListEntity("uri", "uri$it")})
-        val list = List(50,  { Pet(
-                "uri$it",
-                it,
-                "a",
-                "a",
-                "a",
-                "a",
-                it
-        )})
-        listDao.insertAll(listList)
-        petDao.insertAll(list)
-        val petListAll = petDao.getAll()
-        Assert.assertFalse(petListAll.isEmpty())
-        Assert.assertEquals(50, petListAll.size)
+        val listList = List(50, { ListEntity("uri", "uri$it") })
 
-        val listDb = petDao.getList("uri")
-        Assert.assertFalse(listDb.isEmpty())
-        Assert.assertEquals(50, petListAll.size)
+        val list = List(50, {
+            Pet(
+                    "uri$it",
+                    it,
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    it
+            )
+        })
+
 
     }
-
 }

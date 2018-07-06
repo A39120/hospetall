@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.android.volley.Response
+import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.AbstractListFragment.Companion.SHOW_PET
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.TreatmentListFragment
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
@@ -32,8 +33,8 @@ class TreatmentListActivity :
         }
     }
 
-    private val petAccess by lazy { PetAccess()  }
-    private val treatmentAccess by lazy { TreatmentAccess() }
+    private val petAccess by lazy { PetAccess(application as HospetallApplication)  }
+    private val treatmentAccess by lazy { TreatmentAccess(application as HospetallApplication) }
 
     /**
      * Implemented method of [OnTreatmentListListener]

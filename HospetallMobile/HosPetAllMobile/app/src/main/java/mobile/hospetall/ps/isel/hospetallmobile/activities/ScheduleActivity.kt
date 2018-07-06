@@ -8,12 +8,11 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.android.volley.Response
+import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.R
-import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.EventListFragment
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.fragment.EventFragmentPagerAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ScheduleAccess
-import mobile.hospetall.ps.isel.hospetallmobile.eventCache
 import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
@@ -38,10 +37,10 @@ class ScheduleActivity :
     }
 
      private val scheduleAccess by lazy {
-        ScheduleAccess( application.eventCache )
+        ScheduleAccess( application as HospetallApplication )
     }
 
-    private val petAccess by lazy { PetAccess()}
+    private val petAccess by lazy { PetAccess(application as HospetallApplication)}
 
     private lateinit var mPagerAdapter: EventFragmentPagerAdapter
     private lateinit var mViewPager : ViewPager
@@ -56,13 +55,13 @@ class ScheduleActivity :
     }
 
     override fun onEventListListener(listener: (List<Event>?) -> Unit, type: Int) {
-        when(type){
+        /*when(type){
             EventListFragment.FUTURE_EVENTS ->
                 scheduleAccess.getAfter(getCurrentDate(), listener)
             EventListFragment.PAST_EVENTS ->
                 scheduleAccess.getBefore(getCurrentDate(), listener)
             else -> scheduleAccess.getAll(listener)
-        }
+        }*/
     }
 
     fun getCurrentDate(): Long =

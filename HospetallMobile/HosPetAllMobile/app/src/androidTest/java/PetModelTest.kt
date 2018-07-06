@@ -1,10 +1,7 @@
 
 import android.content.Intent
 import android.support.test.InstrumentationRegistry
-import com.android.volley.Response
 import junit.framework.Assert
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.utils.RequestQueueSingleton
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import org.json.JSONObject
@@ -47,24 +44,6 @@ class PetModelTest {
         val parceledPet = intent.getParcelableExtra<Pet>(petParcel)
 
         Assert.assertEquals(pet, parceledPet)
-    }
-
-    @Test
-    fun petDatabaseTest(){
-        val database = MobileDatabase.getInstance(context)
-        Assert.assertNotNull(database)
-        val access = PetAccess()
-        Assert.assertNotNull(access)
-        val obj = JSONObject(JSON)
-        val pet = Pet.parse(obj)
-
-        database.beginTransaction()
-        access.insertInDatabase(pet)
-        database.endTransaction()
-        access.getFromDatabase(pet.uri,
-                Response.Listener {
-                    Assert.assertEquals(pet, it)
-        })
     }
 
 }

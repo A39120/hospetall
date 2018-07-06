@@ -7,10 +7,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import com.android.volley.Response
+import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.PetsAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
-import mobile.hospetall.ps.isel.hospetallmobile.database
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
@@ -29,7 +29,7 @@ class PetsListActivity : BaseActivity() {
         }
     }
 
-    private val petAccess: PetAccess by lazy { PetAccess() }
+    private val petAccess: PetAccess by lazy { PetAccess(application as HospetallApplication) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -3,6 +3,7 @@ package mobile.hospetall.ps.isel.hospetallmobile.services
 import android.app.Application
 import android.content.Context
 import androidx.work.Worker
+import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
@@ -13,7 +14,7 @@ class DataUpdater(private val application: Application) : Worker() {
 
     companion object {
        const val NAME = "DATA_UPDATER"
-        const val TAG = "HPA/WORK/UPDATER"
+       const val TAG = "HPA/WORK/UPDATER"
        fun start(context: Context){
 
        }
@@ -21,12 +22,12 @@ class DataUpdater(private val application: Application) : Worker() {
 
     private val database by lazy { MobileDatabase.getInstance(this.applicationContext) }
 
-    private val petAccess by lazy { PetAccess() }
-    private val consultationAccess by lazy { ConsultationAccess() }
-    private val treatmentAccess by lazy { TreatmentAccess()}
+    private val petAccess by lazy { PetAccess(application as HospetallApplication) }
+    private val consultationAccess by lazy { ConsultationAccess(application as HospetallApplication) }
+    private val treatmentAccess by lazy { TreatmentAccess(application as HospetallApplication)}
 
     override fun doWork(): Result {
-        database.ListDao().clear()
+        database.listDao().clear()
 
         val id = mobile.hospetall.ps.isel.hospetallmobile.utils.getId()
         val petUri = UriUtils.getClientsPetsUri(application.resources, id)

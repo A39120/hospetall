@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.util.Log
 import com.android.volley.Response
+import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
@@ -45,8 +46,8 @@ class ConsultationActivity : BaseActivity() {
     }
 
     //private val sAccess by lazy { StringAccess(application.requestQueue) }
-    private val consultationAccess by lazy { ConsultationAccess() }
-    private val petAccess by lazy { PetAccess() }
+    private val consultationAccess by lazy { ConsultationAccess(application as HospetallApplication) }
+    private val petAccess by lazy { PetAccess(application as HospetallApplication) }
 
     private lateinit var mBinding: ActivityConsultationBinding
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.util.Log
 import com.android.volley.Response
+import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.fragment.PetFragmentPagerAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
@@ -49,9 +50,9 @@ class PetActivity : BaseActivity(),
     private var pet: Pet? = null
     private var id : Int = -1
 
-    private val petAccess by lazy { PetAccess() }
-    private val consultationAccess by lazy { ConsultationAccess() }
-    private val treatmentAccess by lazy { TreatmentAccess() }
+    private val petAccess by lazy { PetAccess(application as HospetallApplication) }
+    private val consultationAccess by lazy { ConsultationAccess(application as HospetallApplication) }
+    private val treatmentAccess by lazy { TreatmentAccess(application as HospetallApplication) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

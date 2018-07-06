@@ -14,7 +14,7 @@ import org.json.JSONObject
  * Consultation that extends from Procedure, contains extra
  * information related to the Procedure.
  */
-@Entity(tableName = Consultation.TABLE_NAME)
+@Entity( tableName = Consultation.TABLE_NAME )
 class Consultation(
         uri: String,
         id: Int,

@@ -2,7 +2,7 @@
     <string name="app_name">HosPetAll</string>
 
     <string name="protocol" translatable="false">http</string>
-    <string name="authority" translatable="false">192.168.255.152</string>
+    <string name="authority" translatable="false">192.168.255.191</string>
     <string name="pet_path" translatable="false">pet</string>
     <string name="client_path" translatable="false">client</string>
     <string name="clients_pets_path" translatable="false">pets</string>
