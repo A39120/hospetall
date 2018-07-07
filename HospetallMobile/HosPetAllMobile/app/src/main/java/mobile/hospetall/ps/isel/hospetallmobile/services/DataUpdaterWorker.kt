@@ -3,6 +3,7 @@ package mobile.hospetall.ps.isel.hospetallmobile.services
 import android.app.Application
 import android.content.Context
 import androidx.work.Worker
+import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
@@ -30,13 +31,18 @@ class DataUpdater(private val application: Application) : Worker() {
         database.listDao().clear()
 
         val id = mobile.hospetall.ps.isel.hospetallmobile.utils.getId()
-        val petUri = UriUtils.getClientsPetsUri(application.resources, id)
-        val consultationUri = UriUtils.getPetsConsultationsUri(application.resources, id)
-        val treatmentUri = UriUtils.getPetsTreatmentUri(application.resources, id)
+        val petUri = UriUtils.getClientsPetsUri(application.resources, id).build().toString()
+        val consultationUri = UriUtils.getPetsConsultationsUri(application.resources, id).build().toString()
+        val treatmentUri = UriUtils.getPetsTreatmentUri(application.resources, id).build().toString()
 
-        petAccess.update(petUri.toString())
-        consultationAccess.update(consultationUri.toString())
-        treatmentAccess.update(treatmentUri.toString())
+        database.petDao().clear()
+        petAccess.getFromUri(petUri, Response.Listener {  })
+
+        database.consultationDao().clear()
+        consultationAccess.getFromUri(consultationUri, Response.Listener {  })
+
+        database.treatmentDao().clear()
+        treatmentAccess.getFromUri(treatmentUri, Response.Listener {  })
 
         return Result.SUCCESS
     }
