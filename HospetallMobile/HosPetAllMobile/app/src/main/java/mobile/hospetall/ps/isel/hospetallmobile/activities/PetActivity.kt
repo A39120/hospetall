@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.util.Log
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.fragment.PetFragmentPagerAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
@@ -50,9 +49,9 @@ class PetActivity : BaseActivity(),
     private var pet: Pet? = null
     private var id : Int = -1
 
-    private val petAccess by lazy { PetAccess(application as HospetallApplication) }
-    private val consultationAccess by lazy { ConsultationAccess(application as HospetallApplication) }
-    private val treatmentAccess by lazy { TreatmentAccess(application as HospetallApplication) }
+    private val petAccess by lazy { PetAccess() }
+    private val consultationAccess by lazy { ConsultationAccess() }
+    private val treatmentAccess by lazy { TreatmentAccess() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +72,7 @@ class PetActivity : BaseActivity(),
             val immutablePet = pet!!
             onPet(immutablePet)
         } else if(id > 0) {
-            val uri = UriUtils.getPetUri(resources, id).build().toString()
+            val uri = UriUtils.getPetUri(id).build().toString()
             petAccess.get(
                     uri,
                     Response.Listener {
@@ -89,7 +88,7 @@ class PetActivity : BaseActivity(),
 
     override fun onConsultationList(list: (List<Consultation>) -> Unit){
         if(id >  0) {
-            val uri = UriUtils.getPetConsultationUri(resources, id).build().toString()
+            val uri = UriUtils.getPetConsultationUri(id).build().toString()
             consultationAccess.getList(
                     uri,
                     Response.Listener(list),
@@ -102,7 +101,7 @@ class PetActivity : BaseActivity(),
 
     override fun onTreatmentList(onList: (List<Treatment>) -> Unit) {
         if(id  > 0){
-            val uri = UriUtils.getPetTreatmentUri(resources, id).build().toString()
+            val uri = UriUtils.getPetTreatmentUri(id).build().toString()
             treatmentAccess.getList(
                     uri,
                     Response.Listener(onList),

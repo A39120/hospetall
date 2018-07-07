@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.AbstractListFragment.Companion.SHOW_PET
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.TreatmentListFragment
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
@@ -33,8 +32,8 @@ class TreatmentListActivity :
         }
     }
 
-    private val petAccess by lazy { PetAccess(application as HospetallApplication)  }
-    private val treatmentAccess by lazy { TreatmentAccess(application as HospetallApplication) }
+    private val petAccess by lazy { PetAccess()  }
+    private val treatmentAccess by lazy { TreatmentAccess() }
 
     /**
      * Implemented method of [OnTreatmentListListener]
@@ -43,7 +42,7 @@ class TreatmentListActivity :
      * of treatments;
      */
     override fun onTreatmentList(onList: (List<Treatment>) -> Unit) {
-        val uri = UriUtils.getPetsTreatmentUri(resources, getId()).build().toString()
+        val uri = UriUtils.getPetsTreatmentUri(getId()).build().toString()
         treatmentAccess.getList(
                 uri,
                 Response.Listener(onList),
@@ -60,7 +59,7 @@ class TreatmentListActivity :
      * of pets
      */
     override fun onPetList(listener: (List<Pet>) -> Unit) {
-        val uri = UriUtils.getClientsPetsUri(resources, getId()).build().toString()
+        val uri = UriUtils.getClientsPetsUri(getId()).build().toString()
         petAccess.getList(
                 uri,
                 Response.Listener(listener),

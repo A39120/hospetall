@@ -70,5 +70,8 @@
     <string name="new_event_type_label">Tipo</string>
     <string name="new_event_period_label">Period:</string>
     <string name="add_event">Add Event</string>
+    <string name="updater_label">Update Database:</string>
+    <string name="periodic_updater_label">Update Period:</string>
+    <string name="period_label">Repetition Time:</string>
 
 </resources>

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.AbstractListFragment.Companion.SHOW_PET
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.ConsultationListFragment
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
@@ -32,12 +31,12 @@ class ConsultationListActivity :
         }
     }
 
-    private val petAccess by lazy { PetAccess(application as HospetallApplication) }
-    private val consultationAccess by lazy { ConsultationAccess(application as HospetallApplication) }
+    private val petAccess by lazy { PetAccess() }
+    private val consultationAccess by lazy { ConsultationAccess() }
 
 
     override fun onConsultationList(list: (List<Consultation>) -> Unit) {
-            val uri = UriUtils.getPetsConsultationsUri(resources, getId()).build().toString()
+            val uri = UriUtils.getPetsConsultationsUri(getId()).build().toString()
             consultationAccess.getList(
                     uri,
                     Response.Listener(list),
@@ -48,7 +47,7 @@ class ConsultationListActivity :
     }
 
     override fun onPetList(listener: (List<Pet>) -> Unit) {
-        val uri = UriUtils.getClientsPetsUri(resources, getId()).toString()
+        val uri = UriUtils.getClientsPetsUri(getId()).toString()
         petAccess.getList(
                 uri,
                 Response.Listener(listener),

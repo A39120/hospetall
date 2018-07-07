@@ -50,6 +50,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun goToSettings(item: MenuItem): Boolean {
+        SettingsActivity.start(baseContext)
         return true
     }
 

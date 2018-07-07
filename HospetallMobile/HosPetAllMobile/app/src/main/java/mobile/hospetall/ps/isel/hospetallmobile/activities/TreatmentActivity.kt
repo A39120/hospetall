@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.util.Log
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
@@ -39,8 +38,8 @@ class TreatmentActivity : BaseActivity(){
     }
 
     //private val sAccess by lazy { StringAccess(application.requestQueue) }
-    private val treatmentAccess by lazy { TreatmentAccess(application as HospetallApplication) }
-    private val petAccess by lazy { PetAccess(application as HospetallApplication) }
+    private val treatmentAccess by lazy { TreatmentAccess() }
+    private val petAccess by lazy { PetAccess() }
 
     private lateinit var mBinding : ActivityTreatmentBinding
 
@@ -58,7 +57,7 @@ class TreatmentActivity : BaseActivity(){
             setPet(treatment.petUri)
         } else {
             val id = intent.extras.getInt(ID)
-            val uri = UriUtils.getTreatmentUri(resources, id).build().toString()
+            val uri = UriUtils.getTreatmentUri(id).build().toString()
             treatmentAccess.get(
                     uri,
                     Response.Listener {

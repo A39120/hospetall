@@ -1,8 +1,6 @@
 package mobile.hospetall.ps.isel.hospetallmobile.utils.values
 
-import android.content.res.Resources
 import android.net.Uri
-import mobile.hospetall.ps.isel.hospetallmobile.R
 
 
 /**
@@ -10,6 +8,13 @@ import mobile.hospetall.ps.isel.hospetallmobile.R
  * resource representation.
  */
 object UriUtils {
+    private const val PROTOCOL = "http"
+    private const val AUTHORITY = "192.168.1.80"
+    private const val CLIENT_PATH = "client"
+    private const val PETS_PATH = "pets"
+    private const val PET_PATH = "pet"
+    private const val TREATMENT_PATH = "treatment"
+    private const val CONSULTATION_PATH = "consultation"
 
     /**
      * Gets base uri, used by the other uri methods.
@@ -17,40 +22,40 @@ object UriUtils {
      * api (where it's hosted)  and its security (protocol http or
      * https)
      */
-    private fun getBaseUri(resources: Resources): Uri.Builder {
+    private fun getBaseUri(): Uri.Builder {
         return Uri.Builder()
-                .scheme(resources.getString(R.string.protocol))
-                .authority(resources.getString(R.string.authority))
+                .scheme(PROTOCOL)
+                .authority(AUTHORITY)
     }
 
-    fun getClientUri(resources: Resources, id: Int) =
-            getBaseUri(resources)
-                    .appendEncodedPath(resources.getString(R.string.client_path))
+    fun getClientUri(id: Int) =
+            getBaseUri()
+                    .appendEncodedPath(CLIENT_PATH)
                     .appendEncodedPath(id.toString())
 
     /**
      * Gets the uri for the resource that contains the clients pets.
      * @param id: client id
      */
-    fun getClientsPetsUri(resources: Resources, id: Int) =
-            getClientUri(resources, id)
-                    .appendEncodedPath(resources.getString(R.string.clients_pets_path))
+    fun getClientsPetsUri(id: Int) =
+            getClientUri(id)
+                    .appendEncodedPath(PETS_PATH)
 
     /**
      * Gets the full pet list. The client shouldn't have authorization
      * for the full pet list therefore this is only used to build other
      * uri.
      */
-    fun getPetListUri(resources: Resources): Uri.Builder =
-            getBaseUri(resources)
-                    .appendPath(resources.getString(R.string.pet_path))
+    fun getPetListUri(): Uri.Builder =
+            getBaseUri()
+                    .appendPath(PET_PATH)
 
     /**
      * Gets an uri for a representation of [Pet]
      * @param id: wanted pet id
      */
-    fun getPetUri(resources: Resources, id: Int): Uri.Builder =
-            getPetListUri(resources)
+    fun getPetUri(id: Int): Uri.Builder =
+            getPetListUri()
                     .appendEncodedPath(id.toString())
 
     /**
@@ -58,63 +63,61 @@ object UriUtils {
      * made by a certain pet.
      * @param id: wanted pet id
      */
-    fun getPetTreatmentUri(resources: Resources, id: Int): Uri.Builder =
-            getPetUri(resources, id)
-                    .appendEncodedPath(resources.getString(R.string.treatment_path))
+    fun getPetTreatmentUri(id: Int): Uri.Builder =
+            getPetUri(id)
+                    .appendEncodedPath(TREATMENT_PATH)
 
     /**
      * Gets an uri for the representation of all the consultations
      * made by a certain pet.
      * @param id: wanted pet id
      */
-    fun getPetConsultationUri(resources: Resources, id: Int): Uri.Builder =
-            getPetUri(resources, id)
-                    .appendEncodedPath(resources.getString(R.string.consultation_path))
+    fun getPetConsultationUri(id: Int): Uri.Builder =
+            getPetUri(id)
+                    .appendEncodedPath(CONSULTATION_PATH)
 
     /**
      * Gets an uri for the representation of all the consultations
      * made by a all the clients pets.
      * @param id: client id
      */
-    fun getPetsConsultationsUri(resources: Resources, id: Int): Uri.Builder =
-    //TODO: Wait for this to be fixed
-            getClientUri(resources, id)
-                    .appendPath(resources.getString(R.string.pet_path))
-                    .appendPath(resources.getString(R.string.consultation_path))
+    fun getPetsConsultationsUri(id: Int): Uri.Builder =
+            getClientUri(id)
+                    .appendPath(PET_PATH)
+                    .appendPath(CONSULTATION_PATH)
 
     /**
      * Gets an uri for the representation of all the treatments
      * made by a all the clients pets.
      * @param id: client id
      */
-    fun getPetsTreatmentUri(resources: Resources, id: Int): Uri.Builder =
-//TODO: Wait for this to be fixed
-            getClientUri(resources, id)
-                    .appendPath(resources.getString(R.string.pet_path))
-                    .appendPath(resources.getString(R.string.treatment_path))
+    fun getPetsTreatmentUri(id: Int): Uri.Builder =
+            getClientUri(id)
+                    .appendPath(PET_PATH)
+                    .appendPath(TREATMENT_PATH)
 
     /**
      * Gets an uri for the representation of a [Treatment]
      * @param id: treatments id
      */
-    fun getTreatmentUri(resources: Resources, id: Int) =
-            getBaseUri(resources)
-                    .appendEncodedPath(resources.getString(R.string.treatment_path))
+    fun getTreatmentUri(id: Int) =
+            getBaseUri()
+                    .appendEncodedPath(TREATMENT_PATH)
                     .appendEncodedPath(id.toString())
 
     /**
      * Gets an uri for the representation of a [Consultation] list
      */
-    fun getConsultationListUri(resources: Resources) =
-            getBaseUri(resources)
-                    .appendEncodedPath(resources.getString(R.string.consultation_path))
+    fun getConsultationListUri() =
+            getBaseUri()
+                    .appendEncodedPath(CONSULTATION_PATH)
 
 
     /**
      * Gets an uri for the representation of a [Consultation]
      * @param id: consultation id
      */
-    fun getConsultationUri(resources: Resources, id: Int) =
-            getConsultationListUri(resources)
+    fun getConsultationUri(id: Int) =
+            getConsultationListUri()
                     .appendEncodedPath(id.toString())
 }

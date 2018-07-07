@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.PetsAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
@@ -29,7 +28,7 @@ class PetsListActivity : BaseActivity() {
         }
     }
 
-    private val petAccess: PetAccess by lazy { PetAccess(application as HospetallApplication) }
+    private val petAccess: PetAccess by lazy { PetAccess() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,7 @@ class PetsListActivity : BaseActivity() {
         val id = getId()
         Log.i(TAG, "Getting pet list from owner with id: $id.")
 
-        val uri = UriUtils.getClientsPetsUri(resources, id)
+        val uri = UriUtils.getClientsPetsUri(id)
         petAccess.getList(
                 uri.toString(),
                 Response.Listener{

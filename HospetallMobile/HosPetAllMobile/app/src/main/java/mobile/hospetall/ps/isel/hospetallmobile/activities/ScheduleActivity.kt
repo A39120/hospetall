@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.fragment.EventFragmentPagerAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
@@ -37,10 +36,10 @@ class ScheduleActivity :
     }
 
      private val scheduleAccess by lazy {
-        ScheduleAccess( application as HospetallApplication )
+        ScheduleAccess()
     }
 
-    private val petAccess by lazy { PetAccess(application as HospetallApplication)}
+    private val petAccess by lazy { PetAccess() }
 
     private lateinit var mPagerAdapter: EventFragmentPagerAdapter
     private lateinit var mViewPager : ViewPager
@@ -72,7 +71,7 @@ class ScheduleActivity :
 
     override fun onPetList(listener: (List<Pet>) -> Unit) {
         petAccess.getList(
-                UriUtils.getClientsPetsUri(resources, getId()).build().toString(),
+                UriUtils.getClientsPetsUri(getId()).build().toString(),
                 Response.Listener(listener),
                 Response.ErrorListener {
                     Log.e(TAG, "Failed to get pet list to accompany the events.")

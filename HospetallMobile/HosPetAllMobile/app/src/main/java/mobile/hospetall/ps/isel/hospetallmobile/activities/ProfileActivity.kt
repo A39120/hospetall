@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ClientAccess
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityProfileBinding
@@ -32,7 +31,7 @@ class ProfileActivity : AppCompatActivity(), OnClientListener {
     }
 
     private lateinit var mBinder : ActivityProfileBinding
-    private val clientAccess : ClientAccess by lazy { ClientAccess(application as HospetallApplication) }
+    private val clientAccess : ClientAccess by lazy { ClientAccess() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +50,7 @@ class ProfileActivity : AppCompatActivity(), OnClientListener {
         val button = mBinder.updateProfileButton
         button.progress = 1
 
-        val uri = UriUtils.getClientUri(resources, getId())
+        val uri = UriUtils.getClientUri(getId())
         val newClient = Client(
                 uri.build().toString(),
                 getId(),
@@ -91,7 +90,7 @@ class ProfileActivity : AppCompatActivity(), OnClientListener {
             listener(client)
         } else {
             clientAccess.get(
-                    UriUtils.getClientUri(resources, getId()).build().toString(),
+                    UriUtils.getClientUri(getId()).build().toString(),
                     Response.Listener{
                         listener(it)
                     }

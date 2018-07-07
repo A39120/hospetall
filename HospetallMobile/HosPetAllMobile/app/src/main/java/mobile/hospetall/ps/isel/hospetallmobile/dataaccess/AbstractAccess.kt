@@ -6,9 +6,9 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.base.BaseDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.utils.RequestQueueSingleton
 import org.json.JSONObject
 
 
@@ -19,9 +19,7 @@ import org.json.JSONObject
  * [RequestQueue] will be used to communicate with the API,
  * or to store information in a cache.
  */
-abstract class AbstractAccess<T, V : BaseDao<T>> (
-        application: HospetallApplication
-) {
+abstract class AbstractAccess<T, V : BaseDao<T>>  {
     companion object {
         const val TAG = "HPA/DA/ABSTRACT"
 
@@ -52,8 +50,10 @@ abstract class AbstractAccess<T, V : BaseDao<T>> (
         }
     }
 
-    protected val queue = application.requestQueueSingleton.requestQueue
-    protected val database = application.database
+    protected val queue = RequestQueueSingleton.getInstance().requestQueue
+    protected  val database = MobileDatabase.getInstance()
+    //protected val queue = application.requestQueueSingleton.requestQueue
+    //protected val database = application.database
 
     /**
      * Get function to obtain an object with a certain uri,
@@ -83,7 +83,7 @@ abstract class AbstractAccess<T, V : BaseDao<T>> (
      * Gets an object directly from the Web API represented
      * with the [uri].
      */
-    open fun getFromUri(uri: String, onSuccess: Response.Listener<T>, onError: Response.ErrorListener?)  {
+    open fun getFromUri(uri: String, onSuccess: Response.Listener<T>, onError: Response.ErrorListener? = null)  {
         queue.add(
                 JsonObjectRequest(
                         uri,

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="periods">
+        <item>Minutes</item>
         <item>Hours</item>
         <item>Days</item>
         <item>Weeks</item>
-        <item>Months</item>
+        <item>Months (30 days)</item>
         <item>Years</item>
     </string-array>
 </resources>

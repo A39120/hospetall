@@ -7,13 +7,21 @@ import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.utils.RequestQueueSin
 class HospetallApplication : Application() {
     companion object {
         const val TAG = "Application"
+        const val SP_NAME = "HosPetAllPref"
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+
+         database = MobileDatabase.getInstance(applicationContext)
+         requestQueueSingleton = RequestQueueSingleton.getInstance(applicationContext)
     }
 
     private val cacheSize = 1000
 
     //val executors by lazy { AppExecutors() }
-    val requestQueueSingleton by lazy { RequestQueueSingleton.getInstance(applicationContext) }
-    val database by lazy { MobileDatabase.getInstance(applicationContext) }
+    private lateinit var requestQueueSingleton : RequestQueueSingleton
+    private lateinit var database : MobileDatabase
     //val eventCache : LruCache<Int, Event?> by lazy { LruCache<Int, Event?>(cacheSize)}
 }
 

@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.TimePicker
 import com.android.volley.Response
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityAddEventBinding
@@ -43,7 +42,7 @@ class AddEventActivity : BaseActivity(),
     private val calendar by lazy { Calendar.getInstance() }
     private val dateFormat  by lazy { getDateFormat(applicationContext) }
     private val timeFormat by lazy { getTimeFormat(applicationContext) }
-    private val petAccess : PetAccess by lazy { PetAccess(application as HospetallApplication) }
+    private val petAccess : PetAccess by lazy { PetAccess() }
     private lateinit var pets :  List<Pet>
 
     private lateinit var mBinder: ActivityAddEventBinding
@@ -62,7 +61,7 @@ class AddEventActivity : BaseActivity(),
         }
 
         petAccess.getList(
-                UriUtils.getClientsPetsUri(resources, getId()).build().toString(),
+                UriUtils.getClientsPetsUri(getId()).build().toString(),
                 Response.Listener {
                     pets = it.sortedBy { it.id }
                     val names = pets.map { it.name }

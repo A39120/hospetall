@@ -4,7 +4,6 @@ import android.os.AsyncTask
 import android.util.Log
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.ListDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.base.CollectionDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.ListEntity
@@ -12,9 +11,8 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.base.Base
 import org.json.JSONObject
 
 abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
-        application: HospetallApplication,
         private val property: String
-) : AbstractAccess<T, V>(application) {
+) : AbstractAccess<T, V>() {
     companion object {
         const val TAG = "HPA/Access/List"
 
@@ -79,7 +77,7 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
      * @param uri: collection id.
      * @param list: collection to be added.
      */
-    private fun insertCollectionInDatabase(uri: String, list : List<T>){
+    fun insertCollectionInDatabase(uri: String, list : List<T>){
         Log.i(TAG, "Inserting collection $uri in database.")
         InsertListAsyncTask(listDao, uri, dao).execute(list)
     }
@@ -115,10 +113,10 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
      * Gets a list of objects directly from the Web API
      * represented with the [uri].
      */
-    private fun getCollectionFromUri(
+    fun getCollectionFromUri(
             uri: String,
             onSuccess: Response.Listener<List<T>>,
-            onError: Response.ErrorListener?
+            onError: Response.ErrorListener? = null
     ) {
         val embedded = "_embedded"
         queue.add(

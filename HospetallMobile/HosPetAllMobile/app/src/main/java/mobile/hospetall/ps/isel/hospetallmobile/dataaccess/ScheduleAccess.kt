@@ -1,11 +1,12 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
 import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 
-class ScheduleAccess(application: HospetallApplication) {
+class ScheduleAccess {
 
-    private val eventDao = application.database.eventDao()
+    private val database = MobileDatabase.getInstance()
+    private val eventDao = database.eventDao()
 
     fun get(id : Int) = eventDao.get(id)
 
