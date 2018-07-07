@@ -40,4 +40,9 @@
     <string name="add_pet_button">Adicionar animal</string>
     <string name="client_nif">NIF</string>
     <string name="client_address">Address</string>
+    <string name="time_label">Time:</string>
+    <string name="date_label">Date:</string>
+    <string name="type_label">Type:</string>
+    <string name="periodic_checker_label">Active repetition:</string>
+    <string name="appointment_label">Schedule appointment:</string>
 </resources>
