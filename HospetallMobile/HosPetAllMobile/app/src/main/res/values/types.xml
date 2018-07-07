@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="types" translatable="true">
+        <item>User</item>
+        <item>Product</item>
+        <item>Consultation</item>
+        <item>Treatment</item>
+    </string-array>
+</resources>

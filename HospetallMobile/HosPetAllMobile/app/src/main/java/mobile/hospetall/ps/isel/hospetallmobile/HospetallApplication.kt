@@ -7,7 +7,6 @@ import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.utils.RequestQueueSin
 class HospetallApplication : Application() {
     companion object {
         const val TAG = "Application"
-        const val SP_NAME = "HosPetAllPref"
     }
 
     override fun onCreate() {

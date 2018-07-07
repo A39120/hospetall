@@ -20,4 +20,5 @@ class PetAccess
      * @return [Pet] object
      */
     override fun parse(json: JSONObject) = Pet.parse(json)
+
 }

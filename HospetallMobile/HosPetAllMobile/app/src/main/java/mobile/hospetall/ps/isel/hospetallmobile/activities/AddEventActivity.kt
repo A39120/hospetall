@@ -10,6 +10,7 @@ import android.text.format.DateFormat
 import android.text.format.DateFormat.getDateFormat
 import android.text.format.DateFormat.getTimeFormat
 import android.util.Log
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
@@ -17,7 +18,9 @@ import android.widget.TimePicker
 import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ScheduleAccess
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityAddEventBinding
+import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
@@ -49,16 +52,16 @@ class AddEventActivity : BaseActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinder = DataBindingUtil.setContentView(this, R.layout.activity_add_event)
-        mBinder.time = timeFormat.format(calendar)
-        mBinder.date = dateFormat.format(calendar)
-        mBinder.newEventSetDate.setOnClickListener {
-            datePickerDialog.show()
-        }
+        Log.i(TAG, "Setting up add event activity.")
 
-        mBinder.newEventSetTime.setOnClickListener {
-            timePickerDialog.show()
-        }
+        mBinder = DataBindingUtil.setContentView(this, R.layout.activity_add_event)
+
+        //Setting up the current time and date for the current view
+        mBinder.time = timeFormat.format(calendar.timeInMillis)
+        mBinder.date = dateFormat.format(calendar.timeInMillis)
+
+        mBinder.newEventChangeDateButton.setOnClickListener { datePickerDialog.show() }
+        mBinder.newEventChangeTimeButton.setOnClickListener{ timePickerDialog.show() }
 
         petAccess.getList(
                 UriUtils.getClientsPetsUri(getId()).build().toString(),
@@ -68,43 +71,86 @@ class AddEventActivity : BaseActivity(),
                     val dataAdapter = ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, names)
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     mBinder.petList.adapter = dataAdapter
-                },
-                Response.ErrorListener {  }
+                }
         )
 
+        setShowHide()
         mBinder.newEventAddButton.setOnClickListener{ addEvent() }
         mBinder.executePendingBindings()
     }
 
+    private fun setShowHide(){
+        mBinder.newEventPeriodicChecker.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked)
+                mBinder.newEventPeriod?.periodValueLayout?.visibility = View.VISIBLE
+            else
+                mBinder.newEventPeriod?.periodValueLayout?.visibility = View.GONE
+
+        }
+
+        mBinder.typeValue.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) { }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if(position > 1) {
+                    mBinder.newEventAppointment.visibility = View.VISIBLE
+                } else
+                    mBinder.newEventAppointment.visibility = View.GONE
+            }
+
+        }
+    }
+
     private fun addEvent(){
+        val event = getEventFromInfo()
+        if (event != null) {
+            ScheduleAccess().put(event)
+            finish()
+        }
+    }
 
-        /*
-        val title: String,
-        val message: String?,
-        val pet: Int?,
-        val period: Long = -1,
-        val timedate: Long,
-        val appointed: Boolean = false,
-        val type: Int = EventType.USER
-         */
+    /**
+     * Gets [Event] from the input information in the layout.
+     */
+    private fun getEventFromInfo() : Event?{
+        //Get message value
+        val title = mBinder.newEventTitle.text.toString()
 
-        val position = mBinder.petList.selectedItemPosition
-        val selectedPet = if(position == AdapterView.INVALID_POSITION){
-            null
-        } else
-            pets[position]
+        if(title == "") {
+            //TODO: Do something
+            return null
+        }
 
-        /*
-       val period =
+        //Gets message contents
+        val summary = mBinder.newEventSummary.text.toString()
 
-        val event = Event(
-                mBinder.newEventTitle.text.toString(),
-                mBinder.newEventSummary.text.toString(),
-                selectedPet?.id,
+        //Getting pet
+        val petSelected = mBinder.petList.selectedItemPosition
+        val pet = pets[petSelected]
 
+        var period = -1
+        var unit = 0
+        if(mBinder.newEventPeriodicChecker.isChecked) {
+            mBinder.newEventPeriod?.apply {
+                unit = periodConstants?.selectedItemPosition?: 0
+                period = Integer.parseInt(periodValue?.text?.toString()?:"-1")
+            }
+        }
 
+        val appointment = mBinder.newEventAppointmentChecker.isChecked
+        val type = mBinder.typeValue.selectedItemPosition
+
+        val timedate = calendar.timeInMillis
+
+        return Event(
+                title = title,
+                message = summary,
+                pet = pet.id,
+                period = period.toLong(),
+                periodUnit = unit,
+                timedate = timedate,
+                appointed = appointment,
+                type = type
         )
-        */
     }
 
     /**
@@ -114,8 +160,10 @@ class AddEventActivity : BaseActivity(),
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         Log.i(TAG, "Date chosen from DatePicker for $dayOfMonth/$month/$year")
         setDate(year, month, dayOfMonth)
-        mBinder.date = dateFormat.format(calendar)
+
+        mBinder.date = dateFormat.format(calendar.timeInMillis)
         mBinder.executePendingBindings()
+
     }
 
     /**
@@ -126,6 +174,7 @@ class AddEventActivity : BaseActivity(),
         Log.i(TAG, "Setting local calendar date for $dayOfMonth/$month/$year")
         calendar.set(year, month, dayOfMonth)
         datePickerDialog.updateDate(year, month, dayOfMonth)
+
     }
 
     /**
@@ -136,6 +185,8 @@ class AddEventActivity : BaseActivity(),
             set(Calendar.HOUR_OF_DAY, hourOfDay)
             set(Calendar.MINUTE, minute)
         }
+        mBinder.time = timeFormat.format(calendar.timeInMillis)
+        mBinder.executePendingBindings()
     }
 
     /**
@@ -146,7 +197,7 @@ class AddEventActivity : BaseActivity(),
         val month = calendar.get(Calendar.MONTH)
         val year = calendar.get(Calendar.YEAR)
 
-        return DatePickerDialog(this.baseContext, this , day, month, year)
+        return DatePickerDialog(this, this , year, month, day)
     }
 
     /**
@@ -156,7 +207,7 @@ class AddEventActivity : BaseActivity(),
         val hour = calendar.get(Calendar.HOUR)
         val minute = calendar.get(Calendar.MINUTE)
         val is24hour =DateFormat.is24HourFormat(applicationContext)
-        return TimePickerDialog(this.baseContext, this, hour, minute, is24hour)
+        return TimePickerDialog(this, this, hour, minute, is24hour)
     }
 
 }

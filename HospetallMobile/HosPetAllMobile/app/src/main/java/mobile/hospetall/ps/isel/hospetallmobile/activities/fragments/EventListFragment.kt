@@ -46,7 +46,7 @@ class EventListFragment : AbstractListFragment() {
         (activity as OnEventListListener).onEventListListener({
             val events = it
             (activity as OnPetListListener).onPetList {
-                val recycler = view!!.findViewById<RecyclerView>(R.id.procedure_list)
+                val recycler = view.findViewById<RecyclerView>(R.id.procedure_list)
                 recycler.adapter = EventAdapter(context!!, events!!, it)
                 recycler.layoutManager = LinearLayoutManager(context!!)
             }

@@ -41,6 +41,8 @@ data class Event(
         val pet: Int?,
         @ColumnInfo(name= PERIOD)
         val period: Long = -1,
+        @ColumnInfo(name=PERIOD_UNIT)
+        val periodUnit : Int = 0,
         @ColumnInfo(name=TIME)
         val timedate: Long,
         @ColumnInfo(name=APPOINTED)
@@ -54,6 +56,7 @@ data class Event(
                 parcel.readString(),
                 parcel.readValue(Int::class.java.classLoader) as? Int,
                 parcel.readLong(),
+                parcel.readInt(),
                 parcel.readLong(),
                 parcel.readByte() != 0.toByte(),
                 parcel.readInt()
@@ -67,6 +70,7 @@ data class Event(
                 writeString(message)
                 pet?.apply{writeInt(this)}
                 writeLong(period)
+                writeInt(periodUnit)
                 writeLong(timedate)
                 if(appointed)
                     writeByte(1)
@@ -77,7 +81,7 @@ data class Event(
         }
 
         override fun describeContents(): Int {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            return -1
         }
 
         companion object CREATOR : Parcelable.Creator<Event> {
@@ -89,6 +93,7 @@ data class Event(
                 const val TREATMENT = 3
             }
 
+            const val PERIOD_UNIT = "period_unit"
             const val TITLE = "title"
             const val PET_ID = "pet_id"
             const val PERIOD = "period"

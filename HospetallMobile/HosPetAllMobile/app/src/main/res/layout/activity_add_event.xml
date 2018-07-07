@@ -7,12 +7,15 @@
         <variable name="date" type="String" />
         <variable name="time" type="String"/>
     </data>
+
     <RelativeLayout
+        android:isScrollContainer="true"
         android:layout_margin="@dimen/default_margin"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
+        <!--TITLE-->
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/new_event_title"
             android:layout_width="match_parent"
@@ -20,10 +23,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/event_title"
-            android:inputType="textPersonName"
+            android:inputType="text"
             app:met_maxCharacters="31"
             app:met_floatingLabel="normal"/>
 
+        <!--DESCRIPTION-->
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/new_event_summary"
             android:layout_width="match_parent"
@@ -32,105 +36,157 @@
             android:layout_below="@id/new_event_title"
             android:ems="10"
             android:hint="@string/event_summary"
-            android:inputType="textPersonName"
+            android:inputType="text"
             app:met_maxCharacters="255"
             app:met_floatingLabel="normal"/>
 
-        <TextView
-            android:id="@+id/event_pet_label"
-            android:text="@string/pet"
-            android:layout_below="@id/new_event_summary"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Spinner
-            android:id="@+id/pet_list"
-            android:layout_below="@id/event_pet_label"
-            android:layout_toEndOf="@+id/event_pet_label"
+        <!-- -->
+        <LinearLayout
+            android:id="@+id/new_event_pet"
+            android:layout_below="@+id/new_event_summary"
+            android:layout_margin="@dimen/default_margin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/event_pet_label" />
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/event_pet_label"
+                android:text = "@string/pet"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <include
-            android:id="@+id/new_event_date"
-            layout="@layout/layout_label_value_vertical"
-            android:layout_below="@+id/pet_list"
-            bind:label="@{@string/new_event_date}"
-            bind:value="@{date}"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            <Spinner
+                android:id="@+id/pet_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/new_event_set_date"
-            android:layout_below="@id/pet_list"
-            android:layout_toEndOf="@+id/new_event_date"
-            android:src="@drawable/ic_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/new_event_date" />
-
-        <include
+        <LinearLayout
             android:id="@+id/new_event_time"
-            android:layout_below="@id/new_event_date"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            layout="@layout/layout_label_value_vertical"
-            bind:label="@{@string/new_event_time}"
-            bind:value="@{time}"/>
+            android:layout_below="@+id/new_event_pet"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/default_margin"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/new_event_set_time"
-            android:layout_toEndOf="@+id/new_event_time"
-            android:layout_below="@+id/new_event_date"
-            android:src="@drawable/ic_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/new_event_time" />
+            <TextView
+                android:id="@+id/time_label"
+                android:text="@string/time_label"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <TextView
+            <TextView
+                android:id="@+id/time_value"
+                android:text="@{time}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/new_event_change_time_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_time" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/new_event_date"
             android:layout_below="@+id/new_event_time"
-            android:id="@+id/new_event_type_label"
-            android:text="@string/new_event_type_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_margin="@dimen/default_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Spinner
-            android:layout_below="@+id/new_event_type_label"
-            android:layout_toEndOf="@+id/new_event_type_label"
+            <TextView
+                android:text="@string/date_label"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/date_value"
+                android:text="@{date}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/new_event_change_date_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_date" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/new_event_type"
+            android:layout_margin="@dimen/default_margin"
+            android:layout_below="@+id/new_event_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/new_event_type_label" />
+            android:orientation="horizontal">
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+            <TextView
+                android:text="@string/type_label"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/type_value"
+                android:entries="@array/types"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/new_event_type"
+            android:id="@+id/new_event_is_periodic"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/periodic_checker_label"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                android:id="@+id/new_event_periodic_checker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <include
+            android:visibility="gone"
+            layout="@layout/layout_periods"
             android:id="@+id/new_event_period"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/new_event_type_label"
-            android:ems="10"
-            android:hint="@string/new_event_period_label"
-            android:inputType="number"
-            app:met_floatingLabel="normal"
-            app:met_maxCharacters="3" />
+            android:layout_below="@id/new_event_is_periodic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-        <Spinner
-            android:id="@+id/new_event_period_duration"
-            android:layout_width="152dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/new_event_type_label"
-            android:layout_toRightOf="@+id/new_event_period"
-            android:layout_toEndOf="@+id/new_event_period"
-            android:entries="@array/periods"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_margin="@dimen/default_margin"
+            android:layout_below="@+id/new_event_period"
+            android:id="@+id/new_event_appointment"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:text="@string/appointment_label"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                android:id="@+id/new_event_appointment_checker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <com.dd.processbutton.iml.ActionProcessButton
             android:id="@+id/new_event_add_button"
+            android:layout_below="@+id/new_event_appointment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="@string/add_event"
             android:textColor="@android:color/white"
@@ -142,6 +198,5 @@
             custom:pb_textComplete="@string/success"
             custom:pb_textError="@string/error"
             custom:pb_textProgress="@string/loading" />
-
     </RelativeLayout>
 </layout>

@@ -6,8 +6,25 @@ import java.sql.Date
 import java.text.DateFormat.getDateInstance
 import java.text.DateFormat.getTimeInstance
 import java.time.Instant
+import java.util.concurrent.TimeUnit
 
 object DateUtils {
+
+    fun getPeriodUnit(unit : Int) : TimeUnit =
+            when(unit) {
+               0 -> TimeUnit.MINUTES
+               1 -> TimeUnit.HOURS
+               else -> TimeUnit.DAYS
+    }
+
+    fun getPeriod(unit: Int, period: Int) : Long =
+        when(unit) {
+            3 -> period * 7
+            4 -> period * 30
+            5 -> period * 365
+            else -> period
+        }.toLong()
+
 
     fun getCurrentDateString() =
             getDateString(getCurrentDateMillis())

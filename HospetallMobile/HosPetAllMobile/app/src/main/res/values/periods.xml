@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="periods">
+    <string-array name="periods" translatable="true">
         <item>Minutes</item>
         <item>Hours</item>
         <item>Days</item>
