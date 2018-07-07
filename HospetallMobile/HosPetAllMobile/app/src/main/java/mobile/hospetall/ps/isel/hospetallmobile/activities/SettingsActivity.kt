@@ -10,7 +10,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import android.widget.AdapterView
 import android.widget.CheckBox
-import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication.Companion.SP_NAME
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivitySettingsBinding
 import mobile.hospetall.ps.isel.hospetallmobile.services.DataUpdaterWorker
@@ -18,6 +17,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.DEFA
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.DEFAULT_UPDATER
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.PERIOD_NUMBER
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.PERIOD_UNIT
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.SP_NAME
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.UPDATER_ACTIVE
 
 class SettingsActivity : BaseActivity() {
