@@ -32,7 +32,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
 data class Event(
         @ColumnInfo(name=DatabaseColumns.ID)
         @PrimaryKey(autoGenerate = true)
-        var id : Int? = null,
+        var id : Int = 0,
         @ColumnInfo(name = TITLE)
         val title: String,
         @ColumnInfo(name= MESSAGE)
@@ -51,7 +51,7 @@ data class Event(
         val type: Int = EventType.USER
 ) : Parcelable{
         constructor(parcel: Parcel) : this(
-                parcel.readValue(Int::class.java.classLoader) as? Int,
+                parcel.readInt(),
                 parcel.readString(),
                 parcel.readString(),
                 parcel.readValue(Int::class.java.classLoader) as? Int,
