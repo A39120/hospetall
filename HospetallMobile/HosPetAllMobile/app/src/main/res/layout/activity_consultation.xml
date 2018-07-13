@@ -24,7 +24,7 @@
             bind:procedure="@{consultation}" />
 
         <include
-            android:id="@+id/consultation"
+            android:id="@+id/consultation_value"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_below="@id/procedure"

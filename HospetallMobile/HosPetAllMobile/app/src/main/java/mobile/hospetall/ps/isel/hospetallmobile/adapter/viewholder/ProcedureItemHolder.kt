@@ -17,7 +17,7 @@ class ProcedureItemHolder(private val binder: ItemProcedureBinding):  AbstractHo
         operation?.apply {
             binder.operation = this
         }
-        binder.date.setOnClickListener(listener)
+        binder.dateValue.setOnClickListener(listener)
         binder.executePendingBindings()
     }
 

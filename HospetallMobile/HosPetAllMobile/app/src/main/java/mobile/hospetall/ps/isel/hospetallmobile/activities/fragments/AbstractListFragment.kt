@@ -21,7 +21,7 @@ abstract class AbstractListFragment
         return rootView
     }
 
+    abstract  fun callbackInfo(view: View)
 
-    abstract fun callbackInfo(view : View)
     abstract fun getTitle() : Int
 }

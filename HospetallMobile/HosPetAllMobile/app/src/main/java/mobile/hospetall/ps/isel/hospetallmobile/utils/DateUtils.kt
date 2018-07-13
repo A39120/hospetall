@@ -17,13 +17,13 @@ object DateUtils {
                else -> TimeUnit.DAYS
     }
 
-    fun getPeriod(unit: Int, period: Int) : Long =
+    fun getPeriod(unit: Int, period: Long) : Long =
         when(unit) {
             3 -> period * 7
             4 -> period * 30
             5 -> period * 365
             else -> period
-        }.toLong()
+        }
 
 
     fun getCurrentDateString() =

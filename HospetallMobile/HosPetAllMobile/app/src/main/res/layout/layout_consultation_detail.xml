@@ -37,7 +37,7 @@
             bind:value="@{consultation.temperature.toString()}"/>
 
         <include
-            android:id="@+id/veterinarian"
+            android:id="@+id/veterinarian_value"
             android:layout_below="@+id/temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

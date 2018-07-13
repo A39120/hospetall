@@ -1,14 +1,9 @@
 <resources>
     <string name="app_name">HosPetAll</string>
+    <string name="authority">http://192.168.1.80</string>
 
-    <string name="protocol" translatable="false">http</string>
-    <string name="authority" translatable="false">192.168.255.191</string>
-    <string name="pet_path" translatable="false">pet</string>
-    <string name="client_path" translatable="false">client</string>
-    <string name="clients_pets_path" translatable="false">pets</string>
-    <string name="race_path" translatable="false">race</string>
-    <string name="species_path" translatable="false">species</string>
-    <string name="treatment_path" translatable="false">treatment</string>
+    <string name="channel_name">hospetall_notification</string>
+    <string name="channel_description">hospetall_desc</string>
 
     <string name="home">Home</string>
     <string name="schedule">Schedule</string>

@@ -1,17 +1,19 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
+import mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel.PetListViewModel
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.PetsAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
+import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
-import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 /**
  * Activity to show the pet list. It will bind the
@@ -28,28 +30,38 @@ class PetsListActivity : BaseActivity() {
         }
     }
 
-    private val petAccess: PetAccess by lazy { PetAccess() }
+    private lateinit var viewModel: PetListViewModel
+    private lateinit var recycler : RecyclerView
+    private var adapter : PetsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
-
         val id = getId()
+        viewModel = ViewModelProviders.of(this).get(PetListViewModel::class.java)
+        viewModel.init(id)
+
+        recycler = findViewById(R.id.list)
+
         Log.i(TAG, "Getting pet list from owner with id: $id.")
 
-        val uri = UriUtils.getClientsPetsUri(id)
-        petAccess.getList(
-                uri.toString(),
-                Response.Listener{
-                    Log.i(TAG, "Adapting pet list of client $id to adapter.")
-                    val list = findViewById<RecyclerView>(R.id.list)
-                    list.adapter = PetsAdapter(this, it)
-                    list.layoutManager = LinearLayoutManager(this@PetsListActivity)
-                },
-                Response.ErrorListener{
-                    Log.e(TAG, "Error getting data from client $id pets ($uri): ${it.message}")
+        viewModel.getPetList()?.observe(this, Observer {
+            Log.i(TAG, "Adapting pet list of client $id to adapter.")
+            it?.apply {
+                if(adapter == null){
+                    createAdapter(it)
+                } else {
+                    adapter!!.setPetList(it)
                 }
-        )
+            }
+        })
+    }
+
+    private fun createAdapter(petList: List<Pet>) {
+        adapter = PetsAdapter(this@PetsListActivity, petList)
+        recycler.adapter = adapter
+        recycler.layoutManager = LinearLayoutManager(this@PetsListActivity)
+
     }
 
 }

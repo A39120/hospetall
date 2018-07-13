@@ -16,11 +16,21 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
  */
 class ConsultationAdapter(
         private val mContext: Context,
-        private val list:Array<Consultation>,
-        private val petList: Array<Pet>? = null)
+        private var list:Array<Consultation>,
+        private var petList: Array<Pet>? = null)
     : ProcedureAdapter<Consultation>(mContext, list) {
     companion object {
         private const val TAG = "HPA/ADAPTER/CONSULT"
+    }
+
+    fun setConsultationList(list: Array<Consultation>){
+        this.list = list
+        notifyDataSetChanged()
+    }
+
+    fun setPetList(list: Array<Pet>){
+        this.petList = list
+        notifyDataSetChanged()
     }
 
 
@@ -32,7 +42,7 @@ class ConsultationAdapter(
                 procedure,
                 pet?.name,
                 listener = View.OnClickListener{
-                    ConsultationActivity.start(mContext, procedure, pet)
+                    ConsultationActivity.start(mContext, procedure.id)
                 }
         )
     }

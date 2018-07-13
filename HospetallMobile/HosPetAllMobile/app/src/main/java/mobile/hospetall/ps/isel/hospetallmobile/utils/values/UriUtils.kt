@@ -46,7 +46,7 @@ object UriUtils {
      * for the full pet list therefore this is only used to build other
      * uri.
      */
-    fun getPetListUri(): Uri.Builder =
+    private fun getPetListUri(): Uri.Builder =
             getBaseUri()
                     .appendPath(PET_PATH)
 

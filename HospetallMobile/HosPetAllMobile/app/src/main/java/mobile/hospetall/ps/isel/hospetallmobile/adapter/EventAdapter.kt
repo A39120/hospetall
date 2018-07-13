@@ -2,6 +2,7 @@ package mobile.hospetall.ps.isel.hospetallmobile.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.viewholder.EventHolder
@@ -10,9 +11,9 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 
 class EventAdapter(
-        private val mContext: Context,
-        private val eventList: List<Event>,
-        private val petList : List<Pet>)
+        mContext: Context,
+        private var eventList: List<Event>,
+        private var petList : List<Pet>? )
     : RecyclerView.Adapter<EventHolder>() {
     companion object {
         private const val TAG = "HPA/ADAPTER/EVENT"
@@ -25,9 +26,21 @@ class EventAdapter(
         return EventHolder(mBinder)
     }
 
+    fun setEventList(newList: List<Event>){
+        Log.i(TAG, "Altering consultations list.")
+        this.eventList = newList
+        notifyDataSetChanged()
+    }
+
+    fun setPetList(newList: List<Pet>) {
+        Log.i(TAG, "Altering pets list.")
+        this.petList = newList
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: EventHolder, position: Int) {
         val event = eventList[position]
-        val pet = petList.find { it.id == event.pet }
+        val pet = petList?.find { it.id == event.pet }
         holder.bind(event, pet)
 
     }

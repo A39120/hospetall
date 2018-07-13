@@ -32,6 +32,16 @@
         <activity android:name=".activities.AddEventActivity"/>
         <activity android:name=".activities.ScheduleActivity"/>
         <activity android:name=".activities.ProfileActivity"/>
+
+        <receiver
+            android:name=".notifications.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="NOTIFICATION_SERVICE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

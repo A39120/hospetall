@@ -1,5 +1,7 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -10,14 +12,14 @@ import android.view.View
 import android.widget.TextView
 import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
+import mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel.ProfileViewModel
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ClientAccess
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityProfileBinding
 import mobile.hospetall.ps.isel.hospetallmobile.models.Client
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
-import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnClientListener
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
-class ProfileActivity : AppCompatActivity(), OnClientListener {
+class ProfileActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "HPA/ACTIVITY/PROFILE"
@@ -28,19 +30,27 @@ class ProfileActivity : AppCompatActivity(), OnClientListener {
             client?.apply { int.putExtra(CLIENT, client) }
             context.startActivity(int)
         }
+
     }
 
     private lateinit var mBinder : ActivityProfileBinding
-    private val clientAccess : ClientAccess by lazy { ClientAccess() }
+    private val clientAccess by lazy { ClientAccess() }
+    private lateinit var viewModel : ProfileViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val id = getId()
         mBinder = DataBindingUtil.setContentView(this, R.layout.activity_profile)
-        onClient {
-            setClientInfo(it)
-            mBinder.updateProfileButton.setOnClickListener{update()}
-            mBinder.executePendingBindings()
-        }
+        viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+        viewModel.init(id)
+        viewModel.getClient()?.observe(this, Observer {
+            it?.apply {
+                setClientInfo(it)
+             }
+        })
+
+        mBinder.updateProfileButton.setOnClickListener{update()}
+        mBinder.executePendingBindings()
     }
 
     /**
@@ -84,20 +94,6 @@ class ProfileActivity : AppCompatActivity(), OnClientListener {
         }
     }
 
-    override fun onClient(listener: (Client) -> Unit) {
-        val client = intent.getParcelableExtra<Client?>(CLIENT)
-        if (client != null) {
-            listener(client)
-        } else {
-            clientAccess.get(
-                    UriUtils.getClientUri(getId()).build().toString(),
-                    Response.Listener{
-                        listener(it)
-                    }
-            )
-        }
-    }
-
     fun cancel(){
         this.finish()
     }
@@ -107,15 +103,17 @@ class ProfileActivity : AppCompatActivity(), OnClientListener {
     }
 
     private fun setClientInfo(client : Client) {
-        mBinder.updateClientLastName.setText(client.familyName, TextView.BufferType.EDITABLE)
-        mBinder.updateClientGivenName.setText(client.givenName, TextView.BufferType.EDITABLE)
-        mBinder.updateClientEmail.setText(client.email, TextView.BufferType.EDITABLE)
-        mBinder.updateClientTelephone.setText(client.telephone, TextView.BufferType.EDITABLE)
-        mBinder.updateClientAddress.setText(client.address, TextView.BufferType.EDITABLE)
-        client.postalCode?.let{
-            mBinder.updateClientPostalCode.setText(it, TextView.BufferType.EDITABLE)
+        mBinder.apply {
+            updateClientLastName.setText(client.familyName, TextView.BufferType.EDITABLE)
+            updateClientGivenName.setText(client.givenName, TextView.BufferType.EDITABLE)
+            updateClientEmail.setText(client.email, TextView.BufferType.EDITABLE)
+            updateClientTelephone.setText(client.telephone, TextView.BufferType.EDITABLE)
+            updateClientAddress.setText(client.address, TextView.BufferType.EDITABLE)
+            client.postalCode?.let{
+                updateClientPostalCode.setText(it, TextView.BufferType.EDITABLE)
+            }
+            updateClientNif.setText(client.nif.toString(), TextView.BufferType.EDITABLE)
         }
-        mBinder.updateClientNif.setText(client.nif.toString(), TextView.BufferType.EDITABLE)
 
     }
 }

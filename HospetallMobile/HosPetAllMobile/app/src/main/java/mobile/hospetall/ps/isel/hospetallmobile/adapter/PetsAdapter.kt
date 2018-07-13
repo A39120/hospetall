@@ -10,7 +10,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 
 class PetsAdapter(
         private val mContext: Context,
-        private val petArray: List<Pet>)
+        private var petArray: List<Pet>)
     : RecyclerView.Adapter<PetHolder>() {
     companion object {
         private const val TAG = "HPA/ADAPTER/PET"
@@ -26,6 +26,11 @@ class PetsAdapter(
     override fun onBindViewHolder(holder: PetHolder, position: Int) {
         val pet = petArray[position]
         holder.bind(pet, mContext)
+    }
+
+    fun setPetList(list: List<Pet>){
+        this.petArray = list
+        notifyDataSetChanged()
     }
 
     override fun getItemCount() = petArray.size

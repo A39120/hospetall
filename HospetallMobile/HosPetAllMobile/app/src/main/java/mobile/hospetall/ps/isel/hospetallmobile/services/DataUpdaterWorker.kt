@@ -1,11 +1,9 @@
 package mobile.hospetall.ps.isel.hospetallmobile.services
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.work.WorkManager
 import androidx.work.Worker
-import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
@@ -29,11 +27,11 @@ class DataUpdaterWorker : Worker() {
          *
          * Minimum periodic time is: 15 minutes
          */
-        fun start(context: Context, sharedPreferences: SharedPreferences){
+        fun start(sharedPreferences: SharedPreferences){
             val duration = sharedPreferences.getInt(PERIOD_UNIT, DEFAULT_PERIOD_UNIT)
             val spNumber = sharedPreferences.getInt(PERIOD_NUMBER, DEFAULT_PERIOD_NUMBER)
 
-            val number = DateUtils.getPeriod(duration, spNumber)
+            val number = DateUtils.getPeriod(duration, spNumber.toLong())
             val unit = DateUtils.getPeriodUnit(duration)
 
             Log.i(TAG, "Setting up repetitive work service: $number $unit")
@@ -75,13 +73,13 @@ class DataUpdaterWorker : Worker() {
         val treatmentUri = UriUtils.getPetsTreatmentUri(id).build().toString()
 
         database.petDao().clear()
-        petAccess.getCollectionFromUri(petUri, Response.Listener {  })
+        petAccess.updateCollectionFromNetwork(petUri)
 
         database.consultationDao().clear()
-        consultationAccess.getCollectionFromUri(consultationUri, Response.Listener {  })
+        consultationAccess.updateCollectionFromNetwork(consultationUri)
 
         database.treatmentDao().clear()
-        treatmentAccess.getCollectionFromUri(treatmentUri, Response.Listener {  })
+        treatmentAccess.updateCollectionFromNetwork(treatmentUri)
 
         return Result.SUCCESS
     }

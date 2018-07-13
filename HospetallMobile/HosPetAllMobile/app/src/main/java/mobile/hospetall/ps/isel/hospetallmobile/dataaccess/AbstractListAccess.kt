@@ -1,5 +1,6 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
+import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import android.util.Log
 import com.android.volley.Response
@@ -16,38 +17,23 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
     companion object {
         const val TAG = "HPA/Access/List"
 
+        /**
+         * Async Task that has the purpose of inserting a collection
+         * inside the Room Database
+         */
         private class InsertListAsyncTask<T: Base, V: CollectionDao<T>>(
                 private val listDao : ListDao,
                 private val uri: String,
                 private val dao: V
         ) : AsyncTask<List<T>, Unit, Unit>() {
-
             override fun doInBackground(vararg params: List<T>) {
                 listDao.insertAll(params[0].map { ListEntity(uri, it.uri) })
                 dao.insertAll(params[0])
             }
         }
-
-        private class GetListAsyncTask<T,V: CollectionDao<T>>(
-                private val dao: V,
-                private val listener : Response.Listener<List<T>>
-        ) : AsyncTask<String, Unit, List<T>>() {
-
-            override fun doInBackground(vararg params: String?) : List<T>? =
-                params[0]?.let {
-                    dao.getList(it)
-                }
-
-            override fun onPostExecute(result: List<T>?) {
-                super.onPostExecute(result)
-                listener.onResponse(result)
-            }
-
-        }
     }
 
     private val listDao = database.listDao()
-    protected val dao = getDao(database)
 
     /**
      * Get function to obtain an multiple objects represented
@@ -55,20 +41,10 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
      * answer.
      *
      * @param uri: the chosen id for most objects;
-     * @param property: string that represents a json property
-     * where the list is contained;
-     * @param onSuccess: success callback, will receive the
-     * list of objects when successful
-     * @param onError: error callback, will receive the object
-     * when a failure occurs, if this parameter is null then
-     * only an log message will be written.
      */
-    fun getList(uri: String,
-                onSuccess: Response.Listener<List<T>>,
-                onError: Response.ErrorListener? = null) {
+    fun getList(uri: String) : LiveData<List<T>> =
+        getCollectionFromDatabase(uri)
 
-        getCollectionFromDatabase( uri, onSuccess, onError)
-    }
 
 
     /**
@@ -79,7 +55,7 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
      */
     fun insertCollectionInDatabase(uri: String, list : List<T>){
         Log.i(TAG, "Inserting collection $uri in database.")
-        InsertListAsyncTask(listDao, uri, dao).execute(list)
+        InsertListAsyncTask(listDao, uri, getDao(database)).execute(list)
     }
 
     /**
@@ -87,37 +63,18 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
      * database.
      *
      * @param uri: The id of the collection
-     * @param onSuccess: In case of success this callback
-     * will be called with the result
      */
-    private fun getCollectionFromDatabase(uri: String,
-                                           onSuccess: Response.Listener<List<T>>,
-                                           onError: Response.ErrorListener? = null) {
-        GetListAsyncTask(
-                dao,
-                Response.Listener {
-                    if (!it.isEmpty()) {
-                        Log.i(TAG, "Got collection $uri from database.")
-                        onSuccess.onResponse(it)
-                    } else {
-                        Log.i(TAG, "Didn't got collection $uri from database.")
-                        getCollectionFromUri(uri, onSuccess, onError)
-                    }
-                }
-        ).execute(uri)
-    }
+    private fun getCollectionFromDatabase(uri: String) =
+            getDao(database).getList(uri)
 
-
+    fun getAll() =
+            getDao(database).getAll()
 
     /**
      * Gets a list of objects directly from the Web API
      * represented with the [uri].
      */
-    fun getCollectionFromUri(
-            uri: String,
-            onSuccess: Response.Listener<List<T>>,
-            onError: Response.ErrorListener? = null
-    ) {
+    fun updateCollectionFromNetwork(uri: String) {
         val embedded = "_embedded"
         queue.add(
                 JsonObjectRequest(
@@ -131,55 +88,12 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
                                         List(this.length(), { this.get(it) as JSONObject })
                                                 .map { parse(it) }
                                 insertCollectionInDatabase(uri, list)
-                                onSuccess.onResponse(list)
                             }
                         },
                         Response.ErrorListener {
                             Log.e(TAG, "Failed to send get request for list from $uri")
-                            onError?.run { onErrorResponse(it) }
                         }
                 )
         )
     }
-
-    fun update(uri: String){
-        getCollectionFromUri(
-                uri,
-                Response.Listener {
-                    Log.i(TAG, "Updating list from $uri.")
-                    updateTable(uri, it)
-                },
-                Response.ErrorListener {
-                    Log.e(TAG, "Failed to update table.")
-                }
-        )
-    }
-
-    /**
-     * Updates consultation table by comparing current table with
-     * the previous one.
-     *
-     * @param newList: The new consultation list
-     */
-    private fun updateTable(uri: String, newList: List<T>) {
-            database.beginTransaction()
-
-            val list = dao.getAll()
-            listDao.delete(uri)
-
-            val delete = list.filter {
-                val obj = it
-                return@filter !newList.contains(obj) || newList.find { obj.id == it.id } != null
-            }
-            delete.forEach { dao.deleteById(it.uri) }
-
-            val toInsertOrUpdate = newList.filter(list::contains)
-            toInsertOrUpdate.forEach {
-                listDao.insert(ListEntity(uri, it.uri))
-                dao.insertOrUpdate(it)
-            }
-
-            database.endTransaction()
-    }
-
 }

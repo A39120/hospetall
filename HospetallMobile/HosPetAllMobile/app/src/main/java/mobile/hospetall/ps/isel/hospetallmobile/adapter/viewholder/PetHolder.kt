@@ -22,7 +22,7 @@ class PetHolder(private val binder: ItemPetBinding) : AbstractHolder<ItemPetBind
         }
 
         binder.petDetails.setOnClickListener{
-            PetActivity.start(context, item)
+            PetActivity.start(context,  item.id)
         }
 
         binder.executePendingBindings()

@@ -1,41 +1,58 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import mobile.hospetall.ps.isel.hospetallmobile.R
+import mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel.ConsultationListViewModel
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.ConsultationAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
-import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnConsultationListListener
-import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListListener
 
 class ConsultationListFragment : AbstractListFragment() {
 
     companion object {
         const val TITLE = R.string.consultation
         const val TAG = "HPA/FRAG/CONSULT_LST"
+        const val URI = "consultation_list_uri"
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val uri = arguments?.getString(URI)
+        uri?.let {
+            viewModel = ViewModelProviders.of(this).get(ConsultationListViewModel::class.java)
+            viewModel.init(uri)
+        }
+    }
+
+    /**
+     * Sets up the view model observers for the
+     * [Consultation] list and [Pet] list.
+     */
     override fun callbackInfo(view: View) {
-        (activity as OnConsultationListListener).onConsultationList(
-                {
-                    Log.i(TAG, "Binding consultation list to ConsultationFragment.")
-                    val showPet = arguments?.getBoolean(SHOW_PET)?: false
-                    val consultationArray = it.toTypedArray()
-                    if(showPet){
-                        Log.i(TAG, "Getting information for pets to accompany the consultation list.")
-                        (activity as OnPetListListener).onPetList {
-                            adapt(consultationArray, it.toTypedArray())
-                        }
-                    }else
-                        adapt(consultationArray)
-                }
-        )
+        viewModel.getConsultationList()?.observe(this, Observer {
+            it?.toTypedArray()?.let {
+                if(adapter == null)
+                    createAdapter(view, it)
+                else
+                    adapter?.setConsultationList(it)
+        }})
+
+        viewModel.getPetList()?.observe(this, Observer {
+            it?.run {
+                adapter?.setPetList(it.toTypedArray())
+            }
+        })
+
     }
 
-
+    private lateinit var viewModel : ConsultationListViewModel
+    private lateinit var recyclerView: RecyclerView
+    private var adapter: ConsultationAdapter? = null
 
     /**
      * Adapts information to the recycler view.
@@ -44,10 +61,11 @@ class ConsultationListFragment : AbstractListFragment() {
      * @param petArray: Helper array that will bind information
      * about a certain pet;
      */
-    private fun adapt(consultationArray: Array<Consultation>, petArray: Array<Pet>? = null) {
-        val recycler = view!!.findViewById<RecyclerView>(R.id.procedure_list)
-        recycler.adapter = ConsultationAdapter(context!!, consultationArray, petArray)
-        recycler.layoutManager = LinearLayoutManager(context!!)
+    private fun createAdapter(view: View, consultationArray: Array<Consultation>, petArray: Array<Pet>? = null) {
+        recyclerView = view.findViewById(R.id.procedure_list)
+        adapter = ConsultationAdapter(context!!, consultationArray, petArray)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context!!)
     }
 
 

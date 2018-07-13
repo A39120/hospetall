@@ -1,13 +1,15 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import mobile.hospetall.ps.isel.hospetallmobile.R
+import mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel.PetViewModel
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.FragmentPetDetailBinding
-import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListener
 
 
 /**
@@ -17,6 +19,7 @@ class PetFragment : BaseFragment() {
     companion object {
         const val TITLE = R.string.pet
         const val TAG = "HPA/FRAGMENT/PET"
+        const val URI = "pet_uri"
     }
 
     /**
@@ -24,6 +27,21 @@ class PetFragment : BaseFragment() {
      * layout.
      */
     private lateinit var binder : FragmentPetDetailBinding
+    private lateinit var viewModel : PetViewModel
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        val uri = arguments?.getString(URI)
+        if(uri == null){
+            //TODO: Error
+            return
+        }
+
+        viewModel = ViewModelProviders.of(this)
+                .get(PetViewModel::class.java)
+        viewModel.init(uri)
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -32,14 +50,11 @@ class PetFragment : BaseFragment() {
         Log.i(TAG, "onCreateView called.")
         binder = FragmentPetDetailBinding.inflate(inflater, container, false)
 
-        //Passing the callback to pet after getting the result
-        (activity as OnPetListener).onPet(
-                {
-                    Log.i(TAG, "Binding pet ${it.id} to pet detail fragment.")
-                    binder.pet = it
-                    binder.executePendingBindings()
-                }
-        )
+        viewModel.getPet()?.observe(this, Observer {
+            Log.i(TAG, "Pet information changed.")
+            binder.pet = it
+            binder.executePendingBindings()
+        })
 
         return binder.root
     }

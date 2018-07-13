@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/title_value"
             android:textStyle="bold"
             android:text="@{title}"
             android:textSize="@dimen/title_size"
@@ -22,13 +22,13 @@
         <TextView
             android:id="@+id/date"
             android:text="@{procedure.date}"
-            android:layout_below="@+id/title"
+            android:layout_below="@+id/title_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <include
             android:layout_below="@+id/date"
-            android:id="@+id/pet"
+            android:id="@+id/pet_value"
             android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         <!-- NULLABLE -->
         <include
             android:id="@+id/case_history"
-            android:layout_below="@+id/pet"
+            android:layout_below="@+id/pet_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             bind:label="@{@string/case_history}"

@@ -2,6 +2,7 @@ package mobile.hospetall.ps.isel.hospetallmobile.activities
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -15,15 +16,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.TimePicker
-import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
+import mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel.PetListViewModel
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ScheduleAccess
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityAddEventBinding
 import mobile.hospetall.ps.isel.hospetallmobile.models.Event
-import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
+import mobile.hospetall.ps.isel.hospetallmobile.services.OneTimeNotificationWorker
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
-import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 import java.util.*
 
 class AddEventActivity : BaseActivity(),
@@ -40,13 +39,12 @@ class AddEventActivity : BaseActivity(),
         }
     }
 
+    private lateinit var viewModel : PetListViewModel
     private val timePickerDialog by lazy { getTimePicker() }
     private val datePickerDialog by lazy { getDatePicker() }
     private val calendar by lazy { Calendar.getInstance() }
     private val dateFormat  by lazy { getDateFormat(applicationContext) }
     private val timeFormat by lazy { getTimeFormat(applicationContext) }
-    private val petAccess : PetAccess by lazy { PetAccess() }
-    private lateinit var pets :  List<Pet>
 
     private lateinit var mBinder: ActivityAddEventBinding
 
@@ -54,7 +52,11 @@ class AddEventActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         Log.i(TAG, "Setting up add event activity.")
 
+        //Binding data to layout
         mBinder = DataBindingUtil.setContentView(this, R.layout.activity_add_event)
+
+        //Creating view model
+        setupViewModel()
 
         //Setting up the current time and date for the current view
         mBinder.time = timeFormat.format(calendar.timeInMillis)
@@ -63,24 +65,45 @@ class AddEventActivity : BaseActivity(),
         mBinder.newEventChangeDateButton.setOnClickListener { datePickerDialog.show() }
         mBinder.newEventChangeTimeButton.setOnClickListener{ timePickerDialog.show() }
 
-        petAccess.getList(
-                UriUtils.getClientsPetsUri(getId()).build().toString(),
-                Response.Listener {
-                    pets = it.sortedBy { it.id }
-                    val names = pets.map { it.name }
-                    val dataAdapter = ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, names)
-                    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    mBinder.petList.adapter = dataAdapter
-                }
-        )
-
         setShowHide()
         mBinder.newEventAddButton.setOnClickListener{ addEvent() }
         mBinder.executePendingBindings()
     }
 
+    private var adapter : ArrayAdapter<String>? = null
+
+    /**
+     * Sets up [PetListViewModel] for the spinner and
+     * it's observers.
+     */
+    private fun setupViewModel() {
+        Log.i(TAG, "Setting up view model.")
+        val id = getId()
+
+        viewModel = ViewModelProviders.of(this).get(PetListViewModel::class.java)
+        viewModel.init(id)
+        viewModel.getPetList()?.observe(this, android.arch.lifecycle.Observer {
+            Log.i(TAG, "Pet data has changed, calling observer.")
+            it?.run {
+                val names = this.sortedBy { it.id }
+                            .map { it.name }
+                if(adapter == null) {
+                    adapter = ArrayAdapter(this@AddEventActivity,  android.R.layout.simple_spinner_item, names)
+                    adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    mBinder.petList.adapter = adapter
+                } else {
+                    adapter!!.clear()
+                    adapter!!.addAll(names)
+                    adapter!!.notifyDataSetChanged()
+                }
+                mBinder.executePendingBindings()
+            }
+        })
+    }
+
+
     private fun setShowHide(){
-        mBinder.newEventPeriodicChecker.setOnCheckedChangeListener { buttonView, isChecked ->
+        mBinder.newEventPeriodicChecker.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked)
                 mBinder.newEventPeriod?.periodValueLayout?.visibility = View.VISIBLE
             else
@@ -104,6 +127,7 @@ class AddEventActivity : BaseActivity(),
         val event = getEventFromInfo()
         if (event != null) {
             ScheduleAccess().put(event)
+            OneTimeNotificationWorker.setUpWork(this, event)
             finish()
         }
     }
@@ -125,14 +149,17 @@ class AddEventActivity : BaseActivity(),
 
         //Getting pet
         val petSelected = mBinder.petList.selectedItemPosition
-        val pet = pets[petSelected]
+        val list = viewModel
+                .getPetList()?.value!!
+                .sortedBy { it.id }
+        val pet = list[petSelected]
 
         var period = -1
         var unit = 0
         if(mBinder.newEventPeriodicChecker.isChecked) {
             mBinder.newEventPeriod?.apply {
-                unit = periodConstants?.selectedItemPosition?: 0
-                period = Integer.parseInt(periodValue?.text?.toString()?:"-1")
+                unit = periodConstants.selectedItemPosition
+                period = Integer.parseInt(periodValue.text?.toString()?:"-1")
             }
         }
 

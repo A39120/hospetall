@@ -24,7 +24,7 @@
             bind:procedure="@{treatment}" />
 
         <include
-            android:id="@+id/treatment"
+            android:id="@+id/treatment_value"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_below="@id/procedure"
