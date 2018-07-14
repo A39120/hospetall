@@ -127,7 +127,7 @@ class AddEventActivity : BaseActivity(),
         val event = getEventFromInfo()
         if (event != null) {
             ScheduleAccess().put(event)
-            OneTimeNotificationWorker.setUpWork(this, event)
+            OneTimeNotificationWorker.setUpWork(event)
             finish()
         }
     }

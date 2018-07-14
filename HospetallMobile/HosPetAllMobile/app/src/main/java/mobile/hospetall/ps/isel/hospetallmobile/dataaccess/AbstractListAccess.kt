@@ -3,6 +3,7 @@ package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import android.util.Log
+import android.util.LruCache
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.ListDao
@@ -42,8 +43,16 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
      *
      * @param uri: the chosen id for most objects;
      */
-    fun getList(uri: String) : LiveData<List<T>> =
-        getCollectionFromDatabase(uri)
+    fun getList(uri: String) : LiveData<List<T>> {
+        val cachedList = getCollectionCache().get(uri)
+        return if(cachedList != null && cachedList.timeOfInsertion - System.currentTimeMillis() < timeout)
+            cachedList.value
+        else {
+            getCollectionCache().remove(uri)
+            updateCollectionFromNetwork(uri)
+            getCollectionFromDatabase(uri)
+        }
+    }
 
 
 
@@ -64,11 +73,11 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
      *
      * @param uri: The id of the collection
      */
-    private fun getCollectionFromDatabase(uri: String) =
-            getDao(database).getList(uri)
-
-    fun getAll() =
-            getDao(database).getAll()
+    private fun getCollectionFromDatabase(uri: String) : LiveData<List<T>>{
+        val data = getDao(database).getList(uri)
+        getCollectionCache().put(uri, Value(data, System.currentTimeMillis()))
+        return data
+    }
 
     /**
      * Gets a list of objects directly from the Web API
@@ -96,4 +105,7 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
                 )
         )
     }
+
+    protected abstract fun getCollectionCache() : LruCache<String, Value<List<T>>>
+
 }

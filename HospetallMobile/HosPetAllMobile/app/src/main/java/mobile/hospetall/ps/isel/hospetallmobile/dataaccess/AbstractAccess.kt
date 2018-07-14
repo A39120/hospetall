@@ -3,6 +3,7 @@ package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import android.util.Log
+import android.util.LruCache
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -28,7 +29,8 @@ abstract class AbstractAccess<T, V : BaseDao<T>>  {
         }
     }
 
-    protected val queue = RequestQueueSingleton.getInstance().requestQueue
+    protected var timeout : Long = 600000 //10 min default timeout
+    protected val queue = RequestQueueSingleton.getInstance().requestQueue!!
     protected val database = MobileDatabase.getInstance()
 
     /**
@@ -37,8 +39,16 @@ abstract class AbstractAccess<T, V : BaseDao<T>>  {
      *
      * @param uri: the chosen id for most objects;
      */
-    fun get(uri: String): LiveData<T> =
-        getFromDatabase(uri)
+    fun get(uri: String): LiveData<T> {
+        val cached = getSingleCache().get(uri)
+        return if(cached != null && System.currentTimeMillis() - cached.timeOfInsertion < timeout)
+            cached.value
+        else {
+            getSingleCache().remove(uri)
+            updateFromNetwork(uri)
+            getFromDatabase(uri)
+        }
+    }
 
 
     /**
@@ -61,14 +71,17 @@ abstract class AbstractAccess<T, V : BaseDao<T>>  {
     }
 
     /**
-     * Tries to obtain an object from the database.
+     * Tries to obtain an object from the database, and
+     * inserts it in the cache.
      *
      * @param uri: id of the object stored in the database;
-     * @return object if present in the database, or null if not
-     * present
+     * @return [LiveData] that will contain the object in the database
      */
-    private fun getFromDatabase(uri: String) =
-            getDao(database).get(uri)
+    private fun getFromDatabase(uri: String) : LiveData<T> {
+        val data =  getDao(database).get(uri)
+        getSingleCache().put(uri, Value(data, System.currentTimeMillis()))
+        return data
+    }
 
     /**
      * Inserts object inside the database.
@@ -129,6 +142,9 @@ abstract class AbstractAccess<T, V : BaseDao<T>>  {
                 }
         ))
 
+    fun setCacheTimeout(value : Long) {
+        this.timeout = value
+    }
 
     /**
      * Parses [JSONObject] into a [T] object.
@@ -138,6 +154,33 @@ abstract class AbstractAccess<T, V : BaseDao<T>>  {
      */
     protected abstract fun parse(json: JSONObject) : T
 
+    /**
+     * Gets respective Data Access Object to the database
+     * present in the classes that extend from this class.
+     *
+     * @param database: Database that gets the DAO
+     */
     protected abstract fun getDao(database: MobileDatabase) : V
 
+    /**
+     * Class used for the Last recently used, timed cache.
+     */
+    class Value<T>(
+            val value: LiveData<T>,
+            val timeOfInsertion : Long
+    )
+
+    /**
+     * Returns the cache present in the classes that implement
+     * this abstract class.
+     */
+    protected abstract fun getSingleCache() : LruCache<String, Value<T>>
+
+    /**
+     * Individual cache size
+     */
+    protected var mCacheSize = 100
+    fun setCacheSize(value: Int) {
+        this.mCacheSize = value
+    }
 }

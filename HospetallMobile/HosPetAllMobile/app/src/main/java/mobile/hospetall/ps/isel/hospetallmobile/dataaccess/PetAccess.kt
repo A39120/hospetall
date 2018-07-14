@@ -1,5 +1,6 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
+import android.util.LruCache
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.PetDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
@@ -11,6 +12,16 @@ import org.json.JSONObject
  */
 class PetAccess
     : AbstractListAccess<Pet, PetDao>("petList") {
+    companion object {
+        private val mInstance by lazy { PetAccess() }
+        fun getInstance() = mInstance
+    }
+
+    private val cache by lazy { LruCache<String, Value<Pet>>(mCacheSize) }
+    private val listCache by lazy { LruCache<String, Value<List<Pet>>>(mCacheSize/10)}
+
+    override fun getCollectionCache() = listCache
+    override fun getSingleCache() = cache
 
     override fun getDao(database: MobileDatabase) = database.petDao()
 

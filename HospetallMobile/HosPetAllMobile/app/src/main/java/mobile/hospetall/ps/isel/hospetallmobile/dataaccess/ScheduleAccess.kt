@@ -7,9 +7,10 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 
 class ScheduleAccess {
     companion object {
+        private val mInstance by lazy { ScheduleAccess() }
+        fun getInstance() = mInstance
 
-        private class InsertAsyncTask(
-                private val dao : EventDao
+        private class InsertAsyncTask( private val dao : EventDao
         ) : AsyncTask<Event, Unit, Unit>(){
             override fun doInBackground(vararg params: Event?) {
                 params[0]?.apply { dao.insertOrUpdate(this) }

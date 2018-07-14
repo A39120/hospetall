@@ -1,6 +1,5 @@
 package mobile.hospetall.ps.isel.hospetallmobile.services
 
-import android.content.Context
 import android.util.Log
 import androidx.work.Data
 import androidx.work.WorkManager
@@ -18,7 +17,7 @@ class OneTimeNotificationWorker : Worker() {
         private const val NAME = "one_time_event_notification"
 
 
-        fun setUpWork(context: Context, event: Event){
+        fun setUpWork(event: Event){
             val data = Data.Builder()
                     .putInt(EVENT_ID, event.id)
                     .build()

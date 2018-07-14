@@ -9,6 +9,8 @@ import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ScheduleAccess
 import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
+import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 import java.util.*
 
 /**
@@ -18,7 +20,7 @@ class ScheduleViewModel : ViewModel() {
     private val scheduleRepo by lazy { ScheduleAccess() }
     private val petRepo by lazy { PetAccess() }
     private var events : LiveData<List<Event>>? = null
-    private val allPets by lazy { petRepo.getAll() }
+    private var allPets : LiveData<List<Pet>>? = null
     private var pets : LiveData<List<Pet>>? = null
 
     fun init(type: Int) {
@@ -28,13 +30,16 @@ class ScheduleViewModel : ViewModel() {
             else -> scheduleRepo.getAll()
         }
 
+        val allPetsUri = UriUtils.getClientsPetsUri(getId()).build().toString()
+        allPets = petRepo.getList(allPetsUri)
+
         pets = Transformations.switchMap(events!!, {
             val list = it
                     .map { it.pet }
                     .distinct()
                     .filter { it != null }
 
-            Transformations.map(allPets, {
+            Transformations.map(allPets!!, {
                 val pets = it
                 list.map {
                     val id = it

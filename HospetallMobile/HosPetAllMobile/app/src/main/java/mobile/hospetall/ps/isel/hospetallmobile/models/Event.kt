@@ -65,7 +65,7 @@ data class Event(
 
         override fun writeToParcel(dest: Parcel?, flags: Int) {
             dest?.apply {
-                id?.apply { writeInt(this) }
+                id.apply { writeInt(this) }
                 writeString(title)
                 writeString(message)
                 pet?.apply{writeInt(this)}

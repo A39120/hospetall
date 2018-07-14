@@ -32,7 +32,7 @@ interface ConsultationDao : CollectionDao<Consultation> {
      * Inserts into consultation table
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override fun insertOrUpdate(consultation: Consultation)
+    override fun insertOrUpdate(entity: Consultation)
 
     /**
      * Gets all consultations in database

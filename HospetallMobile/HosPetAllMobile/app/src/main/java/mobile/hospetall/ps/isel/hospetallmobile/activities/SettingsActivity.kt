@@ -68,7 +68,7 @@ class SettingsActivity : BaseActivity() {
         val periodText = mBinder.periodValue
         val periodNumberPref = sharedPreferences.getInt(PERIOD_NUMBER, DEFAULT_PERIOD_UNIT).toString()
         periodText.setText(periodNumberPref)
-        periodText.setOnEditorActionListener { v, actionId, event ->
+        periodText.setOnEditorActionListener { v, actionId, _ ->
             if(actionId == IME_ACTION_DONE) {
                 Log.i(TAG, "Changed period number to ${v.text}")
                 val editor = sharedPreferences.edit()

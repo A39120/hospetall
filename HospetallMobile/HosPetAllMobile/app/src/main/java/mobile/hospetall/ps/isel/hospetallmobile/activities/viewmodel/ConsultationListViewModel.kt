@@ -7,25 +7,28 @@ import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
+import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 class ConsultationListViewModel : ViewModel() {
 
     private val consultationRepo by lazy { ConsultationAccess() }
     private val petRepo by lazy { PetAccess() }
-    private val allPets by lazy { petRepo.getAll() }
+    private var allPets  : LiveData<List<Pet>>? = null
     private var pets : LiveData<List<Pet>>? = null
     private var consultationList : LiveData<List<Consultation>>? = null
 
     fun init(uri: String) {
         if(consultationList == null) {
             consultationList = consultationRepo.getList(uri)
-
+            val allPetsUri = UriUtils.getClientsPetsUri(getId()).build().toString()
+            allPets = petRepo.getList(allPetsUri)
             pets = Transformations.switchMap(consultationList!!, {
                 val list = it
                         .map { it.petUri }
                         .distinct()
 
-                Transformations.map(allPets, {
+                Transformations.map(allPets!!, {
                     val pets = it
                     list.map {
                         val id = it
