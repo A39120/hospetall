@@ -1,7 +1,9 @@
 package mobile.hospetall.ps.isel.hospetallmobile.adapter
 
 import android.content.Context
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.viewholder.PetHolder
@@ -10,7 +12,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 
 class PetsAdapter(
         private val mContext: Context,
-        private var petArray: List<Pet>)
+        private val pets: MutableList<Pet> = mutableListOf())
     : RecyclerView.Adapter<PetHolder>() {
     companion object {
         private const val TAG = "HPA/ADAPTER/PET"
@@ -24,14 +26,18 @@ class PetsAdapter(
     }
 
     override fun onBindViewHolder(holder: PetHolder, position: Int) {
-        val pet = petArray[position]
+        val pet = pets[position]
         holder.bind(pet, mContext)
     }
 
     fun setPetList(list: List<Pet>){
-        this.petArray = list
-        notifyDataSetChanged()
+        Log.i(TAG, "Altering procedure pets.")
+        val res = DiffUtil.calculateDiff(BaseDiffUtilCallback(list, pets))
+        pets.clear()
+        pets.addAll(list)
+        res.dispatchUpdatesTo(this)
+
     }
 
-    override fun getItemCount() = petArray.size
+    override fun getItemCount() = pets.size
 }
