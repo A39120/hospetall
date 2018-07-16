@@ -8,7 +8,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 class ProfileViewModel : ViewModel() {
 
-    private val clientRepo by lazy { ClientAccess() }
+    private val clientRepo by lazy { ClientAccess.getInstance() }
     private var client : LiveData<Client>? = null
 
     fun init(id: Int){

@@ -17,11 +17,12 @@ abstract class AbstractListFragment
                               savedInstanceState: Bundle?): View {
 
         val rootView = inflater.inflate(R.layout.fragment_procedure_list, container, false)
+        createAdapter(rootView)
         callbackInfo(rootView)
         return rootView
     }
 
-    abstract  fun callbackInfo(view: View)
+    protected abstract fun callbackInfo(view: View)
 
-    abstract fun getTitle() : Int
+    protected abstract fun createAdapter(view: View)
 }

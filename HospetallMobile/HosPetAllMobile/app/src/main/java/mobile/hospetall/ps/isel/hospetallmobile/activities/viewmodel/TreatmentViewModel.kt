@@ -10,8 +10,8 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
 
 class TreatmentViewModel : ViewModel() {
 
-    private val treatmentRepo by lazy { TreatmentAccess() }
-    private val petRepo by lazy { PetAccess() }
+    private val treatmentRepo by lazy { TreatmentAccess.getInstance() }
+    private val petRepo by lazy { PetAccess.getInstance() }
 
     private var treatment : LiveData<Treatment>? = null
     private var pet : LiveData<Pet>? = null

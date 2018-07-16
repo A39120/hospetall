@@ -17,8 +17,8 @@ import java.util.*
  * [ViewModel] for [Event] present in the [ScheduleActivity]
  */
 class ScheduleViewModel : ViewModel() {
-    private val scheduleRepo by lazy { ScheduleAccess() }
-    private val petRepo by lazy { PetAccess() }
+    private val scheduleRepo by lazy { ScheduleAccess.getInstance() }
+    private val petRepo by lazy { PetAccess.getInstance() }
     private var events : LiveData<List<Event>>? = null
     private var allPets : LiveData<List<Pet>>? = null
     private var pets : LiveData<List<Pet>>? = null

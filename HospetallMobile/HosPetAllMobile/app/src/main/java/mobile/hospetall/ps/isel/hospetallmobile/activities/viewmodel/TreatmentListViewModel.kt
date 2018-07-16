@@ -12,9 +12,9 @@ import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 class TreatmentListViewModel : ViewModel() {
 
-    private val treatmentRepo by lazy{ TreatmentAccess() }
+    private val treatmentRepo by lazy{ TreatmentAccess.getInstance() }
     private var treatmentList : LiveData<List<Treatment>>? = null
-    private val petRepo by lazy { PetAccess() }
+    private val petRepo by lazy { PetAccess.getInstance() }
     private var allPets : LiveData<List<Pet>>? = null
     private var petList : LiveData<List<Pet>>? = null
 
@@ -25,12 +25,14 @@ class TreatmentListViewModel : ViewModel() {
             val allPetsUri = UriUtils.getClientsPetsUri(getId()).build().toString()
             allPets = petRepo.getList(allPetsUri)
             petList = Transformations.switchMap(treatmentList!!, {
-                val treatments = it.map { it.petUri }
+                val treatments = it
+                        .map { it.petUri }
+
                 Transformations.map(allPets!!, {
                     val pets = it
-                    treatments.map {
-                        val id = it
-                        pets.find{ it.uri == id }!!
+                    treatments.mapNotNull {
+                        val currentUri = it
+                        pets.find{ it.uri == currentUri }
                     }
                 })
             })

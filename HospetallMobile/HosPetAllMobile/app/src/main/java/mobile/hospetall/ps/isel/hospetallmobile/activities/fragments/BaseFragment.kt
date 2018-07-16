@@ -9,4 +9,6 @@ abstract class BaseFragment : Fragment(){
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
+
+    abstract fun getTitle() : Int
 }

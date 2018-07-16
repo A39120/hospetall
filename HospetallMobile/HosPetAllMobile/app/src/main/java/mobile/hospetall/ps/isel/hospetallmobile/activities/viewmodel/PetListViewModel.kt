@@ -7,7 +7,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 class PetListViewModel : ViewModel() {
-    private val petRepo by lazy { PetAccess() }
+    private val petRepo by lazy { PetAccess.getInstance() }
     private var pet : LiveData<List<Pet>>? = null
 
     fun init(id: Int) {

@@ -16,6 +16,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.databinding.FragmentPetDetailBin
  * Pet fragment to display the [Pet] information.
  */
 class PetFragment : BaseFragment() {
+
     companion object {
         const val TITLE = R.string.pet
         const val TAG = "HPA/FRAGMENT/PET"
@@ -29,18 +30,17 @@ class PetFragment : BaseFragment() {
     private lateinit var binder : FragmentPetDetailBinding
     private lateinit var viewModel : PetViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.i(TAG, "Creating Pet View Model.")
+        viewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         val uri = arguments?.getString(URI)
-        if(uri == null){
-            //TODO: Error
-            return
-        }
-
-        viewModel = ViewModelProviders.of(this)
-                .get(PetViewModel::class.java)
-        viewModel.init(uri)
+        Log.i(TAG, "Initiating Pet View Model with $uri")
+        uri?.apply { viewModel.init(this) }
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -58,4 +58,6 @@ class PetFragment : BaseFragment() {
 
         return binder.root
     }
+
+    override fun getTitle() = TITLE
 }

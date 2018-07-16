@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel.ConsultationListViewModel
@@ -20,13 +21,9 @@ class ConsultationListFragment : AbstractListFragment() {
         const val URI = "consultation_list_uri"
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val uri = arguments?.getString(URI)
-        uri?.let {
-            viewModel = ViewModelProviders.of(this).get(ConsultationListViewModel::class.java)
-            viewModel.init(uri)
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(ConsultationListViewModel::class.java)
     }
 
     /**
@@ -34,18 +31,20 @@ class ConsultationListFragment : AbstractListFragment() {
      * [Consultation] list and [Pet] list.
      */
     override fun callbackInfo(view: View) {
+        Log.i(TAG, "Getting argument uri from Activity.")
+        val uri = arguments?.getString(URI)
+        uri?.let { viewModel.init(it) }
+
+        Log.i(TAG, "Starting observers for ConsultationListViewModel.")
+
         viewModel.getConsultationList()?.observe(this, Observer {
-            it?.toTypedArray()?.let {
-                if(adapter == null)
-                    createAdapter(view, it)
-                else
-                    adapter?.setConsultationList(it)
-        }})
+            Log.i(TAG, "Consultation List has changed, updating view.")
+            it?.let { adapter?.setProcedure(it) }
+        })
 
         viewModel.getPetList()?.observe(this, Observer {
-            it?.run {
-                adapter?.setPetList(it.toTypedArray())
-            }
+            Log.i(TAG, "Observer called for pet list, updating view.")
+            it?.let { adapter?.setPets(it) }
         })
 
     }
@@ -56,18 +55,13 @@ class ConsultationListFragment : AbstractListFragment() {
 
     /**
      * Adapts information to the recycler view.
-     * @param consultationArray: Binds information from this
-     * array;
-     * @param petArray: Helper array that will bind information
-     * about a certain pet;
      */
-    private fun createAdapter(view: View, consultationArray: Array<Consultation>, petArray: Array<Pet>? = null) {
+    override fun createAdapter(view: View) {
         recyclerView = view.findViewById(R.id.procedure_list)
-        adapter = ConsultationAdapter(context!!, consultationArray, petArray)
+        adapter = ConsultationAdapter(context!!)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context!!)
     }
-
 
     override fun getTitle() = TITLE
 }

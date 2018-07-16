@@ -12,7 +12,6 @@ import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel.PetListViewModel
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.PetsAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
-import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
 
 /**
@@ -32,7 +31,7 @@ class PetsListActivity : BaseActivity() {
 
     private lateinit var viewModel: PetListViewModel
     private lateinit var recycler : RecyclerView
-    private var adapter : PetsAdapter? = null
+    private lateinit var adapter : PetsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,27 +40,20 @@ class PetsListActivity : BaseActivity() {
         viewModel = ViewModelProviders.of(this).get(PetListViewModel::class.java)
         viewModel.init(id)
 
-        recycler = findViewById(R.id.list)
-
+        createAdapter()
         Log.i(TAG, "Getting pet list from owner with id: $id.")
 
         viewModel.getPetList()?.observe(this, Observer {
             Log.i(TAG, "Adapting pet list of client $id to adapter.")
-            it?.apply {
-                if(adapter == null){
-                    createAdapter(it)
-                } else {
-                    adapter!!.setPetList(it)
-                }
-            }
+            it?.apply { adapter.setPetList(it) }
         })
     }
 
-    private fun createAdapter(petList: List<Pet>) {
-        adapter = PetsAdapter(this@PetsListActivity, petList)
+    private fun createAdapter() {
+        recycler = findViewById(R.id.list)
+        adapter = PetsAdapter(this@PetsListActivity)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this@PetsListActivity)
-
     }
 
 }

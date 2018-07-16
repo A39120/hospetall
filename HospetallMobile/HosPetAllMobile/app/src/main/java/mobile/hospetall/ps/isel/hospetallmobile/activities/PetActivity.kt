@@ -12,12 +12,11 @@ class PetActivity : BaseActivity() {
     companion object {
         const val TAG = "HPA/ACTIVITY/PET"
 
-        private const val PET = "pet"
         private const val ID = "id"
 
         fun start(context: Context, id: Int) {
             val int = Intent(context, PetActivity::class.java)
-            int.extras.putInt(ID, id)
+            int.putExtra(ID, id)
             context.startActivity(int)
         }
 

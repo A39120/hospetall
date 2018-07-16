@@ -10,17 +10,15 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 
 class ConsultationViewModel : ViewModel() {
 
-    private val consultationRepo by lazy { ConsultationAccess() }
-    private val petRepo by lazy { PetAccess() }
+    private val consultationRepo by lazy { ConsultationAccess.getInstance() }
+    private val petRepo by lazy { PetAccess.getInstance() }
     private var consultation : LiveData<Consultation>? = null
     private var pet : LiveData<Pet>? = null
 
     fun init(uri: String) {
         if(consultation == null) {
             consultation = consultationRepo.get(uri)
-            pet = Transformations.switchMap(consultation!!, {
-                petRepo.get(it.petUri)
-            })
+            pet = Transformations.switchMap(consultation!!, { petRepo.get(it.petUri) })
         }
     }
 
