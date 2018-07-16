@@ -41,10 +41,11 @@ abstract class AbstractAccess<T, V : BaseDao<T>>  {
      */
     fun get(uri: String): LiveData<T> {
         val cached = getSingleCache().get(uri)
-        return if(cached != null && System.currentTimeMillis() - cached.timeOfInsertion < timeout)
+        return if(cached != null && System.currentTimeMillis() - cached.timeOfInsertion < timeout) {
+            Log.i(TAG, "Returning $uri livedata from cache.")
             cached.value
-        else {
-            getSingleCache().remove(uri)
+        }else {
+            Log.i(TAG, "Returning $uri livedata from database.")
             updateFromNetwork(uri)
             getFromDatabase(uri)
         }

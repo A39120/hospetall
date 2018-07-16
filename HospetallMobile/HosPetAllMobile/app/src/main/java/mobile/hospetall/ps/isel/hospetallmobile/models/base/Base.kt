@@ -10,4 +10,11 @@ open class Base(
         val uri: String,
         @ColumnInfo(name = DatabaseColumns.ID)
         val id: Int
-)
+) {
+        override fun equals(other: Any?): Boolean {
+                if(other !is Base)
+                        return false
+                return uri == other.uri && id == other.id
+        }
+
+}

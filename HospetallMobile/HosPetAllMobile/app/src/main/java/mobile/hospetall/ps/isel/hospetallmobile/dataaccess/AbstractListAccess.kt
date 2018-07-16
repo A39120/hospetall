@@ -45,10 +45,11 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
      */
     fun getList(uri: String) : LiveData<List<T>> {
         val cachedList = getCollectionCache().get(uri)
-        return if(cachedList != null && cachedList.timeOfInsertion - System.currentTimeMillis() < timeout)
+        return if(cachedList != null && cachedList.timeOfInsertion - System.currentTimeMillis() < timeout) {
+            Log.i(TAG, "Returning value from cache.")
             cachedList.value
-        else {
-            getCollectionCache().remove(uri)
+        }else {
+            Log.i(TAG, "Returning value from database.")
             updateCollectionFromNetwork(uri)
             getCollectionFromDatabase(uri)
         }

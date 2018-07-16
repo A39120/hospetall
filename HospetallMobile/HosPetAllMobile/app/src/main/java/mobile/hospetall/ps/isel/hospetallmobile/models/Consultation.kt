@@ -124,4 +124,17 @@ class Consultation(
             )
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if(other !is Consultation)
+            return false
+        else {
+            return this.id == other.id &&
+                    this.vetUri == other.vetUri &&
+                    this.heartRhythm == other.heartRhythm &&
+                    this.weight == other.weight &&
+                    this.temperature == other.temperature &&
+                    super.equals(other)
+        }
+    }
 }

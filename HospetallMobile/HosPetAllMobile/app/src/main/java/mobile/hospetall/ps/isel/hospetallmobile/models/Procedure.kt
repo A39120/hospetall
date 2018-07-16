@@ -43,5 +43,17 @@ open class Procedure(
         const val PET_URI = "pet_uri"
         const val PETS = "pet"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if(other !is Procedure)
+            return false
+        return this.date == other.date &&
+            this.caseHistory == other.caseHistory &&
+            this.diagnosis   == other.diagnosis &&
+            this.treatment == other.treatment &&
+            this.observations == other.observations &&
+            this.petUri == other.petUri &&
+            super.equals(other)
+    }
 }
 

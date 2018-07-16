@@ -42,7 +42,7 @@ interface EventDao {
      * Inserts/updates client in the client table
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrUpdate(client: Event)
+    fun insertOrUpdate(client: Event) : Long
 
     /**
      * Deletes client info with a certain [id] from client table
