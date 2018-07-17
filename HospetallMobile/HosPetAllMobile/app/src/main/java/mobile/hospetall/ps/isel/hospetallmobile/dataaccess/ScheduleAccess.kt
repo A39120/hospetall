@@ -10,10 +10,16 @@ class ScheduleAccess {
         private val mInstance by lazy { ScheduleAccess() }
         fun getInstance() = mInstance
 
-        private class InsertAsyncTask( private val dao : EventDao
-        ) : AsyncTask<Event, Unit, Unit>(){
-            override fun doInBackground(vararg params: Event?) {
-                params[0]?.apply { dao.insertOrUpdate(this) }
+        private class InsertAsyncTask(
+                private val dao : EventDao,
+                private val resultHandler : (Int) -> Unit
+        ) : AsyncTask<Event, Unit, Int>(){
+            override fun doInBackground(vararg params: Event?) =
+                params[0]?.let { dao.insertOrUpdate(it).toInt() }
+
+            override fun onPostExecute(result: Int) {
+                super.onPostExecute(result)
+                resultHandler(result)
             }
         }
 
@@ -39,8 +45,8 @@ class ScheduleAccess {
 
     fun getAll() = eventDao.getAll()
 
-    fun put(event: Event) {
-        InsertAsyncTask(eventDao).execute(event)
+    fun put(event: Event, response :(Int) -> Unit) {
+        InsertAsyncTask(eventDao, response).execute(event)
     }
 
     fun delete(id: Int) {

@@ -32,6 +32,7 @@
         <activity android:name=".activities.AddEventActivity"/>
         <activity android:name=".activities.ScheduleActivity"/>
         <activity android:name=".activities.ProfileActivity"/>
+        <activity android:name=".activities.EventActivity"/>
 
         <receiver
             android:name=".notifications.NotificationReceiver"

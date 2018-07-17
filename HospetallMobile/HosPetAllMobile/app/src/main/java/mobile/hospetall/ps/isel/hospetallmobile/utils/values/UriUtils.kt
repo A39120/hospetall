@@ -9,7 +9,7 @@ import android.net.Uri
  */
 object UriUtils {
     private const val PROTOCOL = "http"
-    private const val AUTHORITY = "192.168.42.130"
+    private const val AUTHORITY = "192.168.42.200"
     private const val CLIENT_PATH = "client"
     private const val PETS_PATH = "pets"
     private const val PET_PATH = "pet"

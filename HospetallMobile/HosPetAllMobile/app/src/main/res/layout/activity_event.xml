@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="event" type="mobile.hospetall.ps.isel.hospetallmobile.models.Event" />
+        <variable name="petName" type="String"/>
+        <variable name="time" type="String"/>
+        <variable name="date" type="String"/>
+    </data>
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/event_title"
+            android:text="@{event.title}"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/event_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/event_title"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/event_time}"
+            bind:value="@{time}"/>
+
+        <include
+            android:id="@+id/event_date"
+            android:layout_below="@+id/event_time"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/event_date}"
+            bind:value="@{date}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/event_pet"
+            android:layout_below="@+id/event_date"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/pet}"
+            bind:value="@{petName}"/>
+
+        <include
+            android:id="@+id/event_message"
+            android:layout_below="@+id/event_pet"
+            layout="@layout/layout_label_value_vertical"
+            bind:label="@{@string/event_message}"
+            bind:value="@{event.message}"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+    </RelativeLayout>
+
+</layout>

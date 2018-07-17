@@ -13,7 +13,7 @@ import android.support.v4.app.NotificationCompat
 import android.util.Log
 import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication.Companion.TAG
 import mobile.hospetall.ps.isel.hospetallmobile.R
-import mobile.hospetall.ps.isel.hospetallmobile.activities.ScheduleActivity
+import mobile.hospetall.ps.isel.hospetallmobile.activities.EventActivity
 import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 
 
@@ -23,35 +23,42 @@ class NotificationReceiver : BroadcastReceiver() {
         const val CHANNEL_TITLE = "event_notification"
         const val EVENT_PARCEL = "event"
 
-        fun start(context: Context, event: Event){
-            Log.i(TAG, "Calling notification without receiver.")
-            createNotification(context, event)
+        fun start(context: Context, title: String, message: String?, id: Int){
+            createNotification(context, title, message?:"", id)
         }
 
-        /**
-         * Creates a notification from an Event
-         */
-        private fun createNotification(context: Context, event: Event) {
+        fun start(context: Context, event: Event){
+            Log.i(TAG, "Calling notification without receiver.")
+            start(context, event.title, event.message, event.id)
+        }
+
+        private fun createNotification(context: Context, title: String, message: String, id: Int) {
             val mNotifyMgr = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                 createChannel(mNotifyMgr)
 
-            val resultIntent = Intent(context, ScheduleActivity::class.java)
+            val resultIntent = Intent(context, EventActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(
                     context,
-                    event.id,
+                    id,
                     resultIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT
             )
 
             val mBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notification_icon)
-                    .setContentTitle("Reminder: ${event.title}")
-                    .setContentText(event.message)
+                    .setContentTitle("Reminder: ${title}")
+                    .setContentText(message)
                     .setContentIntent(pendingIntent)
                     .build()
 
-            mNotifyMgr.notify(event.id, mBuilder)
+            mNotifyMgr.notify(id, mBuilder)
+        }
+
+        /**
+         * Creates a notification from an Event
+         */
+        private fun createNotification(context: Context, event: Event) {
         }
 
         @RequiresApi(Build.VERSION_CODES.O)

@@ -43,8 +43,8 @@ class ScheduleViewModel : ViewModel() {
                 val pets = it
                 list.map {
                     val id = it
-                    pets.find{ it.id == id }!!
-                }
+                    pets.find{ it.id == id }
+                }.filterNotNull()
             })
         })
     }

@@ -44,11 +44,6 @@
     <string name="add_pet_chip_hint">Chip Number:</string>
     <string name="add_pet_button">Add Pet</string>
 
-    <string name="json_pet_name" translatable="false">name</string>
-    <string name="json_pet_chip" translatable="false">chip_number</string>
-    <string name="json_pet_race" translatable="false">race</string>
-    <string name="json_pet_species" translatable="false">species</string>
-    <string name="json_pet_birthdate" translatable="false">birthdate</string>
     <string name="nurse">Nurse</string>
     <string name="client_nif">NIF</string>
     <string name="client_postalCode">Postal Code</string>
@@ -73,5 +68,9 @@
     <string name="type_label">Type:</string>
     <string name="periodic_checker_label">Active repetition:</string>
     <string name="appointment_label">Schedule appointment:</string>
+
+    <string name="event_date">Date </string>
+    <string name="event_message">Summary </string>
+    <string name="event_time">Time </string>
 
 </resources>

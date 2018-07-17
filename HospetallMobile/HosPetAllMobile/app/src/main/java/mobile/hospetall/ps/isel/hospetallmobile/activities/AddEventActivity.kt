@@ -126,9 +126,10 @@ class AddEventActivity : BaseActivity(),
     private fun addEvent(){
         val event = getEventFromInfo()
         if (event != null) {
-            ScheduleAccess().put(event)
-            OneTimeNotificationWorker.setUpWork(event)
-            finish()
+            ScheduleAccess().put(event, {
+                OneTimeNotificationWorker.setUpWork(event, it)
+                finish()
+            })
         }
     }
 
@@ -152,7 +153,9 @@ class AddEventActivity : BaseActivity(),
         val list = viewModel
                 .getPetList()?.value!!
                 .sortedBy { it.id }
-        val pet = list[petSelected]
+        val pet =
+                if(list.isNotEmpty()) list[petSelected]
+                else null
 
         var period = -1
         var unit = 0
@@ -171,7 +174,7 @@ class AddEventActivity : BaseActivity(),
         return Event(
                 title = title,
                 message = summary,
-                pet = pet.id,
+                pet = pet?.id,
                 period = period.toLong(),
                 periodUnit = unit,
                 timedate = timedate,

@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.work.Data
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
 
 /**
@@ -17,7 +18,7 @@ import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
  * @property pet: ID of the [Pet];
  * @property period: Long that contains the repetition period
  * if -1, the event will not be repeated;
- * @property time: Start date of the event;
+ * @property timedate: Start date of the event;
  * @property appointed: Tells if the even has an appointment
  * in the api or not;
  * @property type: Integer that references the type of event:
@@ -65,7 +66,7 @@ data class Event(
 
         override fun writeToParcel(dest: Parcel?, flags: Int) {
             dest?.apply {
-                id.apply { writeInt(this) }
+                writeInt(id)
                 writeString(title)
                 writeString(message)
                 pet?.apply{writeInt(this)}
@@ -110,6 +111,20 @@ data class Event(
             override fun newArray(size: Int): Array<Event?> {
                     return arrayOfNulls(size)
            }
+
+
+            /**
+             * Method needed for data to be  shared between
+             * Work/Notification.
+             */
+            fun toData(event: Event, id: Int)=
+                Data.Builder().apply{
+                    putInt(DatabaseColumns.ID, id)
+                    putString(TITLE, event.title)
+                    putString(MESSAGE, event.message)
+                    putLong(PERIOD, event.period)
+                    putInt(PERIOD_UNIT, event.periodUnit)
+                }.build()
         }
 }
 

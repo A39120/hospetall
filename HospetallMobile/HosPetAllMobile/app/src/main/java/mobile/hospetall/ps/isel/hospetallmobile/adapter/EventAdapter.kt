@@ -3,6 +3,8 @@ package mobile.hospetall.ps.isel.hospetallmobile.adapter
 import android.content.Context
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateFormat.getDateFormat
+import android.text.format.DateFormat.getTimeFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +12,10 @@ import mobile.hospetall.ps.isel.hospetallmobile.adapter.viewholder.EventHolder
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ItemEventBinding
 import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
+import java.util.*
 
 class EventAdapter(
-        mContext: Context,
+        private val mContext: Context,
         private val eventList: MutableList<Event> = mutableListOf(),
         private val petList : MutableList<Pet> = mutableListOf())
     : RecyclerView.Adapter<EventHolder>() {
@@ -21,6 +24,8 @@ class EventAdapter(
     }
 
     private val inflater = LayoutInflater.from(mContext)
+    private val dateFormat  by lazy { getDateFormat(mContext) }
+    private val timeFormat by lazy { getTimeFormat(mContext) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventHolder {
         val mBinder = ItemEventBinding.inflate(inflater, parent, false)
@@ -47,7 +52,12 @@ class EventAdapter(
     override fun onBindViewHolder(holder: EventHolder, position: Int) {
         val event = eventList[position]
         val pet = petList.find { it.id == event.pet }
-        holder.bind(event, pet)
+        val date = Date(event.timedate)
+
+        val dateString = dateFormat.format(date)
+        val timeString = timeFormat.format(date)
+        holder.setOnClick(mContext, event.id)
+        holder.bind(event, "$dateString, $timeString", pet)
     }
 
     override fun getItemCount() = eventList.size
