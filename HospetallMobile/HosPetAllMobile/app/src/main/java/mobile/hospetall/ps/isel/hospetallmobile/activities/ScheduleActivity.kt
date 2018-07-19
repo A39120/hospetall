@@ -4,11 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.adapter.fragment.EventFragmentPagerAdapter
 
-class ScheduleActivity : AppCompatActivity() {
+class ScheduleActivity : BaseActivity() {
 
     companion object {
         const val TAG = "HPA/ACTIVITY/SCHEDULE"

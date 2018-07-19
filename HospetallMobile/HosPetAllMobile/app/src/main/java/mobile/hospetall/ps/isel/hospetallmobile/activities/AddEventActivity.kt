@@ -157,7 +157,7 @@ class AddEventActivity : BaseActivity(),
 
         //Getting pet
         val petSelected = mBinder.petList.selectedItemPosition - 1
-        val pet = if(petSelected > 0){
+        val pet = if(petSelected >= 0){
             val list = viewModel
                     .getPetList()?.value!!
                     .sortedBy { it.id }
