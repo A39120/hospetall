@@ -5,6 +5,7 @@ import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.EventListFragment.Companion.FUTURE_EVENTS
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.EventListFragment.Companion.PAST_EVENTS
+import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.EventListFragment.Companion.PERIODIC_EVENTS
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ScheduleAccess
 import mobile.hospetall.ps.isel.hospetallmobile.models.Event
@@ -25,6 +26,7 @@ class ScheduleViewModel : ViewModel() {
 
     fun init(type: Int) {
         events = when(type){
+            PERIODIC_EVENTS -> scheduleRepo.getPeriodic()
             FUTURE_EVENTS -> scheduleRepo.getAfter(Calendar.getInstance().timeInMillis)
             PAST_EVENTS -> scheduleRepo.getBefore(Calendar.getInstance().timeInMillis)
             else -> scheduleRepo.getAll()
@@ -37,7 +39,7 @@ class ScheduleViewModel : ViewModel() {
             val list = it
                     .map { it.pet }
                     .distinct()
-                    .filter { it != null }
+                    .filterNotNull()
 
             Transformations.map(allPets!!, {
                 val pets = it

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <import type="android.view.View"/>
+        <variable name="event" type="mobile.hospetall.ps.isel.hospetallmobile.models.Event"/>
+        <variable name="pet" type="mobile.hospetall.ps.isel.hospetallmobile.models.Pet"/>
+        <variable name="dateAndTime" type="String"/>
+        <variable name="repeatsIn" type="String"/>
+
+    </data>
+    <android.support.v7.widget.CardView
+        android:id="@+id/event_item"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/info"
+            android:layout_margin="@dimen/default_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="@{event.title}"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/layout_label_value_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                bind:label="@{@string/pet}"
+                bind:value="@{pet.name}" />
+
+            <include
+                layout="@layout/layout_label_value_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                bind:label="@{@string/event_item_start_time_date}"
+                bind:value="@{dateAndTime}" />
+
+            <include
+                layout="@layout/layout_label_value_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                bind:label="@{@string/event_item_repetition_period}"
+                bind:value="@{repeatsIn}" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>

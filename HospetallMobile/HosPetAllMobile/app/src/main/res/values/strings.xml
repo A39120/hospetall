@@ -19,32 +19,35 @@
     <string name="pet">Pet</string>
     <string name="settings">Settings</string>
     <string name="all_pets">All Pets</string>
-    <string name="pet_birth_date_label">Birth date:</string>
-    <string name="race_label">Race:</string>
-    <string name="species_label">Species:</string>
-    <string name="chip_number_label">Chip Number:</string>
+    <string name="pet_birth_date_label">Birth date</string>
+    <string name="race_label">Race</string>
+    <string name="species_label">Species</string>
+    <string name="chip_number_label">Chip Number</string>
     <string name="symptoms_label">Symptoms</string>
     <string name="diagnosis_label">Diagnosis</string>
     <string name="treatment_label">Recommended Treatment</string>
     <string name="delete">Delete</string>
     <string name="change">Change</string>
     <string name="add_pet">Add new pet</string>
-    <string name="weight">Weight:</string>
-    <string name="heart_rhythm">Heart Rhythm:</string>
-    <string name="temperature">Temperature:</string>
-    <string name="veterinarian">Veterinarian:</string>
-    <string name="case_history">Case History:</string>
-    <string name="diagnosis">Diagnosis:</string>
-    <string name="observations">Observations:</string>
+    <string name="weight">Weight</string>
+    <string name="heart_rhythm">Heart Rhythm</string>
+    <string name="temperature">Temperature</string>
+    <string name="veterinarian">Veterinarian</string>
+    <string name="case_history">Case History</string>
+    <string name="diagnosis">Diagnosis</string>
+    <string name="observations">Observations</string>
     <string name="consultation_path">consultation</string>
+    <!--Add pet string resources -->
     <string name="add_pet_name_hint">Name</string>
     <string name="add_pet_race_hint">Race</string>
-    <string name="add_pet_birthdate_hint">Birthdate:</string>
-    <string name="add_pet_species_hint">Species:</string>
-    <string name="add_pet_chip_hint">Chip Number:</string>
+    <string name="add_pet_birthdate_hint">Birthdate</string>
+    <string name="add_pet_species_hint">Species</string>
+    <string name="add_pet_chip_hint">Chip Number</string>
     <string name="add_pet_button">Add Pet</string>
 
     <string name="nurse">Nurse</string>
+
+    <!--Client layout resources -->
     <string name="client_nif">NIF</string>
     <string name="client_postalCode">Postal Code</string>
     <string name="client_address">Address</string>
@@ -53,24 +56,27 @@
     <string name="client_lastName">Last Name</string>
     <string name="client_givenName">Given Name</string>
     <string name="update_profile_button">Change Profile</string>
+
+    <string name="add_event">Add Event</string>
+    <string name="updater_label">Update Database</string>
+    <string name="periodic_updater_label">Update Period</string>
+    <string name="period_label">Repetition Time</string>
+    <string name="periodic_checker_label">Active repetition</string>
+
+    <!-- Common -->
+    <string name="time_label">Time </string>
+    <string name="date_label">Date </string>
+    <string name="type_label">Type</string>
+
+    <!--New Event layout strings-->
+    <string name="new_event_appointment_label">Try schedule</string>
+    <string name="new_event_period_label">Period</string>
+
     <string name="event_title">Title</string>
     <string name="event_summary">Description</string>
-    <string name="new_event_time">Time: </string>
-    <string name="new_event_date">Date: </string>
-    <string name="new_event_type_label">Tipo</string>
-    <string name="new_event_period_label">Period:</string>
-    <string name="add_event">Add Event</string>
-    <string name="updater_label">Update Database:</string>
-    <string name="periodic_updater_label">Update Period:</string>
-    <string name="period_label">Repetition Time:</string>
-    <string name="time_label">Time:</string>
-    <string name="date_label">Date:</string>
-    <string name="type_label">Type:</string>
-    <string name="periodic_checker_label">Active repetition:</string>
-    <string name="appointment_label">Schedule appointment:</string>
-
-    <string name="event_date">Date </string>
     <string name="event_message">Summary </string>
-    <string name="event_time">Time </string>
+
+    <string name="event_item_start_time_date">Start date</string>
+    <string name="event_item_repetition_period">Repetition time</string>
 
 </resources>

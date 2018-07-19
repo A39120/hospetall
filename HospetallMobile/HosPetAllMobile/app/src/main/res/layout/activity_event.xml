@@ -25,14 +25,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/event_title"
             layout="@layout/layout_label_value_horizontal"
-            bind:label="@{@string/event_time}"
+            bind:label="@{@string/time_label}"
             bind:value="@{time}"/>
 
         <include
             android:id="@+id/event_date"
             android:layout_below="@+id/event_time"
             layout="@layout/layout_label_value_horizontal"
-            bind:label="@{@string/event_date}"
+            bind:label="@{@string/date_label}"
             bind:value="@{date}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

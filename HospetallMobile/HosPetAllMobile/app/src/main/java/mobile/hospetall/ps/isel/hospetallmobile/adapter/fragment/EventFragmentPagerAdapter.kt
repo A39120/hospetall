@@ -13,14 +13,19 @@ class EventFragmentPagerAdapter(
         private val resources: Resources
 ) : FragmentPagerAdapter(fm) {
 
-    val FUTURE_INDEX = 0
-    val PAST_INDEX = 1
+    companion object {
+        const val PERIODIC_INDEX = 0
+        const val FUTURE_INDEX = 1
+        const val PAST_INDEX = 2
+    }
 
     override fun getItem(position: Int): Fragment {
         val frag = EventListFragment()
         val bundle = Bundle()
 
         when (position) {
+            PERIODIC_INDEX ->
+                bundle.putInt(EventListFragment.TYPE, EventListFragment.PERIODIC_EVENTS)
             FUTURE_INDEX ->
                 bundle.putInt(EventListFragment.TYPE, EventListFragment.FUTURE_EVENTS)
             PAST_INDEX ->
@@ -34,11 +39,12 @@ class EventFragmentPagerAdapter(
 
 
     override fun getPageTitle(position: Int) = when(position) {
+        PERIODIC_INDEX -> resources.getString(R.string.title_periodic_events)
         FUTURE_INDEX -> resources.getString(R.string.title_future_events)
         PAST_INDEX -> resources.getString(R.string.title_past_events)
         else -> ""
     }
 
 
-    override fun getCount() = 2
+    override fun getCount() = 3
 }

@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.TimePicker
 import mobile.hospetall.ps.isel.hospetallmobile.R
+import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.AlertDialog
 import mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel.PetListViewModel
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ScheduleAccess
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityAddEventBinding
@@ -24,6 +25,8 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 import mobile.hospetall.ps.isel.hospetallmobile.services.OneTimeNotificationWorker
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
 import java.util.*
+
+
 
 class AddEventActivity : BaseActivity(),
         DatePickerDialog.OnDateSetListener,
@@ -70,7 +73,7 @@ class AddEventActivity : BaseActivity(),
         mBinder.executePendingBindings()
     }
 
-    private var adapter : ArrayAdapter<String>? = null
+    private var petListAdapter : ArrayAdapter<String>? = null
 
     /**
      * Sets up [PetListViewModel] for the spinner and
@@ -87,14 +90,18 @@ class AddEventActivity : BaseActivity(),
             it?.run {
                 val names = this.sortedBy { it.id }
                             .map { it.name }
-                if(adapter == null) {
-                    adapter = ArrayAdapter(this@AddEventActivity,  android.R.layout.simple_spinner_item, names)
-                    adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    mBinder.petList.adapter = adapter
+
+                if(petListAdapter == null) {
+                    val listWithEmpty = mutableListOf<String>()
+                    listWithEmpty.addAll(names)
+                    listWithEmpty.add(0, "")
+                    petListAdapter = ArrayAdapter(this@AddEventActivity,  android.R.layout.simple_spinner_item, listWithEmpty)
+                    petListAdapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    mBinder.petList.adapter = petListAdapter
                 } else {
-                    adapter!!.clear()
-                    adapter!!.addAll(names)
-                    adapter!!.notifyDataSetChanged()
+                    petListAdapter!!.clear()
+                    petListAdapter!!.addAll(names)
+                    petListAdapter!!.notifyDataSetChanged()
                 }
                 mBinder.executePendingBindings()
             }
@@ -125,13 +132,13 @@ class AddEventActivity : BaseActivity(),
 
     private fun addEvent(){
         val event = getEventFromInfo()
-        if (event != null) {
-            ScheduleAccess().put(event, {
-                OneTimeNotificationWorker.setUpWork(event, it)
-                finish()
-            })
-        }
+        if(event == null) return
+        ScheduleAccess().put(event, {
+            OneTimeNotificationWorker.setUpWork(event, it)
+            finish()
+        })
     }
+
 
     /**
      * Gets [Event] from the input information in the layout.
@@ -141,7 +148,7 @@ class AddEventActivity : BaseActivity(),
         val title = mBinder.newEventTitle.text.toString()
 
         if(title == "") {
-            //TODO: Do something
+            AlertDialog.start(this@AddEventActivity, R.string.add_event_error_no_title)
             return null
         }
 
@@ -149,19 +156,27 @@ class AddEventActivity : BaseActivity(),
         val summary = mBinder.newEventSummary.text.toString()
 
         //Getting pet
-        val petSelected = mBinder.petList.selectedItemPosition
-        val list = viewModel
-                .getPetList()?.value!!
-                .sortedBy { it.id }
-        val pet =
-                if(list.isNotEmpty()) list[petSelected]
-                else null
+        val petSelected = mBinder.petList.selectedItemPosition - 1
+        val pet = if(petSelected > 0){
+            val list = viewModel
+                    .getPetList()?.value!!
+                    .sortedBy { it.id }
+            if(list.isNotEmpty())
+                list[petSelected]
+            else null
+        } else null
 
         var period = -1
         var unit = 0
         if(mBinder.newEventPeriodicChecker.isChecked) {
             mBinder.newEventPeriod?.apply {
                 unit = periodConstants.selectedItemPosition
+                val periodText  = periodValue.text.toString()
+                if(periodText == ""){
+                    AlertDialog.start(this@AddEventActivity, R.string.add_event_error_no_periodic_specification)
+                    return null
+                }
+
                 period = Integer.parseInt(periodValue.text?.toString()?:"-1")
             }
         }
@@ -175,7 +190,7 @@ class AddEventActivity : BaseActivity(),
                 title = title,
                 message = summary,
                 pet = pet?.id,
-                period = period.toLong(),
+                period = period,
                 periodUnit = unit,
                 timedate = timedate,
                 appointed = appointment,

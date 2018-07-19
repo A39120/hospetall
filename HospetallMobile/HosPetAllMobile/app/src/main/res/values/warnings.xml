@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_event_error_no_title"> Event needs a valid title. </string>
+    <string name="add_event_error_no_periodic_specification"> Write a valid period to Add a new event that is bigger than 15 minutes. </string>
+</resources>

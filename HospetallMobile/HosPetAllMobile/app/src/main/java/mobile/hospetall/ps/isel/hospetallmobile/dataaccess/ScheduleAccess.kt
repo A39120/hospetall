@@ -53,6 +53,8 @@ class ScheduleAccess {
         DeleteAsyncTask(eventDao).execute(id)
     }
 
+    fun getPeriodic() = eventDao.getPeriodic()
+
     fun appoint(event: Event){
         //TODO: Appoint consultation/treatment
     }

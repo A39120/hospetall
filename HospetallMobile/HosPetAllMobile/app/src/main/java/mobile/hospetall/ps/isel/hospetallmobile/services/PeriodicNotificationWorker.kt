@@ -14,14 +14,14 @@ class PeriodicNotificationWorker : Worker() {
         private const val NAME = "PERIODIC_NOTIFICATION"
         private const val TAG = "HPA/WORK/NOTIF_PERIOD"
 
-        fun scheduleNotification(period: Long, unitId: Int,  id: Int, title: String, message: String?){
+        fun scheduleNotification(period: Int, unitId: Int,  id: Int, title: String, message: String?){
             val number = DateUtils.getPeriod(unitId, period)
             val unit = DateUtils.getPeriodUnit(unitId)
             val data = packageData(title, message?:"", id)
 
             Log.i(TAG, "Setting up repetitive notification work: $number $unit")
             val periodWork =
-                    androidx.work.PeriodicWorkRequest.Builder(PeriodicNotificationWorker::class.java, number, unit)
+                    androidx.work.PeriodicWorkRequest.Builder(PeriodicNotificationWorker::class.java, number.toLong(), unit)
                             .setInputData(data)
                             .addTag(NAME)
                             .build()

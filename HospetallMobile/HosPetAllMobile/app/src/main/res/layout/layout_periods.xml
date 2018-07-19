@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
         android:id="@+id/period_value_layout"
+        android:weightSum="7"
         android:layout_margin="@dimen/default_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <TextView
-            android:layout_centerVertical="true"
-            android:id="@+id/period_label"
-            android:text = "@string/period_label"
-            android:textStyle="bold"
-            android:layout_margin="@dimen/default_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <include
+            layout="@layout/label"
+            android:layout_weight="3"
+            bind:label="@{@string/period_label}"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/period_value"
-            android:layout_toEndOf="@id/period_label"
-            android:layout_width="70dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
             android:ems="10"
             android:inputType="number"
-            android:layout_toRightOf="@id/period_label" />
+            android:layout_width="0dp" />
 
         <Spinner
             android:id="@+id/period_constants"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/period_value"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:entries="@array/periods"
-            android:layout_toRightOf="@+id/period_value" />
-    </RelativeLayout>
+            android:layout_weight="3"
+            android:entries="@array/periods" />
+    </LinearLayout>
 </layout>

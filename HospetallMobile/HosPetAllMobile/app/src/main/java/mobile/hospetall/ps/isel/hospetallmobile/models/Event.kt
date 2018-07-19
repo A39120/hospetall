@@ -41,7 +41,7 @@ data class Event(
         @ColumnInfo(name= PET_ID)
         val pet: Int?,
         @ColumnInfo(name= PERIOD)
-        val period: Long = -1,
+        val period: Int = -1,
         @ColumnInfo(name=PERIOD_UNIT)
         val periodUnit : Int = 0,
         @ColumnInfo(name=TIME)
@@ -56,7 +56,7 @@ data class Event(
                 parcel.readString(),
                 parcel.readString(),
                 parcel.readValue(Int::class.java.classLoader) as? Int,
-                parcel.readLong(),
+                parcel.readInt(),
                 parcel.readInt(),
                 parcel.readLong(),
                 parcel.readByte() != 0.toByte(),
@@ -70,7 +70,7 @@ data class Event(
                 writeString(title)
                 writeString(message)
                 pet?.apply{writeInt(this)}
-                writeLong(period)
+                writeInt(period)
                 writeInt(periodUnit)
                 writeLong(timedate)
                 if(appointed)
@@ -122,7 +122,7 @@ data class Event(
                     putInt(DatabaseColumns.ID, id)
                     putString(TITLE, event.title)
                     putString(MESSAGE, event.message)
-                    putLong(PERIOD, event.period)
+                    putInt(PERIOD, event.period)
                     putInt(PERIOD_UNIT, event.periodUnit)
                 }.build()
         }

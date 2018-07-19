@@ -55,12 +55,6 @@ class NotificationReceiver : BroadcastReceiver() {
             mNotifyMgr.notify(id, mBuilder)
         }
 
-        /**
-         * Creates a notification from an Event
-         */
-        private fun createNotification(context: Context, event: Event) {
-        }
-
         @RequiresApi(Build.VERSION_CODES.O)
         private fun createChannel(mNotifyMgr: NotificationManager) {
             val id = CHANNEL_ID
@@ -83,7 +77,6 @@ class NotificationReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val event = intent.getParcelableExtra<Event>(EVENT_PARCEL)
-        createNotification(context, event)
     }
 
 }

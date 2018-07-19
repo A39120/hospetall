@@ -3,6 +3,7 @@
     <string name="title_pet_list">Pets</string>
     <string name="title_consultation_list">Consultations</string>
     <string name="title_treatment_list">Treatments</string>
+    <string name="title_periodic_events">Periodic Events</string>
     <string name="title_past_events">Past Events</string>
     <string name="title_future_events">Future Events</string>
     <string name="title_pet">Pet</string>

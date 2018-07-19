@@ -28,14 +28,14 @@ interface EventDao {
      * Gets events before date
      * @param date: Date in milliseconds
      */
-    @Query("SELECT * FROM ${Event.TABLE_NAME} WHERE ${Event.TIME} <= :time ")
+    @Query("SELECT * FROM ${Event.TABLE_NAME} WHERE ${Event.TIME} < :time AND ${Event.PERIOD} <= 0 ORDER BY ${Event.TIME} DESC")
     fun getBefore(time: Long): LiveData<List<Event>>
 
     /**
      * Gets events for after date
      * @param date: Date in milliseconds
      */
-    @Query("SELECT * FROM ${Event.TABLE_NAME} WHERE ${Event.TIME} > :time")
+    @Query("SELECT * FROM ${Event.TABLE_NAME} WHERE ${Event.TIME} >= :time AND ${Event.PERIOD} <= 0 ORDER BY ${Event.TIME}")
     fun getAfter(time: Long): LiveData<List<Event>>
 
     /**
@@ -43,6 +43,12 @@ interface EventDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrUpdate(client: Event) : Long
+
+    /**
+     *
+     */
+    @Query("SELECT * FROM ${Event.TABLE_NAME} WHERE ${Event.PERIOD} > 0 ORDER BY ${Event.PERIOD}")
+    fun getPeriodic(): LiveData<List<Event>>
 
     /**
      * Deletes client info with a certain [id] from client table

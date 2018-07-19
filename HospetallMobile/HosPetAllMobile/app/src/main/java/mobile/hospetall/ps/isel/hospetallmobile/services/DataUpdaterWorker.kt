@@ -31,12 +31,12 @@ class DataUpdaterWorker : Worker() {
             val duration = sharedPreferences.getInt(PERIOD_UNIT, DEFAULT_PERIOD_UNIT)
             val spNumber = sharedPreferences.getInt(PERIOD_NUMBER, DEFAULT_PERIOD_NUMBER)
 
-            val number = DateUtils.getPeriod(duration, spNumber.toLong())
+            val number = DateUtils.getPeriod(duration, spNumber)
             val unit = DateUtils.getPeriodUnit(duration)
 
             Log.i(TAG, "Setting up repetitive work service: $number $unit")
             val periodWork =
-                androidx.work.PeriodicWorkRequestBuilder<DataUpdaterWorker>(number, unit)
+                androidx.work.PeriodicWorkRequestBuilder<DataUpdaterWorker>(number.toLong(), unit)
                         .addTag(NAME)
             val req = periodWork.build()
             WorkManager.getInstance()?.enqueue(req)

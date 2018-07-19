@@ -6,6 +6,7 @@ import java.sql.Date
 import java.text.DateFormat.getDateInstance
 import java.text.DateFormat.getTimeInstance
 import java.time.Instant
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 object DateUtils {
@@ -17,7 +18,7 @@ object DateUtils {
                else -> TimeUnit.DAYS
     }
 
-    fun getPeriod(unit: Int, period: Long) : Long =
+    fun getPeriod(unit: Int, period: Int) : Int =
         when(unit) {
             3 -> period * 7
             4 -> period * 30
@@ -25,6 +26,13 @@ object DateUtils {
             else -> period
         }
 
+    fun getCalendarUnit(unit : Int) : Int =
+        when(unit){
+            0 -> Calendar.MINUTE
+            1 -> Calendar.HOUR
+            2, 3, 4, 5  -> Calendar.DAY_OF_MONTH
+            else -> Calendar.MILLISECOND
+        }
 
     fun getCurrentDateString() =
             getDateString(getCurrentDateMillis())

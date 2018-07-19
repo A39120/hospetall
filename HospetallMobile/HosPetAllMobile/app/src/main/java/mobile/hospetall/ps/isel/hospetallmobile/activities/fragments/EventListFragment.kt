@@ -20,15 +20,17 @@ class EventListFragment : BaseFragment() {
         const val TAG = "HPA/FRAG/EVENT_LST"
         const val TITLE = "TITLE"
         const val TYPE = "TYPE"
-        const val FUTURE_EVENTS = 0
-        const val PAST_EVENTS = 1
+
+        const val PERIODIC_EVENTS = 0
+        const val FUTURE_EVENTS = 1
+        const val PAST_EVENTS = 2
     }
 
     private lateinit var viewModel : ScheduleViewModel
     private lateinit var recyclerView: RecyclerView
     private var adapter : EventAdapter? = null
 
-    private var arg : Int = 2
+    private var arg : Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,28 +42,31 @@ class EventListFragment : BaseFragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        val rootView = if(arg == PAST_EVENTS) {
-            inflater.inflate(R.layout.activity_list, container, false)
-        } else {
-            val add = inflater.inflate(R.layout.activity_list_with_add, container, false)
-            val button = add.findViewById<FloatingActionButton>(R.id.add_button)
-            button.setOnClickListener {
-                AddEventActivity.start(context!!)
-            }
-            add
-        }
+        arg = arguments?.getInt(TYPE, -1)?: -1
+        val rootView =
+                when(arg){
+                    PAST_EVENTS -> inflater.inflate(R.layout.activity_list, container, false)
+                    FUTURE_EVENTS, PERIODIC_EVENTS -> {
+                        val add = inflater.inflate(R.layout.activity_list_with_add, container, false)
+                        val button = add.findViewById<FloatingActionButton>(R.id.add_button)
+                        button.setOnClickListener {
+                            AddEventActivity.start(context!!)
+                        }
+                        add
+                    }
+                    else -> throw IllegalArgumentException()
+                }
 
-        createAdapter(rootView)
-        callbackInfo(rootView)
+        createAdapter(rootView, arg)
+        callbackInfo(rootView, arg)
         return rootView
     }
 
-    private fun callbackInfo(view: View) {
+    private fun callbackInfo(view: View, arg : Int) {
         Log.i(TAG, "Passing bundle args to view model.")
-        arg = arguments?.getInt(TYPE)?: 2
         viewModel.init(arg)
 
-        Log.i(TAG, "Starting observers for EventListViewModel.")
+        Log.i(TAG, "Starting observers for EventListViewModel for type $arg.")
         viewModel.getEvents()?.observe(this, Observer {
             it?.apply{
                 Log.i(TAG, "Event list changed.")
@@ -77,10 +82,10 @@ class EventListFragment : BaseFragment() {
         })
     }
 
-    private fun createAdapter(view: View) {
+    private fun createAdapter(view: View, type : Int) {
         Log.i(TAG, "Creating adapter for recycler view.")
         recyclerView = view.findViewById(R.id.list)
-        adapter = EventAdapter(context!!)
+        adapter = EventAdapter(context!!, type = type)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context!!)
     }
