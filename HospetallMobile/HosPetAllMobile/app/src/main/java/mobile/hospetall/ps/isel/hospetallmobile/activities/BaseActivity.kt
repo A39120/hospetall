@@ -14,12 +14,6 @@ abstract class BaseActivity : AppCompatActivity() {
         return true
     }
 
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val menuInflater = MenuInflater(this)
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }*/
-
     open fun goToPetListActivity(item: MenuItem): Boolean{
         PetsListActivity.start(baseContext)
         return true

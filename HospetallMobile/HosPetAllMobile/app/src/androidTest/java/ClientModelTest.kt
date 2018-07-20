@@ -1,7 +1,7 @@
 
 import android.support.test.InstrumentationRegistry
 import junit.framework.Assert
-import mobile.hospetall.ps.isel.hospetallmobile.activities.ProfileActivity
+import mobile.hospetall.ps.isel.hospetallmobile.activities.ChangeProfileActivity
 import mobile.hospetall.ps.isel.hospetallmobile.models.Client
 import org.json.JSONObject
 import org.junit.Test
@@ -29,7 +29,7 @@ class ClientModelTest {
     fun profileActivityTest(){
         val json = JSONObject(json)
         val cli = getClientFromJson(json)
-        ProfileActivity.start(context, cli)
+        ChangeProfileActivity.start(context, cli)
     }
 
 

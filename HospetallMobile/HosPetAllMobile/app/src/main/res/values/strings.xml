@@ -53,6 +53,7 @@
     <string name="client_address">Address</string>
     <string name="client_telephone">Telephone</string>
     <string name="client_email">Email</string>
+    <string name="client_name">Name</string>
     <string name="client_lastName">Last Name</string>
     <string name="client_givenName">Given Name</string>
     <string name="update_profile_button">Change Profile</string>
@@ -84,5 +85,7 @@
 
     <string name="event_item_start_time_date">Start date</string>
     <string name="event_item_repetition_period">Repetition time</string>
+
+    <string name="settings_notification_label">Enable Notifications</string>
 
 </resources>

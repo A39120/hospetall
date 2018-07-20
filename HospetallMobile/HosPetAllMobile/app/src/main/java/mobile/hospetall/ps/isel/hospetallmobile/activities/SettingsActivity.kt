@@ -12,6 +12,8 @@ import android.widget.AdapterView
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivitySettingsBinding
 import mobile.hospetall.ps.isel.hospetallmobile.services.DataUpdaterWorker
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.ALLOW_NOTIFICATION
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.ALLOW_NOTIFICATION_DEFAULT
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.DEFAULT_PERIOD_UNIT
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.DEFAULT_UPDATER
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.PERIOD_NUMBER
@@ -42,6 +44,7 @@ class SettingsActivity : BaseActivity() {
         setCheck()
 
         setPeriod()
+        setNotifications()
     }
 
     private fun setCheck() {
@@ -84,7 +87,6 @@ class SettingsActivity : BaseActivity() {
             true
         }
         val periodUnit = mBinder.periodConstants
-        //periodUnit.adapter = PeriodSpinnerObject.getAdapter(this)
         periodUnit.setSelection(sharedPreferences.getInt(PERIOD_UNIT, DEFAULT_PERIOD_UNIT))
         periodUnit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
 
@@ -97,6 +99,16 @@ class SettingsActivity : BaseActivity() {
                 DataUpdaterWorker.cancel()
                 DataUpdaterWorker.start(sharedPreferences)
             }
+        }
+    }
+
+    private fun setNotifications() {
+        val check = mBinder.enableNotification
+        check.isChecked = sharedPreferences.getBoolean(ALLOW_NOTIFICATION, ALLOW_NOTIFICATION_DEFAULT)
+        check.setOnCheckedChangeListener { _, isChecked ->
+            val editor = sharedPreferences.edit()
+            editor.putBoolean(ALLOW_NOTIFICATION, isChecked)
+            editor.apply()
         }
     }
 

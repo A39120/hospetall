@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="client" type="mobile.hospetall.ps.isel.hospetallmobile.models.Client"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/update_client_givenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/client_givenName"
+            android:inputType="textPersonName"
+            app:met_maxCharacters="31"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/update_client_lastName"
+            android:layout_below="@id/update_client_givenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/client_lastName"
+            android:inputType="textPersonName"
+            app:met_maxCharacters="31"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/update_client_email"
+            android:layout_below="@id/update_client_lastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/client_email"
+            android:inputType="textPersonName"
+            app:met_maxCharacters="255"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/update_client_telephone"
+            android:layout_below="@id/update_client_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/client_telephone"
+            android:inputType="numberDecimal"
+            app:met_maxCharacters="255"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/update_client_address"
+            android:layout_below="@id/update_client_telephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/client_address"
+            android:inputType="text"
+            app:met_maxCharacters="255"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/update_client_postalCode"
+            android:layout_below="@id/update_client_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/client_postalCode"
+            android:inputType="text"
+            app:met_maxCharacters="255"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/update_client_nif"
+            android:layout_below="@id/update_client_postalCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/client_nif"
+            android:inputType="number"
+            app:met_minCharacters="9"
+            app:met_maxCharacters="9"
+            app:met_floatingLabel="normal"/>
+
+                <LinearLayout
+                    android:weightSum="2"
+                    android:layout_below="@+id/update_client_nif"
+                    android:layout_margin="@dimen/default_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.dd.processbutton.iml.ActionProcessButton
+                        android:id="@+id/cancel_profile_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_margin"
+                        android:layout_weight="1"
+                        android:text="@android:string/cancel"
+                        android:textColor="@android:color/white"
+                        custom:pb_colorComplete="@color/green_complete"
+                        custom:pb_colorNormal="@color/blue_normal"
+                        custom:pb_colorPressed="@color/blue_pressed"
+                        custom:pb_colorProgress="@color/purple_progress"
+                        custom:pb_textComplete="@string/success"
+                        custom:pb_textProgress="@string/loading"
+                        custom:pb_textError="@string/error"
+                        custom:pb_colorError="@color/red_error" />
+
+                    <com.dd.processbutton.iml.ActionProcessButton
+                        android:layout_margin="@dimen/default_margin"
+                        android:id="@+id/update_profile_button"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/update_profile_button"
+                        android:textColor="@android:color/white"
+                        custom:pb_colorComplete="@color/green_complete"
+                        custom:pb_colorNormal="@color/blue_normal"
+                        custom:pb_colorPressed="@color/blue_pressed"
+                        custom:pb_colorProgress="@color/purple_progress"
+                        custom:pb_textComplete="@string/success"
+                        custom:pb_textProgress="@string/loading"
+                        custom:pb_textError="@string/error"
+                        custom:pb_colorError="@color/red_error" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</layout>
