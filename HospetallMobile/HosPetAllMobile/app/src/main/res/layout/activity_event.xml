@@ -1,60 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools">
     <data>
         <variable name="event" type="mobile.hospetall.ps.isel.hospetallmobile.models.Event" />
         <variable name="petName" type="String"/>
         <variable name="time" type="String"/>
         <variable name="date" type="String"/>
+        <variable name="period" type="String"/>
+        <variable name="type" type="String"/>
+        <variable name="appointed" type="String"/>
     </data>
-    <RelativeLayout
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-
-        <TextView
-            android:id="@+id/event_title"
-            android:text="@{event.title}"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/default_margin"
+        android:orientation="vertical">
 
         <include
-            android:id="@+id/event_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/event_title"
             layout="@layout/layout_label_value_horizontal"
-            bind:label="@{@string/time_label}"
-            bind:value="@{time}"/>
+            bind:label="@{@string/event}"
+            bind:value="@{event.title}"/>
 
         <include
-            android:id="@+id/event_date"
-            android:layout_below="@+id/event_time"
-            layout="@layout/layout_label_value_horizontal"
-            bind:label="@{@string/date_label}"
-            bind:value="@{date}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <include
-            android:id="@+id/event_pet"
-            android:layout_below="@+id/event_date"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
             layout="@layout/layout_label_value_horizontal"
             bind:label="@{@string/pet}"
             bind:value="@{petName}"/>
 
         <include
-            android:id="@+id/event_message"
-            android:layout_below="@+id/event_pet"
             layout="@layout/layout_label_value_vertical"
             bind:label="@{@string/event_message}"
-            bind:value="@{event.message}"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent" />
+            bind:value="@{event.message}" />
 
-    </RelativeLayout>
+        <include
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/start_time_label}"
+            bind:value="@{time}"/>
 
+        <include
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/start_date_label}"
+            bind:value="@{date}"/>
+
+        <include
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/period_label}"
+            bind:value="@{period}"/>
+
+        <include
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/type_label}"
+            bind:value="@{type}"/>
+
+        <include
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/event_appointment}"
+            bind:value="@{appointed}"/>
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/event_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:text="@string/event_destroy"
+                android:textColor="@android:color/white"
+                custom:pb_colorComplete="@color/green_complete"
+                custom:pb_colorError="@color/red_error"
+                custom:pb_colorNormal="@color/blue_normal"
+                custom:pb_colorPressed="@color/blue_pressed"
+                custom:pb_colorProgress="@color/purple_progress"
+                custom:pb_textComplete="@string/success"
+                custom:pb_textError="@string/error"
+                custom:pb_textProgress="@string/loading" />
+
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/event_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:text="@string/event_modify"
+                android:textColor="@android:color/white"
+                custom:pb_colorComplete="@color/green_complete"
+                custom:pb_colorError="@color/red_error"
+                custom:pb_colorNormal="@color/blue_normal"
+                custom:pb_colorPressed="@color/blue_pressed"
+                custom:pb_colorProgress="@color/purple_progress"
+                custom:pb_textComplete="@string/success"
+                custom:pb_textError="@string/error"
+                custom:pb_textProgress="@string/loading" />
+        </LinearLayout>
+
+    </LinearLayout>
 </layout>

@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     layout="@layout/layout_label_value_horizontal"
-                    bind:label="@{@string/date_label}"
+                    bind:label="@{@string/start_date_label}"
                     bind:value="@{date}"/>
 
                 <ImageButton
@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     layout="@layout/layout_label_value_horizontal"
-                    bind:label="@{@string/time_label}"
+                    bind:label="@{@string/start_time_label}"
                     bind:value="@{time}"/>
 
                 <ImageButton

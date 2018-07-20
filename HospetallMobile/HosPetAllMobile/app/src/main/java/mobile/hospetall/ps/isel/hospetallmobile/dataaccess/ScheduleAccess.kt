@@ -1,12 +1,14 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
 import android.os.AsyncTask
+import android.util.Log
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.EventDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
 import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 
 class ScheduleAccess {
     companion object {
+        private const val TAG = "HPA/ACCESS/SCHEDULE"
         private val mInstance by lazy { ScheduleAccess() }
         fun getInstance() = mInstance
 
@@ -23,11 +25,19 @@ class ScheduleAccess {
             }
         }
 
-        private class DeleteAsyncTask( private val dao : EventDao )
+        private class DeleteAsyncTask(
+                private val dao : EventDao,
+                private val response: () -> Unit
+        )
             :AsyncTask<Int, Unit, Unit>() {
 
             override fun doInBackground(vararg params: Int?) {
                 params[0]?.apply{ dao.deleteById(this) }
+            }
+
+            override fun onPostExecute(result: Unit?) {
+                super.onPostExecute(result)
+                response()
             }
         }
     }
@@ -46,11 +56,13 @@ class ScheduleAccess {
     fun getAll() = eventDao.getAll()
 
     fun put(event: Event, response :(Int) -> Unit) {
+        Log.i(TAG, "Inserting event ${event.id}")
         InsertAsyncTask(eventDao, response).execute(event)
     }
 
-    fun delete(id: Int) {
-        DeleteAsyncTask(eventDao).execute(id)
+    fun delete(id: Int, response : () -> Unit) {
+        Log.i(TAG, "Deleting event $id")
+        DeleteAsyncTask(eventDao, response).execute(id)
     }
 
     fun getPeriodic() = eventDao.getPeriodic()

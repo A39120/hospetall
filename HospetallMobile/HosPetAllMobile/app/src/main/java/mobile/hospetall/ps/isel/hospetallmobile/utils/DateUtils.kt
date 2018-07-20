@@ -34,6 +34,23 @@ object DateUtils {
             else -> Calendar.MILLISECOND
         }
 
+    fun getPeriodString(unit: Int, period: Int): String? {
+        if(period <= 0)
+            return null
+
+        val strBuilder = StringBuilder("$period")
+        strBuilder.append(when(unit){
+            0 -> " minute"
+            1 -> " hour"
+            3 -> " week"
+            4 -> " month"
+            5 -> " year"
+            else -> " day"
+        })
+        if(period > 1) strBuilder.append('s')
+        return strBuilder.toString()
+    }
+
     fun getCurrentDateString() =
             getDateString(getCurrentDateMillis())
 

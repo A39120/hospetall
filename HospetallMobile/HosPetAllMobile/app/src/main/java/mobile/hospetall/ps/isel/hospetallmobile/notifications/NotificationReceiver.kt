@@ -15,6 +15,9 @@ import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication.Companion.T
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.activities.EventActivity
 import mobile.hospetall.ps.isel.hospetallmobile.models.Event
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.ALLOW_NOTIFICATION
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.SharedPrefKeys.ALLOW_NOTIFICATION_DEFAULT
 
 
 class NotificationReceiver : BroadcastReceiver() {
@@ -33,6 +36,11 @@ class NotificationReceiver : BroadcastReceiver() {
         }
 
         private fun createNotification(context: Context, title: String, message: String, id: Int) {
+            val prefs = context.getSharedPreferences(SharedPrefKeys.SP_NAME, Context.MODE_PRIVATE)
+
+            //Notifications will not trigger if it's false
+            if(!prefs.getBoolean(ALLOW_NOTIFICATION, ALLOW_NOTIFICATION_DEFAULT)) return
+
             val mNotifyMgr = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                 createChannel(mNotifyMgr)

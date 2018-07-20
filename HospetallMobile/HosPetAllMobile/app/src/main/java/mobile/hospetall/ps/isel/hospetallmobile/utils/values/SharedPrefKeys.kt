@@ -10,5 +10,7 @@ object SharedPrefKeys {
     const val DEFAULT_UPDATER = false
     const val ALLOW_ROAMING = "allow_roaming"
     const val DEFAULT_ALLOW_ROAMING = false
+    const val ALLOW_NOTIFICATION = "allow_notification"
+    const val ALLOW_NOTIFICATION_DEFAULT = true
 
 }

@@ -92,6 +92,14 @@ data class Event(
                 const val PRODUCT  = 1
                 const val CONSULTATION = 2
                 const val TREATMENT = 3
+
+                fun getType(value : Int) = when(value){
+                    0 -> "User event"
+                    1 -> "Product"
+                    2 -> "Consultation"
+                    3 -> "Treatment"
+                    else -> null
+                }
             }
 
             const val PERIOD_UNIT = "period_unit"
@@ -111,7 +119,6 @@ data class Event(
             override fun newArray(size: Int): Array<Event?> {
                     return arrayOfNulls(size)
            }
-
 
             /**
              * Method needed for data to be  shared between

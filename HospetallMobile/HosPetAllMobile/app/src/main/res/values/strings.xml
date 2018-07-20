@@ -67,14 +67,20 @@
     <string name="time_label">Time </string>
     <string name="date_label">Date </string>
     <string name="type_label">Type</string>
+    <string name="start_time_label">Start time </string>
+    <string name="start_date_label">Start date </string>
 
     <!--New Event layout strings-->
     <string name="new_event_appointment_label">Try schedule</string>
     <string name="new_event_period_label">Period</string>
 
+    <string name="event">Event</string>
     <string name="event_title">Title</string>
     <string name="event_summary">Description</string>
     <string name="event_message">Summary </string>
+    <string name="event_appointment">Appointment</string>
+    <string name="event_destroy">Destroy event</string>
+    <string name="event_modify">Alter event</string>
 
     <string name="event_item_start_time_date">Start date</string>
     <string name="event_item_repetition_period">Repetition time</string>
