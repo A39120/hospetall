@@ -46,6 +46,7 @@ class PetsListActivity : BaseActivity() {
         viewModel.getPetList()?.observe(this, Observer {
             Log.i(TAG, "Adapting pet list of client $id to adapter.")
             it?.apply { adapter.setPetList(it) }
+            if(it == null || it.isEmpty()) viewModel.update()
         })
     }
 

@@ -39,7 +39,10 @@ class ConsultationListFragment : AbstractListFragment() {
 
         viewModel.getConsultationList()?.observe(this, Observer {
             Log.i(TAG, "Consultation List has changed, updating view.")
-            it?.let { adapter?.setProcedure(it) }
+            it?.let {
+                if(it.isEmpty()) viewModel.update()
+                adapter?.setProcedure(it)
+            }
         })
 
         viewModel.getPetList()?.observe(this, Observer {

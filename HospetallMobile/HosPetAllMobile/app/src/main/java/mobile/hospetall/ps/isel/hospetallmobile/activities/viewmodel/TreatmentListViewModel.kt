@@ -17,9 +17,11 @@ class TreatmentListViewModel : ViewModel() {
     private val petRepo by lazy { PetAccess.getInstance() }
     private var allPets : LiveData<List<Pet>>? = null
     private var petList : LiveData<List<Pet>>? = null
+    private lateinit var uri : String
 
     fun init(uri : String) {
         if(treatmentList == null) {
+            this.uri = uri
             treatmentList = treatmentRepo.getList(uri)
 
             val allPetsUri = UriUtils.getClientsPetsUri(getId()).build().toString()
@@ -37,6 +39,10 @@ class TreatmentListViewModel : ViewModel() {
                 })
             })
         }
+    }
+
+    fun update(){
+        treatmentRepo.updateCollectionFromNetwork(uri)
     }
 
     fun getTreatmentList() = treatmentList

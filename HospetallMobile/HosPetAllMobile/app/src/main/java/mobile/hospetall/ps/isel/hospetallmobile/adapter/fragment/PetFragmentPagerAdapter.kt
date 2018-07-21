@@ -24,8 +24,8 @@ class PetFragmentPagerAdapter(
     override fun getItem(position: Int) : Fragment {
         val bundle = Bundle()
 
-        val consultationListUri = UriUtils.getPetsConsultationsUri(id).build().toString()
-        val treatmentListUri = UriUtils.getPetsTreatmentUri(id).build().toString()
+        val consultationListUri = UriUtils.getPetConsultationUri(id).build().toString()
+        val treatmentListUri = UriUtils.getPetTreatmentUri(id).build().toString()
         val petUri = UriUtils.getPetUri(id).build().toString()
 
         bundle.putString(ConsultationListFragment.URI, consultationListUri)

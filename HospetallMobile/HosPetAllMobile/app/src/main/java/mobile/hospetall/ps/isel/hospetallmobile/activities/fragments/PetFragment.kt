@@ -38,19 +38,21 @@ class PetFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val uri = arguments?.getString(URI)
-        Log.i(TAG, "Initiating Pet View Model with $uri")
-        uri?.apply { viewModel.init(this) }
     }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        val uri = arguments?.getString(URI)
+        Log.i(TAG, "Initiating Pet View Model with $uri")
+        uri?.apply { viewModel.init(this) }
+
         Log.i(TAG, "onCreateView called.")
         binder = FragmentPetDetailBinding.inflate(inflater, container, false)
 
         viewModel.getPet()?.observe(this, Observer {
+            if(it == null) viewModel.update()
             Log.i(TAG, "Pet information changed.")
             binder.pet = it
             binder.executePendingBindings()

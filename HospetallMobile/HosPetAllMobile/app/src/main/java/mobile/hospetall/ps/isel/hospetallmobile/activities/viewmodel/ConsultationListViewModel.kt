@@ -17,9 +17,11 @@ class ConsultationListViewModel : ViewModel() {
     private var allPets  : LiveData<List<Pet>>? = null
     private var pets : LiveData<List<Pet>>? = null
     private var consultationList : LiveData<List<Consultation>>? = null
+    private lateinit var uri : String
 
     fun init(uri: String) {
         if(consultationList == null) {
+            this.uri = uri
             consultationList = consultationRepo.getList(uri)
 
             val allPetsUri = UriUtils.getClientsPetsUri(getId()).build().toString()
@@ -36,6 +38,10 @@ class ConsultationListViewModel : ViewModel() {
                 })
             })
         }
+    }
+
+    fun update(){
+        consultationRepo.updateCollectionFromNetwork(uri)
     }
 
     fun getConsultationList() = consultationList

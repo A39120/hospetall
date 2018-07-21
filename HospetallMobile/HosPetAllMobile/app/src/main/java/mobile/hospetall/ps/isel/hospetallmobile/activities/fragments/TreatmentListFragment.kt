@@ -39,13 +39,17 @@ class TreatmentListFragment : AbstractListFragment() {
         viewModel.getTreatmentList()?.observe(this, Observer {
             Log.i(TAG, "Observer called for Treatment List.")
             it?.let {
+                if(it.isEmpty())viewModel.update()
                 adapter!!.setProcedure(it)
             }
         })
         if(show)
             viewModel.getPetList()?.observe(this, Observer {
                 Log.i(TAG, "Observer called for Pet List.")
-                it?.let{ adapter?.setPets(it) }
+                it?.let{
+                    if(it.isEmpty())viewModel.update()
+                    adapter?.setPets(it)
+                }
             })
     }
 
