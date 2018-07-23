@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="user_event">User</string>
+    <string name="product_event">Product</string>
+    <string name="consultation_event">Consultation</string>
+    <string name="treatment_event">Treatment</string>
+    <string name="waiting_room_event">Waiting Room</string>
+</resources>

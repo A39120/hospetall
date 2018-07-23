@@ -6,6 +6,7 @@ import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.work.Data
+import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
 
 /**
@@ -92,13 +93,15 @@ data class Event(
                 const val PRODUCT  = 1
                 const val CONSULTATION = 2
                 const val TREATMENT = 3
+                const val WAITING_ROOM = 4
 
                 fun getType(value : Int) = when(value){
-                    0 -> "User event"
-                    1 -> "Product"
-                    2 -> "Consultation"
-                    3 -> "Treatment"
-                    else -> null
+                    0 -> R.string.user_event
+                    1 -> R.string.product_event
+                    2 -> R.string.consultation_event
+                    3 -> R.string.treatment_event
+                    4 -> R.string.waiting_room_event
+                    else -> -1
                 }
             }
 

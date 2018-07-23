@@ -58,7 +58,7 @@ class EventActivity : BaseActivity() {
                 val date = Date(it.timedate)
                 mBinder.date = dateFormat.format(date)
                 mBinder.time = timeFormat.format(date)
-                mBinder.type = Event.CREATOR.EventType.getType(it.type)
+                mBinder.type = resources.getString(Event.CREATOR.EventType.getType(it.type))
                 mBinder.period = DateUtils.getPeriodString(it.periodUnit, it.period)
                 if(it.type > 1)
                     mBinder.appointed = if(it.appointed) "Yes" else "No"
