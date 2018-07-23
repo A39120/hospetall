@@ -1,5 +1,7 @@
 package pt.hospetall.web.model.base;
 
+import pt.hospetall.web.model.Account;
+
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -9,6 +11,9 @@ public abstract class Person extends BaseEntity{
 	private String givenName;
 	private String email;
 	private String telephone;
+
+	@OneToOne
+	private Account account;
 
 	public String getFamilyName() {
 		return familyName;
@@ -40,5 +45,13 @@ public abstract class Person extends BaseEntity{
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 }

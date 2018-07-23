@@ -14,6 +14,10 @@ public class Nurse extends Person {
 	@OneToMany(mappedBy = "nurse")
 	private Set<Treatment> treatments = new HashSet<>();
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "nurse")
+	private Set<TreatmentSchedule> schedule = new HashSet<>();
+
 	public Set<Treatment> getTreatments() {
 		return treatments;
 	}
@@ -21,4 +25,14 @@ public class Nurse extends Person {
 	public void setTreatments(Set<Treatment> treatments) {
 		this.treatments = treatments;
 	}
+
+	public Set<TreatmentSchedule> getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(Set<TreatmentSchedule> schedule) {
+		this.schedule = schedule;
+	}
 }
+
+

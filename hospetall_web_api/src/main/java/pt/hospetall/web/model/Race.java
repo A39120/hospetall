@@ -18,7 +18,5 @@ public class Race extends NameBaseEntity {
 		return pets;
 	}
 
-	public void setPets(Set<Pet> pets) {
-		this.pets = pets;
-	}
+	public void setPets(Set<Pet> pets) { this.pets = pets; }
 }

@@ -12,15 +12,12 @@ import java.util.Set;
 public class Pet extends NameBaseEntity {
 
 	@ManyToOne
-	@JsonIgnore
 	private Client owner;
 
 	@ManyToOne
-	//@JsonIgnore
 	private Race race;
 
 	@ManyToOne
-	//@JsonIgnore
 	private Species species;
 
 	private Date birthdate;

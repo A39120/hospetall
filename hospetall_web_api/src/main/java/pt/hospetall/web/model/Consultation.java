@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 public class Consultation extends MedicalProcedure {
 
 	@NotNull
-	@JsonIgnore
 	@ManyToOne
 	private Veterinarian veterinarian;
 

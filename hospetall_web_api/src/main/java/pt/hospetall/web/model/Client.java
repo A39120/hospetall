@@ -21,6 +21,14 @@ public class Client extends Person {
 	@OneToMany(mappedBy = "owner")
 	private Set<Pet> pets = new HashSet<>();
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "client")
+	private Set<ConsultationSchedule> consultationSchedules = new HashSet<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "client")
+	private Set<TreatmentSchedule> treatmentSchedules = new HashSet<>();
+
 	public String getAddress() {
 		return address;
 	}
@@ -68,4 +76,23 @@ public class Client extends Person {
 	public void setPets(Set<Pet> pets) {
 		this.pets = pets;
 	}
+
+	public Set<ConsultationSchedule> getConsultationSchedules() {
+		return consultationSchedules;
+	}
+
+	public void setConsultationSchedules(Set<ConsultationSchedule> consultationSchedules) {
+		this.consultationSchedules = consultationSchedules;
+	}
+
+	public Set<TreatmentSchedule> getTreatmentSchedules() {
+		return treatmentSchedules;
+	}
+
+	public void setTreatmentSchedules(Set<TreatmentSchedule> treatmentSchedules) {
+		this.treatmentSchedules = treatmentSchedules;
+	}
 }
+
+
+

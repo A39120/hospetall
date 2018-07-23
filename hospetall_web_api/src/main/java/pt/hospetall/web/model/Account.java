@@ -3,7 +3,6 @@ package pt.hospetall.web.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 @Table(name="Account")
@@ -17,7 +16,9 @@ public class Account {
 
 	@JsonIgnore
 	private String password;
-	private Date registerDate;
+
+	private long registerDate;
+	private short roles; // 0x0000 - 0xFFFF
 
 	public String getUsername() {
 		return username;
@@ -35,11 +36,19 @@ public class Account {
 		this.password = password;
 	}
 
-	public Date getRegisterDate() {
+	public long getRegisterDate() {
 		return registerDate;
 	}
 
-	public void setRegisterDate(Date registerDate) {
+	public void setRegisterDate(long registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	public short getRoles() {
+		return roles;
+	}
+
+	public void setRoles(short roles) {
+		this.roles = roles;
 	}
 }
