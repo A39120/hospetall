@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @MappedSuperclass
 public abstract class MedicalProcedure extends BaseEntity{
@@ -21,13 +22,13 @@ public abstract class MedicalProcedure extends BaseEntity{
 	private String treatment;
 	private String observations;
 
-	private Date date;
+	private Timestamp date;
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setDate(Date date){
+	public void setDate(Timestamp date){
 		this.date = date;
 	}
 
