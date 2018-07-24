@@ -5,14 +5,28 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import pt.hospetall.web.error.ApiError;
 import pt.hospetall.web.model.Client;
 import pt.hospetall.web.model.base.BaseEntity;
 import pt.hospetall.web.resource.ClientResource;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import javax.xml.ws.Response;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -67,14 +81,43 @@ public abstract class AbstractGenericController<T extends BaseEntity,
 	}
 
 
-
 	@PostMapping
 	//public ResponseEntity<?> add(@RequestBody T entity) {
-	public ResponseEntity<?> add(T entity) {
-		if(checkIfExists(entity).isPresent()) return ResponseEntity.badRequest().build();
+	public ResponseEntity<?> add(@Valid T entity, BindingResult bindingResult) {
+
 		return ResponseEntity.created(
 				URI.create(
 						getResource(repo.save(entity)).getLink("self").getHref())).build();
+
+
+
+
+
+	/*	if(checkIfExists(entity).isPresent()) return ResponseEntity.badRequest().build();
+
+		if (bindingResult.hasErrors()) {
+		//	System.out.print(bindingResult.getGlobalError());
+		//	return ResponseEntity.badRequest().body(entity);
+			for (Object object : bindingResult.getAllErrors()) {
+				if(object instanceof FieldError) {
+					FieldError fieldError = (FieldError) object;
+
+					System.out.println(fieldError.getCode());
+				}
+
+				if(object instanceof ObjectError) {
+					ObjectError objectError = (ObjectError) object;
+
+					System.out.println(objectError.getCode());
+				}
+			}
+			return ResponseEntity.badRequest().body(entity);
+		}*/
+		//	if(!bindingResult.hasErrors())
+		//if(checkIfExists(entity).isPresent()) return ResponseEntity.badRequest().build();
+		//	return ResponseEntity.created(
+		//			URI.create(
+		//					getResource(repo.save(entity)).getLink("self").getHref())).build();
 	}
 
 

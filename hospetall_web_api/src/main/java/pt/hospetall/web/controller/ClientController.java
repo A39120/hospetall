@@ -6,17 +6,23 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pt.hospetall.web.controller.base.AbstractGenericController;
 import pt.hospetall.web.model.Client;
 import pt.hospetall.web.model.Consultation;
+import pt.hospetall.web.model.Pet;
 import pt.hospetall.web.model.Treatment;
 import pt.hospetall.web.repository.IClientRepository;
+import pt.hospetall.web.repository.IPetRepository;
 import pt.hospetall.web.resource.ClientResource;
 import pt.hospetall.web.resource.ConsultationResource;
 import pt.hospetall.web.resource.PetResource;
 import pt.hospetall.web.resource.TreatmentResource;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,12 +32,15 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 @RequestMapping(path = "/client")
 public class ClientController extends AbstractGenericController<Client, IClientRepository, ClientResource> {
 
+	private final IPetRepository petRepository;
+
 	@Autowired
-	public ClientController(IClientRepository clientRepository) {
+	public ClientController(IClientRepository clientRepository, IPetRepository petRepository) {
 		super(clientRepository, ClientController.class);
+		this.petRepository = petRepository;
 	}
 
-	@RequestMapping(path = "/{id}/pets", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
+	@GetMapping(path = "/{id}/pets", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
 	public Resources<PetResource> getPets(@PathVariable int id) {
 		Optional<Client> client = repo.findById(id);
 
@@ -42,6 +51,26 @@ public class ClientController extends AbstractGenericController<Client, IClientR
 
 		throw new RuntimeException();
 	}
+
+
+	//Adds a new pet to this client
+	@PostMapping(path = "/{id}/pets")
+	//public ResponseEntity<?> add(@RequestBody T entity) {
+	public ResponseEntity<?> add(@Valid Pet pet, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			//	System.out.print(bindingResult.getGlobalError());
+			return ResponseEntity.badRequest().body(pet);
+		}
+
+		return ResponseEntity.created(
+				URI.create(
+						new PetResource(petRepository.save(pet)).getLink("self").getHref())).build();
+	}
+
+
+
+
 
 
 	@GetMapping(path = "/{id}/pet/consultation", produces = {MediaType.APPLICATION_JSON_VALUE, "application/json+hal"})
