@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="consultation" type="mobile.hospetall.ps.isel.hospetallmobile.models.Consultation"/>
+        <variable name="veterinarian" type="String"/>
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:label="@{@string/weight}"
+            bind:value="@{consultation.weight.toString()}"
+            layout="@layout/layout_label_value_horizontal"/>
+
+        <include
+            android:id="@+id/heart_rhythm"
+            android:layout_below="@+id/weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/heart_rhythm}"
+            bind:value="@{consultation.heartRhythm.toString()}"/>
+
+        <include
+            android:id="@+id/temperature"
+            android:layout_below="@+id/heart_rhythm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/temperature}"
+            bind:value="@{consultation.temperature.toString()}"/>
+
+        <include
+            android:id="@+id/veterinarian"
+            android:layout_below="@+id/temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/veterinarian}"
+            bind:value="@{veterinarian}"/>
+
+    </RelativeLayout>
+</layout>

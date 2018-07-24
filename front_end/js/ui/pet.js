@@ -1,8 +1,39 @@
 import React from 'react'
 
+const FetchStates = {
+    loading: 'loading',
+    loaded: 'loaded',
+    error: 'error'
+}
+
 export default class extends React.Component {
     constructor (props) {
         super(props)
+        this.state = {
+            fetchState: FetchStates.loading
+        }
+    }
+
+    componentDidMount () {
+        if (this.state.fetchState !== FetchStates.loading) return
+        const url = this.props.url
+        console.log(url)
+        return fetch(url)
+            .then(resp => {
+                if (resp.status !== 200) {
+                throw new Error()
+                }
+                return resp.json().then(json => {
+                    this.setState({
+                        fetchState: FetchStates.loaded,
+                        json: json,
+                        response: resp
+                    })
+                })
+            })
+            .catch(error => {
+                this.setState({fetchState: FetchStates.error, error: error})
+            })  
     }
 
     render () {

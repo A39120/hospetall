@@ -1,8 +1,9 @@
 import React from 'react'
 import Menu from './menu'
 import DetailedPage from './detailed-page'
+import DetailedPageVet from './detailed-page-vet'
 
-const FetchStates = [
+const RenderStatesRecept = [
     {state: 'waiting-room', value: 'Salas de Espera'},
     {state: 'appointment', value: 'Marcações'},
     {state: 'client', value: 'Cliente'},
@@ -11,21 +12,41 @@ const FetchStates = [
     {state: 'configs', value: 'Configurações'}
 ]
 
+const RenderStatesVet = [
+    {state: 'consultation', value: 'Consultas'},
+    {state: 'agenda', value: 'Agenda'},
+    {state: 'consultationRegister', value: 'Registo de Consultas'},
+    {state: 'animalsList', value: 'Lista de Animais'},
+    {state: 'configs', value: 'Configurações'}
+]
+
 export default class extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            fetchState: FetchStates[0].state,
+            renderState: this.props.isRecept ? RenderStatesRecept[0].state : RenderStatesVet[0].state,
             urls: this.props.parts.map(p => p.url)
         }
         this.handleDetailPageChange = this.handleDetailPageChange.bind(this)   
     }
 
     handleDetailPageChange (buttonValue) {
-        const newState = FetchStates.find(s => s.value === buttonValue)
+        const newState = this.props.isRecept ? RenderStatesRecept.find(s => s.value === buttonValue) : RenderStatesVet.find(s => s.value === buttonValue)
         this.setState({
-            fetchState: newState.state
+            renderState: newState.state
         })
+    }
+
+    renderDetailedPageRecept () {
+        return (
+            <DetailedPage renderState={this.state.renderState} urls={this.state.urls}/>
+        )
+    }
+
+    renderDetailedPageVet () {
+        return (
+            <DetailedPageVet renderState={this.state.renderState} urls={this.state.urls}/>
+        )
     }
 
     render () {
@@ -33,7 +54,7 @@ export default class extends React.Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-2"><Menu parts={this.props.parts} onClick={this.handleDetailPageChange}/></div>
-                    <div className="col-md-10"><DetailedPage fetchState={this.state.fetchState} urls={this.state.urls}/></div>
+                    <div className="col-md-10">{this.props.isRecept ? this.renderDetailedPageRecept() : this.renderDetailedPageVet()}</div>
                 </div>
             </div>
         )

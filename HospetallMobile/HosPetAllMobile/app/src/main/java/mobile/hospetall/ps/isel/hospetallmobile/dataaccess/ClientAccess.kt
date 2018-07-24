@@ -1,12 +1,19 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
-import com.android.volley.RequestQueue
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.ClientDao
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
 import mobile.hospetall.ps.isel.hospetallmobile.models.Client
-import mobile.hospetall.ps.isel.hospetallmobile.models.parseClient
 import org.json.JSONObject
 
-class ClientAccess(queue: RequestQueue) : AbstractAccess<Client>(queue) {
+/**
+ * Client access class, will get [Client] object with the
+ * information on the current client.
+ */
+class ClientAccess
+    : AbstractAccess<Client, ClientDao>() {
 
-    override fun parse(json: JSONObject) = parseClient(json)
+    override fun getDao(database: MobileDatabase) = database.clientDao()
+
+    override fun parse(json: JSONObject) = Client.parse(json)
 
 }

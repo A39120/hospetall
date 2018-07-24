@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="pet" type="mobile.hospetall.ps.isel.hospetallmobile.models.Pet" />
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/birth_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/pet_birth_date_label}"
+            bind:value="@{pet.birthDate}" />
+
+        <include
+            android:id="@+id/race"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/birth_date"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/race_label}"
+            bind:value="@{pet.race}" />
+
+        <include
+            android:id="@+id/species"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/race"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/species_label}"
+            bind:value="@{pet.species}" />
+
+        <include
+            android:id="@+id/chip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/species"
+            layout="@layout/layout_label_value_horizontal"
+            bind:label="@{@string/chip_number_label}"
+            bind:value="@{String.valueOf(pet.chipNumber)}" />
+
+    </RelativeLayout>
+</layout>

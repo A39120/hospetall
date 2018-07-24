@@ -1,16 +1,18 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import com.android.volley.Response
-import kotlinx.android.synthetic.main.activity_main_activitiy.*
 import mobile.hospetall.ps.isel.hospetallmobile.R
-import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
-import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
 
 class MainActivity : BaseActivity() {
     companion object {
         const val TAG = "HPA/ACTIVITY/MAIN"
+
+        fun start(context: Context) {
+            val int = Intent(context, MainActivity::class.java)
+            context.startActivity(int)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

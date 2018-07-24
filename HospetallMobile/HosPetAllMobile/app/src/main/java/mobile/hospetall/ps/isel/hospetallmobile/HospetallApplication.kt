@@ -1,10 +1,8 @@
 package mobile.hospetall.ps.isel.hospetallmobile
 
 import android.app.Application
-import android.net.Uri
-import android.util.Log
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.Volley
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.utils.RequestQueueSingleton
 
 class HospetallApplication : Application() {
     companion object {
@@ -13,16 +11,25 @@ class HospetallApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Log.i(TAG, "OnCreate called;")
+
+         database = MobileDatabase.getInstance(applicationContext)
+         requestQueueSingleton = RequestQueueSingleton.getInstance(applicationContext)
     }
 
-    val rQueue: RequestQueue by lazy { Volley.newRequestQueue(this)}
+    private val cacheSize = 1000
 
+    //val executors by lazy { AppExecutors() }
+    private lateinit var requestQueueSingleton : RequestQueueSingleton
+    private lateinit var database : MobileDatabase
+    //val eventCache : LruCache<Int, Event?> by lazy { LruCache<Int, Event?>(cacheSize)}
 }
 
+/*
+val Application.executors
+    get() = (this as HospetallApplication).executors
+*/
 
-val Application.requestQueue : RequestQueue
-    get() = (this as HospetallApplication).rQueue
-
-val Application.baseUri : Uri.Builder
-    get() = (getBaseUri(resources))
+/*
+val Application.eventCache
+    get() = (this as HospetallApplication).eventCache
+*/

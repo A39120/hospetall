@@ -1,10 +1,15 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
-import com.android.volley.RequestQueue
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.TreatmentDao
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
 import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
-import mobile.hospetall.ps.isel.hospetallmobile.models.parseTreatment
 import org.json.JSONObject
 
-class TreatmentAccess(queue: RequestQueue) : AbstractAccess<Treatment>(queue) {
-    override fun parse(json: JSONObject) = parseTreatment(json)
+class TreatmentAccess
+    : AbstractListAccess<Treatment, TreatmentDao>("treatmentList") {
+
+    override fun getDao(database: MobileDatabase) = database.treatmentDao()
+
+    override fun parse(json: JSONObject) = Treatment.parse(json)
+
 }

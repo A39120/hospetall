@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="periods">
+        <item>Minutos</item>
+        <item>Horas</item>
+        <item>Dias</item>
+        <item>Semanas</item>
+        <item>Meses (30 dias)</item>
+        <item>Anos</item>
+    </string-array>
+</resources>

@@ -1,6 +1,5 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
@@ -8,27 +7,26 @@ import android.view.MenuItem
 import mobile.hospetall.ps.isel.hospetallmobile.R
 
 abstract class BaseActivity : AppCompatActivity() {
-    companion object {
-        const val EXTRA_ALL_PETS = "all_pets"
-        const val EXTRA_PET_ID = "pet_id"
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = MenuInflater(this)
         menuInflater.inflate(R.menu.menu_main, menu)
-        baseContext
         return true
     }
 
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = MenuInflater(this)
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }*/
+
     open fun goToPetListActivity(item: MenuItem): Boolean{
-        val int = Intent(this, PetsListActivity::class.java)
-        startActivity(int)
+        PetsListActivity.start(baseContext)
         return true
     }
 
     open fun goToHomeActivity(item: MenuItem): Boolean {
-        val int = Intent(this, MainActivity::class.java)
-        startActivity(int)
+        MainActivity.start(baseContext)
         return true
     }
 
@@ -37,27 +35,28 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun goToTreatment(item: MenuItem) : Boolean {
-
+        TreatmentListActivity.start(baseContext)
         return true
     }
 
     open fun goToConsultations(item: MenuItem): Boolean {
-        val int = Intent(this, ConsultationListActivity::class.java)
-        int.extras.putBoolean("all_pets", true)
-        startActivity(int)
+        ConsultationListActivity.start(baseContext)
         return true
     }
 
     open fun goToProfile(item: MenuItem) : Boolean {
-
+        ProfileActivity.start(baseContext)
         return true
     }
 
     open fun goToSettings(item: MenuItem): Boolean {
+        SettingsActivity.start(baseContext)
         return true
     }
 
     open fun goToSchedule(item: MenuItem): Boolean {
+        ScheduleActivity.start(baseContext)
         return true
     }
+
 }

@@ -1,45 +1,67 @@
 package mobile.hospetall.ps.isel.hospetallmobile.models
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
 import android.os.Parcel
 import android.os.Parcelable
-import mobile.hospetall.ps.isel.hospetallmobile.getLink
-import mobile.hospetall.ps.isel.hospetallmobile.getLinks
+import mobile.hospetall.ps.isel.hospetallmobile.models.base.Base
+import mobile.hospetall.ps.isel.hospetallmobile.utils.getLinks
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.DatabaseColumns
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.LinkValues
+import org.jetbrains.annotations.NotNull
 import org.json.JSONObject
-import java.sql.Date
 
-data class Pet(
-        val id: Int,
+/**
+ * Pet entity, represents one pet. This entity will also have a
+ * table of it's own.
+ */
+@Entity(tableName = Pet.TABLE_NAME)
+class Pet(
+        uri: String,
+        id: Int,
+
+        @NotNull
+        @ColumnInfo(name=NAME)
         val name: String,
-        val species: String?,
-        val race: String?,
-        val birthDate: String?,
-        val chipNumber: Int,
-        val licenceNumber: Int,
-        val consultationUri: String?,
-        val treatmentUri: String?
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-            parcel.readInt(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readString(),
-            parcel.readString()) {
-    }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
-        parcel.writeString(name)
-        parcel.writeString(species)
-        parcel.writeString(race)
-        parcel.writeString(birthDate)
-        parcel.writeInt(chipNumber)
-        parcel.writeInt(licenceNumber)
-        parcel.writeString(consultationUri)
-        parcel.writeString(treatmentUri)
+        @ColumnInfo(name= SPECIES)
+        val species: String?,
+
+        @ColumnInfo(name= RACE)
+        val race: String?,
+
+        @ColumnInfo(name= BIRTH_DATE)
+        val birthDate: String?,
+
+        @ColumnInfo(name=CHIP)
+        val chipNumber: Int?
+) : Parcelable, Base(uri, id) {
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            //parcel.readString(),
+            parcel.readInt(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readValue(Int::class.java.classLoader) as Int?
+            //parcel.readString(),
+            //parcel.readString()
+    )
+
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        dest?.apply {
+            writeString(uri)
+           // writeString(etag)
+            writeInt(id)
+            writeString(name)
+            writeString(species)
+            writeString(race)
+            writeString(birthDate)
+            writeValue(chipNumber)
+            //writeString(consultationUri)
+            //writeString(treatmentUri)
+        }
     }
 
     override fun describeContents(): Int {
@@ -54,22 +76,32 @@ data class Pet(
         override fun newArray(size: Int): Array<Pet?> {
             return arrayOfNulls(size)
         }
+
+        const val TABLE_NAME = "pet"
+        const val NAME = "name"
+        const val SPECIES = "species"
+        const val RACE = "race"
+        const val BIRTH_DATE = "birthdate"
+        const val CHIP = "chip_number"
+        //const val CONSULTATION_URI = "consultations"
+        //const val TREATMENT_URI = "treatments"
+
+
+        fun parse(pet: JSONObject): Pet {
+            val links = pet.getLinks()
+
+            val id = pet.getInt(DatabaseColumns.ID)
+            val name = pet.getString(Pet.NAME)
+            val birthDate = pet.optString(Pet.BIRTH_DATE)
+            val chipNumber = pet.opt(Pet.CHIP) as Int?
+            val species = pet.optString(Pet.SPECIES)
+            val race = pet.optString(Pet.RACE)
+
+            //val consultationsUri: String? = links.optJSONObject(CONSULTATION_URI)?.getString(LinkValues.HREF)
+            //val treatmentUri: String? = links.optJSONObject(TREATMENT_URI)?.getString(LinkValues.HREF)
+            val self = links.getJSONObject(LinkValues.SELF).getString(LinkValues.HREF)
+
+            return Pet(self, id, name, species, race, birthDate, chipNumber)//, consultationsUri, treatmentUri)
+        }
     }
-}
-
-fun parsePet(pet: JSONObject) : Pet{
-    val links = pet.getLinks()
-
-    val id = pet.getInt("id")
-    val name = pet.getString("name")
-    val birthDate = pet.optString("birthdate")
-    val chipNumber = pet.optInt("chip_number")
-    val licenceNumber = pet.optInt("license_number")
-    val species = pet.optString("species")
-    val race = pet.optString("race")
-
-    val consultationsUri : String? = links.optJSONObject("consultations")?.getString("href")
-    val treatmentUri : String? = links.optJSONObject("treatments")?.getString("href")
-
-    return Pet(id, name, species, race, birthDate, chipNumber, licenceNumber, consultationsUri, treatmentUri)
 }

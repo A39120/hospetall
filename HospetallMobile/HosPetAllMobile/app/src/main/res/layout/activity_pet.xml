@@ -1,50 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.PetActivity">
-
-    <TextView
-        android:id="@+id/name"
+    xmlns:app="http://schemas.android.com/tools"
+    app:ignore="NamespaceTypo">
+    <data>
+        <variable name="pet" type="mobile.hospetall.ps.isel.hospetallmobile.models.Pet"/>
+    </data>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        android:textAlignment="center"
-        android:textSize="@dimen/title_size" />
+        android:layout_height="match_parent">
 
-    <include
-        android:layout_below="@+id/name"
-        android:id="@+id/pet_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/pet_detail_layout"/>
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <include
-        android:layout_below="@+id/pet_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/consultation"
-        layout="@layout/standard_list"/>
+            <android.support.v4.view.PagerTitleStrip
+                android:id="@+id/pager_title_strip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="#33b5e5"
+                android:textColor="#fff"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp" />
 
-    <include
-        android:layout_below="@+id/consultation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/treatment"
-        layout="@layout/standard_list"/>
-
-    <include
-        android:layout_below="@+id/treatment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/schedule"
-        layout="@layout/standard_list"/>
-
-</RelativeLayout>
+        </android.support.v4.view.ViewPager>
+    </RelativeLayout>
+</layout>

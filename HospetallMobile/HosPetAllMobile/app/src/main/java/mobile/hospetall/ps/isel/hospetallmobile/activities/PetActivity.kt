@@ -1,118 +1,116 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities
 
-import android.net.Uri
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.support.v4.view.ViewPager
 import android.util.Log
-import android.widget.RelativeLayout
-import android.widget.TextView
 import com.android.volley.Response
 import mobile.hospetall.ps.isel.hospetallmobile.R
-import mobile.hospetall.ps.isel.hospetallmobile.adapter.ProcedureAdapter
+import mobile.hospetall.ps.isel.hospetallmobile.adapter.fragment.PetFragmentPagerAdapter
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.TreatmentAccess
-import mobile.hospetall.ps.isel.hospetallmobile.getPetUri
-import mobile.hospetall.ps.isel.hospetallmobile.layout.adaptPetDetailLayout
-import mobile.hospetall.ps.isel.hospetallmobile.layout.getPetDetailHolder
+import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
-import mobile.hospetall.ps.isel.hospetallmobile.requestQueue
+import mobile.hospetall.ps.isel.hospetallmobile.models.Treatment
+import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnConsultationListListener
+import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnPetListener
+import mobile.hospetall.ps.isel.hospetallmobile.utils.listeners.OnTreatmentListListener
+import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
-class PetActivity : BaseActivity() {
+class PetActivity : BaseActivity(),
+        OnPetListener,
+        OnConsultationListListener,
+        OnTreatmentListListener {
+
     companion object {
         const val TAG = "HPA/ACTIVITY/PET"
+
+        private const val PET = "pet"
+        private const val ID = "id"
+
+        fun start(context: Context, pet: Pet){
+            val int = Intent(context, PetActivity::class.java)
+            int.putExtra(PET, pet)
+            context.startActivity(int)
+        }
+
+        fun start(context: Context, id : Int){
+            val int = Intent(context, PetActivity::class.java)
+            int.extras.putInt(ID, id)
+            context.startActivity(int)
+        }
     }
 
-    private val consultationAccess by lazy { ConsultationAccess(application.requestQueue)    }
-    private val treatmentAccess by lazy { TreatmentAccess(application.requestQueue)    }
-    private val petAccess by lazy { PetAccess(application.requestQueue) }
+    private lateinit var mPagerAdapter: PetFragmentPagerAdapter
+    private lateinit var mViewPager: ViewPager
+
+    private var pet: Pet? = null
+    private var id : Int = -1
+
+    private val petAccess by lazy { PetAccess() }
+    private val consultationAccess by lazy { ConsultationAccess() }
+    private val treatmentAccess by lazy { TreatmentAccess() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pet)
         setContentView(R.layout.activity_pet)
-        Log.i(TAG, "OnCreate called.")
 
-        val pet = intent.extras.getParcelable("pet") as Pet?
+        pet = intent.getParcelableExtra<Pet?>(PET)
+        id = pet?.id?: intent.getIntExtra(ID, -1)
 
+        mPagerAdapter = PetFragmentPagerAdapter(supportFragmentManager, resources)
+        mViewPager = findViewById(R.id.pager)
+        mViewPager.adapter = mPagerAdapter
+    }
 
-        if(pet != null)
-            displayPet(pet)
-        else {
-            val id = intent.extras.getInt("id")
-            getPet(id)
+    override fun onPet(onPet: (Pet) -> Unit) {
+        if(pet != null) {
+            val immutablePet = pet!!
+            onPet(immutablePet)
+        } else if(id > 0) {
+            val uri = UriUtils.getPetUri(id).build().toString()
+            petAccess.get(
+                    uri,
+                    Response.Listener {
+                        pet = it
+                        onPet(it)
+                    },
+                    Response.ErrorListener {
+                        Log.e(TAG, "Error getting pet from $uri: ${it.message}")
+                    }
+            )
         }
-
     }
 
-    private fun displayPet(pet: Pet) {
-        Log.i(TAG, "Displaying pet ${pet.id} details.")
-        val name = findViewById<TextView>(R.id.name)
-        val detail = findViewById<RelativeLayout>(R.id.pet_detail)
-        val holder = getPetDetailHolder(detail)
-        name.text = pet.name
-        adaptPetDetailLayout(pet, holder)
-
-        if(pet.consultationUri != null)
-            getConsultations(Uri.parse(pet.consultationUri))
-
-        if(pet.treatmentUri != null)
-            getTreatment(Uri.parse(pet.treatmentUri))
-
+    override fun onConsultationList(list: (List<Consultation>) -> Unit){
+        if(id >  0) {
+            val uri = UriUtils.getPetConsultationUri(id).build().toString()
+            consultationAccess.getList(
+                    uri,
+                    Response.Listener(list),
+                    Response.ErrorListener {
+                        Log.e(TAG, "Error getting consultation list from $uri: ${it.message}")
+                    }
+            )
+        }
     }
 
-    private fun getPet(id: Int) {
-        Log.i(TAG, "Getting pet id details.")
-        val uri = getPetUri(resources, id).build()
-        petAccess.get(
-                uri.toString(),
-                Response.Listener { displayPet(it) },
-                Response.ErrorListener { }
-        )
+    override fun onTreatmentList(onList: (List<Treatment>) -> Unit) {
+        if(id  > 0){
+            val uri = UriUtils.getPetTreatmentUri(id).build().toString()
+            treatmentAccess.getList(
+                    uri,
+                    Response.Listener(onList),
+                    Response.ErrorListener {
+                        Log.e(TAG, "Error getting treatment list from $uri: ${it.message}")
+                    }
+            )
+        }
     }
-
-    private fun getConsultations(uri: Uri) {
-        Log.i(TAG, "Getting consultations from uri: $uri")
-        val layout = findViewById<RelativeLayout>(R.id.consultation)
-        val list = layout.findViewById<RecyclerView>(R.id.list)
-
-        consultationAccess.getList(
-                uri.toString(),
-                "consultationList",
-                Response.Listener {
-                    Log.i(TAG, "Got consultation list from $uri")
-                    layout.findViewById<TextView>(R.id.label).text = resources.getString(R.string.consultation)
-                    list.adapter = ProcedureAdapter(this, it)
-                    list.layoutManager = LinearLayoutManager(this@PetActivity)
-                },
-                Response.ErrorListener {
-                    Log.w(TAG, "Error getting the consultation list from uri: $uri. Error message: ${it.message}")
-                }
-        )
-    }
-
-    private fun getTreatment(uri: Uri) {
-        Log.i(TAG, "Getting treatments from uri: $uri")
-        val layout = findViewById<RelativeLayout>(R.id.treatment)
-        val list = layout.findViewById<RecyclerView>(R.id.list)
-
-        treatmentAccess.getList(
-                uri.toString(),
-                "treatmentList",
-                Response.Listener {
-                    Log.i(TAG, "Got treatment list from $uri")
-                    layout.findViewById<TextView>(R.id.label).text = resources.getString(R.string.treatment)
-                    list.adapter = ProcedureAdapter(this, it)
-                    list.layoutManager = LinearLayoutManager(this@PetActivity)
-                },
-                Response.ErrorListener {
-                    Log.w(TAG, "Error getting the treatment list from uri: $uri. Error message: ${it.message}")
-                }
-        )
-    }
-
-    fun addPet(){
-
-    }
-
 }
+
+

@@ -7,7 +7,7 @@ import android.widget.RelativeLayout
 
 class ExtendedRelativeLayout : RelativeLayout {
 
-    var afterVisible : () -> Unit = {}
+    private var afterVisible : () -> Unit = {}
     override fun setVisibility(visibility: Int) {
         super.setVisibility(visibility)
         if(visibility== View.VISIBLE)

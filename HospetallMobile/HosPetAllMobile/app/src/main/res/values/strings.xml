@@ -1,22 +1,29 @@
 <resources>
     <string name="app_name">HosPetAll</string>
-    <string name="authority">85.247.216.95</string>
-    <string name="pet_path">pet</string>
-    <string name="client_path">client</string>
-    <string name="clients_pets_path">pets</string>
-    <string name="protocol">http</string>
+
+    <string name="protocol" translatable="false">http</string>
+    <string name="authority" translatable="false">192.168.255.191</string>
+    <string name="pet_path" translatable="false">pet</string>
+    <string name="client_path" translatable="false">client</string>
+    <string name="clients_pets_path" translatable="false">pets</string>
+    <string name="race_path" translatable="false">race</string>
+    <string name="species_path" translatable="false">species</string>
+    <string name="treatment_path" translatable="false">treatment</string>
+
     <string name="home">Home</string>
     <string name="schedule">Schedule</string>
     <string name="profile">Profile</string>
-    <string name="consultation">Consultations</string>
-    <string name="treatment">Treatments</string>
+    <string name="consultations">Consultations</string>
+    <string name="consultation">Consultation</string>
+
+    <string name="treatment">Treatment</string>
     <string name="notifications">Notifications</string>
     <string name="procedures">Procedures</string>
     <string name="all_procedures">All</string>
     <string name="pets">Pets</string>
+    <string name="pet">Pet</string>
     <string name="settings">Settings</string>
     <string name="all_pets">All Pets</string>
-    <string name="expand" formatted="true" translatable="false"></string>
     <string name="pet_birth_date_label">Birth date:</string>
     <string name="race_label">Race:</string>
     <string name="species_label">Species:</string>
@@ -27,4 +34,49 @@
     <string name="delete">Delete</string>
     <string name="change">Change</string>
     <string name="add_pet">Add new pet</string>
+    <string name="weight">Weight:</string>
+    <string name="heart_rhythm">Heart Rhythm:</string>
+    <string name="temperature">Temperature:</string>
+    <string name="veterinarian">Veterinarian:</string>
+    <string name="case_history">Case History:</string>
+    <string name="diagnosis">Diagnosis:</string>
+    <string name="observations">Observations:</string>
+    <string name="consultation_path">consultation</string>
+    <string name="add_pet_name_hint">Name</string>
+    <string name="add_pet_race_hint">Race</string>
+    <string name="add_pet_birthdate_hint">Birthdate:</string>
+    <string name="add_pet_species_hint">Species:</string>
+    <string name="add_pet_chip_hint">Chip Number:</string>
+    <string name="add_pet_button">Add Pet</string>
+
+    <string name="json_pet_name" translatable="false">name</string>
+    <string name="json_pet_chip" translatable="false">chip_number</string>
+    <string name="json_pet_race" translatable="false">race</string>
+    <string name="json_pet_species" translatable="false">species</string>
+    <string name="json_pet_birthdate" translatable="false">birthdate</string>
+    <string name="nurse">Nurse</string>
+    <string name="client_nif">NIF</string>
+    <string name="client_postalCode">Postal Code</string>
+    <string name="client_address">Address</string>
+    <string name="client_telephone">Telephone</string>
+    <string name="client_email">Email</string>
+    <string name="client_lastName">Last Name</string>
+    <string name="client_givenName">Given Name</string>
+    <string name="update_profile_button">Change Profile</string>
+    <string name="event_title">Title</string>
+    <string name="event_summary">Description</string>
+    <string name="new_event_time">Time: </string>
+    <string name="new_event_date">Date: </string>
+    <string name="new_event_type_label">Tipo</string>
+    <string name="new_event_period_label">Period:</string>
+    <string name="add_event">Add Event</string>
+    <string name="updater_label">Update Database:</string>
+    <string name="periodic_updater_label">Update Period:</string>
+    <string name="period_label">Repetition Time:</string>
+    <string name="time_label">Time:</string>
+    <string name="date_label">Date:</string>
+    <string name="type_label">Type:</string>
+    <string name="periodic_checker_label">Active repetition:</string>
+    <string name="appointment_label">Schedule appointment:</string>
+
 </resources>

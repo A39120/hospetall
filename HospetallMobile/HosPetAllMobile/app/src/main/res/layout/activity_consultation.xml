@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="pet"  type="mobile.hospetall.ps.isel.hospetallmobile.models.Pet"/>
+        <variable name="consultation"  type="mobile.hospetall.ps.isel.hospetallmobile.models.Consultation"/>
+        <variable name="veterinarian" type="String" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/main">
+
+        <include
+            android:id="@+id/procedure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_procedure"
+            bind:title="@{@string/consultation}"
+            bind:pet="@{pet}"
+            bind:procedure="@{consultation}" />
+
+        <include
+            android:id="@+id/consultation"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_below="@id/procedure"
+            layout="@layout/layout_consultation_detail"
+            bind:consultation="@{consultation}"
+            bind:veterinarian="@{veterinarian}" />
+
+    </RelativeLayout>
+</layout>

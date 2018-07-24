@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent">
 
     <item
@@ -23,10 +24,12 @@
         android:id="@+id/procedures"
         android:title="@string/procedures">
         <menu>
+            <!--
             <item
                 android:id="@+id/all_procedures"
                 android:title="@string/all_procedures"
                 android:onClick="goToProcedures"/>
+            -->
 
             <item
                 android:id="@+id/consultation"

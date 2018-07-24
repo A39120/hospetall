@@ -14,15 +14,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.SettingsActivity"/>
+        <activity android:name=".activities.PetActivity"/>
         <activity android:name=".activities.PetsListActivity" />
-        <activity android:name=".activities.PetActivity"></activity>
+        <activity android:name=".activities.ConsultationActivity"/>
+        <activity android:name=".activities.TreatmentActivity"/>
+        <activity android:name=".activities.ConsultationListActivity"/>
+        <activity android:name=".activities.TreatmentListActivity"/>
+        <activity android:name=".activities.AddEventActivity"/>
+        <activity android:name=".activities.ScheduleActivity"/>
+        <activity android:name=".activities.ProfileActivity"/>
     </application>
 
 </manifest>

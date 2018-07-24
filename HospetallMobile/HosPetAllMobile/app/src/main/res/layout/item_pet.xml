@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="pet" type="mobile.hospetall.ps.isel.hospetallmobile.models.Pet"/>
+    </data>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/default_margin"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/name"
+            android:text="@{pet.name}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:textAlignment="center"
+            android:textSize="@dimen/title_size" />
+
+        <mobile.hospetall.ps.isel.hospetallmobile.view.ExtendedRelativeLayout
+            android:id="@+id/pet_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:visibility="gone"
+            android:layout_below="@+id/name"
+            android:layout_alignParentLeft="true">
+
+            <include
+                android:id="@+id/detail_layout"
+                bind:pet="@{pet}"
+                layout="@layout/layout_pet_detail" />
+
+            <!--<Button
+                android:id="@+id/change_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detail_layout"
+                android:text="@string/change"
+                android:onClick="changePet"/>
+
+            <Button
+                android:id="@+id/delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detail_layout"
+                android:layout_alignParentEnd="true"
+                android:onClick="deletePet"
+                android:text="@string/delete"
+                android:layout_alignParentRight="true" /> -->
+        </mobile.hospetall.ps.isel.hospetallmobile.view.ExtendedRelativeLayout>
+    </RelativeLayout>
+</layout>
