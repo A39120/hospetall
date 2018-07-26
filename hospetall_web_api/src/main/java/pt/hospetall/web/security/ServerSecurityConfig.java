@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -51,7 +50,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().disable()
 				.anonymous().disable()
 				.authorizeRequests()
-				.antMatchers("/oauth/token").permitAll();
+				.antMatchers("/oauth/*").permitAll();
 	}
 
 	@Bean
@@ -59,6 +58,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new InMemoryTokenStore();
 	}
 
+	/*
 	@Bean
 	public FilterRegistrationBean corsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -72,5 +72,6 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 		bean.setOrder(0);
 		return bean;
 	}
+	*/
 
 }

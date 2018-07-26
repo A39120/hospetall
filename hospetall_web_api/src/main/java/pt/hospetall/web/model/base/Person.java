@@ -3,17 +3,28 @@ package pt.hospetall.web.model.base;
 import pt.hospetall.web.model.security.Account;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 
 @MappedSuperclass
 public abstract class Person extends BaseEntity{
 
+	@NotBlank
 	private String familyName;
+	@NotBlank
 	private String givenName;
 	private String email;
+	@NotBlank
 	private String telephone;
 
 	@OneToOne
 	private Account account;
+
+	@NotBlank
+	@Size(min = 9, max = 9)
+	@Column(unique=true)
+	private String nif;
 
 	public String getFamilyName() {
 		return familyName;
@@ -53,5 +64,13 @@ public abstract class Person extends BaseEntity{
 
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+
+	public String getNif() {
+		return nif;
+	}
+
+	public void setNif(String nif) {
+		this.nif = nif;
 	}
 }

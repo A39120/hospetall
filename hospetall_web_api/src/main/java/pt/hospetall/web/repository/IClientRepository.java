@@ -15,7 +15,7 @@ public interface IClientRepository extends IPersonBaseRepository<Client> {
 
 	@Override
 	@PostAuthorize("returnObject.get().account.username == principal.username or hasRole('ROLE_WORKER')")
-	Optional<Client> findById(@Param("id")Integer id);
+	Optional<Client> findById(@Param("id") Integer id);
 
 	@PreAuthorize("hasRole('ROLE_WORKER')")
 	Optional<Client> findClientByAddress(@Param("address") String address);
@@ -27,9 +27,9 @@ public interface IClientRepository extends IPersonBaseRepository<Client> {
 	Optional<Client> findClientByTelephone(@Param("telephone") String telephone);
 
 	@PreAuthorize("hasRole('ROLE_WORKER')")
-	Optional<Client> findClientByNif(@Param("nif")int nif);
-
-
-
-
+	Optional<Client> findClientByNif(@Param("nif") int nif);
 }
+
+
+
+
