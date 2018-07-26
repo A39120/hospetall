@@ -26,13 +26,14 @@ repositories {
 
 dependencies {
 	//compile('org.springframework.security:spring-security-web')
-    compile("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure")
+    //compile('org.springframework.security:spring-security-config')
+    //compile('org.springframework.boot:spring-boot-starter-hateoas')
+
     compile("org.springframework.boot:spring-boot-starter-security")
-	//compile('org.springframework.security:spring-security-config')
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.3.RELEASE'
     compile("org.springframework.boot:spring-boot-starter-data-rest")
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    //compile('org.springframework.boot:spring-boot-starter-hateoas')
-	//compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '6.4.0.jre8'
 	testCompile('org.springframework.boot:spring-boot-starter-test')

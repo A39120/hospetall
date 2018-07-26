@@ -1,24 +1,36 @@
-package pt.hospetall.web.model;
+package pt.hospetall.web.model.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pt.hospetall.web.model.base.BaseEntity;
+import pt.hospetall.web.model.security.Authority;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="Account")
-public class Account {
+public class Account extends BaseEntity {
 
-	//@OneToOne
-//	private Person person;
-
-	@Id
+	@Column(name = "username", unique = true, nullable = false)
 	private String username;
 
 	@JsonIgnore
+	@Column(name = "password", nullable = false)
 	private String password;
 
 	private long registerDate;
-	private short roles; // 0x0000 - 0xFFFF
+
+	@ManyToMany
+	private Set<Authority> authorities = new HashSet<>();
+
+	public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
+	}
 
 	public String getUsername() {
 		return username;
@@ -43,12 +55,6 @@ public class Account {
 	public void setRegisterDate(long registerDate) {
 		this.registerDate = registerDate;
 	}
-
-	public short getRoles() {
-		return roles;
-	}
-
-	public void setRoles(short roles) {
-		this.roles = roles;
-	}
 }
+
+

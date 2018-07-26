@@ -1,6 +1,6 @@
 package pt.hospetall.web.model.base;
 
-import pt.hospetall.web.model.Account;
+import pt.hospetall.web.model.security.Account;
 
 import javax.persistence.*;
 

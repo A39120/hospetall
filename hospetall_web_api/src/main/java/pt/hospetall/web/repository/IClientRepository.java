@@ -9,12 +9,9 @@ import pt.hospetall.web.model.Client;
 import java.util.List;
 import java.util.Optional;
 
+@PreAuthorize("hasAnyRole('ROLE_WORKER', 'ROLE_CLIENT')")
 @RepositoryRestResource(collectionResourceRel = "clients", path="client")
 public interface IClientRepository extends IPersonBaseRepository<Client> {
-
-	@PreAuthorize("hasAnyRole('ROLE_WORKER')")
-	@Override
-	List<Client> findAll();
 
 	@Override
 	@PostAuthorize("returnObject.get().account.username == principal.username or hasRole('ROLE_WORKER')")
@@ -31,5 +28,8 @@ public interface IClientRepository extends IPersonBaseRepository<Client> {
 
 	@PreAuthorize("hasRole('ROLE_WORKER')")
 	Optional<Client> findClientByNif(@Param("nif")int nif);
+
+
+
 
 }
