@@ -5,7 +5,6 @@ import pt.hospetall.web.model.base.Person;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -88,7 +87,7 @@ public class Client extends Person {
 	public void setTreatmentSchedules(Set<TreatmentSchedule> treatmentSchedules) {
 		this.treatmentSchedules = treatmentSchedules;
 	}
+
+
 }
-
-
 

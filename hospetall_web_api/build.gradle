@@ -23,7 +23,6 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
 	//compile('org.springframework.security:spring-security-web')
     //compile('org.springframework.security:spring-security-config')

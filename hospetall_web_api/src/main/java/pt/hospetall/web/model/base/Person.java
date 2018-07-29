@@ -1,7 +1,5 @@
 package pt.hospetall.web.model.base;
 
-import pt.hospetall.web.model.security.Account;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -12,14 +10,13 @@ public abstract class Person extends BaseEntity{
 
 	@NotBlank
 	private String familyName;
+
 	@NotBlank
 	private String givenName;
 	private String email;
+
 	@NotBlank
 	private String telephone;
-
-	@OneToOne
-	private Account account;
 
 	@NotBlank
 	@Size(min = 9, max = 9)
@@ -56,14 +53,6 @@ public abstract class Person extends BaseEntity{
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
-	}
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
 	}
 
 	public String getNif() {

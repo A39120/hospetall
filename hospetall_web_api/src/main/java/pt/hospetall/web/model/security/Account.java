@@ -1,6 +1,5 @@
 package pt.hospetall.web.model.security;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import pt.hospetall.web.model.base.BaseEntity;
 
 import javax.persistence.*;
@@ -11,17 +10,17 @@ import java.util.Set;
 @Table(name="account")
 public class Account extends BaseEntity {
 
-	@Column(name = "username", unique = true, nullable = false)
+	@Column(name="username", unique = true, nullable = false)
 	private String username;
 
-	@JsonIgnore
-	@Column(name = "password", nullable = false)
+	@Column(name="password", nullable = false)
 	private String password;
 
-	private long registerDate;
-
-	@JsonIgnore
-	private short roles;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="account_authorities",
+			joinColumns = {@JoinColumn(name = "account_id", referencedColumnName = "id")},
+			inverseJoinColumns = {@JoinColumn(name="authority_id", referencedColumnName = "id")})
+	private Set<Authority> authorities;
 
 	public String getUsername() {
 		return username;
@@ -39,21 +38,12 @@ public class Account extends BaseEntity {
 		this.password = password;
 	}
 
-	public long getRegisterDate() {
-		return registerDate;
+	public Set<Authority> getAuthorities() {
+		return authorities;
 	}
 
-	public void setRegisterDate(long registerDate) {
-		this.registerDate = registerDate;
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
 	}
 
-	public short getRoles() {
-		return roles;
-	}
-
-	public void setRoles(short roles) {
-		this.roles = roles;
-	}
 }
-
-
