@@ -6,6 +6,6 @@ import pt.hospetall.web.model.Veterinarian;
 
 import javax.transaction.Transactional;
 
-@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VETERINARIAN')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VETERINARIAN', 'ROLE_CLIENT')")
 @RepositoryRestResource(collectionResourceRel = "veterinarian", path = "veterinarian")
 public interface IVeterinarianRepository extends IPersonBaseRepository<Veterinarian> { }

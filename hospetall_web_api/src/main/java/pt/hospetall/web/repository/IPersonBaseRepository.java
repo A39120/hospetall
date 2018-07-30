@@ -1,6 +1,5 @@
 package pt.hospetall.web.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -10,21 +9,13 @@ import pt.hospetall.web.model.base.Person;
 import java.util.List;
 import java.util.Optional;
 
+@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_RECEPTIONIST', 'ROLE_NURSE', 'ROLE_VETERINARIAN', 'ROLE_CLIENT')")
 @NoRepositoryBean
 public interface IPersonBaseRepository<T extends Person> extends PagingAndSortingRepository<T, Integer> {
 
-	@PreAuthorize("hasRole('ROLE_WORKER')")
 	Optional<T> findByTelephone(@Param("telephone")String telephone);
-
-	@PreAuthorize("hasRole('ROLE_WORKER')")
 	Optional<T> findByEmail(@Param("email")String email);
-
-	@PreAuthorize("hasRole('ROLE_WORKER')")
 	List<T> findByFamilyNameAndGivenName(@Param("lastName")String familyName, @Param("firstName")String givenName);
-
-	@PreAuthorize("hasRole('ROLE_WORKER')")
 	List<T> findByFamilyName(@Param("name")String name);
-
-	@PreAuthorize("hasRole('ROLE_WORKER')")
 	List<T> findByGivenName(@Param("name")String name);
 }
