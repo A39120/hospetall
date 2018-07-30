@@ -38,13 +38,13 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
 				.authorizedGrantTypes("password")
 				.authorities("ROLE_CLIENT", "ROLE_ADMIN")
 				.scopes("read", "write")
-				.secret(passwordEncoder.encode("secret"))
+				.secret(passwordEncoder.encode("android_secret_6749"))
 			.and()
-				.withClient("webClient")
-				.authorizedGrantTypes("client_credentials", "password")
+				.withClient("web_client")
+				.authorizedGrantTypes("client_credentials", "password", "implicit")
 				.authorities("ROLE_RECEPTIONIST", "ROLE_WORKER", "ROLE_NURSE", "ROLE_VETERINARIAN", "ROLE_ADMIN")
 				.scopes("read", "write", "trusted")
-				.secret("secret")
+				.secret(passwordEncoder.encode("web_secret"))
 				.accessTokenValiditySeconds(3600)
 				.refreshTokenValiditySeconds(36000);
 	}

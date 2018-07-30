@@ -8,8 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import javax.transaction.Transactional;
+import pt.hospetall.web.services.CustomUserDetailsService;
 
 @Component
 public class AuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
@@ -30,8 +29,6 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
 
 		if(passwordEncoder.matches((CharSequence) authentication.getCredentials(), userDetails.getPassword()))
 			throw new BadCredentialsException("Invalid login");
-
-		return;
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package pt.hospetall.web.security;
+package pt.hospetall.web.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,55 +20,40 @@ import java.util.stream.Collectors;
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private IUserRepository userRepository;
+	private final IUserRepository userRepository;
+	private final IAuthorityRepository authorityRepository;
+	private final PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private IAuthorityRepository authorityRepository;
-
+	public CustomUserDetailsService(IUserRepository userRepository, IAuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
+		this.userRepository = userRepository;
+		this.authorityRepository = authorityRepository;
+		this.passwordEncoder = passwordEncoder;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		//createAuthoritiesIfEmpty();
-
 		return userRepository.findUserByUsername(username)
 				.map(CustomUserDetails::new)
 				.orElseThrow(() -> new UsernameNotFoundException("Username not found."));
 	}
 
-	public void createAuthoritiesIfEmpty(){
-		if(!authorityRepository.findAll().isEmpty())
-			return;
-
-		String[] roles = {"ROLE_CLIENT", "ROLE_ADMIN", "ROLE_VETERINARIAN", "ROLE_NURSE", "ROLE_WORKER", "ROLE_RECEPTIONIST"};
-		Arrays.stream(roles)
-				.forEach(role -> {
-					Authority auth = new Authority();
-					auth.setAuthority(role);
-					authorityRepository.save(auth);
-				});
-	}
-
-	public Account createClient(String username, String password) {
-		return createUser(username, password, "ROLE_CLIENT");
-	}
-
+	@Transactional
 	public Account createUser(String username, String password, String... roles) {
 		Account account = new Account();
 		if(userRepository.findUserByUsername(username).isPresent())
 			throw new IllegalArgumentException("Username taken.");
 
 		Set<Authority> set = Arrays.stream(roles)
-				.map((role) -> authorityRepository.findByAuthority(role))
+				.map(authorityRepository::findByAuthority)
 				.filter(Optional::isPresent)
 				.map(Optional::get)
 				.collect(Collectors.toSet());
 
 		account.setUsername(username);
-		account.setPassword(password);
-		//account.setPassword(passwordEncoder.encode(password));
+		account.setPassword(passwordEncoder.encode(password));
 		account.setAuthorities(set);
-
+		userRepository.save(account);
 		return account;
 	}
 
@@ -82,6 +67,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	public Account createReceptionist(String username, String password){
 		return createUser(username, password, "ROLE_RECEPTIONIST", "ROLE_WORKER");
+	}
+
+	public Account createClient(String username, String password) {
+		return createUser(username, password, "ROLE_CLIENT");
 	}
 
 	private class CustomUserDetails implements UserDetails {

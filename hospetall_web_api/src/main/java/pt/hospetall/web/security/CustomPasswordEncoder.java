@@ -9,16 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class CustomPasswordEncoder {
 
 	private static int PASSWORD_STRENGTH = 12;
-	private static int SECRET_STRENGTH = 1;
 
 	@Bean
 	public PasswordEncoder passwordEncoder(){
 		return new  BCryptPasswordEncoder(PASSWORD_STRENGTH);
 	}
-
-	/*@Bean
-	public PasswordEncoder secretPasswordEncoder(){
-		return new BCryptPasswordEncoder(SECRET_STRENGTH);
-	}*/
 
 }
