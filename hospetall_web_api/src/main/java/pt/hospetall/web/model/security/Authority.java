@@ -13,7 +13,7 @@ public class Authority implements GrantedAuthority {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false, length = 31)
 	private String authority;
 
 	@ManyToMany(mappedBy = "authorities")

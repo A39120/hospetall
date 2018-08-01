@@ -13,7 +13,7 @@ public class Account extends BaseEntity {
 	@Column(name="username", unique = true, nullable = false)
 	private String username;
 
-	@Column(name="password", nullable = false)
+	@Column(name="password", nullable = false, length = 63)
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER)

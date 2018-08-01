@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import pt.hospetall.web.model.base.Person;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,11 +11,11 @@ import java.util.Set;
 @Table(name = "client")
 public class Client extends Person {
 
-	@NotBlank
+	@Column(name = "address", nullable = true)
 	private String address;
-	@NotBlank
+
+	@Column(name = "postal_code")
 	private String postalCode;
-	private String telephoneAlternative;
 
 	private String other;
 
@@ -46,14 +45,6 @@ public class Client extends Person {
 
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
-	}
-
-	public String getTelephoneAlternative() {
-		return telephoneAlternative;
-	}
-
-	public void setTelephoneAlternative(String telephoneAlternative) {
-		this.telephoneAlternative = telephoneAlternative;
 	}
 
 	public String getOther() {

@@ -1,5 +1,7 @@
 package pt.hospetall.web.model.base;
 
+import org.springframework.context.annotation.Configuration;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -8,20 +10,20 @@ import javax.validation.constraints.Size;
 @MappedSuperclass
 public abstract class Person extends BaseEntity{
 
-	@NotBlank
+	@Column(name = "family_name", nullable = false)
 	private String familyName;
 
-	@NotBlank
+	@Column(name = "given_name", nullable = false)
 	private String givenName;
+
+	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 
-	@NotBlank
+	@Column(name = "telephone", unique = true, nullable = false)
 	private String telephone;
 
-	@NotBlank
-	@Size(min = 9, max = 9)
-	@Column(unique=true)
-	private String nif;
+	@Column(name="nif", unique=true, length = 9)
+	private int nif;
 
 	public String getFamilyName() {
 		return familyName;
@@ -55,11 +57,11 @@ public abstract class Person extends BaseEntity{
 		this.telephone = telephone;
 	}
 
-	public String getNif() {
+	public int getNif() {
 		return nif;
 	}
 
-	public void setNif(String nif) {
+	public void setNif(int nif) {
 		this.nif = nif;
 	}
 }

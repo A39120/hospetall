@@ -3,6 +3,10 @@ package pt.hospetall.web.error;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.oauth2.client.resource.OAuth2AccessDeniedException;
+import org.springframework.security.oauth2.common.exceptions.UserDeniedAuthorizationException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,6 +23,7 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
@@ -49,8 +54,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                     violation.getPropertyPath() + ": " + violation.getMessage());
         }
 
-        ApiError apiError =
-                new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
 
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
@@ -62,4 +66,23 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), "error occurred");
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
+
+    @ExceptionHandler({UsernameTakenException.class})
+	public ResponseEntity<?> handleUsernameTaken(UsernameTakenException ex, WebRequest request){
+    	ApiError apiError = new ApiError(
+    			HttpStatus.CONFLICT,
+				ex.getMessage(),
+				"username taken");
+
+    	return new ResponseEntity<>(apiError, apiError.getStatus());
+	}
+
+	@ExceptionHandler({BadCredentialsException.class})
+	public ResponseEntity<?> handleBadCredentials(BadCredentialsException ex, WebRequest request){
+		ApiError apiError = new ApiError(
+				HttpStatus.BAD_REQUEST,
+				"Incorrect credentials",
+				"incorrect credentials");
+		return new ResponseEntity<>(apiError, apiError.getStatus());
+	}
 }

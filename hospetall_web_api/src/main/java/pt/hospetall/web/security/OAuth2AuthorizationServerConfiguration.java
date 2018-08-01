@@ -24,7 +24,7 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
 	}
 
 	@Override
-	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+	public void configure(AuthorizationServerSecurityConfigurer security) {
 		security
 				.tokenKeyAccess("permitAll()")
 				.checkTokenAccess("isAuthenticated()");
@@ -45,12 +45,11 @@ public class OAuth2AuthorizationServerConfiguration extends AuthorizationServerC
 				.authorities("ROLE_RECEPTIONIST", "ROLE_WORKER", "ROLE_NURSE", "ROLE_VETERINARIAN", "ROLE_ADMIN")
 				.scopes("read", "write", "trusted")
 				.secret(passwordEncoder.encode("web_secret"))
-				.accessTokenValiditySeconds(3600)
-				.refreshTokenValiditySeconds(36000);
+				.accessTokenValiditySeconds(3600);
 	}
 
 	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
 		endpoints.authenticationManager(authenticationManager);
 	}
 }
