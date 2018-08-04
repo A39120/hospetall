@@ -1,0 +1,45 @@
+ "_links" : {
+    "species" : {
+      "href" : "http://localhost:8080/species{?page,size,sort}",
+      "templated" : true
+    },
+    "veterinarian" : {
+      "href" : "http://localhost:8080/veterinarian{?page,size,sort}",
+      "templated" : true
+    },
+    "pets" : {
+      "href" : "http://localhost:8080/pet{?page,size,sort}",
+      "templated" : true
+    },
+    "treatment_schedules" : {
+      "href" : "http://localhost:8080/treatment_schedule{?page,size,sort}",
+      "templated" : true
+    },
+    "nurses" : {
+      "href" : "http://localhost:8080/nurse{?page,size,sort}",
+      "templated" : true
+    },
+    "clients" : {
+      "href" : "http://localhost:8080/client{?page,size,sort}",
+      "templated" : true
+    },
+    "consultations" : {
+      "href" : "http://localhost:8080/consultation{?page,size,sort}",
+      "templated" : true
+    },
+    "consultation_schedules" : {
+      "href" : "http://localhost:8080/consultation_schedule{?page,size,sort}",
+      "templated" : true
+    },
+    "treatments" : {
+      "href" : "http://localhost:8080/treatment{?page,size,sort}",
+      "templated" : true
+    },
+    "races" : {
+      "href" : "http://localhost:8080/race{?page,size,sort}",
+      "templated" : true
+    },
+    "profile" : {
+      "href" : "http://localhost:8080/profile"
+    }
+  } 

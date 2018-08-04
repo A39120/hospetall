@@ -1,0 +1,44 @@
+GET / - root.json 
+GET /client : 
+	* 1_client_list.json se existir só um cliente
+	* multiple_client.json multiplos clientes
+
+GET /client/{id} : 
+	* client.json
+
+GET /client/{id}/pets:
+	* client_id_pets.json
+
+POST /register/client <--- usar este, não o POST /client
+PUT /client/{id} <--- update, mandar json no request body
+DELETE /client/{id}
+
+substituir o client por um dos paths em root.json e dá sempre o mesmo, resultados diferentes, excepto para o /register/client
+O /register/client cria um cliente e a sua conta de cliente
+
+TODO: /register/{n} - onde n é veterinario, enfermeira, etc.
+Veterinario, enfermeira é quase a mesma coisa que o cliente, só com menos coisas. 
+
+GET /pet: 
+	* parecido com client_id_pets.json
+GET /pet/{n}: 
+	* 
+
+----------------------------------------------------------------------------
+Autenticação com oauth/password: 
+
+POST /oauth/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Base $base64("web_client:web_secret")
+
+username=$username& //username do user
+password=$password& //password do user
+grant_type=password
+
+Os pontos iniciados por $ são variaveis/funções
+Se conseguirem implementar o oauth com outro tipo que não seja password (client_credentials, implicit) agradecia. 
+-------------------------------------------------------------------------------
+
+
+
+

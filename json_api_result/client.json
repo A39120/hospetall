@@ -1,0 +1,27 @@
+{
+  "familyName" : "Baldinotti",
+  "givenName" : "Avis",
+  "email" : "abaldinottib@harvard.edu",
+  "telephone" : "443-581-8506",
+  "nif" : 802744965,
+  "address" : "76 Grasskamp Terrace",
+  "postalCode" : null,
+  "other" : "zfUV8IItmbqxClgRrYWTqkqbWu5mUQbZOKPrSqXIdNlMRDA6WHPsX1X KnIYFBKPLC1dGP58rL41Djfy",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/client/4"
+    },
+    "client" : {
+      "href" : "http://localhost:8080/client/4"
+    },
+    "consultationSchedules" : {
+      "href" : "http://localhost:8080/client/4/consultationSchedules"
+    },
+    "pets" : {
+      "href" : "http://localhost:8080/client/4/pets"
+    },
+    "treatmentSchedules" : {
+      "href" : "http://localhost:8080/client/4/treatmentSchedules"
+    }
+  }
+}

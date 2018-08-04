@@ -1,0 +1,49 @@
+{
+  "_embedded" : {
+    "clients" : [ {
+      "familyName" : "Lopes",
+      "givenName" : "John",
+      "email" : "lariachi@gmail.com",
+      "telephone" : "+351914182534",
+      "nif" : 123456789,
+      "address" : null,
+      "postalCode" : "241",
+      "other" : "124",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/client/2"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/client/2"
+        },
+        "consultationSchedules" : {
+          "href" : "http://localhost:8080/client/2/consultationSchedules"
+        },
+        "pets" : {
+          "href" : "http://localhost:8080/client/2/pets"
+        },
+        "treatmentSchedules" : {
+          "href" : "http://localhost:8080/client/2/treatmentSchedules"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/client{?page,size,sort}",
+      "templated" : true
+    },
+    "profile" : {
+      "href" : "http://localhost:8080/profile/client"
+    },
+    "search" : {
+      "href" : "http://localhost:8080/client/search"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 1,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}
