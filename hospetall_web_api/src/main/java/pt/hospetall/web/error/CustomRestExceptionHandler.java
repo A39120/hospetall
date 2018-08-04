@@ -3,22 +3,19 @@ package pt.hospetall.web.error;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.oauth2.client.resource.OAuth2AccessDeniedException;
-import org.springframework.security.oauth2.common.exceptions.UserDeniedAuthorizationException;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import pt.hospetall.web.error.exceptions.UsernameTakenException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -60,12 +57,21 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler({Exception.class})
+    //@ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
         ApiError apiError = new ApiError(
                 HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), "error occurred");
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
+
+    @ExceptionHandler({NoSuchElementException.class})
+	public ResponseEntity handleNotFound(Exception ex, WebRequest request){
+    	ApiError apiError = new ApiError(
+    			HttpStatus.NOT_FOUND,
+				ex.getLocalizedMessage(),
+				"not found");
+    	return new ResponseEntity<>(apiError, apiError.getStatus());
+	}
 
     @ExceptionHandler({UsernameTakenException.class})
 	public ResponseEntity<?> handleUsernameTaken(UsernameTakenException ex, WebRequest request){

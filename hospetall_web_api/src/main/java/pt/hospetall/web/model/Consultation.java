@@ -1,12 +1,14 @@
 package pt.hospetall.web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.access.prepost.PreAuthorize;
 import pt.hospetall.web.model.base.MedicalProcedure;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+@PreAuthorize("hasAnyRole('ROLE_VETERINARIAN', 'ROLE_ADMIN')")
 @Entity
 public class Consultation extends MedicalProcedure {
 
@@ -16,6 +18,7 @@ public class Consultation extends MedicalProcedure {
 
 	private float weight, temperature, heartRhythm;
 
+	@PreAuthorize("isAuthenticated()")
 	public Veterinarian getVeterinarian() {
 		return veterinarian;
 	}
@@ -24,6 +27,7 @@ public class Consultation extends MedicalProcedure {
 		this.veterinarian = veterinarian;
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	public float getWeight() {
 		return weight;
 	}

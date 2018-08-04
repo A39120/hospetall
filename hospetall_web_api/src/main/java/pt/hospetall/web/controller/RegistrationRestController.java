@@ -6,7 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import pt.hospetall.web.error.UsernameTakenException;
+import pt.hospetall.web.error.exceptions.UsernameTakenException;
 import pt.hospetall.web.model.Client;
 import pt.hospetall.web.model.base.Person;
 import pt.hospetall.web.repository.IClientRepository;

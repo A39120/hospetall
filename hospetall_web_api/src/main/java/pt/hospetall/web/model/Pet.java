@@ -1,6 +1,7 @@
 package pt.hospetall.web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.access.prepost.PreAuthorize;
 import pt.hospetall.web.model.base.NameBaseEntity;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@PreAuthorize("isAuthenticated()")
 public class Pet extends NameBaseEntity {
 
 	@ManyToOne
@@ -31,7 +33,6 @@ public class Pet extends NameBaseEntity {
 	@OneToMany(mappedBy = "pet")
 	@JsonIgnore
 	private Set<Treatment> treatments = new HashSet<>();
-
 
 	public Set<Consultation> getConsultations() {
 		return consultations;

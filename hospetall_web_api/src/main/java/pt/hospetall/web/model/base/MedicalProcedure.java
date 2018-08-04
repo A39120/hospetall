@@ -1,6 +1,7 @@
 package pt.hospetall.web.model.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.access.prepost.PreAuthorize;
 import pt.hospetall.web.model.Pet;
 
 import javax.persistence.ManyToOne;
