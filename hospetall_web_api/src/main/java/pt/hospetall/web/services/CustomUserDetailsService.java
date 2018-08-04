@@ -12,8 +12,8 @@ import pt.hospetall.web.error.exceptions.AccountNotFoundException;
 import pt.hospetall.web.error.exceptions.UsernameTakenException;
 import pt.hospetall.web.model.security.Authority;
 import pt.hospetall.web.model.security.Account;
-import pt.hospetall.web.repository.IAuthorityRepository;
-import pt.hospetall.web.repository.IUserRepository;
+import pt.hospetall.web.repository.security.IAuthorityRepository;
+import pt.hospetall.web.repository.security.IUserRepository;
 
 import javax.transaction.Transactional;
 import java.util.*;

@@ -1,8 +1,7 @@
 package pt.hospetall.web.model.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pt.hospetall.web.model.Client;
-import pt.hospetall.web.model.base.BaseEntity;
+import pt.hospetall.web.model.person.Client;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;

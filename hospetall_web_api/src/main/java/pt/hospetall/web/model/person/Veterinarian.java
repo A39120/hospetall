@@ -1,6 +1,8 @@
-package pt.hospetall.web.model;
+package pt.hospetall.web.model.person;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pt.hospetall.web.model.Consultation;
+import pt.hospetall.web.model.ConsultationSchedule;
 import pt.hospetall.web.model.base.Person;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package pt.hospetall.web.repository;
+package pt.hospetall.web.repository.base;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;

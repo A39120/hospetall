@@ -3,6 +3,7 @@ package pt.hospetall.web.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.access.prepost.PreAuthorize;
 import pt.hospetall.web.model.base.NameBaseEntity;
+import pt.hospetall.web.model.person.Client;
 
 import javax.persistence.*;
 import java.sql.Date;

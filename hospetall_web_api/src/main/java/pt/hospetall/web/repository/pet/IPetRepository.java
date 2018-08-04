@@ -1,4 +1,4 @@
-package pt.hospetall.web.repository;
+package pt.hospetall.web.repository.pet;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

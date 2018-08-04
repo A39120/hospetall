@@ -1,25 +1,20 @@
 package pt.hospetall.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pt.hospetall.web.error.exceptions.AccountNotFoundException;
 import pt.hospetall.web.error.exceptions.ClientNotFoundException;
-import pt.hospetall.web.error.exceptions.UsernameTakenException;
-import pt.hospetall.web.model.Client;
-import pt.hospetall.web.repository.IClientRepository;
-import pt.hospetall.web.repository.IUserRepository;
+import pt.hospetall.web.model.person.Client;
+import pt.hospetall.web.repository.person.IClientRepository;
+import pt.hospetall.web.repository.security.IUserRepository;
 import pt.hospetall.web.services.CustomUserDetailsService;
 
 @RepositoryRestController

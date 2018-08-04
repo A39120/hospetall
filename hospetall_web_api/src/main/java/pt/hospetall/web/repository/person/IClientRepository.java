@@ -1,13 +1,13 @@
-package pt.hospetall.web.repository;
+package pt.hospetall.web.repository.person;
 
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
-import pt.hospetall.web.model.Client;
+import pt.hospetall.web.model.person.Client;
+import pt.hospetall.web.repository.base.IPersonBaseRepository;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @PreAuthorize("hasAnyRole('ROLE_RECEPTIONIST', 'ROLE_ADMIN')")
@@ -21,6 +21,7 @@ public interface IClientRepository extends IPersonBaseRepository<Client> {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_RECEPTIONIST', 'ROLE_CLIENT')")
 	@PostAuthorize("returnObject.get().email == principal.username or hasAnyRole('ROLE_ADMIN','ROLE_RECEPTIONIST')")
 	Optional<Client> findById(@Param(value="id") Integer id);
+
 	Optional<Client> findClientByAddress(@Param("address") String address);
 	Optional<Client> findClientByPostalCode(@Param("postal") String postalCode);
 	Optional<Client> findClientByTelephone(@Param("telephone") String telephone);
