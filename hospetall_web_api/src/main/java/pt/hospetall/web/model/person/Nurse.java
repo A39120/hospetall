@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "nurse")
 public class Nurse extends Person {
 
 	@JsonIgnore
