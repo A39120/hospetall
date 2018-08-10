@@ -11,7 +11,7 @@ import pt.hospetall.web.model.person.Client;
 import pt.hospetall.web.model.person.Nurse;
 import pt.hospetall.web.model.person.Receptionist;
 import pt.hospetall.web.model.person.Veterinarian;
-import pt.hospetall.web.model.base.Person;
+import pt.hospetall.web.model.person.base.Person;
 import pt.hospetall.web.repository.base.IPersonBaseRepository;
 import pt.hospetall.web.repository.person.IClientRepository;
 import pt.hospetall.web.repository.person.INurseRepository;

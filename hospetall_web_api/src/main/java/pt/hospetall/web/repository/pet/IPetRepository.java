@@ -1,19 +1,14 @@
 package pt.hospetall.web.repository.pet;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.access.prepost.PreFilter;
-import pt.hospetall.web.model.Pet;
+import pt.hospetall.web.model.pet.Pet;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,15 +1,14 @@
-package pt.hospetall.web.model;
+package pt.hospetall.web.model.shift;
 
-import pt.hospetall.web.model.base.Schedule;
+import pt.hospetall.web.model.base.Period;
 import pt.hospetall.web.model.person.Nurse;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToOne;
 
 @Entity
-@Table(name = "TreatmentSchedule")
-public class TreatmentSchedule extends Schedule {
+public class NurseShift extends Shift{
 
 	@ManyToOne
 	private Nurse nurse;
@@ -21,5 +20,4 @@ public class TreatmentSchedule extends Schedule {
 	public void setNurse(Nurse nurse) {
 		this.nurse = nurse;
 	}
-
 }

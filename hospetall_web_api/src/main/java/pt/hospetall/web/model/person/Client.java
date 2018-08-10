@@ -1,10 +1,10 @@
 package pt.hospetall.web.model.person;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pt.hospetall.web.model.ConsultationSchedule;
-import pt.hospetall.web.model.Pet;
-import pt.hospetall.web.model.TreatmentSchedule;
-import pt.hospetall.web.model.base.Person;
+import pt.hospetall.web.model.person.base.Person;
+import pt.hospetall.web.model.schedule.ConsultationSchedule;
+import pt.hospetall.web.model.pet.Pet;
+import pt.hospetall.web.model.schedule.TreatmentSchedule;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -21,6 +21,9 @@ public class Client extends Person {
 	private String postalCode;
 
 	private String other;
+
+	@Column(name="nif", unique=true, length = 9)
+	private int nif;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "owner")

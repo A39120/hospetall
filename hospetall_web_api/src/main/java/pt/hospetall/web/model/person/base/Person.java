@@ -1,14 +1,13 @@
-package pt.hospetall.web.model.base;
+package pt.hospetall.web.model.person.base;
 
-import org.springframework.context.annotation.Configuration;
+import pt.hospetall.web.model.base.BaseEntity;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
 
 @MappedSuperclass
-public abstract class Person extends BaseEntity{
+public abstract class Person extends BaseEntity {
 
 	@Column(name = "family_name", nullable = false)
 	private String familyName;
@@ -21,9 +20,6 @@ public abstract class Person extends BaseEntity{
 
 	@Column(name = "telephone", unique = true, nullable = false)
 	private String telephone;
-
-	@Column(name="nif", unique=true, length = 9)
-	private int nif;
 
 	public String getFamilyName() {
 		return familyName;
@@ -57,11 +53,4 @@ public abstract class Person extends BaseEntity{
 		this.telephone = telephone;
 	}
 
-	public int getNif() {
-		return nif;
-	}
-
-	public void setNif(int nif) {
-		this.nif = nif;
-	}
 }

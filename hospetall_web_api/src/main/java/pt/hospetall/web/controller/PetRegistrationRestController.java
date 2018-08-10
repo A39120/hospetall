@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pt.hospetall.web.error.exceptions.ClientNotFoundException;
+import pt.hospetall.web.error.exceptions.PersonNotFoundException;
 import pt.hospetall.web.error.exceptions.PetConflictException;
-import pt.hospetall.web.model.Pet;
+import pt.hospetall.web.model.pet.Pet;
 import pt.hospetall.web.repository.person.IClientRepository;
 import pt.hospetall.web.repository.pet.IPetRepository;
 
@@ -35,7 +35,7 @@ public class PetRegistrationRestController {
 	public ResponseEntity registerPet(
 			@PathVariable(name="id", required = true) int client_id,
 			@RequestBody Pet pet)
-			throws ClientNotFoundException, PetConflictException {
+			throws PersonNotFoundException, PetConflictException {
 
 		return clientRepository.findById(client_id)
 				.map(client -> {
@@ -50,7 +50,7 @@ public class PetRegistrationRestController {
 					URI uri = URI.create("/" + newPet.getId());
 					return ResponseEntity.created(uri).build();
 				})
-				.orElseThrow(ClientNotFoundException::new);
+				.orElseThrow(PersonNotFoundException::new);
 
 	}
 }
