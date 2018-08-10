@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pt.hospetall.web.error.exceptions.ClientNotFoundException;
+import pt.hospetall.web.error.exceptions.PersonNotFoundException;
 import pt.hospetall.web.model.person.Client;
 import pt.hospetall.web.repository.person.IClientRepository;
 import pt.hospetall.web.repository.security.IUserRepository;
@@ -38,11 +38,11 @@ public class ClientController {
 	 * Redirects the authenticated client to it's information.
 	 * @param authentication - the authenticated client
 	 * @return the redirection to the client information
-	 * @throws ClientNotFoundException in case there is no client in the database.
+	 * @throws PersonNotFoundException in case there is no client in the database.
 	 */
 	@PreAuthorize("hasRole('ROLE_CLIENT')")
 	@GetMapping(path = "/self/client")
-	public String getClientSelf(Authentication authentication) throws ClientNotFoundException {
+	public String getClientSelf(Authentication authentication) throws PersonNotFoundException {
 		UserDetails principal = (UserDetails) authentication.getPrincipal();
 		String email = principal.getUsername();
 
@@ -57,13 +57,13 @@ public class ClientController {
 	 * @param newClient - the new client info that will replace the old one.
 	 * @param authentication - the authenticated client
 	 * @return Response with status 200, if updated
-	 * @throws ClientNotFoundException - Client is not in the repository
+	 * @throws PersonNotFoundException - Client is not in the repository
 	 */
 	@PreAuthorize("hasRole('ROLE_CLIENT')")
 	@PutMapping(path = "/self/client")
 	public ResponseEntity updateClientValue(
 			@RequestBody Client newClient,
-			Authentication authentication) throws ClientNotFoundException {
+			Authentication authentication) throws PersonNotFoundException {
 
 		UserDetails principal = (UserDetails) authentication.getPrincipal();
 		String email = principal.getUsername();
@@ -76,7 +76,7 @@ public class ClientController {
 					clientRepository.save(newClient);
 					return ResponseEntity.ok().build();
 				})
-				.orElseThrow(ClientNotFoundException::new);
+				.orElseThrow(PersonNotFoundException::new);
 	}
 
 }

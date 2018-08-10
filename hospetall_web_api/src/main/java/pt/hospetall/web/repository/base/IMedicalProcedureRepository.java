@@ -1,11 +1,9 @@
 package pt.hospetall.web.repository.base;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import pt.hospetall.web.model.base.MedicalProcedure;
-import pt.hospetall.web.model.Pet;
+import pt.hospetall.web.model.medical.MedicalProcedure;
 
 import java.util.List;
 

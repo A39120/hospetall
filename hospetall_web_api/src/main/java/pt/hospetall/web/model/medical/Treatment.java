@@ -1,7 +1,7 @@
-package pt.hospetall.web.model;
+package pt.hospetall.web.model.medical;
 
-import pt.hospetall.web.model.base.MedicalProcedure;
 import pt.hospetall.web.model.person.Nurse;
+import pt.hospetall.web.model.pet.Pet;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -10,11 +10,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Treatment extends MedicalProcedure {
 
-	@NotNull
-	@ManyToOne
-	private Pet pet;
-
-	@NotNull
 	@ManyToOne
 	private Nurse nurse;
 
@@ -24,15 +19,5 @@ public class Treatment extends MedicalProcedure {
 
 	public void setNurse(Nurse nurse) {
 		this.nurse = nurse;
-	}
-
-	@Override
-	public Pet getPet() {
-		return pet;
-	}
-
-	@Override
-	public void setPet(Pet pet) {
-		this.pet = pet;
 	}
 }

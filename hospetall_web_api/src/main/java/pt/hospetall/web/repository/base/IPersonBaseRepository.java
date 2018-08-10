@@ -4,7 +4,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
-import pt.hospetall.web.model.base.Person;
+import pt.hospetall.web.model.person.base.Person;
 
 import java.util.List;
 import java.util.Optional;

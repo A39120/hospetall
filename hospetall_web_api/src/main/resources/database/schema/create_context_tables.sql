@@ -25,7 +25,7 @@ CREATE TABLE consultation (id INT IDENTITY NOT NULL,
 	 PRIMARY KEY (id));
 
 CREATE TABLE consultation_schedule (id INT IDENTITY NOT NULL,
-	 period BIGINT NOT NULL,
+	 calendarPeriod BIGINT NOT NULL,
 	 start_date BIGINT NOT NULL,
 	 client_id INT,
 	 veterinarian_id INT,
@@ -81,7 +81,7 @@ CREATE TABLE treatment (id INT IDENTITY NOT NULL,
 	 PRIMARY KEY (id));
 
 CREATE TABLE treatment_schedule (id INT IDENTITY NOT NULL,
-	 period BIGINT NOT NULL,
+	 calendarPeriod BIGINT NOT NULL,
 	 start_date BIGINT NOT NULL,
 	 client_id INT,
 	 nurse_id INT,

@@ -1,7 +1,9 @@
-package pt.hospetall.web.model;
+package pt.hospetall.web.model.pet;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.access.prepost.PreAuthorize;
+import pt.hospetall.web.model.medical.Consultation;
+import pt.hospetall.web.model.medical.Treatment;
 import pt.hospetall.web.model.base.NameBaseEntity;
 import pt.hospetall.web.model.person.Client;
 
@@ -17,11 +19,8 @@ public class Pet extends NameBaseEntity {
 	@ManyToOne
 	private Client owner;
 
-	@ManyToOne
-	private Race race;
-
-	@ManyToOne
-	private Species species;
+	private String race;
+	private String species;
 
 	private Date birthdate;
 	private int chip_number;
@@ -60,18 +59,18 @@ public class Pet extends NameBaseEntity {
 	}
 
 	public String getRace() {
-		return race.getName();
+		return race;
 	}
 
-	public void setRace(Race race) {
+	public void setRace(String race) {
 		this.race = race;
 	}
 
 	public String getSpecies() {
-		return species.getName();
+		return species;
 	}
 
-	public void setSpecies(Species species) {
+	public void setSpecies(String species) {
 		this.species = species;
 	}
 

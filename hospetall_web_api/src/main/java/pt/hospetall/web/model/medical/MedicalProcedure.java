@@ -1,27 +1,23 @@
-package pt.hospetall.web.model.base;
+package pt.hospetall.web.model.medical;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.security.access.prepost.PreAuthorize;
-import pt.hospetall.web.model.Pet;
+import pt.hospetall.web.model.base.BaseEntity;
+import pt.hospetall.web.model.pet.Pet;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @MappedSuperclass
-public abstract class MedicalProcedure extends BaseEntity{
+public abstract class MedicalProcedure extends BaseEntity {
 
 	@NotNull
 	@JsonIgnore
 	@ManyToOne
 	private Pet pet;
 
-	private String caseHistory;
-	private String diagnosis;
-	private String treatment;
-	private String observations;
+	private String caseHistory, diagnosis, treatment, observations;
 
 	private Timestamp date;
 
@@ -72,4 +68,5 @@ public abstract class MedicalProcedure extends BaseEntity{
 	public void setObservations(String observations) {
 		this.observations = observations;
 	}
+
 }

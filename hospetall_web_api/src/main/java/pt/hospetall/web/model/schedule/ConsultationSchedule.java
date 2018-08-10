@@ -1,6 +1,5 @@
-package pt.hospetall.web.model;
+package pt.hospetall.web.model.schedule;
 
-import pt.hospetall.web.model.base.Schedule;
 import pt.hospetall.web.model.person.Veterinarian;
 
 import javax.persistence.Entity;
@@ -11,7 +10,7 @@ import javax.persistence.Table;
 @Table(name="ConsultationSchedule")
 public class ConsultationSchedule extends Schedule {
 
-	@ManyToOne
+	@ManyToOne(targetEntity = Veterinarian.class)
 	private Veterinarian veterinarian;
 
 	public Veterinarian getVeterinarian() {

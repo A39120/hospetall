@@ -1,24 +1,32 @@
 package pt.hospetall.web.model.person;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import pt.hospetall.web.model.Treatment;
-import pt.hospetall.web.model.TreatmentSchedule;
-import pt.hospetall.web.model.base.Person;
+import pt.hospetall.web.model.medical.Treatment;
+import pt.hospetall.web.model.person.base.Person;
+import pt.hospetall.web.model.shift.NurseShift;
+import pt.hospetall.web.model.schedule.TreatmentSchedule;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Nurse extends Person {
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "nurse")
-	private Set<Treatment> treatments = new HashSet<>();
+	private Set<NurseShift> shifts;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "nurse")
-	private Set<TreatmentSchedule> schedule = new HashSet<>();
+	@OneToMany(mappedBy = "nurse", targetEntity = Treatment.class)
+	private Set<Treatment> treatments;
+
+	@OneToMany(mappedBy = "nurse", targetEntity = TreatmentSchedule.class)
+	private Set<TreatmentSchedule> schedules;
+
+	public Set<NurseShift> getShifts() {
+		return shifts;
+	}
+
+	public void setShifts(Set<NurseShift> shifts) {
+		this.shifts = shifts;
+	}
 
 	public Set<Treatment> getTreatments() {
 		return treatments;
@@ -28,12 +36,12 @@ public class Nurse extends Person {
 		this.treatments = treatments;
 	}
 
-	public Set<TreatmentSchedule> getSchedule() {
-		return schedule;
+	public Set<TreatmentSchedule> getSchedules() {
+		return schedules;
 	}
 
-	public void setSchedule(Set<TreatmentSchedule> schedule) {
-		this.schedule = schedule;
+	public void setSchedules(Set<TreatmentSchedule> schedules) {
+		this.schedules = schedules;
 	}
 }
 
