@@ -1,13 +1,10 @@
-package pt.hospetall.web.controller;
+package pt.hospetall.web.services;
 
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import pt.hospetall.web.error.exceptions.InvalidPeriodException;
 import pt.hospetall.web.error.exceptions.PersonNotFoundException;
 import pt.hospetall.web.model.person.Nurse;
@@ -19,12 +16,15 @@ import pt.hospetall.web.repository.person.IVeterinarianRepository;
 import pt.hospetall.web.util.CalendarPeriod;
 import pt.hospetall.web.util.ShiftUtil;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@RepositoryRestController
-public class AvailablePeriodController {
+@Service
+public class ShiftService {
 
 	@Autowired
 	private INurseRepository nurseRepository;
@@ -38,51 +38,37 @@ public class AvailablePeriodController {
 	 * @param end the end of the period of the shifts we want is in, all shifts after this will be ignored
 	 * @return 200 if everything is ok
 	 */
-	@GetMapping(path = "/available/nurse", produces = MediaTypes.HAL_JSON_VALUE)
-	public ResponseEntity getAllAvailableBetween(
-			@RequestParam(name = "start") long start,
-			@RequestParam(name = "end") long end
-	) throws InvalidPeriodException {
+	public List<NurseShift> getAllAvailableBetween(long start, long end) throws InvalidPeriodException {
 		CalendarPeriod calendarPeriod = getCalendarPeriod(start, end);
 
 		LinkedList<Nurse> nurses = new LinkedList<>();
 		nurseRepository.findAll().forEach(nurses::add);
 
-		List<NurseShift> shifts = nurses.stream()
+		return nurses.stream()
 				.flatMap(nurse -> {
 					List<CalendarPeriod> available = getAllAvailablePeriodsNurseBetween(nurse, calendarPeriod);
 					return available.stream().map(cp -> calendarPeriodToNurseShift(nurse, cp));
 				})
 				.collect(Collectors.toList());
-
-
-		return ResponseEntity.ok().build();
 	}
 
 	/**
 	 * Returns all the shifts from all the nurses that have slots available.
 	 * @param start the start of the period that of the shift we want is in, all shifts after this will be ignored
 	 * @param end the end of the period of the shifts we want is in, all shifts after this will be ignored
-	 * @return 200 if everything is ok
 	 */
-	@GetMapping(path = "/available/nurse/{id}", produces = MediaTypes.HAL_JSON_VALUE)
-	public ResponseEntity getAllAvailableBetweenFor(
-			@RequestParam(name = "start") long start,
-			@RequestParam(name = "end") long end,
-			@PathVariable(name="id") int id
-	) throws InvalidPeriodException, PersonNotFoundException {
-		CalendarPeriod calendarPeriod = getCalendarPeriod(start, end);
+	public List<NurseShift> getAllAvailableBetweenFor(long start,long end, int id)
+			throws InvalidPeriodException, PersonNotFoundException {
 
+		CalendarPeriod calendarPeriod = getCalendarPeriod(start, end);
 		Nurse nurse = nurseRepository.findById(id)
 				.orElseThrow(PersonNotFoundException::new);
 
 		List<CalendarPeriod> available = getAllAvailablePeriodsNurseBetween(nurse, calendarPeriod);
-		List<NurseShift> shifts = available
+		return available
 				.stream()
 				.map(cp -> calendarPeriodToNurseShift(nurse, cp))
 				.collect(Collectors.toList());
-
-		return ResponseEntity.ok().build();
 	}
 
 	/**
@@ -91,17 +77,13 @@ public class AvailablePeriodController {
 	 * @param end the end of the period of the shifts we want is in, all shifts after this will be ignored
 	 * @return 200 if everything is ok
 	 */
-	@GetMapping(path = "/available/veterinarian", produces = MediaTypes.HAL_JSON_VALUE)
-	public ResponseEntity getAllAvailableBetweenVeterinarian(
-			@RequestParam(name = "start") long start,
-			@RequestParam(name = "end") long end
-	) throws InvalidPeriodException {
+	public List<VeterinarianShift> getAllAvailableBetweenVeterinarian(long start, long end) throws InvalidPeriodException {
 		CalendarPeriod calendarPeriod = getCalendarPeriod(start, end);
 
 		LinkedList<Veterinarian> vets = new LinkedList<>();
 		veterinarianRepository.findAll().forEach(vets::add);
 
-		List<VeterinarianShift> shifts = vets
+		 return vets
 				.stream()
 				.flatMap(vet -> {
 					List<CalendarPeriod> available = getAllAvailablePeriodsVeterinarianBetween(vet, calendarPeriod);
@@ -110,34 +92,24 @@ public class AvailablePeriodController {
 				.collect(Collectors.toList());
 
 
-		return ResponseEntity.ok().build();
 	}
 
 	/**
 	 * Returns all the shifts from all the nurses that have slots available.
 	 * @param start the start of the period that of the shift we want is in, all shifts after this will be ignored
 	 * @param end the end of the period of the shifts we want is in, all shifts after this will be ignored
-	 * @return 200 if everything is ok
 	 */
-	@GetMapping(path = "/available/veterinarian/{id}", produces = MediaTypes.HAL_JSON_VALUE)
-	public ResponseEntity getAllAvailableBetweenForVeterinarian(
-			@RequestParam(name = "start") long start,
-			@RequestParam(name = "end") long end,
-			@PathVariable(name="id") int id
-	) throws InvalidPeriodException, PersonNotFoundException {
-		CalendarPeriod calendarPeriod = getCalendarPeriod(start, end);
+	public List<VeterinarianShift> getAllAvailableBetweenForVeterinarian(long start, long end, int id)
+			throws InvalidPeriodException, PersonNotFoundException {
 
+		CalendarPeriod calendarPeriod = getCalendarPeriod(start, end);
 		Veterinarian vet = veterinarianRepository.findById(id)
 				.orElseThrow(PersonNotFoundException::new);
-
-
 		List<CalendarPeriod> available = getAllAvailablePeriodsVeterinarianBetween(vet, calendarPeriod);
-		List<VeterinarianShift> shifts = available
+		return available
 				.stream()
 				.map(cp -> calendarPeriodToVeterinarianShift(vet, cp))
 				.collect(Collectors.toList());
-
-		return ResponseEntity.ok().build();
 	}
 
 	/**
@@ -191,8 +163,8 @@ public class AvailablePeriodController {
 	 */
 	private List<CalendarPeriod> getAllAvailablePeriodsVeterinarianBetween(Veterinarian veterinarian,
 																		   CalendarPeriod calendarPeriod){
-		List<CalendarPeriod> allShifts = ShiftUtil.getAllVeterinarianShift(veterinarian, calendarPeriod);
 
+		List<CalendarPeriod> allShifts = ShiftUtil.getAllVeterinarianShift(veterinarian, calendarPeriod);
 		//Get all taken periods
 		Stream<CalendarPeriod> scheduleStream = veterinarian.getSchedules()
 				.stream()

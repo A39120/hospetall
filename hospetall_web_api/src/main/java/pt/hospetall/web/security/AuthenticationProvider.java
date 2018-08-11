@@ -17,13 +17,15 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
 	private final PasswordEncoder passwordEncoder;
 
 	@Autowired
-	public AuthenticationProvider(CustomUserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+	public AuthenticationProvider(CustomUserDetailsService userDetailsService,
+								  PasswordEncoder passwordEncoder) {
 		this.userDetailsService = userDetailsService;
 		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
-	protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+	protected void additionalAuthenticationChecks(UserDetails userDetails,
+												  UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 		if(authentication.getCredentials() == null && userDetails.getPassword() == null)
 			throw new BadCredentialsException("Please specify credentials");
 
@@ -32,7 +34,8 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
 	}
 
 	@Override
-	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+	protected UserDetails retrieveUser(String username,
+									   UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 		return userDetailsService.loadUserByUsername(username);
 	}
 
