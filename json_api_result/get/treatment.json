@@ -1,0 +1,432 @@
+{
+  "_embedded" : {
+    "treatments" : [ {
+      "caseHistory" : "Decentralized homogeneous productivity",
+      "diagnosis" : "Object-based 24/7 superstructure",
+      "treatment" : "Team-oriented human-resource infrastructure",
+      "observations" : null,
+      "date" : "2018-07-07T09:26:21.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/1"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/1"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/1/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/1/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Customizable methodical Graphic Interface",
+      "diagnosis" : "Re-engineered scalable frame",
+      "treatment" : "Adaptive national initiative",
+      "observations" : null,
+      "date" : "2018-08-01T17:24:53.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/2"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/2"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/2/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/2/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Reactive heuristic emulation",
+      "diagnosis" : "Object-based 4th generation internet solution",
+      "treatment" : "Optional static functionalities",
+      "observations" : null,
+      "date" : "2018-02-14T23:58:20.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/3"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/3"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/3/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/3/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Optimized explicit conglomeration",
+      "diagnosis" : "Fundamental executive architecture",
+      "treatment" : "Team-oriented needs-based local area network",
+      "observations" : null,
+      "date" : "2017-11-11T14:04:08.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/4"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/4"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/4/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/4/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Optimized multi-state artificial intelligence",
+      "diagnosis" : "Automated 3rd generation algorithm",
+      "treatment" : "Fundamental scalable function",
+      "observations" : null,
+      "date" : "2018-05-28T05:17:48.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/5"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/5"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/5/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/5/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Cross-group static migration",
+      "diagnosis" : "Proactive solution-oriented alliance",
+      "treatment" : "Devolved disintermediate secured line",
+      "observations" : null,
+      "date" : "2017-12-05T14:58:56.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/6"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/6"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/6/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/6/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Assimilated national pricing structure",
+      "diagnosis" : "Focused analyzing protocol",
+      "treatment" : "Fully-configurable executive complexity",
+      "observations" : null,
+      "date" : "2017-10-21T14:57:47.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/7"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/7"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/7/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/7/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Extended scalable budgetary management",
+      "diagnosis" : "Robust client-server emulation",
+      "treatment" : "Intuitive disintermediate core",
+      "observations" : null,
+      "date" : "2018-02-28T12:53:35.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/8"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/8"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/8/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/8/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Profit-focused even-keeled interface",
+      "diagnosis" : "Mandatory disintermediate flexibility",
+      "treatment" : "Up-sized national support",
+      "observations" : null,
+      "date" : "2018-01-18T01:33:12.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/9"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/9"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/9/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/9/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Fundamental content-based utilisation",
+      "diagnosis" : "Re-contextualized coherent complexity",
+      "treatment" : "Total zero defect focus group",
+      "observations" : null,
+      "date" : "2017-12-03T21:58:16.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/10"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/10"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/10/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/10/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Team-oriented disintermediate structure",
+      "diagnosis" : "Intuitive dedicated knowledge base",
+      "treatment" : "Digitized homogeneous throughput",
+      "observations" : null,
+      "date" : "2017-09-22T02:27:39.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/11"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/11"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/11/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/11/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Ergonomic motivating artificial intelligence",
+      "diagnosis" : "Decentralized even-keeled contingency",
+      "treatment" : "Programmable 6th generation firmware",
+      "observations" : null,
+      "date" : "2017-11-25T04:27:41.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/12"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/12"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/12/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/12/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Team-oriented real-time circuit",
+      "diagnosis" : "Automated client-server approach",
+      "treatment" : "Stand-alone methodical implementation",
+      "observations" : null,
+      "date" : "2018-01-02T15:38:41.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/13"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/13"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/13/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/13/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Reduced tertiary hub",
+      "diagnosis" : "Public-key radical standardization",
+      "treatment" : "Multi-tiered non-volatile process improvement",
+      "observations" : null,
+      "date" : "2018-04-05T16:39:54.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/14"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/14"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/14/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/14/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Fundamental 6th generation task-force",
+      "diagnosis" : "Reactive object-oriented artificial intelligence",
+      "treatment" : "Proactive multimedia task-force",
+      "observations" : null,
+      "date" : "2018-03-09T11:50:28.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/15"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/15"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/15/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/15/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Vision-oriented regional data-warehouse",
+      "diagnosis" : "Synergistic optimizing local area network",
+      "treatment" : "Versatile upward-trending knowledge user",
+      "observations" : null,
+      "date" : "2017-12-07T18:49:29.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/16"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/16"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/16/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/16/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Robust neutral strategy",
+      "diagnosis" : "Face to face zero tolerance capability",
+      "treatment" : "Seamless even-keeled matrix",
+      "observations" : null,
+      "date" : "2018-05-05T09:19:47.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/17"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/17"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/17/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/17/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Secured fault-tolerant policy",
+      "diagnosis" : "Optional fresh-thinking artificial intelligence",
+      "treatment" : "Adaptive radical parallelism",
+      "observations" : null,
+      "date" : "2018-01-16T10:04:55.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/18"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/18"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/18/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/18/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "De-engineered incremental forecast",
+      "diagnosis" : "Focused executive middleware",
+      "treatment" : "Monitored intangible adapter",
+      "observations" : null,
+      "date" : "2017-10-01T12:40:18.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/19"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/19"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/19/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/19/nurse"
+        }
+      }
+    }, {
+      "caseHistory" : "Polarised radical encryption",
+      "diagnosis" : "Right-sized optimizing encoding",
+      "treatment" : "Cross-group responsive attitude",
+      "observations" : null,
+      "date" : "2017-11-01T07:50:00.000+0000",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/treatment/20"
+        },
+        "treatment" : {
+          "href" : "http://localhost:8080/treatment/20"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/treatment/20/pet"
+        },
+        "nurse" : {
+          "href" : "http://localhost:8080/treatment/20/nurse"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://localhost:8080/treatment?page=0&size=20"
+    },
+    "self" : {
+      "href" : "http://localhost:8080/treatment{?page,size,sort}",
+      "templated" : true
+    },
+    "next" : {
+      "href" : "http://localhost:8080/treatment?page=1&size=20"
+    },
+    "last" : {
+      "href" : "http://localhost:8080/treatment?page=39&size=20"
+    },
+    "profile" : {
+      "href" : "http://localhost:8080/profile/treatment"
+    },
+    "search" : {
+      "href" : "http://localhost:8080/treatment/search"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 800,
+    "totalPages" : 40,
+    "number" : 0
+  }
+}
