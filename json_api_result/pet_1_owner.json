@@ -1,0 +1,27 @@
+{
+  "id" : 8,
+  "familyName" : "Blasl",
+  "givenName" : "Andeee",
+  "email" : "ablasle4@wsj.com",
+  "telephone" : "928-944-8664",
+  "address" : "8 Continental Center",
+  "postalCode" : null,
+  "other" : "nGznNIF3woasXSYozH7MC52XOUmKuoVIY9RfUuF89mLcb6O3YWc26FX 3YRB6xPsbvMByWa0BBRYR1bv",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/client/8"
+    },
+    "client" : {
+      "href" : "http://localhost:8080/client/8"
+    },
+    "consultationSchedules" : {
+      "href" : "http://localhost:8080/client/8/consultationSchedules"
+    },
+    "pets" : {
+      "href" : "http://localhost:8080/client/8/pets"
+    },
+    "treatmentSchedules" : {
+      "href" : "http://localhost:8080/client/8/treatmentSchedules"
+    }
+  }
+}

@@ -1,0 +1,512 @@
+{
+  "_embedded" : {
+    "pets" : [ {
+      "name" : "Alpha",
+      "race" : null,
+      "species" : "Pine siskin",
+      "birthdate" : "2016-09-10",
+      "chip_number" : 4244448,
+      "license_number" : 262981,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/1"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/1"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/1/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/1/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/1/owner"
+        }
+      }
+    }, {
+      "name" : "Alphazap",
+      "race" : null,
+      "species" : "Puku",
+      "birthdate" : "2011-12-13",
+      "chip_number" : 4812600,
+      "license_number" : 4880060,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/2"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/2"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/2/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/2/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/2/owner"
+        }
+      }
+    }, {
+      "name" : "Andalax",
+      "race" : null,
+      "species" : "Bandicoot, short-nosed",
+      "birthdate" : "2005-08-30",
+      "chip_number" : 3340743,
+      "license_number" : 1132901,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/3"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/3"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/3/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/3/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/3/owner"
+        }
+      }
+    }, {
+      "name" : "Asoka",
+      "race" : null,
+      "species" : "Crane, black-crowned",
+      "birthdate" : "2000-04-07",
+      "chip_number" : 1306354,
+      "license_number" : 279909,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/4"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/4"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/4/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/4/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/4/owner"
+        }
+      }
+    }, {
+      "name" : "Bamity",
+      "race" : null,
+      "species" : "Vulture, lappet-faced",
+      "birthdate" : "2017-12-08",
+      "chip_number" : 1176575,
+      "license_number" : 9552474,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/5"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/5"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/5/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/5/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/5/owner"
+        }
+      }
+    }, {
+      "name" : "Biodex",
+      "race" : null,
+      "species" : "Whale, baleen",
+      "birthdate" : "2000-12-18",
+      "chip_number" : 8497877,
+      "license_number" : 8588163,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/6"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/6"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/6/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/6/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/6/owner"
+        }
+      }
+    }, {
+      "name" : "Bitchip",
+      "race" : null,
+      "species" : "Pelican, great white",
+      "birthdate" : "2016-02-28",
+      "chip_number" : 6250746,
+      "license_number" : 3883235,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/7"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/7"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/7/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/7/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/7/owner"
+        }
+      }
+    }, {
+      "name" : "Bitwolf",
+      "race" : null,
+      "species" : "Squirrel, eastern fox",
+      "birthdate" : "2007-08-17",
+      "chip_number" : 6624413,
+      "license_number" : 5393833,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/8"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/8"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/8/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/8/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/8/owner"
+        }
+      }
+    }, {
+      "name" : "Bytecard",
+      "race" : null,
+      "species" : "Francolin, coqui",
+      "birthdate" : "1999-10-04",
+      "chip_number" : 1163012,
+      "license_number" : 3599183,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/9"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/9"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/9/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/9/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/9/owner"
+        }
+      }
+    }, {
+      "name" : "Cardguard",
+      "race" : null,
+      "species" : "Common genet",
+      "birthdate" : "2016-01-12",
+      "chip_number" : 8815931,
+      "license_number" : 6250431,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/10"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/10"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/10/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/10/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/10/owner"
+        }
+      }
+    }, {
+      "name" : "Cardify",
+      "race" : null,
+      "species" : "Possum, ring-tailed",
+      "birthdate" : "2014-02-19",
+      "chip_number" : 233656,
+      "license_number" : 1136295,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/11"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/11"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/11/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/11/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/11/owner"
+        }
+      }
+    }, {
+      "name" : "Cookley",
+      "race" : null,
+      "species" : "Goose, cape barren",
+      "birthdate" : "2018-07-04",
+      "chip_number" : 3310734,
+      "license_number" : 249121,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/12"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/12"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/12/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/12/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/12/owner"
+        }
+      }
+    }, {
+      "name" : "Domainer",
+      "race" : null,
+      "species" : "Herring gull",
+      "birthdate" : "2011-08-16",
+      "chip_number" : 6534452,
+      "license_number" : 4203207,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/13"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/13"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/13/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/13/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/13/owner"
+        }
+      }
+    }, {
+      "name" : "Duobam",
+      "race" : null,
+      "species" : "Armadillo, nine-banded",
+      "birthdate" : "2009-04-07",
+      "chip_number" : 1448658,
+      "license_number" : 9316886,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/14"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/14"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/14/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/14/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/14/owner"
+        }
+      }
+    }, {
+      "name" : "Fintone",
+      "race" : null,
+      "species" : "Greater flamingo",
+      "birthdate" : "2005-09-30",
+      "chip_number" : 3600410,
+      "license_number" : 3615255,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/15"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/15"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/15/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/15/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/15/owner"
+        }
+      }
+    }, {
+      "name" : "Fintone",
+      "race" : null,
+      "species" : "Francolin, coqui",
+      "birthdate" : "2010-04-06",
+      "chip_number" : 3190307,
+      "license_number" : 9689607,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/16"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/16"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/16/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/16/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/16/owner"
+        }
+      }
+    }, {
+      "name" : "Fintone",
+      "race" : null,
+      "species" : "Lion, steller's sea",
+      "birthdate" : "2014-12-14",
+      "chip_number" : 9684817,
+      "license_number" : 4712659,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/17"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/17"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/17/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/17/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/17/owner"
+        }
+      }
+    }, {
+      "name" : "Fix San",
+      "race" : null,
+      "species" : "Grey phalarope",
+      "birthdate" : "2004-08-30",
+      "chip_number" : 4129340,
+      "license_number" : 990042,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/18"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/18"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/18/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/18/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/18/owner"
+        }
+      }
+    }, {
+      "name" : "Fix San",
+      "race" : null,
+      "species" : "Wallaby, bennett's",
+      "birthdate" : "2011-07-10",
+      "chip_number" : 1108268,
+      "license_number" : 8969465,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/19"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/19"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/19/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/19/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/19/owner"
+        }
+      }
+    }, {
+      "name" : "Fixflex",
+      "race" : null,
+      "species" : "Ringtail",
+      "birthdate" : "2009-07-11",
+      "chip_number" : 5968952,
+      "license_number" : 2079644,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/pet/20"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/pet/20"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/pet/20/consultations"
+        },
+        "treatments" : {
+          "href" : "http://localhost:8080/pet/20/treatments"
+        },
+        "owner" : {
+          "href" : "http://localhost:8080/pet/20/owner"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://localhost:8080/pet?page=0&size=20"
+    },
+    "self" : {
+      "href" : "http://localhost:8080/pet{?page,size,sort}",
+      "templated" : true
+    },
+    "next" : {
+      "href" : "http://localhost:8080/pet?page=1&size=20"
+    },
+    "last" : {
+      "href" : "http://localhost:8080/pet?page=4&size=20"
+    },
+    "profile" : {
+      "href" : "http://localhost:8080/profile/pet"
+    },
+    "search" : {
+      "href" : "http://localhost:8080/pet/search"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 95,
+    "totalPages" : 5,
+    "number" : 0
+  }
+}

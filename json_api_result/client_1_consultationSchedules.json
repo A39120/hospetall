@@ -1,0 +1,809 @@
+{
+  "_embedded" : {
+    "consultation_schedules" : [ {
+      "start_period" : 1546806505816,
+      "end_period" : 1546810105816,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/79"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/79"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/79/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/79/client"
+        }
+      }
+    }, {
+      "start_period" : 1574846407132,
+      "end_period" : 1574850007132,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/209"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/209"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/209/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/209/client"
+        }
+      }
+    }, {
+      "start_period" : 1542711127106,
+      "end_period" : 1542714727106,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/46"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/46"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/46/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/46/client"
+        }
+      }
+    }, {
+      "start_period" : 1556957276500,
+      "end_period" : 1556960876500,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/127"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/127"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/127/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/127/client"
+        }
+      }
+    }, {
+      "start_period" : 1561378774211,
+      "end_period" : 1561382374211,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/154"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/154"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/154/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/154/client"
+        }
+      }
+    }, {
+      "start_period" : 1627953749819,
+      "end_period" : 1627957349819,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/478"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/478"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/478/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/478/client"
+        }
+      }
+    }, {
+      "start_period" : 1540100065047,
+      "end_period" : 1540103665047,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/32"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/32"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/32/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/32/client"
+        }
+      }
+    }, {
+      "start_period" : 1572633894800,
+      "end_period" : 1572637494800,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/200"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/200"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/200/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/200/client"
+        }
+      }
+    }, {
+      "start_period" : 1559779592137,
+      "end_period" : 1559783192137,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/142"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/142"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/142/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/142/client"
+        }
+      }
+    }, {
+      "start_period" : 1603185948142,
+      "end_period" : 1603189548142,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/362"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/362"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/362/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/362/client"
+        }
+      }
+    }, {
+      "start_period" : 1548716994331,
+      "end_period" : 1548720594331,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/89"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/89"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/89/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/89/client"
+        }
+      }
+    }, {
+      "start_period" : 1593463301551,
+      "end_period" : 1593466901551,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/315"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/315"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/315/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/315/client"
+        }
+      }
+    }, {
+      "start_period" : 1586475645507,
+      "end_period" : 1586479245507,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/273"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/273"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/273/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/273/client"
+        }
+      }
+    }, {
+      "start_period" : 1612548473222,
+      "end_period" : 1612552073222,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/404"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/404"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/404/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/404/client"
+        }
+      }
+    }, {
+      "start_period" : 1567202376742,
+      "end_period" : 1567205976742,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/178"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/178"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/178/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/178/client"
+        }
+      }
+    }, {
+      "start_period" : 1629832224750,
+      "end_period" : 1629835824750,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/487"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/487"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/487/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/487/client"
+        }
+      }
+    }, {
+      "start_period" : 1592857423823,
+      "end_period" : 1592861023823,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/312"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/312"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/312/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/312/client"
+        }
+      }
+    }, {
+      "start_period" : 1612754863739,
+      "end_period" : 1612758463739,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/405"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/405"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/405/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/405/client"
+        }
+      }
+    }, {
+      "start_period" : 1536869522948,
+      "end_period" : 1536873122948,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/18"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/18"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/18/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/18/client"
+        }
+      }
+    }, {
+      "start_period" : 1597418323590,
+      "end_period" : 1597421923590,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/330"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/330"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/330/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/330/client"
+        }
+      }
+    }, {
+      "start_period" : 1548454299214,
+      "end_period" : 1548457899214,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/86"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/86"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/86/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/86/client"
+        }
+      }
+    }, {
+      "start_period" : 1568743028877,
+      "end_period" : 1568746628877,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/185"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/185"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/185/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/185/client"
+        }
+      }
+    }, {
+      "start_period" : 1579709114716,
+      "end_period" : 1579712714716,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/241"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/241"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/241/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/241/client"
+        }
+      }
+    }, {
+      "start_period" : 1626117686232,
+      "end_period" : 1626121286232,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/475"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/475"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/475/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/475/client"
+        }
+      }
+    }, {
+      "start_period" : 1592390967634,
+      "end_period" : 1592394567634,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/308"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/308"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/308/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/308/client"
+        }
+      }
+    }, {
+      "start_period" : 1553110422103,
+      "end_period" : 1553114022103,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/107"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/107"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/107/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/107/client"
+        }
+      }
+    }, {
+      "start_period" : 1566686541219,
+      "end_period" : 1566690141219,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/174"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/174"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/174/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/174/client"
+        }
+      }
+    }, {
+      "start_period" : 1573841672628,
+      "end_period" : 1573845272628,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/204"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/204"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/204/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/204/client"
+        }
+      }
+    }, {
+      "start_period" : 1576227502972,
+      "end_period" : 1576231102972,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/218"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/218"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/218/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/218/client"
+        }
+      }
+    }, {
+      "start_period" : 1582831131097,
+      "end_period" : 1582834731097,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/251"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/251"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/251/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/251/client"
+        }
+      }
+    }, {
+      "start_period" : 1584861642036,
+      "end_period" : 1584865242036,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/263"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/263"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/263/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/263/client"
+        }
+      }
+    }, {
+      "start_period" : 1576583455166,
+      "end_period" : 1576587055166,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/221"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/221"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/221/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/221/client"
+        }
+      }
+    }, {
+      "start_period" : 1596219325901,
+      "end_period" : 1596222925901,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/325"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/325"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/325/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/325/client"
+        }
+      }
+    }, {
+      "start_period" : 1603215127157,
+      "end_period" : 1603218727157,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/365"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/365"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/365/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/365/client"
+        }
+      }
+    }, {
+      "start_period" : 1537816008166,
+      "end_period" : 1537819608166,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/22"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/22"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/22/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/22/client"
+        }
+      }
+    }, {
+      "start_period" : 1575965700471,
+      "end_period" : 1575969300471,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/217"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/217"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/217/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/217/client"
+        }
+      }
+    }, {
+      "start_period" : 1601189688207,
+      "end_period" : 1601193288207,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/353"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/353"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/353/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/353/client"
+        }
+      }
+    }, {
+      "start_period" : 1617917881066,
+      "end_period" : 1617921481066,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/436"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/436"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/436/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/436/client"
+        }
+      }
+    }, {
+      "start_period" : 1575305889718,
+      "end_period" : 1575309489718,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/211"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/211"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/211/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/211/client"
+        }
+      }
+    }, {
+      "start_period" : 1616177597719,
+      "end_period" : 1616181197719,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/427"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/427"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/427/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/427/client"
+        }
+      }
+    }, {
+      "start_period" : 1582102822553,
+      "end_period" : 1582106422553,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/249"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/249"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/249/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/249/client"
+        }
+      }
+    }, {
+      "start_period" : 1598121889295,
+      "end_period" : 1598125489295,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/333"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/333"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/333/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/333/client"
+        }
+      }
+    }, {
+      "start_period" : 1580194020266,
+      "end_period" : 1580197620266,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/242"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/242"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/242/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/242/client"
+        }
+      }
+    }, {
+      "start_period" : 1567667285527,
+      "end_period" : 1567670885527,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/182"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/182"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/182/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/182/client"
+        }
+      }
+    }, {
+      "start_period" : 1535267959789,
+      "end_period" : 1535271559789,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/10"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/10"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/10/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/10/client"
+        }
+      }
+    }, {
+      "start_period" : 1559250912940,
+      "end_period" : 1559254512940,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/139"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/139"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/139/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/139/client"
+        }
+      }
+    }, {
+      "start_period" : 1534979084342,
+      "end_period" : 1534982684342,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation_schedule/7"
+        },
+        "consultationSchedule" : {
+          "href" : "http://localhost:8080/consultation_schedule/7"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation_schedule/7/veterinarian"
+        },
+        "client" : {
+          "href" : "http://localhost:8080/consultation_schedule/7/client"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/client/1/consultationSchedules"
+    }
+  }
+}
