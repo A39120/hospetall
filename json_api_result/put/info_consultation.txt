@@ -5,24 +5,25 @@
 * TCP_NODELAY set
 * Connected to localhost (127.0.0.1) port 8080 (#0)
 * Server auth using Bearer with user ''
-> POST /register/treatment?pet=1 HTTP/1.1
+> PUT /consultation/1 HTTP/1.1
 > Host: localhost:8080
-> Authorization: Bearer c143ef30-2ac3-45f4-b6a4-1288d7181e2b
+> Authorization: Bearer 21b7881f-628c-4d72-8c05-44afa1caa399
 > User-Agent: curl/7.61.0
 > Accept: */*
 > Content-Type:application/json
-> Content-Length: 150
+> Content-Length: 151
 > 
-* upload completely sent off: 150 out of 150 bytes
-< HTTP/1.1 201 
-< Location: /treatment/802
+* upload completely sent off: 151 out of 151 bytes
+< HTTP/1.1 200 
+< Location: http://localhost:8080/consultation/1
 < X-Content-Type-Options: nosniff
 < X-XSS-Protection: 1; mode=block
 < Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 < Pragma: no-cache
 < Expires: 0
 < X-Frame-Options: DENY
-< Content-Length: 0
-< Date: Sun, 12 Aug 2018 23:00:36 GMT
+< Content-Type: application/hal+json;charset=UTF-8
+< Transfer-Encoding: chunked
+< Date: Sun, 12 Aug 2018 23:05:07 GMT
 < 
 * Connection #0 to host localhost left intact
