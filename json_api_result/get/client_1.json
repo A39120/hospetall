@@ -1,0 +1,27 @@
+{
+  "id" : 1,
+  "familyName" : "Bails",
+  "givenName" : "Andrej",
+  "email" : "abails89@bbb.org",
+  "telephone" : "314-206-7994",
+  "address" : "3 Amoth Circle",
+  "postalCode" : null,
+  "other" : "xjjBMuwvPxqtTu5KWbyMfiSLACinl9vCRa6fQTa5Zt8wi0t1qQ5jF2F ABuU136i6vAhfLL5n4gZyUqh",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/client/1"
+    },
+    "client" : {
+      "href" : "http://localhost:8080/client/1"
+    },
+    "consultationSchedules" : {
+      "href" : "http://localhost:8080/client/1/consultationSchedules"
+    },
+    "pets" : {
+      "href" : "http://localhost:8080/client/1/pets"
+    },
+    "treatmentSchedules" : {
+      "href" : "http://localhost:8080/client/1/treatmentSchedules"
+    }
+  }
+}

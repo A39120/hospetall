@@ -1,0 +1,24 @@
+{
+  "id" : 4,
+  "familyName" : "Reed",
+  "givenName" : "Lou",
+  "email" : "reed@gmail.com",
+  "telephone" : "+311119",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/veterinarian/4"
+    },
+    "veterinarian" : {
+      "href" : "http://localhost:8080/veterinarian/4"
+    },
+    "schedules" : {
+      "href" : "http://localhost:8080/veterinarian/4/schedules"
+    },
+    "shifts" : {
+      "href" : "http://localhost:8080/veterinarian/4/shifts"
+    },
+    "consultations" : {
+      "href" : "http://localhost:8080/veterinarian/4/consultations"
+    }
+  }
+}
