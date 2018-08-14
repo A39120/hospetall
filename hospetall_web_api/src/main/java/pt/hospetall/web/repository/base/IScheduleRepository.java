@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface IScheduleRepository<T extends Schedule> extends PagingAndSortingRepository<T, Integer> {
 
 	@Override
-	@PostAuthorize("returnObject.get().client.email == principal.username")
+	@PostAuthorize("returnObject.get().client.email == principal.username or hasAnyRole('ROLE_RECEPTIONIST', 'ROLE_VETERINARIAN', 'ROLE_NURSE', 'ROLE_ADMIN')")
 	Optional<T> findById(Integer integer);
 
 }
