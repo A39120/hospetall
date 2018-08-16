@@ -1,0 +1,18 @@
+{
+  "start_period" : 1558552569588,
+  "end_period" : 1558556169588,
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/consultation_schedule/1"
+    },
+    "consultationSchedule" : {
+      "href" : "http://localhost:8080/consultation_schedule/1"
+    },
+    "veterinarian" : {
+      "href" : "http://localhost:8080/consultation_schedule/1/veterinarian"
+    },
+    "client" : {
+      "href" : "http://localhost:8080/consultation_schedule/1/client"
+    }
+  }
+}

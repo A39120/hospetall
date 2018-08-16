@@ -1,0 +1,24 @@
+{
+  "id" : 1,
+  "familyName" : "Waters",
+  "givenName" : "Roger",
+  "email" : "waters@gmail.com",
+  "telephone" : "+31111",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/veterinarian/1"
+    },
+    "veterinarian" : {
+      "href" : "http://localhost:8080/veterinarian/1"
+    },
+    "schedules" : {
+      "href" : "http://localhost:8080/veterinarian/1/schedules"
+    },
+    "shifts" : {
+      "href" : "http://localhost:8080/veterinarian/1/shifts"
+    },
+    "consultations" : {
+      "href" : "http://localhost:8080/veterinarian/1/consultations"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "_links" : {
+    "consultation_schedules" : {
+      "href" : "http://localhost:8080/consultation_schedule{?page,size,sort}",
+      "templated" : true
+    },
+    "nurses" : {
+      "href" : "http://localhost:8080/nurse{?page,size,sort}",
+      "templated" : true
+    },
+    "veterinarian" : {
+      "href" : "http://localhost:8080/veterinarian{?page,size,sort}",
+      "templated" : true
+    },
+    "treatment_schedules" : {
+      "href" : "http://localhost:8080/treatment_schedule{?page,size,sort}",
+      "templated" : true
+    },
+    "clients" : {
+      "href" : "http://localhost:8080/client{?page,size,sort}",
+      "templated" : true
+    },
+    "consultations" : {
+      "href" : "http://localhost:8080/consultation{?page,size,sort}",
+      "templated" : true
+    },
+    "shifts" : [ {
+      "href" : "http://localhost:8080/shift{?page,size,sort}",
+      "templated" : true
+    }, {
+      "href" : "http://localhost:8080/shift{?page,size,sort}",
+      "templated" : true
+    } ],
+    "treatments" : {
+      "href" : "http://localhost:8080/treatment{?page,size,sort}",
+      "templated" : true
+    },
+    "pets" : {
+      "href" : "http://localhost:8080/pet{?page,size,sort}",
+      "templated" : true
+    },
+    "receptionists" : {
+      "href" : "http://localhost:8080/receptionist{?page,size,sort}",
+      "templated" : true
+    },
+    "profile" : {
+      "href" : "http://localhost:8080/profile"
+    }
+  }
+}
