@@ -2,24 +2,27 @@ import React from 'react'
 import ClientList from './client-list'
 import GridMenu from './grid-menu'
 
+//const ip = 'http://10.10.1.142/'
+const ip = 'http://localhost:8081/'
+
 const partsRecept = [
-  {name: 'Salas de Espera', url: 'http://localhost:8081/waintingRoom'},
-  {name: 'Marcações', url: 'http://localhost:8081/appointment'},
-  {name: 'Cliente', url: 'http://localhost:8081/client'},
-  {name: 'Animal', url: 'http://localhost:8081/pet'},
-  {name: 'Produtos', url: 'http://localhost:8081/product'},
-  {name: 'Configurações', url: 'http://localhost:8081/config'}
+  {name: 'Salas de Espera', url: ip+'waintingRoom'},
+  {name: 'Marcações', url: ip+'appointment'},
+  {name: 'Cliente', url: ip+'client'},
+  {name: 'Animal', url: ip+'pet'},
+  {name: 'Produtos', url: ip+'product'},
+  {name: 'Configurações', url: ip+'config'}
 ]
 
 const partsVet = [
-  {name: 'Consultas', url: 'http://10.10.2.56/waintingRoom'},
-  {name: 'Agenda', url: 'http://10.10.2.56/appointment'},
-  {name: 'Registo de Consultas', url: 'http://10.10.2.56/client'},
-  {name: 'Lista de Animais', url: 'http://10.10.2.56/pet'},
-  {name: 'Configurações', url: 'http://10.10.2.56/config'}
+  {name: 'Consultas', url: ip+'waintingRoom'},
+  {name: 'Agenda', url: ip+'appointment'},
+  {name: 'Registo de Consultas', url: ip+'client'},
+  {name: 'Lista de Animais', url: ip+'pet'},
+  {name: 'Configurações', url: ip+'config'}
 ]
 
-const isRecept = false
+const isRecept = true
 
 export default function (props) {
   return (
