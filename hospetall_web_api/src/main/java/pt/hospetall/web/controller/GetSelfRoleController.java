@@ -19,7 +19,6 @@ import pt.hospetall.web.repository.person.IReceptionistRepository;
 import pt.hospetall.web.repository.person.IVeterinarianRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -83,8 +82,8 @@ public class GetSelfRoleController {
 			redirect = "redirect:/client/";
 			person = clientRepository.findByEmail(email).orElseThrow(PersonNotFoundException::new);
 		}
-		else throw new AccessDeniedException("Entity doesn't have information");
-
+		else
+			throw new AccessDeniedException("Entity doesn't have information");
 
 		return redirect + person.getId();
 	}

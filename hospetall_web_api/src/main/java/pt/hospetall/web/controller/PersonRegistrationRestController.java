@@ -1,13 +1,11 @@
 package pt.hospetall.web.controller;
 
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import pt.hospetall.web.error.exceptions.AccountNotFoundException;
 import pt.hospetall.web.error.exceptions.PersonNotFoundException;
@@ -17,13 +15,12 @@ import pt.hospetall.web.model.person.Nurse;
 import pt.hospetall.web.model.person.Receptionist;
 import pt.hospetall.web.model.person.Veterinarian;
 import pt.hospetall.web.model.person.base.Person;
-import pt.hospetall.web.model.security.Account;
 import pt.hospetall.web.repository.base.IPersonBaseRepository;
 import pt.hospetall.web.repository.person.IClientRepository;
 import pt.hospetall.web.repository.person.INurseRepository;
 import pt.hospetall.web.repository.person.IReceptionistRepository;
 import pt.hospetall.web.repository.person.IVeterinarianRepository;
-import pt.hospetall.web.services.CustomUserDetailsService;
+import pt.hospetall.web.services.security.CustomUserDetailsService;
 import pt.hospetall.web.services.EmailSenderService;
 
 import java.net.URI;
