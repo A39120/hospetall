@@ -9,15 +9,18 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pt.hospetall.web.error.exceptions.PersonNotFoundException;
 import pt.hospetall.web.model.person.Nurse;
+import pt.hospetall.web.model.person.Veterinarian;
+import pt.hospetall.web.model.schedule.ConsultationSchedule;
 import pt.hospetall.web.model.schedule.TreatmentSchedule;
 import pt.hospetall.web.model.shift.NurseShift;
+import pt.hospetall.web.model.shift.Shift;
 import pt.hospetall.web.model.shift.VeterinarianShift;
-import pt.hospetall.web.repository.INurseShiftRepository;
 import pt.hospetall.web.repository.person.INurseRepository;
 import pt.hospetall.web.repository.person.IVeterinarianRepository;
 import pt.hospetall.web.services.AvailableHoursService;
@@ -73,16 +76,86 @@ public class AvailablePeriodController {
 				.flatMap(nurse -> {
 					PriorityQueue<NurseShift> shf = shiftService.getNurseShiftBetween(nurse, fStart, fEnd);
 					PriorityQueue<TreatmentSchedule> sch = scheduleService.getNurseSchedulesBetween(nurse, fStart, fEnd);
-
 					return availableHoursService.nurseSplitIntoAvailableHours(shf, sch).stream();
 				})
 				.collect(PriorityQueue::new, (queue, el) -> { if(el!= null) queue.add(el); }, PriorityQueue::addAll);
 
-		Link link = linkTo(methodOn(AvailablePeriodController.class).getAllNurseShiftsAvailableBetween(start, end, page, size))
+		Link link = linkTo(methodOn(AvailablePeriodController.class)
+				.getAllNurseShiftsAvailableBetween(start, end, page, size))
 				.withSelfRel();
 
 		return ResponseEntity.ok(getPagedNurseShift(nurseShifts, link, page, size));
+	}
 
+	@GetMapping(path = "/veterinarian")
+	public ResponseEntity<PagedResources<Resource<VeterinarianShift>>> getAllVeterinarianShiftsAvailableBetween(
+			@RequestParam(name = "start", defaultValue = "0") long start,
+			@RequestParam(name = "end", defaultValue = "0") long end,
+			@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+			@RequestParam(name = "size", defaultValue = "20", required = false) int size
+	){
+		final long fStart = getStart(start),
+				fEnd = getEnd(end);
+
+		List<Veterinarian> vets = veterinarianRepository.findAll();
+		PriorityQueue<VeterinarianShift> veterinarianShifts = vets.stream()
+				.flatMap(vet -> {
+					PriorityQueue<VeterinarianShift> shf = shiftService.getVeterinarianShiftBetween(vet, fStart, fEnd);
+					PriorityQueue<ConsultationSchedule> sch = scheduleService.getVeterinarianSchedulesBetween(vet, fStart, fEnd);
+					return availableHoursService.veterinarianSplitIntoAvailableHours(shf, sch).stream();
+				})
+				.collect(PriorityQueue::new, (queue, el) -> { if(el!= null) queue.add(el); }, PriorityQueue::addAll);
+
+		Link link = linkTo(methodOn(AvailablePeriodController.class)
+				.getAllVeterinarianShiftsAvailableBetween(start, end, page, size))
+				.withSelfRel();
+
+		return ResponseEntity.ok(getPagedVeterinarianShift(veterinarianShifts, link, page, size));
+	}
+
+	@GetMapping(path = "/nurse/{id}")
+	public ResponseEntity<PagedResources<Resource<NurseShift>>> getNurseShiftsAvailableBetween(
+			@PathVariable(name = "id") int nurse_id,
+			@RequestParam(name = "start", defaultValue = "0") long start,
+			@RequestParam(name = "end", defaultValue = "0") long end,
+			@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+			@RequestParam(name = "size", defaultValue = "20", required = false) int size
+	){
+		final long fStart = getStart(start),
+				fEnd = getEnd(end);
+
+		Nurse nurse = nurseRepository.findById(nurse_id).orElseThrow(PersonNotFoundException::new);
+		PriorityQueue<NurseShift> shf = shiftService.getNurseShiftBetween(nurse, fStart, fEnd);
+		PriorityQueue<TreatmentSchedule> sch = scheduleService.getNurseSchedulesBetween(nurse, fStart, fEnd);
+		PriorityQueue<NurseShift> available =  availableHoursService.nurseSplitIntoAvailableHours(shf, sch);
+
+		Link link = linkTo(methodOn(AvailablePeriodController.class)
+				.getNurseShiftsAvailableBetween(nurse_id, start, end, page, size))
+				.withSelfRel();
+
+		return ResponseEntity.ok(getPagedNurseShift(available, link, page, size));
+	}
+
+	@GetMapping(path = "/veterinarian/{id}")
+	public ResponseEntity<PagedResources<Resource<VeterinarianShift>>> getVeterinarianShiftBetween(
+			@PathVariable(name = "id") int vet_id,
+			@RequestParam(name = "start", defaultValue = "0") long start,
+			@RequestParam(name = "end", defaultValue = "0") long end,
+			@RequestParam(name = "page", defaultValue = "0", required = false) int page,
+			@RequestParam(name = "size", defaultValue = "20", required = false) int size
+	){
+		final long fStart = getStart(start), fEnd = getEnd(end);
+
+		Veterinarian veterinarian = veterinarianRepository.findById(vet_id).orElseThrow(PersonNotFoundException::new);
+		PriorityQueue<VeterinarianShift> shf = shiftService.getVeterinarianShiftBetween(veterinarian, fStart, fEnd);
+		PriorityQueue<ConsultationSchedule> sch = scheduleService.getVeterinarianSchedulesBetween(veterinarian, fStart, fEnd);
+		PriorityQueue<VeterinarianShift> available =  availableHoursService.veterinarianSplitIntoAvailableHours(shf, sch);
+
+		Link link = linkTo(methodOn(AvailablePeriodController.class)
+				.getVeterinarianShiftBetween(vet_id, start, end, page, size))
+				.withSelfRel();
+
+		return ResponseEntity.ok(getPagedVeterinarianShift(available, link, page, size));
 	}
 
 	private long getEnd(long end){
@@ -104,82 +177,28 @@ public class AvailablePeriodController {
 		return start;
 	}
 
-
-
-	/**
-	 * Returns all the shifts from all the nurses that have slots available.
-	 * @param start the start of the period that of the shift we want is in, all shifts after this will be ignored
-	 * @param end the end of the period of the shifts we want is in, all shifts after this will be ignored
-	 * @return 200 if everything is ok
-	 */
-	/*@PreAuthorize("isAuthenticated()")
-	@GetMapping(path = "/nurse", produces = MediaTypes.HAL_JSON_VALUE)
-	public ResponseEntity<PagedResources<Resource<NurseShift>>> getAllAvailableBetween(
-			@RequestParam(name = "start", defaultValue = "0") long start,
-			@RequestParam(name = "end", defaultValue = "0") long end,
-			@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-			@RequestParam(name = "size", defaultValue = "20", required = false) int size
-	) throws InvalidPeriodException {
-		CalendarPeriod calendarPeriod = getCalendarPeriod(start, end);
-
-		LinkedList<Nurse> nurses = new LinkedList<>();
-		nurseRepository.findAll().forEach(nurses::add);
-
-		List<NurseShift> shifts = nurses.stream()
-				.flatMap(nurse -> {
-					List<CalendarPeriod> available = getAllAvailablePeriodsNurseBetween(nurse, calendarPeriod);
-					return available.stream().map(cp -> calendarPeriodToNurseShift(nurse, cp));
-				})
-				.sorted((ns1, ns2) -> (int)(ns1.getStartPeriod() - ns2.getStartPeriod()))
-				.collect(Collectors.toList());
-
-		Link link = linkTo(methodOn(AvailablePeriodController.class).getAllAvailableBetween(start, end, page, size))
-				.withSelfRel();
-
-		return ResponseEntity.ok(getPagedNurseShift(shifts, link, page, size));
+	private PagedResources<Resource<VeterinarianShift>> getPagedVeterinarianShift(PriorityQueue<VeterinarianShift> shifts,
+																	Link link,
+																	int page,
+																	int size){
+		return getPagedShift(shifts, link, page, size, veterinarianShiftPagedResourcesAssembler);
 	}
-
-	/**
-	 * Returns all the shifts from all the nurses that have slots available.
-	 * @param start the start of the period that of the shift we want is in, all shifts after this will be ignored
-	 * @param end the end of the period of the shifts we want is in, all shifts after this will be ignored
-	 * @return 200 if everything is ok
-	 */
-	/**@PreAuthorize("isAuthenticated()")
-	@GetMapping(path = "/nurse/{id}", produces = MediaTypes.HAL_JSON_VALUE)
-	public ResponseEntity getAllAvailableBetweenFor(
-			@RequestParam(name = "start", defaultValue = "0") long start,
-			@RequestParam(name = "end", defaultValue = "0") long end,
-			@PathVariable(name="id") int id,
-			@RequestParam(name = "page", defaultValue = "0", required = false) int page,
-			@RequestParam(name = "size", defaultValue = "20", required = false) int size
-	) throws InvalidPeriodException, PersonNotFoundException {
-
-		Nurse nurse = nurseRepository.findById(id)
-				.orElseThrow(PersonNotFoundException::new);
-
-		List<CalendarPeriod> available =
-				getAllAvailablePeriodsNurseBetween(nurse, calendarPeriod);
-
-		List<NurseShift> shifts = available
-				.stream()
-				.map(cp -> calendarPeriodToNurseShift(nurse, cp))
-				.collect(Collectors.toList());
-
-		Link link = linkTo(methodOn(AvailablePeriodController.class).getAllAvailableBetween(start, end, page, size))
-				.withSelfRel();
-
-		return ResponseEntity.ok(getPagedNurseShift(shifts, link, page, size));
-	}
-	*/
 
 	private PagedResources<Resource<NurseShift>> getPagedNurseShift(PriorityQueue<NurseShift> shifts,
 																	Link link,
 																	int page,
 																	int size){
-		int listSize = shifts.size();
+		return getPagedShift(shifts, link, page, size, nurseShiftPagedResourcesAssembler);
+	}
+
+	private <T extends Shift> PagedResources<Resource<T>> getPagedShift(PriorityQueue<T> shift,
+																		Link link,
+																		int page,
+																		int size,
+																		PagedResourcesAssembler<T> assembler){
+		int listSize = shift.size();
 		int currentOffset = page * size;
-		List<NurseShift> paged = shifts
+		List<T> paged = shift
 				.stream()
 				.skip(currentOffset)
 				.limit(size)
@@ -191,13 +210,7 @@ public class AvailablePeriodController {
 		else
 			pageable = Pageable.unpaged();
 
-		return nurseShiftPagedResourcesAssembler.toResource( new PageImpl(paged, pageable, listSize), link );
+		return assembler.toResource(new PageImpl<>(paged, pageable, listSize), link);
 	}
-
-
-
-
-
-
 
 }

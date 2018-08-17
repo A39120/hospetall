@@ -10,43 +10,38 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pt.hospetall.web.error.exceptions.PersonNotFoundException;
-import pt.hospetall.web.model.person.Nurse;
 import pt.hospetall.web.model.person.Veterinarian;
-import pt.hospetall.web.model.shift.NurseShift;
 import pt.hospetall.web.model.shift.VeterinarianShift;
-import pt.hospetall.web.repository.INurseShiftRepository;
-import pt.hospetall.web.repository.person.INurseRepository;
+import pt.hospetall.web.repository.IVeterinarianShiftRepository;
+import pt.hospetall.web.repository.person.IVeterinarianRepository;
 import pt.hospetall.web.services.ShiftService;
 
 import java.net.URI;
 
 @RepositoryRestController
 @RequestMapping
-public class NurseShiftController {
+public class VeterinarianShiftController {
 
 	@Autowired
 	private ShiftService shiftService;
 
 	@Autowired
-	private INurseShiftRepository nurseShiftRepository;
+	private IVeterinarianShiftRepository veterinarianShiftRepository;
 
 	@Autowired
-	private INurseRepository nurseRepository;
+	private IVeterinarianRepository veterinarianRepository;
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	@PostMapping(path = "/schedule/nurse/{id}/shift", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/schedule/veterinarian/{id}/shift", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity schedule(
-			@RequestBody NurseShift nurseShift,
+			@RequestBody VeterinarianShift veterinarianShift,
 			@PathVariable(name = "id") int id
 	) throws PersonNotFoundException {
-		Nurse nurse = nurseRepository.findById(id)
+		Veterinarian veterinarian = veterinarianRepository.findById(id)
 				.orElseThrow(PersonNotFoundException::new);
 
-		nurseShift.setNurse(nurse);
-		nurseShift = shiftService.addShift(nurseShift, nurse.getShifts(), nurseShiftRepository);
-		return ResponseEntity.created(URI.create("/nurse_shift/" + nurseShift.getId())).build();
+		veterinarianShift.setVeterinarian(veterinarian);
+		veterinarianShift = shiftService.addShift(veterinarianShift, veterinarian.getShifts(), veterinarianShiftRepository);
+		return ResponseEntity.created(URI.create("/veterinarian_shift/" + veterinarianShift.getId())).build();
 	}
-
-
-
 }

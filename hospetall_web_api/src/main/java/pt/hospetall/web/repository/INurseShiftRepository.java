@@ -5,5 +5,5 @@ import pt.hospetall.web.model.shift.NurseShift;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "shifts", path="shift")
+@RepositoryRestResource(collectionResourceRel = "nurse_shifts", path="nurse_shift")
 public interface INurseShiftRepository extends IShiftRepository<NurseShift> { }
