@@ -1,5 +1,6 @@
 package pt.hospetall.web.model.person;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pt.hospetall.web.model.medical.Treatment;
 import pt.hospetall.web.model.person.base.Person;
 import pt.hospetall.web.model.shift.NurseShift;
@@ -12,12 +13,15 @@ import java.util.Set;
 @Table(name = "nurse")
 public class Nurse extends Person {
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "nurse")
 	private Set<NurseShift> shifts;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "nurse", targetEntity = Treatment.class)
 	private Set<Treatment> treatments;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "nurse", targetEntity = TreatmentSchedule.class)
 	private Set<TreatmentSchedule> schedules;
 
