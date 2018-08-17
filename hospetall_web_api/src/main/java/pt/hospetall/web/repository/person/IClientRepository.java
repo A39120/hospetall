@@ -18,7 +18,6 @@ public interface IClientRepository extends IPersonBaseRepository<Client> {
 	Optional<Client> findByEmail(@P("email") String email);
 
 	@Override
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_RECEPTIONIST', 'ROLE_CLIENT')")
 	@PostAuthorize("returnObject.get().email == principal.username or hasAnyRole('ROLE_ADMIN','ROLE_RECEPTIONIST')")
 	Optional<Client> findById(@Param(value="id") Integer id);
 
