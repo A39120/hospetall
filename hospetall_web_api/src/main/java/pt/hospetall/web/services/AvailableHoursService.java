@@ -2,13 +2,18 @@ package pt.hospetall.web.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.hospetall.web.model.person.Nurse;
+import pt.hospetall.web.model.person.Veterinarian;
 import pt.hospetall.web.model.schedule.ConsultationSchedule;
 import pt.hospetall.web.model.schedule.Schedule;
 import pt.hospetall.web.model.schedule.TreatmentSchedule;
 import pt.hospetall.web.model.shift.NurseShift;
 import pt.hospetall.web.model.shift.Shift;
 import pt.hospetall.web.model.shift.VeterinarianShift;
+import pt.hospetall.web.repository.person.INurseRepository;
+import pt.hospetall.web.util.CalendarUtil;
 
+import java.util.Calendar;
 import java.util.PriorityQueue;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
@@ -96,5 +101,30 @@ public class AvailableHoursService {
 		shifts.add(first);
 		shifts.add(second);
 		return shifts;
+	}
+
+	public PriorityQueue<NurseShift> getAvailableHoursForNurseBetween(Nurse nurse, long start, long end){
+			PriorityQueue<NurseShift> shf = shiftService.getNurseShiftBetween(nurse, start, end);
+			PriorityQueue<TreatmentSchedule> sch = scheduleService.getNurseSchedulesBetween(nurse, start, end);
+			return nurseSplitIntoAvailableHours(shf, sch);
+	}
+
+	public PriorityQueue<VeterinarianShift> getAvailableHoursForVeterinarianShift(Veterinarian veterinarian, long start, long end){
+		PriorityQueue<VeterinarianShift> shf = shiftService.getVeterinarianShiftBetween(veterinarian, start, end);
+		PriorityQueue<ConsultationSchedule> sch = scheduleService.getVeterinarianSchedulesBetween(veterinarian, start, end);
+		return veterinarianSplitIntoAvailableHours(shf, sch);
+	}
+
+
+	public PriorityQueue<NurseShift> getAllAvailableHoursForNursesBetween(long start, long end){
+		PriorityQueue<NurseShift> shf = shiftService.getAllNursesShiftsBetween(start, end);
+		PriorityQueue<TreatmentSchedule> sch = scheduleService.getTreatmentSchedulesBetween(start, end);
+		return nurseSplitIntoAvailableHours(shf, sch);
+	}
+
+	public PriorityQueue<VeterinarianShift> getAllAvailableHoursForVeterinarianBetween(long start, long end){
+		PriorityQueue<VeterinarianShift> shf = shiftService.getAllVeterinariansShiftsBetween(start, end);
+		PriorityQueue<ConsultationSchedule> sch = scheduleService.getConsultationSchedulesBetween(start, end);
+		return veterinarianSplitIntoAvailableHours(shf, sch);
 	}
 }

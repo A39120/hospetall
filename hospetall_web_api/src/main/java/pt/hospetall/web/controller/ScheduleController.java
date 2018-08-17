@@ -17,17 +17,19 @@ import pt.hospetall.web.model.person.Client;
 import pt.hospetall.web.model.person.Nurse;
 import pt.hospetall.web.model.person.Veterinarian;
 import pt.hospetall.web.model.schedule.ConsultationSchedule;
-import pt.hospetall.web.model.schedule.Schedule;
 import pt.hospetall.web.model.schedule.TreatmentSchedule;
-import pt.hospetall.web.model.shift.Shift;
+import pt.hospetall.web.model.shift.NurseShift;
+import pt.hospetall.web.model.shift.VeterinarianShift;
 import pt.hospetall.web.repository.person.IClientRepository;
 import pt.hospetall.web.repository.person.INurseRepository;
 import pt.hospetall.web.repository.person.IVeterinarianRepository;
 import pt.hospetall.web.repository.schedule.IConsultationScheduleRepository;
 import pt.hospetall.web.repository.schedule.ITreatmentScheduleRepository;
+import pt.hospetall.web.services.AvailableHoursService;
+import pt.hospetall.web.util.CalendarUtil;
 
 import java.net.URI;
-import java.util.List;
+import java.util.Calendar;
 
 @RepositoryRestController
 @RequestMapping
@@ -38,19 +40,21 @@ public class ScheduleController {
 	private final IClientRepository clientRepository;
 	private final ITreatmentScheduleRepository treatmentScheduleRepository;
 	private final IConsultationScheduleRepository consultationScheduleRepository;
+	private final AvailableHoursService availableHoursService;
 
 	@Autowired
 	public ScheduleController(IVeterinarianRepository veterinarianRepository,
 							  INurseRepository nurseRepository,
 							  IClientRepository clientRepository,
 							  ITreatmentScheduleRepository treatmentScheduleRepository,
-							  IConsultationScheduleRepository consultationScheduleRepository) {
+							  IConsultationScheduleRepository consultationScheduleRepository, AvailableHoursService availableHoursService) {
 
 		this.veterinarianRepository = veterinarianRepository;
 		this.nurseRepository = nurseRepository;
 		this.clientRepository = clientRepository;
 		this.treatmentScheduleRepository = treatmentScheduleRepository;
 		this.consultationScheduleRepository = consultationScheduleRepository;
+		this.availableHoursService = availableHoursService;
 	}
 
 
@@ -61,20 +65,17 @@ public class ScheduleController {
 			@RequestParam(name="nurse", required = false) int nurse_id,
 			Authentication authentication) throws PersonNotFoundException, ScheduleConflictException {
 
+
 		UserDetails principal = (UserDetails) authentication.getPrincipal();
 		String email = principal.getUsername();
 
 		Client client = clientRepository.findByEmail(email)
 				.orElseThrow(() -> new PersonNotFoundException("Client not found."));
 
-		Nurse nurse = nurseRepository.findById(nurse_id)
-				.orElseThrow(() -> new PersonNotFoundException("Nurse not found."));
+		return nurseRepository.findById(nurse_id)
+				.map(nurse -> createTreatmentSchedule(treatmentSchedule, client, nurse))
+				.orElse(createTreatmentScheduleWithNoNurse(treatmentSchedule, client));
 
-		return createTreatmentSchedule(treatmentSchedule, client, nurse);
-	}
-
-	private <U extends Schedule> boolean isScheduleValid(List<? extends Shift> available, U schedule){
-		return false;
 	}
 
 	@PreAuthorize("hasRole('ROLE_CLIENT')")
@@ -90,10 +91,9 @@ public class ScheduleController {
 		Client client = clientRepository.findByEmail(email)
 				.orElseThrow(() -> new PersonNotFoundException("Client not found."));
 
-		Veterinarian veterinarian = veterinarianRepository.findById(vet_id)
-				.orElseThrow(() -> new PersonNotFoundException("Nurse not found."));
-
-		return createConsultationSchedule(consultationSchedule, client, veterinarian);
+		return veterinarianRepository.findById(vet_id)
+				.map(veterinarian -> createConsultationSchedule(consultationSchedule, client, veterinarian))
+				.orElse(createConsultationScheduleWithNoVeterinarian(consultationSchedule, client));
 	}
 
 	@PreAuthorize("hasRole('ROLE_VETERINARIAN')")
@@ -120,15 +120,14 @@ public class ScheduleController {
 	public ResponseEntity receptionistScheduleConsultation(
 			@RequestBody ConsultationSchedule consultationSchedule,
 			@RequestParam(name="client") int client_id,
-			@RequestParam(name="veterinarian") int vet_id ) throws PersonNotFoundException, ScheduleConflictException {
+			@RequestParam(name="veterinarian", required = false) int vet_id ) throws PersonNotFoundException, ScheduleConflictException {
 
 		Client client = clientRepository.findById(client_id)
 				.orElseThrow(() -> new PersonNotFoundException("Client not found."));
 
-		Veterinarian veterinarian = veterinarianRepository.findById(vet_id)
-				.orElseThrow(() -> new PersonNotFoundException("Veterinarian not found."));
-
-		return createConsultationSchedule(consultationSchedule, client, veterinarian);
+		return veterinarianRepository.findById(vet_id)
+				.map(v -> createConsultationSchedule(consultationSchedule, client, v))
+				.orElse(createConsultationScheduleWithNoVeterinarian(consultationSchedule, client));
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_NURSE')")
@@ -153,21 +152,31 @@ public class ScheduleController {
 	@PostMapping(path = "/schedule/treatment/receptionist", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity receptionistScheduleTreatment(
 			@RequestBody TreatmentSchedule treatmentSchedule,
-			@RequestParam(name="client", required = false) int client_id,
+			@RequestParam(name="client") int client_id,
 			@RequestParam(name="nurse", required = false) int nurse_id ) throws PersonNotFoundException, ScheduleConflictException {
-
-		Nurse nurse = nurseRepository.findById(nurse_id)
-				.orElseThrow(() -> new PersonNotFoundException("Nurse not found."));
 
 		Client client = clientRepository.findById(client_id)
 				.orElseThrow(() -> new PersonNotFoundException("Client not found."));
 
-		return createTreatmentSchedule(treatmentSchedule, client, nurse);
+		return nurseRepository
+				.findById(nurse_id)
+				.map(n -> createTreatmentSchedule(treatmentSchedule, client, n))
+				.orElse(createTreatmentScheduleWithNoNurse(treatmentSchedule, client));
 	}
 
 	private ResponseEntity createTreatmentSchedule(TreatmentSchedule treatmentSchedule,
 												   Client client,
 												   Nurse nurse) throws ScheduleConflictException{
+
+		Calendar start = CalendarUtil.getStartDay(treatmentSchedule.getStartPeriod());
+		long fStart = start.getTimeInMillis();
+		long fEnd = CalendarUtil.getEndOfDayFromCalendar(start).getTimeInMillis();
+
+		if(availableHoursService
+				.getAvailableHoursForNurseBetween(nurse, fStart, fEnd)
+				.stream()
+				.noneMatch(treatmentSchedule::inside))
+			throw new ScheduleConflictException("No nurse work hours available for this consultation schedule.");
 
 		treatmentSchedule.setNurse(nurse);
 		treatmentSchedule.setClient(client);
@@ -180,10 +189,64 @@ public class ScheduleController {
 													  Client client,
 													  Veterinarian veterinarian) throws ScheduleConflictException{
 
+		Calendar start = CalendarUtil.getStartDay(consultationSchedule.getStartPeriod());
+		long fStart = start.getTimeInMillis();
+		long fEnd = CalendarUtil.getEndOfDayFromCalendar(start).getTimeInMillis();
+
+		if(availableHoursService
+				.getAvailableHoursForVeterinarianShift(veterinarian, fStart, fEnd)
+				.stream()
+				.noneMatch(consultationSchedule::inside))
+			throw new ScheduleConflictException("No veterinarian work hours available for this consultation schedule.");
+
+
 		consultationSchedule.setVeterinarian(veterinarian);
 		consultationSchedule.setClient(client);
 		consultationSchedule = consultationScheduleRepository.save(consultationSchedule);
 
 		return ResponseEntity.created(URI.create("/consultation_schedule/" + consultationSchedule.getId())).build();
+	}
+
+
+	private ResponseEntity createConsultationScheduleWithNoVeterinarian(ConsultationSchedule consultationSchedule,
+													  Client client) throws ScheduleConflictException {
+
+		Calendar start = CalendarUtil.getStartDay(consultationSchedule.getStartPeriod());
+		long fStart = start.getTimeInMillis();
+		long fEnd = CalendarUtil.getEndOfDayFromCalendar(start).getTimeInMillis();
+
+		VeterinarianShift vet = availableHoursService
+				.getAllAvailableHoursForVeterinarianBetween(fStart, fEnd)
+				.stream()
+				.filter(consultationSchedule::inside)
+				.findAny()
+				.orElseThrow(() -> new ScheduleConflictException("No veterinarian work hours available for this consultation schedule."));
+
+		consultationSchedule.setVeterinarian(vet.getVeterinarian());
+		consultationSchedule.setClient(client);
+		consultationSchedule = consultationScheduleRepository.save(consultationSchedule);
+
+		return ResponseEntity.created(URI.create("/consultation_schedule/" + consultationSchedule.getId())).build();
+	}
+
+	private ResponseEntity createTreatmentScheduleWithNoNurse(TreatmentSchedule treatmentSchedule,
+																		Client client) throws ScheduleConflictException {
+
+		Calendar start = CalendarUtil.getStartDay(treatmentSchedule.getStartPeriod());
+		long fStart = start.getTimeInMillis();
+		long fEnd = CalendarUtil.getEndOfDayFromCalendar(start).getTimeInMillis();
+
+		NurseShift nurseShift = availableHoursService
+				.getAllAvailableHoursForNursesBetween(fStart, fEnd)
+				.stream()
+				.filter(treatmentSchedule::inside)
+				.findAny()
+				.orElseThrow(() -> new ScheduleConflictException("No nurse available for this treatment schedule."));
+
+		treatmentSchedule.setNurse(nurseShift.getNurse());
+		treatmentSchedule.setClient(client);
+		treatmentSchedule = treatmentScheduleRepository.save(treatmentSchedule);
+
+		return ResponseEntity.created(URI.create("/treatment_schedule/" + treatmentSchedule.getId())).build();
 	}
 }
