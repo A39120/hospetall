@@ -1,4 +1,4 @@
-package pt.hospetall.web.services;
+package pt.hospetall.web.services.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
