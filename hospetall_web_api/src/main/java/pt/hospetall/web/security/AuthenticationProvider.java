@@ -8,7 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import pt.hospetall.web.services.CustomUserDetailsService;
+import pt.hospetall.web.services.security.CustomUserDetailsService;
 
 @Component
 public class AuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
