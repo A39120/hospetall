@@ -19,16 +19,21 @@ public class ScheduleService {
 	@Autowired
 	private ShiftService shiftService;
 
-	@Autowired
-	private IConsultationScheduleRepository consultationScheduleRepository;
-	@Autowired
-	private ITreatmentScheduleRepository treatmentScheduleRepository;
+	private final IConsultationScheduleRepository consultationScheduleRepository;
+	private final ITreatmentScheduleRepository treatmentScheduleRepository;
 
-	public <T extends Schedule, U extends IScheduleRepository<T>> PriorityQueue<T> getSchedules(U repo){
+	@Autowired
+	public ScheduleService(ITreatmentScheduleRepository treatmentScheduleRepository,
+						   IConsultationScheduleRepository consultationScheduleRepository) {
+		this.treatmentScheduleRepository = treatmentScheduleRepository;
+		this.consultationScheduleRepository = consultationScheduleRepository;
+	}
+
+	private  <T extends Schedule, U extends IScheduleRepository<T>> PriorityQueue<T> getSchedules(U repo){
 		return repo.findAll().stream().collect(PriorityQueue::new, PriorityQueue::add, PriorityQueue::addAll);
 	}
 
-	public <T extends Schedule, U extends IScheduleRepository<T>> PriorityQueue<T> getSchedulesBetween(U repo, long start, long end){
+	private <T extends Schedule, U extends IScheduleRepository<T>> PriorityQueue<T> getSchedulesBetween(U repo, long start, long end){
 		return repo.findAllByStartPeriodAfter(start)
 				.stream()
 				.collect(PriorityQueue::new, (q, sch) -> {

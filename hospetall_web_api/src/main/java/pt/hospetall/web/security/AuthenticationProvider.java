@@ -25,12 +25,15 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
 
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
-												  UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+												  UsernamePasswordAuthenticationToken authentication)
+			throws AuthenticationException {
+
 		if(authentication.getCredentials() == null && userDetails.getPassword() == null)
 			throw new BadCredentialsException("Please specify credentials");
 
-		if(passwordEncoder.matches((CharSequence) authentication.getCredentials(), userDetails.getPassword()))
+		if(!passwordEncoder.matches((CharSequence) authentication.getCredentials(), userDetails.getPassword()))
 			throw new BadCredentialsException("Invalid login");
+
 	}
 
 	@Override

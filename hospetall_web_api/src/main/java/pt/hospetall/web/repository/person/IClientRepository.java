@@ -10,7 +10,7 @@ import pt.hospetall.web.repository.base.IPersonBaseRepository;
 
 import java.util.Optional;
 
-@PreAuthorize("hasAnyRole('ROLE_RECEPTIONIST', 'ROLE_ADMIN')")
+@PreAuthorize("isAuthenticated()")
 @RepositoryRestResource(collectionResourceRel = "clients", path="client")
 public interface IClientRepository extends IPersonBaseRepository<Client> {
 

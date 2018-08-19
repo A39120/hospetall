@@ -164,6 +164,14 @@ public class ScheduleController {
 				.orElse(createTreatmentScheduleWithNoNurse(treatmentSchedule, client));
 	}
 
+	/**
+	 * Create treatment schedule.
+	 *
+	 * @param client, the client of the treatment schedule
+	 * @param nurse, the nurse of the treatment schedule
+	 * @return 201 if the treatment schedule was created with success
+	 * @throws ScheduleConflictException
+	 */
 	private ResponseEntity createTreatmentSchedule(TreatmentSchedule treatmentSchedule,
 												   Client client,
 												   Nurse nurse) throws ScheduleConflictException{
@@ -185,6 +193,13 @@ public class ScheduleController {
 		return ResponseEntity.created(URI.create("/treatment_schedule/" + treatmentSchedule.getId())).build();
 	}
 
+	/**
+	 * Creates a consultation schedule.
+	 * @param client, the client of the consultation schedule
+	 * @param veterinarian, the veterinarian of the consultation schedule
+	 * @return 201 if created, 409 if not created.
+	 * @throws ScheduleConflictException error on creating the schedule
+	 */
 	private ResponseEntity createConsultationSchedule(ConsultationSchedule consultationSchedule,
 													  Client client,
 													  Veterinarian veterinarian) throws ScheduleConflictException{
@@ -208,6 +223,12 @@ public class ScheduleController {
 	}
 
 
+	/**
+	 * Creates a random consultation schedule with a random veterinarian
+	 * @param client, the client that is scheduling
+	 * @return 201 if created
+	 * @throws ScheduleConflictException, if the consultation schedule is invalid.
+	 */
 	private ResponseEntity createConsultationScheduleWithNoVeterinarian(ConsultationSchedule consultationSchedule,
 													  Client client) throws ScheduleConflictException {
 
@@ -229,6 +250,12 @@ public class ScheduleController {
 		return ResponseEntity.created(URI.create("/consultation_schedule/" + consultationSchedule.getId())).build();
 	}
 
+	/**
+	 * Creates a treatment schedule with a random nurse.
+	 * @param client, the client that is scheduling
+	 * @return 201 if created
+	 * @throws ScheduleConflictException if the treatment schedule is invalid.
+	 */
 	private ResponseEntity createTreatmentScheduleWithNoNurse(TreatmentSchedule treatmentSchedule,
 																		Client client) throws ScheduleConflictException {
 
