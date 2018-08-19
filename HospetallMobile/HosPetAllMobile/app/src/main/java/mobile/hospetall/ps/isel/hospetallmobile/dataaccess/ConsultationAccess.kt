@@ -5,13 +5,10 @@ import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.ConsultationDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
 import org.json.JSONObject
+import android.content.Context
 
-class ConsultationAccess
-    : AbstractListAccess<Consultation, ConsultationDao>("consultationList") {
-    companion object {
-        private val mInstance by lazy { ConsultationAccess() }
-        fun getInstance() = mInstance
-    }
+class ConsultationAccess(context: Context)
+    : AbstractListAccess<Consultation, ConsultationDao>(context,"consultationList") {
 
     private val cache by lazy { LruCache<String, Value<Consultation>>(mCacheSize)}
     private val listCache by lazy { LruCache<String, Value<List<Consultation>>>(mCacheSize/10)}

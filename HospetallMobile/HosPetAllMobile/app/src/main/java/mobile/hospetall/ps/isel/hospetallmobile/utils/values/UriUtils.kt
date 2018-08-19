@@ -9,7 +9,7 @@ import android.net.Uri
  */
 object UriUtils {
     private const val PROTOCOL = "http"
-    private const val AUTHORITY = "192.168.1.84"
+    private const val AUTHORITY = "192.168.0.99"
     private const val CLIENT_PATH = "client"
     private const val PETS_PATH = "pets"
     private const val PET_PATH = "pet"
@@ -32,6 +32,11 @@ object UriUtils {
             getBaseUri()
                     .appendEncodedPath(CLIENT_PATH)
                     .appendEncodedPath(id.toString())
+
+    fun getSelfClient() =
+            getBaseUri()
+                    .appendEncodedPath("self")
+                    .appendEncodedPath("client")
 
     /**
      * Gets the uri for the resource that contains the clients pets.
@@ -120,4 +125,13 @@ object UriUtils {
     fun getConsultationUri(id: Int) =
             getConsultationListUri()
                     .appendEncodedPath(id.toString())
+
+    /**
+     * Get oauth token.
+     */
+    fun getOauthToken() =
+            getBaseUri()
+                    .appendEncodedPath("oauth")
+                    .appendEncodedPath("token")
+
 }

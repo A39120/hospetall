@@ -1,16 +1,15 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
+import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.EventDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
 import mobile.hospetall.ps.isel.hospetallmobile.models.Event
 
-class ScheduleAccess {
+class ScheduleAccess(context: Context) {
     companion object {
         private const val TAG = "HPA/ACCESS/SCHEDULE"
-        private val mInstance by lazy { ScheduleAccess() }
-        fun getInstance() = mInstance
 
         private class InsertAsyncTask(
                 private val dao : EventDao,

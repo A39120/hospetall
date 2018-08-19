@@ -53,9 +53,9 @@ class DataUpdaterWorker : Worker() {
 
     private val database by lazy { MobileDatabase.getInstance(this.applicationContext) }
 
-    private val petAccess by lazy { PetAccess() }
-    private val consultationAccess by lazy { ConsultationAccess() }
-    private val treatmentAccess by lazy { TreatmentAccess()}
+    private val petAccess by lazy { PetAccess(applicationContext) }
+    private val consultationAccess by lazy { ConsultationAccess(applicationContext) }
+    private val treatmentAccess by lazy { TreatmentAccess(applicationContext)}
 
     override fun doWork(): Result {
         Log.i(TAG, "Updating data.")
