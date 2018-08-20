@@ -13,8 +13,8 @@ class ProfileViewModel(application: HospetallApplication) : AndroidViewModel(app
 
     private var client : LiveData<Client>? = null
 
-    fun init(id: Int){
-        val uri = UriUtils.getClientUri(id).build().toString()
+    fun init(){
+        val uri = UriUtils.getSelfClient().build().toString()
         client = clientRepo.get(uri)
     }
 

@@ -36,7 +36,7 @@ class ScheduleViewModel(application: HospetallApplication) : AndroidViewModel(ap
             else -> scheduleRepo.getAll()
         }
 
-        val allPetsUri = UriUtils.getClientsPetsUri(getId()).build().toString()
+        val allPetsUri = UriUtils.getClientsPetsUri(getId(getApplication())).build().toString()
         allPets = petRepo.getList(allPetsUri)
 
         pets = Transformations.switchMap(events!!, {

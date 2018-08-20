@@ -25,7 +25,7 @@ class ConsultationListViewModel(application: HospetallApplication) : AndroidView
             this.uri = uri
             consultationList = consultationRepo.getList(uri)
 
-            val allPetsUri = UriUtils.getClientsPetsUri(getId()).build().toString()
+            val allPetsUri = UriUtils.getClientsPetsUri(getId(getApplication())).build().toString()
             allPets = petRepo.getList(allPetsUri)
             pets = Transformations.switchMap(consultationList!!, {
                 val list = it.map { it.petUri }

@@ -9,7 +9,6 @@ import android.os.Bundle
 import mobile.hospetall.ps.isel.hospetallmobile.R
 import mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel.ProfileViewModel
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityProfileBinding
-import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
 
 class ProfileActivity : BaseActivity() {
     companion object {
@@ -24,11 +23,10 @@ class ProfileActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val id = getId()
 
         mBinder = DataBindingUtil.setContentView(this, R.layout.activity_profile)
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
-        viewModel.init(id)
+        viewModel.init()
         viewModel.getClient()?.observe(this, Observer {
             it?.apply {
                 mBinder.client =it

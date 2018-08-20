@@ -92,7 +92,7 @@ class AddEventActivity : BaseActivity(),
      * Sets up [PetListViewModel] for the spinner and
      * it's observers.
      */
-    private fun setupViewModel(eventId: Int? = null) {
+    private fun setupViewModel(eventId: Int) {
         Log.i(TAG, "Setting up view model for $eventId.")
 
         viewModel = ViewModelProviders.of(this).get(EventViewModel::class.java)

@@ -25,7 +25,7 @@ class TreatmentListViewModel(application: HospetallApplication) : AndroidViewMod
             this.uri = uri
             treatmentList = treatmentRepo.getList(uri)
 
-            val allPetsUri = UriUtils.getClientsPetsUri(getId()).build().toString()
+            val allPetsUri = UriUtils.getClientsPetsUri(getId(getApplication())).build().toString()
             allPets = petRepo.getList(allPetsUri)
             petList = Transformations.switchMap(treatmentList!!, {
                 val treatments = it

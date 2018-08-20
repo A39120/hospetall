@@ -22,7 +22,7 @@ class EventViewModel(application: HospetallApplication) : AndroidViewModel(appli
     private var allPets : LiveData<List<Pet>>? = null
     private var pet: LiveData<Pet>? = null
 
-    fun init(id: Int? = null){
+    fun init(id: Int){
         if(event == null) {
             if(id!= null){
                 event = eventRepo.get(id)
@@ -35,7 +35,7 @@ class EventViewModel(application: HospetallApplication) : AndroidViewModel(appli
             }
         }
 
-        val uri = UriUtils.getClientsPetsUri(getId()).build().toString()
+        val uri = UriUtils.getClientsPetsUri(id).build().toString()
         allPets = petRepo.getList(uri)
     }
 

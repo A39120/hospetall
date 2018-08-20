@@ -67,7 +67,7 @@ class DataUpdaterWorker : Worker() {
 
         database.listDao().clear()
 
-        val id = mobile.hospetall.ps.isel.hospetallmobile.utils.getId()
+        val id = mobile.hospetall.ps.isel.hospetallmobile.utils.getId(this.applicationContext)
         val petUri = UriUtils.getClientsPetsUri(id).build().toString()
         val consultationUri = UriUtils.getPetsConsultationsUri(id).build().toString()
         val treatmentUri = UriUtils.getPetsTreatmentUri(id).build().toString()

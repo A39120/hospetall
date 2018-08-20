@@ -29,7 +29,7 @@ class TreatmentListActivity : BaseActivity() {
         val bundle = Bundle()
         bundle.putBoolean(SHOW_PET, true)
 
-        val uri = UriUtils.getPetsTreatmentUri(getId()).build().toString()
+        val uri = UriUtils.getPetsTreatmentUri(getId(this)).build().toString()
         bundle.putString(TreatmentListFragment.URI, uri)
 
         val listFragment : Fragment = TreatmentListFragment()
