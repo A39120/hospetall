@@ -53,7 +53,7 @@ public class PersonRegistrationRestController {
 		this.receptionistRepository = receptionistRepository;
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_RECEPTIONIST', 'ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_RECEPTIONIST', 'ROLE_ADMIN')")
 	@PostMapping(path = "/register/client")
 	public ResponseEntity registerClient(@RequestBody Client client) throws UsernameTakenException {
 		//Check if client already exists
@@ -169,8 +169,7 @@ public class PersonRegistrationRestController {
 	 * @return status code CREATED
 	 */
 	private ResponseEntity register(Person person, String uri, BiConsumer<String, String> create){
-		//This is not the final password, this is just the temporary password to be big and strong, which might
-		//tire the user when introducing the password for the first time. Not my best idea for password generation
+
 		String password = UUID
 				.randomUUID()
 				.toString()

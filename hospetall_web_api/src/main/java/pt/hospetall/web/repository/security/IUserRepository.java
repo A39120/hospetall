@@ -8,7 +8,7 @@ import pt.hospetall.web.model.security.Account;
 
 import java.util.Optional;
 
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_RECEPTIONIST')")
 @RepositoryRestResource(exported = false)
 public interface IUserRepository extends JpaRepository<Account, Integer> {
 	Optional<Account> findUserByUsername(@Param("username")String username);

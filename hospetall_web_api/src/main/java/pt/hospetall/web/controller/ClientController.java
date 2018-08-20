@@ -17,6 +17,7 @@ import pt.hospetall.web.repository.person.IClientRepository;
 import pt.hospetall.web.repository.security.IUserRepository;
 import pt.hospetall.web.services.security.CustomUserDetailsService;
 
+@PreAuthorize("isAuthenticated()")
 @RepositoryRestController
 @RequestMapping
 public class ClientController {
