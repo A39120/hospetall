@@ -15,30 +15,32 @@ class OAuthRequestTest{
 
     @Test
     fun requestTest(){
-        val prefs = context.getSharedPreferences(SP_TEST, MODE_PRIVATE)
-        val editor = prefs.edit()
-        editor.putString(SharedPrefKeys.USERNAME, "abownassir@hhs.gov")
-        editor.putString(SharedPrefKeys.PASSWORD, "password")
-        editor.commit()
+        for( i : Int in 0 ..10 ) {
+            val prefs = context.getSharedPreferences(SP_TEST, MODE_PRIVATE)
+            val editor = prefs.edit()
+            editor.putString(SharedPrefKeys.USERNAME, "abownassir@hhs.gov")
+            editor.putString(SharedPrefKeys.PASSWORD, "password")
+            editor.commit()
 
-        var token : String? = null
+            var token: String? = null
 
-        val request = OAuthRequest(
-                prefs,
-                {token = it.token},
-                Response.ErrorListener{
-                    Assert.fail("Error: ${it.printStackTrace()}")
-                }
-        )
+            val request = OAuthRequest(
+                    prefs,
+                    { token = it.token },
+                    Response.ErrorListener {
+                        Assert.fail("Error: ${it.printStackTrace()}")
+                    }
+            )
 
-        val vol = Volley.newRequestQueue(context)
-        val req = vol.add(request)
+            val vol = Volley.newRequestQueue(context)
+            val req = vol.add(request)
 
-        while(!req.hasHadResponseDelivered());
+            while (!req.hasHadResponseDelivered());
 
-        Assert.assertNotNull(prefs.getString(SharedPrefKeys.TOKEN, null))
-        Assert.assertFalse(prefs.getString(SharedPrefKeys.TOKEN, "") == "")
-        Assert.assertNotSame(prefs.getLong(SharedPrefKeys.EXPIRATION, 0), 0)
+            Assert.assertNotNull(prefs.getString(SharedPrefKeys.TOKEN, null))
+            Assert.assertFalse(prefs.getString(SharedPrefKeys.TOKEN, "") == "")
+            Assert.assertNotSame(prefs.getLong(SharedPrefKeys.EXPIRATION, 0), 0)
+        }
     }
 
 }

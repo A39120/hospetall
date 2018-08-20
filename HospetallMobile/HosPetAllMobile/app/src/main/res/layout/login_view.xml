@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:custom="http://schemas.android.com/tools">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/client_email"
+            android:inputType="textEmailAddress"
+            app:met_maxCharacters="31"
+            app:met_floatingLabel="normal"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/client_password"
+            android:inputType="textPassword"
+            app:met_maxCharacters="31"
+            app:met_floatingLabel="normal"/>
+
+        <com.dd.processbutton.iml.ActionProcessButton
+            android:layout_margin="@dimen/default_margin"
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/login"
+            android:textColor="@android:color/white"
+            custom:pb_colorComplete="@color/green_complete"
+            custom:pb_colorNormal="@color/blue_normal"
+            custom:pb_colorPressed="@color/blue_pressed"
+            custom:pb_colorProgress="@color/purple_progress"
+            custom:pb_textComplete="@string/success"
+            custom:pb_textProgress="@string/loading"
+            custom:pb_textError="@string/error"
+            custom:pb_colorError="@color/red_error"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</layout>

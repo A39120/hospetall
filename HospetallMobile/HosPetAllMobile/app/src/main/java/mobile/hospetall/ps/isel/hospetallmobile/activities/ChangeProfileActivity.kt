@@ -33,7 +33,7 @@ class ChangeProfileActivity : BaseActivity() {
     }
 
     private lateinit var mBinder : ActivityProfileChangeBinding
-    private val clientAccess by lazy { ClientAccess() }
+    private val clientAccess by lazy { ClientAccess(application) }
     private lateinit var viewModel : ProfileViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -35,7 +35,7 @@ class EventActivity : BaseActivity() {
     private lateinit var viewModel : EventViewModel
     private val dateFormat  by lazy { getDateFormat(applicationContext) }
     private val timeFormat by lazy { getTimeFormat(applicationContext) }
-    private val scheduleRepo by lazy { ScheduleAccess() }
+    private val scheduleRepo by lazy { ScheduleAccess(application) }
 
     /**
      * Creates event activity instantiating Binder and ViewModel

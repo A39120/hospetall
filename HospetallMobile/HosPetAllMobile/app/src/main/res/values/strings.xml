@@ -87,5 +87,7 @@
     <string name="event_item_repetition_period">Repetition time</string>
 
     <string name="settings_notification_label">Enable Notifications</string>
+    <string name="client_password">Password</string>
+    <string name="login">Login</string>
 
 </resources>
