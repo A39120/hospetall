@@ -17,9 +17,10 @@ public class Client extends Person {
 	@Column(name = "address", nullable = true)
 	private String address;
 
-	@Column(name = "postal_code")
+	@Column(name = "postal_code", nullable = true)
 	private String postalCode;
 
+	@Column(name = "other", nullable = true)
 	private String other;
 
 	@Column(name="nif", unique=true, length = 9)
