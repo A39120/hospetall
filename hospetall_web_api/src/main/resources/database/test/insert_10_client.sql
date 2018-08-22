@@ -1,4 +1,4 @@
-use hospetall;
+use hospetalldb;
 
 insert into client(email, family_name, given_name, telephone, address, nif, other, postal_code) values
  ('abails89@bbb.org', 'Bails', 'Andrej', '314-206-7994', '3 Amoth Circle', 747501024, 'xjjBMuwvPxqtTu5KWbyMfiSLACinl9vCRa6fQTa5Zt8wi0t1qQ5jF2F ABuU136i6vAhfLL5n4gZyUqh', null),

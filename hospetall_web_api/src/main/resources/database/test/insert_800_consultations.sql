@@ -1,4 +1,4 @@
-use hospetall
+use hospetalldb;
 insert into consultation (case_history, diagnosis, treatment, observations, date, pet_id, veterinarian_id, weight) values
 ('Multi-channelled tertiary middleware', 'Devolved heuristic local area network', 'Team-oriented solution-oriented circuit', null, '2017-11-05 20:58:48', 30, 4, 55.64),
 ('Adaptive attitude-oriented throughput', 'Devolved impactful infrastructure', 'Sharable empowering website', null, '2018-02-24 04:36:46', 93, 3, 45.92),

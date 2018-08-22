@@ -1,4 +1,4 @@
-use hospetall;
+use hospetalldb;
 insert into treatment (case_history, diagnosis, treatment, observations, date, pet_id, nurse_id) values ('Decentralized homogeneous productivity', 'Object-based 24/7 superstructure', 'Team-oriented human-resource infrastructure', null, '2018-07-07 09:26:21', 91, 1),
 ('Customizable methodical Graphic Interface', 'Re-engineered scalable frame', 'Adaptive national initiative', null, '2018-08-01 17:24:53', 19, 4),
 ('Reactive heuristic emulation', 'Object-based 4th generation internet solution', 'Optional static functionalities', null, '2018-02-14 23:58:20', 18, 5),

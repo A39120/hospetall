@@ -1,4 +1,4 @@
-USE HosPetAll;
+USE hospetalldb;
 
 INSERT INTO receptionist(email, family_name, given_name, telephone) VALUES
   ('lennon@gmail.com', 'Lennon', 'John', '+3333'),

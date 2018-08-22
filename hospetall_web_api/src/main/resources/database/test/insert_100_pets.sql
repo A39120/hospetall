@@ -1,4 +1,4 @@
-use hospetall;
+use hospetalldb;
 insert into pet (name, birthdate, chip_number, license_number, species, owner_id) values
 ('Alpha', '2016-09-10 00:15:48', 4244448, 262981, 'Pine siskin', 8),
 ('Alphazap', '2011-12-13 12:51:27', 4812600, 4880060, 'Puku', 5),
