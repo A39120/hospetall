@@ -23,7 +23,7 @@ public class Client extends Person {
 	@Column(name = "other", nullable = true)
 	private String other;
 
-	@Column(name="nif", unique=true, length = 9)
+	@Column(name= "nif", unique=true)
 	private int nif;
 
 	@JsonIgnore
@@ -85,6 +85,12 @@ public class Client extends Person {
 	public void setTreatmentSchedules(Set<TreatmentSchedule> treatmentSchedules) {
 		this.treatmentSchedules = treatmentSchedules;
 	}
+
+	public void setNif(int nif){
+		this.nif = nif;
+	}
+
+	public int getNif(){ return this.nif; }
 
 
 }

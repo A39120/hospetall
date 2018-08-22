@@ -53,7 +53,7 @@ public class PersonRegistrationRestController {
 		this.receptionistRepository = receptionistRepository;
 	}
 
-  @PreAuthorize("hasAnyRole('ROLE_RECEPTIONIST', 'ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_RECEPTIONIST', 'ROLE_ADMIN')")
 	@PostMapping(path = "/register/client")
 	public ResponseEntity registerClient(@RequestBody Client client) throws UsernameTakenException {
 		//Check if client already exists
