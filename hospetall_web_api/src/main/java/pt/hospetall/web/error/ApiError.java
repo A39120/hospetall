@@ -22,7 +22,7 @@ public class ApiError {
         super();
         this.status = status;
         this.message = message;
-        errors = Arrays.asList(error);
+        this.errors = Arrays.asList(error);
     }
 
 
@@ -32,6 +32,10 @@ public class ApiError {
 
     public String getMessage(){
         return this.message;
+    }
+
+    public List<String> getErrors(){
+        return this.errors;
     }
 
 

@@ -1,7 +1,10 @@
 package pt.hospetall.web.model.person;
 
+<<<<<<< HEAD
 import pt.hospetall.web.model.WaitingListConsultation;
+=======
 import com.fasterxml.jackson.annotation.JsonIgnore;
+>>>>>>> 97cdfadbeda7f7bb2d1b4decae5c86f47734707a
 import pt.hospetall.web.model.medical.Consultation;
 import pt.hospetall.web.model.person.base.Person;
 import pt.hospetall.web.model.schedule.ConsultationSchedule;

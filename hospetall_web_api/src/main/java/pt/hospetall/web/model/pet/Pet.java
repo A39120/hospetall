@@ -2,6 +2,7 @@ package pt.hospetall.web.model.pet;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.access.prepost.PreAuthorize;
+import pt.hospetall.web.model.WaitingListConsultation;
 import pt.hospetall.web.model.medical.Consultation;
 import pt.hospetall.web.model.medical.Treatment;
 import pt.hospetall.web.model.base.NameBaseEntity;
@@ -26,6 +27,7 @@ public class Pet extends NameBaseEntity {
 	private int chip_number;
 	private int license_number;
 
+
 	@OneToMany(mappedBy = "pet")
 	@JsonIgnore
 	private Set<Consultation> consultations = new HashSet<>();
@@ -33,6 +35,19 @@ public class Pet extends NameBaseEntity {
 	@OneToMany(mappedBy = "pet")
 	@JsonIgnore
 	private Set<Treatment> treatments = new HashSet<>();
+
+
+	@OneToOne(mappedBy = "pet")
+	private WaitingListConsultation waitingListConsultation;
+
+
+	public WaitingListConsultation getWaitingListConsultation() {
+		return waitingListConsultation;
+	}
+
+	public void setWaitingListConsultation(WaitingListConsultation waitingListConsultation) {
+		this.waitingListConsultation = waitingListConsultation;
+	}
 
 	public Set<Consultation> getConsultations() {
 		return consultations;
@@ -97,5 +112,6 @@ public class Pet extends NameBaseEntity {
 	public void setLicense_number(int license_number) {
 		this.license_number = license_number;
 	}
+
 }
 
