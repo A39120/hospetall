@@ -2,6 +2,7 @@ package pt.hospetall.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,9 +32,9 @@ public class PetRegistrationRestController {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_RECEPTIONIST', 'ROLE_ADMIN')")
-	@PostMapping(path = "/register/client/{id}/pet", consumes = "application/json")
+	@PostMapping(path = "/register/client/{id}/pet", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity registerPet(
-			@PathVariable(name="id", required = true) int client_id,
+			@PathVariable(name="id") int client_id,
 			@RequestBody Pet pet)
 			throws PersonNotFoundException, PetConflictException {
 
@@ -47,7 +48,7 @@ public class PetRegistrationRestController {
 							.ifPresent((p) -> { throw new PetConflictException(); });
 
 					Pet newPet = petRepository.save(pet);
-					URI uri = URI.create("/" + newPet.getId());
+					URI uri = URI.create("/pet/" + newPet.getId());
 					return ResponseEntity.created(uri).build();
 				})
 				.orElseThrow(PersonNotFoundException::new);

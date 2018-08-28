@@ -92,7 +92,7 @@ class AddEventActivity : BaseActivity(),
      * Sets up [PetListViewModel] for the spinner and
      * it's observers.
      */
-    private fun setupViewModel(eventId: Int? = null) {
+    private fun setupViewModel(eventId: Int) {
         Log.i(TAG, "Setting up view model for $eventId.")
 
         viewModel = ViewModelProviders.of(this).get(EventViewModel::class.java)
@@ -165,7 +165,7 @@ class AddEventActivity : BaseActivity(),
 
     private fun addEvent(id: Int = 0){
         val event = getEventFromInfo(id) ?: return
-        ScheduleAccess().put(event, {
+        ScheduleAccess(applicationContext).put(event, {
             OneTimeNotificationWorker.setUpWork(event, it)
             finish()
         })

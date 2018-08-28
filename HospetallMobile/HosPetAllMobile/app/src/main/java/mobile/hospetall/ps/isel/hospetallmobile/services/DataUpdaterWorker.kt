@@ -53,9 +53,9 @@ class DataUpdaterWorker : Worker() {
 
     private val database by lazy { MobileDatabase.getInstance(this.applicationContext) }
 
-    private val petAccess by lazy { PetAccess() }
-    private val consultationAccess by lazy { ConsultationAccess() }
-    private val treatmentAccess by lazy { TreatmentAccess()}
+    private val petAccess by lazy { PetAccess(applicationContext) }
+    private val consultationAccess by lazy { ConsultationAccess(applicationContext) }
+    private val treatmentAccess by lazy { TreatmentAccess(applicationContext)}
 
     override fun doWork(): Result {
         Log.i(TAG, "Updating data.")
@@ -67,7 +67,7 @@ class DataUpdaterWorker : Worker() {
 
         database.listDao().clear()
 
-        val id = mobile.hospetall.ps.isel.hospetallmobile.utils.getId()
+        val id = mobile.hospetall.ps.isel.hospetallmobile.utils.getId(this.applicationContext)
         val petUri = UriUtils.getClientsPetsUri(id).build().toString()
         val consultationUri = UriUtils.getPetsConsultationsUri(id).build().toString()
         val treatmentUri = UriUtils.getPetsTreatmentUri(id).build().toString()

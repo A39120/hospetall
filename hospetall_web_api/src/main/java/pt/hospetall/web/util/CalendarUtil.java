@@ -32,12 +32,6 @@ public class CalendarUtil {
 		return calendar;
 	}
 
-	public static long getTimeInMillisFromDateInMillis(long date){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(date);
-		return getTimeInMillisFromCalendar(calendar);
-	}
-
 	public static long getTimeInMillisFromCalendar(Calendar calendar){
 		int millisecond = calendar.get(Calendar.MILLISECOND);
 		int second = calendar.get(Calendar.SECOND) * 1000;
@@ -55,10 +49,12 @@ public class CalendarUtil {
 	 * Sets the day from calendar 1 to calendar 2 without changing the time of calendar 2
 	 */
 	public static Calendar setDay(Calendar from, Calendar to){
-		to.set(Calendar.YEAR, from.get(Calendar.YEAR));
-		to.set(Calendar.MONTH, from.get(Calendar.MONTH));
-		to.set(Calendar.DAY_OF_MONTH, from.get(Calendar.DAY_OF_MONTH));
-		return to;
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(to.getTimeInMillis());
+		calendar.set(Calendar.YEAR, from.get(Calendar.YEAR));
+		calendar.set(Calendar.MONTH, from.get(Calendar.MONTH));
+		calendar.set(Calendar.DAY_OF_MONTH, from.get(Calendar.DAY_OF_MONTH));
+		return calendar;
 	}
 
 	public static boolean weekDayIsSame(Calendar calendar0, Calendar calendar1){

@@ -24,10 +24,6 @@ abstract class BaseActivity : AppCompatActivity() {
         return true
     }
 
-    open fun goToProcedures(item: MenuItem) : Boolean {
-        return true
-    }
-
     open fun goToTreatment(item: MenuItem) : Boolean {
         TreatmentListActivity.start(baseContext)
         return true

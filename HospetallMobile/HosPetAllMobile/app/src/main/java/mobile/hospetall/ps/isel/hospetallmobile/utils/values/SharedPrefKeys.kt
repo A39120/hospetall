@@ -13,4 +13,10 @@ object SharedPrefKeys {
     const val ALLOW_NOTIFICATION = "allow_notification"
     const val ALLOW_NOTIFICATION_DEFAULT = true
 
+    const val USERNAME = "username"
+    const val PASSWORD = "password"
+    const val EXPIRATION = "expiration"
+    const val DEFAULT_EXPIRATION = -1
+    const val TOKEN = "token"
+
 }

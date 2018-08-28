@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.TextView
 import com.android.volley.Response
@@ -15,8 +14,6 @@ import mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel.ProfileView
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ClientAccess
 import mobile.hospetall.ps.isel.hospetallmobile.databinding.ActivityProfileChangeBinding
 import mobile.hospetall.ps.isel.hospetallmobile.models.Client
-import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
-import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
 class ChangeProfileActivity : BaseActivity() {
 
@@ -33,15 +30,14 @@ class ChangeProfileActivity : BaseActivity() {
     }
 
     private lateinit var mBinder : ActivityProfileChangeBinding
-    private val clientAccess by lazy { ClientAccess() }
+    private val clientAccess by lazy { ClientAccess(application) }
     private lateinit var viewModel : ProfileViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val id = getId()
         mBinder = DataBindingUtil.setContentView(this, R.layout.activity_profile_change)
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
-        viewModel.init(id)
+        viewModel.init()
         viewModel.getClient()?.observe(this, Observer {
             it?.apply {
                 setClientInfo(it)
@@ -60,10 +56,12 @@ class ChangeProfileActivity : BaseActivity() {
         val button = mBinder.updateProfileButton
         button.progress = 1
 
-        val uri = UriUtils.getClientUri(getId())
+        val uri = viewModel.getClient()!!.value!!.uri
+        val id = viewModel.getClient()!!.value!!.id
+
         val newClient = Client(
-                uri.build().toString(),
-                getId(),
+                uri,
+                id,
                 mBinder.updateClientLastName.text.toString(),
                 mBinder.updateClientGivenName.text.toString(),
                 mBinder.updateClientEmail.text.toString(),

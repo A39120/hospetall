@@ -1,8 +1,10 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel
 
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
+import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.EventListFragment.Companion.FUTURE_EVENTS
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.EventListFragment.Companion.PAST_EVENTS
 import mobile.hospetall.ps.isel.hospetallmobile.activities.fragments.EventListFragment.Companion.PERIODIC_EVENTS
@@ -17,9 +19,11 @@ import java.util.*
 /**
  * [ViewModel] for [Event] present in the [ScheduleActivity]
  */
-class ScheduleViewModel : ViewModel() {
-    private val scheduleRepo by lazy { ScheduleAccess.getInstance() }
-    private val petRepo by lazy { PetAccess.getInstance() }
+class ScheduleViewModel(application: HospetallApplication) : AndroidViewModel(application) {
+
+    private val scheduleRepo by lazy { ScheduleAccess(application) }
+    private val petRepo by lazy { PetAccess(application) }
+
     private var events : LiveData<List<Event>>? = null
     private var allPets : LiveData<List<Pet>>? = null
     private var pets : LiveData<List<Pet>>? = null
@@ -32,7 +36,7 @@ class ScheduleViewModel : ViewModel() {
             else -> scheduleRepo.getAll()
         }
 
-        val allPetsUri = UriUtils.getClientsPetsUri(getId()).build().toString()
+        val allPetsUri = UriUtils.getClientsPetsUri(getId(getApplication())).build().toString()
         allPets = petRepo.getList(allPetsUri)
 
         pets = Transformations.switchMap(events!!, {

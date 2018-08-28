@@ -36,7 +36,7 @@ class PetsListActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
-        val id = getId()
+        val id = getId(this)
         viewModel = ViewModelProviders.of(this).get(PetListViewModel::class.java)
         viewModel.init(id)
 

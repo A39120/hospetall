@@ -1,8 +1,9 @@
 package mobile.hospetall.ps.isel.hospetallmobile.activities.viewmodel
 
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
-import android.arch.lifecycle.ViewModel
+import mobile.hospetall.ps.isel.hospetallmobile.HospetallApplication
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.ConsultationAccess
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.PetAccess
 import mobile.hospetall.ps.isel.hospetallmobile.models.Consultation
@@ -10,10 +11,10 @@ import mobile.hospetall.ps.isel.hospetallmobile.models.Pet
 import mobile.hospetall.ps.isel.hospetallmobile.utils.getId
 import mobile.hospetall.ps.isel.hospetallmobile.utils.values.UriUtils
 
-class ConsultationListViewModel : ViewModel() {
+class ConsultationListViewModel(application: HospetallApplication) : AndroidViewModel(application) {
 
-    private val consultationRepo by lazy { ConsultationAccess.getInstance() }
-    private val petRepo by lazy { PetAccess.getInstance() }
+    private val consultationRepo by lazy { ConsultationAccess(application) }
+    private val petRepo by lazy { PetAccess(application) }
     private var allPets  : LiveData<List<Pet>>? = null
     private var pets : LiveData<List<Pet>>? = null
     private var consultationList : LiveData<List<Consultation>>? = null
@@ -24,7 +25,7 @@ class ConsultationListViewModel : ViewModel() {
             this.uri = uri
             consultationList = consultationRepo.getList(uri)
 
-            val allPetsUri = UriUtils.getClientsPetsUri(getId()).build().toString()
+            val allPetsUri = UriUtils.getClientsPetsUri(getId(getApplication())).build().toString()
             allPets = petRepo.getList(allPetsUri)
             pets = Transformations.switchMap(consultationList!!, {
                 val list = it.map { it.petUri }
@@ -45,7 +46,6 @@ class ConsultationListViewModel : ViewModel() {
     }
 
     fun getConsultationList() = consultationList
-
     fun getPetList() = pets
 
 }

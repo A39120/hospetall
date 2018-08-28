@@ -70,7 +70,14 @@ export default class extends React.Component {
         if (this.state.fetchState !== FetchStates.loading) return
         const url = this.props.url
         console.log(url)
-        return fetch(url)
+        return fetch(url, {
+                method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Authorization': 'Bearer d3f8841c-d15b-4535-9dfd-bb7f1bdc1b0a'
+                },
+                credentials: 'same-origin'
+            })
             .then(resp => {
                 if (resp.status !== 200) {
                 throw new Error()

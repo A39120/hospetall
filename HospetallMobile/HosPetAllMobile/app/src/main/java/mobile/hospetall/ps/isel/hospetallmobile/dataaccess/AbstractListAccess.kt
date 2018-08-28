@@ -4,17 +4,20 @@ import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import android.util.Log
 import android.util.LruCache
+import android.content.Context
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.ListDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.base.CollectionDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.ListEntity
+import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.utils.RequestQueueSingleton
 import mobile.hospetall.ps.isel.hospetallmobile.models.base.Base
 import org.json.JSONObject
 
 abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
+        private val applicationContext : Context,
         private val property: String
-) : AbstractAccess<T, V>() {
+) : AbstractAccess<T, V>(applicationContext) {
     companion object {
         const val TAG = "HPA/Access/List"
 
@@ -86,12 +89,10 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
      */
     fun updateCollectionFromNetwork(uri: String) {
         val embedded = "_embedded"
-        queue.add(
-                JsonObjectRequest(
+        RequestQueueSingleton.getInstance().get(
+                        applicationContext,
                         uri,
-                        null,
-                        Response.Listener {
-                            Log.i(TAG, "Got json list data from network $uri")
+                        {
                             val jsonArr = it.optJSONObject(embedded)?.optJSONArray(property)
                             jsonArr?.apply {
                                 val list =
@@ -104,7 +105,6 @@ abstract class AbstractListAccess<T: Base, V : CollectionDao<T>>(
                             Log.e(TAG, "Failed to send get request for list from $uri")
                         }
                 )
-        )
     }
 
     protected abstract fun getCollectionCache() : LruCache<String, Value<List<T>>>

@@ -1,6 +1,7 @@
 package pt.hospetall.web.model.person;
 
 import pt.hospetall.web.model.WaitingListConsultation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pt.hospetall.web.model.medical.Consultation;
 import pt.hospetall.web.model.person.base.Person;
 import pt.hospetall.web.model.schedule.ConsultationSchedule;
@@ -14,12 +15,15 @@ import java.util.Set;
 @Entity
 public class Veterinarian extends Person {
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "veterinarian", targetEntity = VeterinarianShift.class)
 	private Set<VeterinarianShift> shifts;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "veterinarian", targetEntity = Consultation.class)
-	private Set<Consultation> treatments;
+	private Set<Consultation> consultations;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "veterinarian", targetEntity = ConsultationSchedule.class)
 	private Set<ConsultationSchedule> schedules;
 
@@ -42,12 +46,12 @@ public class Veterinarian extends Person {
 		this.shifts = shifts;
 	}
 
-	public Set<Consultation> getTreatments() {
-		return treatments;
+	public Set<Consultation> getConsultations() {
+		return consultations;
 	}
 
-	public void setTreatments(Set<Consultation> treatments) {
-		this.treatments = treatments;
+	public void setConsultations(Set<Consultation> consultations) {
+		this.consultations = consultations;
 	}
 
 	public Set<ConsultationSchedule> getSchedules() {

@@ -9,7 +9,7 @@ import pt.hospetall.web.model.security.Authority;
 
 import java.util.Optional;
 
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_WORKER')")
 @RepositoryRestResource(exported = false)
 public interface IAuthorityRepository extends JpaRepository<Authority, Integer> {
 

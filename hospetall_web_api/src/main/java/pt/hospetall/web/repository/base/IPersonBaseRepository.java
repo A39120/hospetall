@@ -15,6 +15,7 @@ public interface IPersonBaseRepository<T extends Person> extends PagingAndSortin
 
 	Optional<T> findByTelephone(@Param("telephone")String telephone);
 	Optional<T> findByEmail(@Param("email")String email);
+	List<T> findAll();
 	List<T> findByFamilyNameAndGivenName(@Param("lastName")String familyName, @Param("firstName")String givenName);
 	List<T> findByFamilyName(@Param("name")String name);
 	List<T> findByGivenName(@Param("name")String name);

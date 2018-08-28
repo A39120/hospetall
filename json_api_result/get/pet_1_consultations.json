@@ -1,0 +1,325 @@
+{
+  "_embedded" : {
+    "consultations" : [ {
+      "caseHistory" : "Robust secondary knowledge user",
+      "diagnosis" : "Diverse next generation time-frame",
+      "treatment" : "Pre-emptive client-driven success",
+      "observations" : null,
+      "date" : "2018-06-25T12:26:40.000+0000",
+      "weight" : 37.27,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/608"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/608"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/608/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/608/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Decentralized full-range secured line",
+      "diagnosis" : "Persevering 5th generation core",
+      "treatment" : "Triple-buffered optimizing firmware",
+      "observations" : null,
+      "date" : "2018-07-24T18:03:35.000+0000",
+      "weight" : 59.47,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/148"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/148"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/148/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/148/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Visionary empowering productivity",
+      "diagnosis" : "Monitored multimedia paradigm",
+      "treatment" : "Networked didactic service-desk",
+      "observations" : null,
+      "date" : "2018-02-28T02:30:11.000+0000",
+      "weight" : 72.02,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/792"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/792"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/792/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/792/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Open-architected multimedia time-frame",
+      "diagnosis" : "Horizontal global matrices",
+      "treatment" : "Synchronised reciprocal ability",
+      "observations" : null,
+      "date" : "2018-05-07T02:49:20.000+0000",
+      "weight" : 42.28,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/435"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/435"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/435/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/435/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Organic upward-trending knowledge user",
+      "diagnosis" : "Self-enabling eco-centric process improvement",
+      "treatment" : "Robust fault-tolerant implementation",
+      "observations" : null,
+      "date" : "2018-06-29T21:57:32.000+0000",
+      "weight" : 40.07,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/470"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/470"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/470/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/470/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Distributed attitude-oriented solution",
+      "diagnosis" : "Re-engineered scalable circuit",
+      "treatment" : "Robust 24/7 policy",
+      "observations" : null,
+      "date" : "2017-12-04T21:20:03.000+0000",
+      "weight" : 33.95,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/172"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/172"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/172/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/172/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Universal mission-critical throughput",
+      "diagnosis" : "Total motivating open architecture",
+      "treatment" : "Face to face static customer loyalty",
+      "observations" : "Automated 24 hour conglomeration",
+      "date" : "2018-08-02T20:47:36.000+0000",
+      "weight" : 31.49,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/723"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/723"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/723/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/723/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Distributed intangible benchmark",
+      "diagnosis" : "Customizable maximized functionalities",
+      "treatment" : "Focused responsive knowledge base",
+      "observations" : null,
+      "date" : "2018-04-01T14:37:29.000+0000",
+      "weight" : 76.94,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/176"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/176"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/176/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/176/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Synchronised coherent definition",
+      "diagnosis" : "Multi-channelled needs-based success",
+      "treatment" : "Synergized contextually-based help-desk",
+      "observations" : null,
+      "date" : "2017-11-17T06:51:34.000+0000",
+      "weight" : 35.9,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/680"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/680"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/680/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/680/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Secured regional array",
+      "diagnosis" : "Networked content-based methodology",
+      "treatment" : "Customizable regional functionalities",
+      "observations" : null,
+      "date" : "2017-09-28T02:48:43.000+0000",
+      "weight" : 71.16,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/625"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/625"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/625/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/625/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Fully-configurable zero defect ability",
+      "diagnosis" : "Proactive radical moderator",
+      "treatment" : "Persistent transitional help-desk",
+      "observations" : null,
+      "date" : "2018-01-09T14:08:43.000+0000",
+      "weight" : 76.95,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/269"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/269"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/269/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/269/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Polarised needs-based database",
+      "diagnosis" : "Exclusive heuristic internet solution",
+      "treatment" : "Focused reciprocal capacity",
+      "observations" : null,
+      "date" : "2018-05-28T14:29:44.000+0000",
+      "weight" : 41.9,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/508"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/508"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/508/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/508/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Quality-focused background conglomeration",
+      "diagnosis" : "Public-key well-modulated collaboration",
+      "treatment" : "Implemented systemic methodology",
+      "observations" : "Virtual interactive hardware",
+      "date" : "2018-04-22T12:42:16.000+0000",
+      "weight" : 51.88,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/558"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/558"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/558/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/558/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Streamlined interactive database",
+      "diagnosis" : "Ameliorated heuristic extranet",
+      "treatment" : "Right-sized even-keeled infrastructure",
+      "observations" : null,
+      "date" : "2017-09-17T18:47:31.000+0000",
+      "weight" : 75.12,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/663"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/663"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/663/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/663/veterinarian"
+        }
+      }
+    }, {
+      "caseHistory" : "Total stable synergy",
+      "diagnosis" : "Up-sized reciprocal policy",
+      "treatment" : "Centralized web-enabled initiative",
+      "observations" : null,
+      "date" : "2017-08-31T03:18:17.000+0000",
+      "weight" : 30.15,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/consultation/712"
+        },
+        "consultation" : {
+          "href" : "http://localhost:8080/consultation/712"
+        },
+        "pet" : {
+          "href" : "http://localhost:8080/consultation/712/pet"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/consultation/712/veterinarian"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/pet/1/consultations"
+    }
+  }
+}

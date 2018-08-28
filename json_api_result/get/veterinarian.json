@@ -1,0 +1,161 @@
+{
+  "_embedded" : {
+    "veterinarian" : [ {
+      "id" : 1,
+      "familyName" : "Waters",
+      "givenName" : "Roger",
+      "email" : "waters@gmail.com",
+      "telephone" : "+31111",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/veterinarian/1"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/veterinarian/1"
+        },
+        "schedules" : {
+          "href" : "http://localhost:8080/veterinarian/1/schedules"
+        },
+        "shifts" : {
+          "href" : "http://localhost:8080/veterinarian/1/shifts"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/veterinarian/1/consultations"
+        }
+      }
+    }, {
+      "id" : 2,
+      "familyName" : "Gilmour",
+      "givenName" : "David",
+      "email" : "gilmour@gmail.com",
+      "telephone" : "+31119",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/veterinarian/2"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/veterinarian/2"
+        },
+        "schedules" : {
+          "href" : "http://localhost:8080/veterinarian/2/schedules"
+        },
+        "shifts" : {
+          "href" : "http://localhost:8080/veterinarian/2/shifts"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/veterinarian/2/consultations"
+        }
+      }
+    }, {
+      "id" : 3,
+      "familyName" : "Wright",
+      "givenName" : "Roger",
+      "email" : "wright@gmail.com",
+      "telephone" : "+311110",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/veterinarian/3"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/veterinarian/3"
+        },
+        "schedules" : {
+          "href" : "http://localhost:8080/veterinarian/3/schedules"
+        },
+        "shifts" : {
+          "href" : "http://localhost:8080/veterinarian/3/shifts"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/veterinarian/3/consultations"
+        }
+      }
+    }, {
+      "id" : 4,
+      "familyName" : "Reed",
+      "givenName" : "Lou",
+      "email" : "reed@gmail.com",
+      "telephone" : "+311119",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/veterinarian/4"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/veterinarian/4"
+        },
+        "schedules" : {
+          "href" : "http://localhost:8080/veterinarian/4/schedules"
+        },
+        "shifts" : {
+          "href" : "http://localhost:8080/veterinarian/4/shifts"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/veterinarian/4/consultations"
+        }
+      }
+    }, {
+      "id" : 5,
+      "familyName" : "Mason",
+      "givenName" : "Paul",
+      "email" : "mason@gmail.com",
+      "telephone" : "+311115",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/veterinarian/5"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/veterinarian/5"
+        },
+        "schedules" : {
+          "href" : "http://localhost:8080/veterinarian/5/schedules"
+        },
+        "shifts" : {
+          "href" : "http://localhost:8080/veterinarian/5/shifts"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/veterinarian/5/consultations"
+        }
+      }
+    }, {
+      "id" : 6,
+      "familyName" : "Lopes",
+      "givenName" : "John",
+      "email" : "lariachi@gmail.com",
+      "telephone" : "+351914182534",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/veterinarian/6"
+        },
+        "veterinarian" : {
+          "href" : "http://localhost:8080/veterinarian/6"
+        },
+        "schedules" : {
+          "href" : "http://localhost:8080/veterinarian/6/schedules"
+        },
+        "shifts" : {
+          "href" : "http://localhost:8080/veterinarian/6/shifts"
+        },
+        "consultations" : {
+          "href" : "http://localhost:8080/veterinarian/6/consultations"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/veterinarian{?page,size,sort}",
+      "templated" : true
+    },
+    "profile" : {
+      "href" : "http://localhost:8080/profile/veterinarian"
+    },
+    "search" : {
+      "href" : "http://localhost:8080/veterinarian/search"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 6,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}

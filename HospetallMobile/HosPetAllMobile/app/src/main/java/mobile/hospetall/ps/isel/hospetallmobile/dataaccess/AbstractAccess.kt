@@ -1,12 +1,12 @@
 package mobile.hospetall.ps.isel.hospetallmobile.dataaccess
 
 import android.arch.lifecycle.LiveData
+import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
 import android.util.LruCache
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.dao.base.BaseDao
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.database.MobileDatabase
 import mobile.hospetall.ps.isel.hospetallmobile.dataaccess.utils.RequestQueueSingleton
@@ -17,7 +17,9 @@ import org.json.JSONObject
  * Abstract class with the purpose of accessing information
  * from multiple sources.
  */
-abstract class AbstractAccess<T, V : BaseDao<T>>  {
+abstract class AbstractAccess<T, V : BaseDao<T>>(
+        private val applicationContext : Context
+)  {
     companion object {
         const val TAG = "HPA/DA/ABSTRACT"
 
@@ -57,18 +59,17 @@ abstract class AbstractAccess<T, V : BaseDao<T>>  {
      * with the [uri].
      */
     open fun updateFromNetwork(uri: String)  {
-        queue.add(JsonObjectRequest(
-                        uri,
-                        null,
-                        Response.Listener {
-                            Log.i(TAG, "Got object from $uri.")
-                            val obj = parse(it)
-                            insertInDatabase(obj)
-                        },
-                        Response.ErrorListener {
-                            Log.e(TAG, "Failed to send get request from $uri: ${it.message}")
-                        }
-        ))
+        RequestQueueSingleton.getInstance().get(
+                applicationContext,
+                uri,
+                {
+                    val obj = parse(it)
+                    insertInDatabase(obj)
+                },
+                Response.ErrorListener {
+                    Log.e(TAG, "Failed to send get request from $uri: ${it.message}")
+                }
+        )
     }
 
     /**
@@ -97,7 +98,7 @@ abstract class AbstractAccess<T, V : BaseDao<T>>  {
 
     /**
      * Makes a post request.
-     * TODO: Test this.
+     *
      * @param uri: target of the post
      * @param json: JSON object that contains the object to
      * post;
@@ -109,19 +110,16 @@ abstract class AbstractAccess<T, V : BaseDao<T>>  {
             onSuccess: Response.Listener<T>,
             onError: Response.ErrorListener? = null
     ) : Request<JSONObject>? =
-            queue.add(JsonObjectRequest(
-                    Request.Method.POST,
+            RequestQueueSingleton.getInstance().post(
+                    applicationContext,
                     uri,
                     json,
-                    Response.Listener {
-                        Log.i(TAG, "Successfully sent post request to $uri.")
-                        onSuccess.onResponse(parse(it))
-                    },
+                    { it?.let{onSuccess.onResponse(parse(it))} },
                     Response.ErrorListener {
                         Log.e(TAG, "Failed to send post request to $uri.")
                         onError?.run { onErrorResponse(it) }
                     }
-            ))
+            )
 
     open fun put(
             uri: String,
@@ -129,19 +127,16 @@ abstract class AbstractAccess<T, V : BaseDao<T>>  {
             onSuccess: Response.Listener<T>,
             onError: Response.ErrorListener? = null
     ):  Request<JSONObject>? =
-        queue.add(JsonObjectRequest(
-                Request.Method.PUT,
-                uri,
-                json,
-                Response.Listener {
-                    Log.i(TAG, "Successfully sent put request to $uri.")
-                    onSuccess.onResponse(parse(json))
-                },
-                Response.ErrorListener {
-                    Log.e(TAG, "Failed to send put request to $uri. Status code: ${it.networkResponse.statusCode}")
-                    onError?.run { onErrorResponse(it) }
-                }
-        ))
+            RequestQueueSingleton.getInstance().put(
+                    applicationContext,
+                    uri,
+                    json,
+                    { onSuccess.onResponse(parse(json)) },
+                    Response.ErrorListener {
+                        Log.e(TAG, "Failed to send put request to $uri. Status code: ${it.networkResponse.statusCode}")
+                        onError?.run { onErrorResponse(it) }
+                    }
+        )
 
     fun setCacheTimeout(value : Long) {
         this.timeout = value

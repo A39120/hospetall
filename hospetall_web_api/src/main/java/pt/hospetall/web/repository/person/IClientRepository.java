@@ -10,7 +10,7 @@ import pt.hospetall.web.repository.base.IPersonBaseRepository;
 
 import java.util.Optional;
 
-@PreAuthorize("hasAnyRole('ROLE_RECEPTIONIST', 'ROLE_ADMIN')")
+@PreAuthorize("isAuthenticated()")
 @RepositoryRestResource(collectionResourceRel = "clients", path="client")
 public interface IClientRepository extends IPersonBaseRepository<Client> {
 
@@ -18,7 +18,6 @@ public interface IClientRepository extends IPersonBaseRepository<Client> {
 	Optional<Client> findByEmail(@Param("email") String email);
 
 	@Override
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_RECEPTIONIST', 'ROLE_CLIENT')")
 	@PostAuthorize("returnObject.get().email == principal.username or hasAnyRole('ROLE_ADMIN','ROLE_RECEPTIONIST')")
 	Optional<Client> findById(@Param(value="id") Integer id);
 

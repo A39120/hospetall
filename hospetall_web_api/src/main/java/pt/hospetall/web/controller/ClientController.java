@@ -15,8 +15,9 @@ import pt.hospetall.web.error.exceptions.PersonNotFoundException;
 import pt.hospetall.web.model.person.Client;
 import pt.hospetall.web.repository.person.IClientRepository;
 import pt.hospetall.web.repository.security.IUserRepository;
-import pt.hospetall.web.services.CustomUserDetailsService;
+import pt.hospetall.web.services.security.CustomUserDetailsService;
 
+@PreAuthorize("isAuthenticated()")
 @RepositoryRestController
 @RequestMapping
 public class ClientController {
@@ -45,7 +46,6 @@ public class ClientController {
 	public String getClientSelf(Authentication authentication) throws PersonNotFoundException {
 		UserDetails principal = (UserDetails) authentication.getPrincipal();
 		String email = principal.getUsername();
-
 		return "redirect:/client/" + clientRepository.findByEmail(email)
 				.map(Client::getId)
 				.orElseThrow(() -> new AccessDeniedException("Access denied for this user."));
