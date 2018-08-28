@@ -74,7 +74,7 @@ export default class extends React.Component {
         
         return ( 
             <div>
-                <Pet info={info}/>
+                <Pet info={info} url={this.state.urls[2]}/>
             </div>
         )    
     }

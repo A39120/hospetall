@@ -3,13 +3,13 @@ import ClientList from './client-list'
 import GridMenu from './grid-menu'
 
 //const ip = 'http://10.10.1.142/'
-const ip = 'http://localhost:8081/'
+const ip = 'http://localhost:8081'
 
 const partsRecept = [
   {name: 'Salas de Espera', url: ip+'waintingRoom'},
   {name: 'Marcações', url: ip+'appointment'},
-  {name: 'Cliente', url: ip+'client'},
-  {name: 'Animal', url: ip+'pet'},
+  {name: 'Cliente', url: ip},
+  {name: 'Animal', url: ip},
   {name: 'Produtos', url: ip+'product'},
   {name: 'Configurações', url: ip+'config'}
 ]
