@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface IClientRepository extends IPersonBaseRepository<Client> {
 
 	@PreAuthorize("#email == principal.username or hasAnyRole('ROLE_RECEPTIONIST', 'ROLE_ADMIN')")
-	Optional<Client> findByEmail(@P("email") String email);
+	Optional<Client> findByEmail(@Param("email") String email);
 
 	@Override
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_RECEPTIONIST', 'ROLE_CLIENT')")

@@ -1,5 +1,6 @@
 package pt.hospetall.web.model.person;
 
+import pt.hospetall.web.model.WaitingListConsultation;
 import pt.hospetall.web.model.medical.Consultation;
 import pt.hospetall.web.model.person.base.Person;
 import pt.hospetall.web.model.schedule.ConsultationSchedule;
@@ -7,6 +8,7 @@ import pt.hospetall.web.model.shift.VeterinarianShift;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.Set;
 
 @Entity
@@ -20,6 +22,17 @@ public class Veterinarian extends Person {
 
 	@OneToMany(mappedBy = "veterinarian", targetEntity = ConsultationSchedule.class)
 	private Set<ConsultationSchedule> schedules;
+
+	public WaitingListConsultation getWaitingListConsultation() {
+		return waitingListConsultation;
+	}
+
+	public void setWaitingListConsultation(WaitingListConsultation waitingListConsultation) {
+		this.waitingListConsultation = waitingListConsultation;
+	}
+
+	@OneToOne(mappedBy = "vet")
+	private WaitingListConsultation waitingListConsultation;
 
 	public Set<VeterinarianShift> getShifts() {
 		return shifts;
